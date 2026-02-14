@@ -1,13 +1,5 @@
 SMODS.Joker {
   key = 'rorschach',
-  loc_txt = {
-    name = 'Rorschach',
-    text = {
-      'Cards in the {C:attention}first discard{} made',
-      'while {C:attention}this is the rightmost Joker{}',
-      'will be {C:attention}drawn first next blind{}'
-    }
-  },
 
   config = { extra = { card_ids_to_draw_next = {} } },
   unlocked = true,
@@ -30,10 +22,10 @@ SMODS.Joker {
       -- Skip if Trading Card is also triggered.
       if #context.full_hand == 1 then
         for i = 1, #G.jokers.cards do
-          joker = G.jokers.cards[i]
+          local joker = G.jokers.cards[i]
       
           if joker and joker.ability.name == 'Trading Card' then
-            return true
+            return
           end
         end
       end

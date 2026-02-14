@@ -1,14 +1,5 @@
 SMODS.Joker {
   key = 'beyond_reach',
-  loc_txt = {
-    name = 'Beyond Reach',
-    text = {
-      'Prevents Death, {S:1.1,C:red,E:2}self destructs{}, and',
-      'permanently gains {C:blue}+#1#{} hand if chips',
-      'scored are at least {C:attention}#2#%{} of requirement.',
-      'No effect if the Blind is defeated'
-    }
-  },
 
   config = { extra = { hands_gain = 1, required_score_percentage = 85 } },
   unlocked = true,
@@ -21,7 +12,7 @@ SMODS.Joker {
     return { vars = { card.ability.extra.hands_gain, card.ability.extra.required_score_percentage } }
   end,
   calculate = function(self, card, context)
-    if context.end_of_round and context.game_over and G.GAME.chips / G.GAME.blind.chips >= (card.ability.extra.required_score_percentage / 100) and not context.blueprint then
+    if context.end_of_round and context.game_over and to_big(G.GAME.chips / G.GAME.blind.chips) >= to_big(card.ability.extra.required_score_percentage / 100) and not context.blueprint then
       G.GAME.round_resets.hands = G.GAME.round_resets.hands + card.ability.extra.hands_gain
 
       G.E_MANAGER:add_event(Event({

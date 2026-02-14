@@ -1,14 +1,5 @@
 SMODS.Joker {
   key = 'impossible_stairs',
-  loc_txt = {
-    name = 'Impossible Stairs',
-    text = {
-      'This Joker gains between {C:mult}+#3#{}',
-      'and {C:mult}#2#{} Mult per hand played',
-      'Destroyed if Mult reaches {C:mult}+#4#{} Mult',
-      '{C:inactive}(Currently {C:mult}+#1#{}{C:inactive} Mult)'
-    }
-  },
 
   config = { extra = { mult = 5, mult_add_min = -2, mult_add_max = 2, mult_min = 0 } },
   unlocked = true,
@@ -18,14 +9,14 @@ SMODS.Joker {
   pos = { x = 1, y = 0 },
   cost = 3,
   eternal_compat = false,
+  perishable_compat = false,
   blueprint_compat = true,
   loc_vars = function(self, info_queue, card)
     return { vars = { card.ability.extra.mult, card.ability.extra.mult_add_min, card.ability.extra.mult_add_max, card.ability.extra.mult_min } }
   end,
   calculate = function(self, card, context)
     if context.before and not context.blueprint then
-      math.randomseed(pseudorandom('impossible_stairs'))
-      add = math.random(card.ability.extra.mult_add_min, card.ability.extra.mult_add_max)
+      local add = pseudorandom('impossible_stairs', card.ability.extra.mult_add_min, card.ability.extra.mult_add_max)
       card.ability.extra.mult = card.ability.extra.mult + add
 
       if card.ability.extra.mult <= card.ability.extra.mult_min then

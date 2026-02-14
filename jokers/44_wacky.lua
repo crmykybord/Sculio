@@ -1,13 +1,5 @@
 SMODS.Joker {
   key = 'wacky',
-  loc_txt = {
-    name = 'Car Sale',
-    text = {
-      'Create a copy of {C:tarot}The Fool{} if hand scores',
-      'at least {C:attention}#1#%{} of required chips',
-      '{C:inactive}(Must have room){}'
-    }
-  },
 
   config = { extra = { required_chip_percentage = 1.5 } },
   unlocked = true,
@@ -44,20 +36,28 @@ SMODS.Joker {
 
       local score = chips * mult
 
-      if score >= required_score * card.ability.extra.required_chip_percentage and required_score > 0 then
-        G.E_MANAGER:add_event(Event({
-          delay = 0.0,
-          func = function()
-            local card = create_card('Tarot', G.consumeables, nil, nil, nil, nil, 'c_fool')
-            card:add_to_deck()
-            G.consumeables:emplace(card)
-            G.GAME.consumeable_buffer = 0
-            return true
-          end
-        }))
+      if to_big(score) >= to_big(required_score * card.ability.extra.required_chip_percentage) and to_big(required_score) > to_big(0) and #G.consumeables.cards + G.GAME.consumeable_buffer < G.consumeables.config.card_limit then
+        G.GAME.consumeable_buffer = G.GAME.consumeable_buffer + 1
 
         return {
-          message = '+1 Fool'
+          extra = {
+            focus = card,
+            message = '+1 Fool',
+            func = function()
+              G.E_MANAGER:add_event(Event({
+                delay = 0.0,
+                func = function()
+                  local card = create_card('Tarot', G.consumeables, nil, nil, nil, nil, 'c_fool')
+                  card:add_to_deck()
+                  G.consumeables:emplace(card)
+                  G.GAME.consumeable_buffer = 0
+                  return true
+                end
+              }))
+            end
+          },
+          colour = G.C.SECONDARY_SET.Tarot,
+          card = card
         }
       end
     end

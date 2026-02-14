@@ -1,14 +1,5 @@
 SMODS.Joker {
   key = 'bad_trip',
-  loc_txt = {
-    name = 'Bad Trip',
-    text = {
-      'After {C:attention}#1#{} rounds, sell this card to',
-      '{C:attention}randomize{} the {C:attention}rank and suit{}',
-      'of every card in deck',
-      '{C:inactive}(Currently {C:attention}#2#{C:inactive} / #1#)'
-    }
-  },
 
   config = { extra = { rounds_until_active = 2, rounds_elapsed = 0 } },
   unlocked = true,
@@ -38,6 +29,7 @@ SMODS.Joker {
     end
 
     if context.selling_self and card.ability.extra.rounds_elapsed >= card.ability.extra.rounds_until_active and not context.blueprint then
+      local card_code
       for k, v in ipairs(G.deck.cards) do
         card_code, _ = pseudorandom_element(G.P_CARDS, pseudoseed('bad_trip'))
         v:set_base(card_code)

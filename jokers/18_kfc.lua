@@ -1,14 +1,5 @@
 SMODS.Joker {
   key = 'kfc',
-  loc_txt = {
-    name = 'Chicken Coupon',
-    text = {
-      'Steals {C:money}$#2#{} of {C:attention}sell{} value from every other',
-      '{C:attention}Joker{} if available at the end of a blind',
-      'Gains {X:mult,C:white}X#3#{} Mult for each {C:money}$#4#{} stolen',
-      '{C:inactive}(Currently {X:mult,C:white}X#1#{}{C:inactive} Mult)'
-    }
-  },
 
   config = { extra = { x_mult = 1, dollar_steal = 1, x_mult_scale = 0.1, dollar_scale = 1 } },
   unlocked = true,
@@ -18,15 +9,17 @@ SMODS.Joker {
   pos = { x = 7, y = 1 },
   cost = 10,
   blueprint_compat = true,
+  perishable_compat = false,
   loc_vars = function(self, info_queue, card)
     return { vars = { card.ability.extra.x_mult, card.ability.extra.dollar_steal, card.ability.extra.x_mult_scale, card.ability.extra.dollar_scale } }
   end,
   calculate = function(self, card, context)
     if context.end_of_round and not context.repetition and context.game_over == false and not context.blueprint then
-      stolen = 0
+      local stolen = 0
 
       for k, v in ipairs(G.jokers.cards) do
         if v.ability.name ~= 'j_Sculio_kfc' and v.set_cost and v.sell_cost > 0 then
+          local steal
           if v.sell_cost < card.ability.extra.dollar_steal then
             steal = v.sell_cost
           else
@@ -44,7 +37,7 @@ SMODS.Joker {
         card.ability.extra_value = (card.ability.extra_value or 0) + stolen
         card:set_cost()
 
-        x_mult_gain = card.ability.extra.x_mult_scale * (stolen / card.ability.extra.dollar_scale)
+        local x_mult_gain = card.ability.extra.x_mult_scale * (stolen / card.ability.extra.dollar_scale)
         card.ability.extra.x_mult = card.ability.extra.x_mult + x_mult_gain
 
         return {

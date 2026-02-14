@@ -1,23 +1,13 @@
 SMODS.Joker {
   key = 'unstoppable',
-  loc_txt = {
-    name = 'Unstoppable Force',
-    text = {
-      'When this Joker is {C:attention}sold{}, it',
-      'gains {X:mult,C:white} X#2# {} Mult and',
-      '{C:attention}returns to the next shop{}.',
-      '{C:attention}Sell value{} starts at {C:money}$#3#{}',
-      '{C:inactive}(Currently {X:mult,C:white} X#1# {C:inactive} Mult)',
-    }
-  },
 
-  config = { extra = { x_mult = 1, x_mult_gain = 0.25, sell_cost = 0 } },
+  config = { extra = { x_mult = 1, x_mult_gain = 0.1, sell_cost = 0 } },
   unlocked = true,
   discovered = false,
   rarity = 2, -- Uncommon
   atlas = 'Sculio',
   pos = { x = 8, y = 2 },
-  cost = 7,
+  cost = 6,
   eternal_compat = false,
   blueprint_compat = true,
   loc_vars = function(self, info_queue, card)
@@ -37,13 +27,13 @@ SMODS.Joker {
     end
 
     if context.selling_self then
-      tag = Tag('tag_Sculio_unstoppable')
+      local tag = Tag('tag_Sculio_unstoppable')
       tag.ability.x_mult = card.ability.extra.x_mult + card.ability.extra.x_mult_gain
 
       G.E_MANAGER:add_event(Event({
         func = (function()
           -- Do not trigger Double Tag.
-          apply_to_run_functions = {}
+          local apply_to_run_functions = {}
 
           for i = 1, #G.GAME.tags do
             table.insert(apply_to_run_functions, G.GAME.tags[i].apply_to_run)
@@ -67,14 +57,6 @@ SMODS.Joker {
 
 SMODS.Tag {
   key = 'unstoppable',
-  loc_txt = {
-    name = 'Unstoppable Force Tag',
-    text = {
-      'Shop has the Joker',
-      '{C:attention}Unstoppable Force{}',
-      'with {X:mult,C:white} X#1# {} Mult'
-    }
-  },
   atlas = 'Sculio_Tags',
   pos = { x = 1, y = 0 },
   in_pool = function(self, args)
@@ -85,7 +67,7 @@ SMODS.Tag {
   end,
   apply = function(self, tag, context)
     if context.type == 'store_joker_create' then
-      card = create_card('Joker', context.area, nil, 0, nil, nil, 'j_Sculio_unstoppable', 'uta')
+      local card = create_card('Joker', context.area, nil, 0, nil, nil, 'j_Sculio_unstoppable', 'uta')
       card.ability.extra.x_mult = tag.ability.x_mult
       create_shop_card_ui(card, 'Joker', context.area)
       card.states.visible = false

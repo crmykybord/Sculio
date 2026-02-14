@@ -1,13 +1,5 @@
 SMODS.Joker {
   key = 'cutout',
-  loc_txt = {
-    name = 'Joker Cutout',
-    text = {
-      '{X:red,C:white} X#1# {} Mult for each',
-      '{C:attention}other{} occupied {C:attention}Joker{} slot',
-      '{C:inactive}(Currently {X:red,C:white} X#2# {C:inactive} Mult)',
-    }
-  },
 
   config = { extra = { x_mult = 0.5 } },
   unlocked = true,
@@ -28,7 +20,7 @@ SMODS.Joker {
     return { vars = { card.ability.extra.x_mult, self:get_x_mult_mod(self) } }
   end,
   calculate = function(self, card, context)
-    x_mult_mod = self:get_x_mult_mod(self)
+    local x_mult_mod = self:get_x_mult_mod(self)
 
     if context.joker_main and x_mult_mod > 1 then
       return {

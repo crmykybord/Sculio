@@ -1,14 +1,5 @@
 SMODS.Joker {
   key = 'mad_scientist',
-  loc_txt = {
-    name = 'Mad Scientist',
-    text = {
-      'When {C:attention}Blind{} is selected,',
-      'convert Joker to the right',
-      'into another Joker',
-      'Joker of equal {C:attention}rarity{}'
-    }
-  },
 
   unlocked = true,
   discovered = false,
@@ -30,8 +21,10 @@ SMODS.Joker {
         sliced_card.getting_sliced = true
         G.GAME.joker_buffer = G.GAME.joker_buffer - 1
 
-        rarity_index = sliced_card.config.center.rarity
-        legendary = false
+        local rarity_index = sliced_card.config.center.rarity
+        local legendary = false
+        local rarity
+        local rarity_text
 
         if rarity_index == 2 then
           rarity = 0.71

@@ -1,15 +1,5 @@
 SMODS.Joker {
   key = 'critical_failure',
-  loc_txt = {
-    name = 'Critical Failure',
-    text = {
-      'This Joker gains {X:mult,C:white} X#2# {} Mult',
-      'every time a {C:attention}Lucky{} card',
-      '{C:red}fails{} to trigger, resets when a',
-      '{C:attention}Lucky{} card {C:green}successfully{} triggers',
-      '{C:inactive}(Currently {X:mult,C:white} X#1# {C:inactive} Mult)'
-    }
-  },
 
   config = { extra = { x_mult = 1, x_mult_gain = 0.25 } },
   unlocked = true,
@@ -19,6 +9,7 @@ SMODS.Joker {
   pos = { x = 6, y = 3 },
   cost = 8,
   blueprint_compat = true,
+  perishable_compat = false,
   loc_vars = function(self, info_queue, card)
     info_queue[#info_queue+1] = G.P_CENTERS.m_lucky
     return { vars = { card.ability.extra.x_mult, card.ability.extra.x_mult_gain } }

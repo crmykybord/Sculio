@@ -1,13 +1,5 @@
 SMODS.Joker {
   key = 'refrigerator',
-  loc_txt = {
-    name = 'Refrigerator',
-    text = {
-      '{C:attention}Refrigerable Jokers{}',
-      'placed {C:attention}to the right of this Joker{}',
-      'do not {C:attention}lose potency{} or {C:attention}expire{}'
-    }
-  },
 
   unlocked = true,
   discovered = false,
@@ -31,7 +23,8 @@ SMODS.Joker {
     if not context.blueprint then
       for i = 1, #G.jokers.cards do
         if G.jokers.cards[i] == card then
-          refrigerator_position = i
+          refrigerator_position = i -- BUG: refrigerator_position is global,
+          -- but multiple refrigerators will conflict
           break
         end
       end

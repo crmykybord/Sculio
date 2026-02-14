@@ -1,13 +1,5 @@
 SMODS.Joker {
   key = 'nametag',
-  loc_txt = {
-    name = 'Nametag',
-    text = {
-      'This Joker gains {X:mult,C:white} X#2# {} Mult',
-      'every time a {C:attention}Joker{} is sold',
-      '{C:inactive}(Currently {X:mult,C:white} X#1# {C:inactive} Mult)'
-    }
-  },
 
   config = { extra = { x_mult = 1, x_mult_gain = 0.15 } },
   unlocked = true,
@@ -17,11 +9,12 @@ SMODS.Joker {
   pos = { x = 1, y = 4 },
   cost = 7,
   blueprint_compat = true,
+  perishable_compat = false,
   loc_vars = function(self, info_queue, card)
     return { vars = { card.ability.extra.x_mult, card.ability.extra.x_mult_gain } }
   end,
   calculate = function(self, card, context)
-    if context.cardarea == G.jokers and context.selling_card and context.card ~= card and not context.blueprint then
+    if context.cardarea == G.jokers and context.selling_card and context.card.ability.set == 'Joker' and context.card ~= card and not context.blueprint then
       card.ability.extra.x_mult = card.ability.extra.x_mult + card.ability.extra.x_mult_gain
 
       G.E_MANAGER:add_event(Event({

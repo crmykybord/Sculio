@@ -1,13 +1,5 @@
 SMODS.Joker {
   key = 'receipt',
-  loc_txt = {
-    name = 'Receipt',
-    text = {
-      'Sell this card to',
-      'create a free',
-      '{C:attention}Voucher Tag{}'
-    }
-  },
 
   unlocked = true,
   discovered = false,

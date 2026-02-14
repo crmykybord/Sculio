@@ -18,6 +18,7 @@ SMODS.Joker {
   pos = { x = 9, y = 3 },
   cost = 4,
   blueprint_compat = true,
+  perishable_compat = false,
   loc_vars = function(self, info_queue, card)
     return { vars = { card.ability.extra.x_mult, card.ability.extra.x_mult_gain, card.ability.extra.x_mult_max } }
   end,

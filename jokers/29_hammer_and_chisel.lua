@@ -1,14 +1,5 @@
 SMODS.Joker {
   key = 'hammer_and_chisel',
-  loc_txt = {
-    name = 'Hammer and Chisel',
-    text = {
-      'Scored {C:attention}Stone Cards{}',
-      'permanently gain {C:chips}+#3#{} chips',
-      'with a {C:green}#1# in #2#{} chance',
-      'of {C:attention}being destroyed{}',
-    }
-  },
 
   config = { extra = { chip_perma_bonus = 15, shatter_odds = 10 } },
   unlocked = true,
@@ -17,10 +8,12 @@ SMODS.Joker {
   atlas = 'Sculio',
   pos = { x = 0, y = 3 },
   cost = 6,
+  enhancement_gate = 'm_stone',
   blueprint_compat = true,
   loc_vars = function(self, info_queue, card)
     info_queue[#info_queue+1] = G.P_CENTERS.m_stone
-    return { vars = { (G.GAME.probabilities.normal or 1), card.ability.extra.shatter_odds, card.ability.extra.chip_perma_bonus } }
+    local numerator, denominator = SMODS.get_probability_vars(card, 1, card.ability.extra.shatter_odds, 'hammer_and_chisel')
+    return { vars = { numerator, denominator, card.ability.extra.chip_perma_bonus } }
   end,
   calculate = function(self, card, context)
     if context.before then
@@ -28,7 +21,7 @@ SMODS.Joker {
     end
 
     if context.individual and context.cardarea == G.play and not context.other_card.debuff and context.other_card.config.center == G.P_CENTERS.m_stone then
-      if pseudorandom('hammer_and_chisel') < G.GAME.probabilities.normal / card.ability.extra.shatter_odds then
+      if SMODS.pseudorandom_probability(card, 'hammer_and_chisel', 1, card.ability.extra.shatter_odds) then
         table.insert(card.ability.cards_to_shatter, context.other_card)
       end
 

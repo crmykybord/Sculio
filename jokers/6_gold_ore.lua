@@ -1,12 +1,5 @@
 SMODS.Joker {
   key = 'gold_ore',
-  loc_txt = {
-    name = 'Gold Ore',
-    text = {
-      'Scored {C:attention}Stone Cards{}',
-      'gain a {C:attention}Gold Seal{}'
-    }
-  },
 
   unlocked = true,
   discovered = false,
@@ -14,6 +7,7 @@ SMODS.Joker {
   atlas = 'Sculio',
   pos = { x = 5, y = 0 },
   cost = 6,
+  enhancement_gate = 'm_stone',
   loc_vars = function(self, info_queue, card)
     info_queue[#info_queue+1] = G.P_CENTERS.m_stone
     info_queue[#info_queue+1] = G.P_SEALS.Gold

@@ -31,6 +31,9 @@ SMODS.current_mod.optional_features = function()
   }
 end
 
+-- Talisman compat
+to_big = to_big or function(...) return ... end
+
 -- Load Jokers: https://github.com/neatoqueen/NeatoJokers/blob/main/NeatoJokers.lua#L32
 local subdir = 'jokers'
 local cards = NFS.getDirectoryItems(SMODS.current_mod.path .. subdir)

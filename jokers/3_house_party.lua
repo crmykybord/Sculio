@@ -1,14 +1,5 @@
 SMODS.Joker {
   key = 'house_party',
-  loc_txt = {
-    name = 'House Party',
-    text = {
-      'This Joker gains {X:mult,C:white}X#2#{} Mult',
-      'per {C:attention}consecutive{} hand played',
-      'containing a {C:attention}Full House{}',
-      '{C:inactive}(Currently {X:mult,C:white}X#1#{}{C:inactive} Mult)',
-    }
-  },
 
   config = { extra = { x_mult = 1, x_mult_gain = 0.25 } },
   unlocked = true,
@@ -18,6 +9,7 @@ SMODS.Joker {
   pos = { x = 2, y = 0 },
   cost = 6,
   blueprint_compat = true,
+  perishable_compat = false,
   loc_vars = function(self, info_queue, card)
     return { vars = { card.ability.extra.x_mult, card.ability.extra.x_mult_gain } }
   end,

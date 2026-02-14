@@ -1,14 +1,5 @@
 SMODS.Joker {
   key = 'mahjong',
-  loc_txt = {
-    name = 'Red Dragon',
-    text = {
-      'This Joker gains {C:chips}+#2#{} Chips if hand',
-      'played contains an {C:attention}even number of cards{}',
-      'and {C:attention}exactly half{} are less than {C:attention}#3#{}',
-      '{C:inactive}(Currently {C:chips}+#1#{}{C:inactive} Chips)',
-    }
-  },
 
   config = { extra = { chips = 0, chips_gain = 5, less_than = 7 } },
   unlocked = true,
@@ -18,15 +9,16 @@ SMODS.Joker {
   pos = { x = 3, y = 4 },
   cost = 3,
   blueprint_compat = true,
+  perishable_compat = false,
   loc_vars = function(self, info_queue, card)
     return { vars = { card.ability.extra.chips, card.ability.extra.chips_gain, card.ability.extra.less_than } }
   end,
   calculate = function(self, card, context)
     if context.before and (#context.full_hand == 2 or #context.full_hand == 4) then
-      less_than_count = 0
+      local less_than_count = 0
 
       for i = 1, #context.full_hand do
-        this_card = context.full_hand[i]
+        local this_card = context.full_hand[i]
 
         if this_card.config.center == G.P_CENTERS.m_stone then
           -- Stone cards should not count as either higher or less than a number.
