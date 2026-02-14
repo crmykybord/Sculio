@@ -9,14 +9,14 @@ SMODS.Joker {
   pos = { x = 1, y = 0 },
   cost = 3,
   eternal_compat = false,
+  perishable_compat = false,
   blueprint_compat = true,
   loc_vars = function(self, info_queue, card)
     return { vars = { card.ability.extra.mult, card.ability.extra.mult_add_min, card.ability.extra.mult_add_max, card.ability.extra.mult_min } }
   end,
   calculate = function(self, card, context)
     if context.before and not context.blueprint then
-      math.randomseed(pseudorandom('impossible_stairs'))
-      add = math.random(card.ability.extra.mult_add_min, card.ability.extra.mult_add_max)
+      local add = pseudorandom('impossible_stairs', card.ability.extra.mult_add_min, card.ability.extra.mult_add_max)
       card.ability.extra.mult = card.ability.extra.mult + add
 
       if card.ability.extra.mult <= card.ability.extra.mult_min then

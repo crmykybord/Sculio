@@ -22,10 +22,10 @@ SMODS.Joker {
       -- Skip if Trading Card is also triggered.
       if #context.full_hand == 1 then
         for i = 1, #G.jokers.cards do
-          joker = G.jokers.cards[i]
+          local joker = G.jokers.cards[i]
       
           if joker and joker.ability.name == 'Trading Card' then
-            return true
+            return
           end
         end
       end

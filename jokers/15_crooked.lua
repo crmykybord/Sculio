@@ -22,7 +22,7 @@ SMODS.Joker {
     if context.end_of_round and not context.repetition and context.game_over == false and not context.blueprint then
       ease_dollars(-card.ability.extra.steal)
 
-      if G.GAME.dollars - card.ability.extra.steal <= card.ability.extra.money_min then
+      if to_big(G.GAME.dollars - card.ability.extra.steal) <= to_big(card.ability.extra.money_min) then
         -- Delete Joker. Based off of Ice Cream.
         G.E_MANAGER:add_event(Event({
           func = function()

@@ -12,7 +12,7 @@ SMODS.Joker {
     return { vars = { card.ability.extra.hands_gain, card.ability.extra.required_score_percentage } }
   end,
   calculate = function(self, card, context)
-    if context.end_of_round and context.game_over and G.GAME.chips / G.GAME.blind.chips >= (card.ability.extra.required_score_percentage / 100) and not context.blueprint then
+    if context.end_of_round and context.game_over and to_big(G.GAME.chips / G.GAME.blind.chips) >= to_big(card.ability.extra.required_score_percentage / 100) and not context.blueprint then
       G.GAME.round_resets.hands = G.GAME.round_resets.hands + card.ability.extra.hands_gain
 
       G.E_MANAGER:add_event(Event({

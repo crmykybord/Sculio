@@ -9,15 +9,17 @@ SMODS.Joker {
   pos = { x = 7, y = 1 },
   cost = 10,
   blueprint_compat = true,
+  perishable_compat = false,
   loc_vars = function(self, info_queue, card)
     return { vars = { card.ability.extra.x_mult, card.ability.extra.dollar_steal, card.ability.extra.x_mult_scale, card.ability.extra.dollar_scale } }
   end,
   calculate = function(self, card, context)
     if context.end_of_round and not context.repetition and context.game_over == false and not context.blueprint then
-      stolen = 0
+      local stolen = 0
 
       for k, v in ipairs(G.jokers.cards) do
         if v.ability.name ~= 'j_Sculio_kfc' and v.set_cost and v.sell_cost > 0 then
+          local steal
           if v.sell_cost < card.ability.extra.dollar_steal then
             steal = v.sell_cost
           else
@@ -35,7 +37,7 @@ SMODS.Joker {
         card.ability.extra_value = (card.ability.extra_value or 0) + stolen
         card:set_cost()
 
-        x_mult_gain = card.ability.extra.x_mult_scale * (stolen / card.ability.extra.dollar_scale)
+        local x_mult_gain = card.ability.extra.x_mult_scale * (stolen / card.ability.extra.dollar_scale)
         card.ability.extra.x_mult = card.ability.extra.x_mult + x_mult_gain
 
         return {

@@ -9,6 +9,7 @@ SMODS.Joker {
   pos = { x = 1, y = 1 },
   cost = 7,
   blueprint_compat = true,
+  perishable_compat = false,
   loc_vars = function(self, info_queue, card)
     return { vars = { card.ability.extra.mult } }
   end,
@@ -20,7 +21,7 @@ SMODS.Joker {
 
     if context.before and G.GAME.current_round.hands_played == 0 and not context.blueprint then
       if #context.full_hand == 1 then
-        base_chips = context.full_hand[1]:get_id()
+        local base_chips = context.full_hand[1]:get_id()
 
         if base_chips > 10 then
           if base_chips == 14 then

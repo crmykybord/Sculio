@@ -10,7 +10,7 @@ SMODS.Joker {
   blueprint_compat = true,
   calculate = function(self, card, context)
     if context.playing_card_added and #context.cards == 1 and G.shop then
-      bought_card = context.cards[1]
+      local bought_card = context.cards[1]
 
       -- https://www.reddit.com/r/lua/comments/1dz389o/comment/lcghclt/
       local isbool = {[true]=true, [false]=true}
@@ -20,8 +20,6 @@ SMODS.Joker {
         return true
       end
 
-      card_id = bought_card:get_id()
-
       -- From Strength and Sigil.
       local suit_prefix = string.sub(bought_card.base.suit, 1, 1) .. '_'
       local rank_suffix = bought_card.base.id < 10 and tostring(bought_card.base.id) or
@@ -29,7 +27,7 @@ SMODS.Joker {
       bought_card.base.id == 12 and 'Q' or bought_card.base.id == 13 and 'K' or
       bought_card.base.id == 14 and 'A'
 
-      new_card = create_playing_card({front = G.P_CARDS[suit_prefix .. rank_suffix], center = bought_card.config.center}, G.deck, true, true)
+      local new_card = create_playing_card({front = G.P_CARDS[suit_prefix .. rank_suffix], center = bought_card.config.center}, G.deck, true, true)
       new_card:set_seal(bought_card.seal, true, true)
       new_card:set_edition(bought_card.edition, true, true)
 

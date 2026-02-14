@@ -27,7 +27,7 @@ SMODS.Joker {
     -- Restore Spectral Cards for Ghost Deck.
     G.GAME.spectral_rate = G.GAME.selected_back.effect.config.spectral_rate
 
-    shopping_card_frequency_voucher_names = {
+    local shopping_card_frequency_voucher_names = {
       'tarot_merchant',
       'tarot_tycoon',
       'planet_merchant',
@@ -37,8 +37,8 @@ SMODS.Joker {
     }
 
     for i = 1, #shopping_card_frequency_voucher_names do
-      voucher_name = shopping_card_frequency_voucher_names[i]
-      voucher_key = 'v_' .. voucher_name
+      local voucher_name = shopping_card_frequency_voucher_names[i]
+      local voucher_key = 'v_' .. voucher_name
 
       if G.GAME.used_vouchers[voucher_key] then
         Card.apply_to_run(nil, G.P_CENTERS[voucher_key])

@@ -20,7 +20,7 @@ SMODS.Joker {
     return { vars = { card.ability.extra.x_mult, self:get_x_mult_mod(self) } }
   end,
   calculate = function(self, card, context)
-    x_mult_mod = self:get_x_mult_mod(self)
+    local x_mult_mod = self:get_x_mult_mod(self)
 
     if context.joker_main and x_mult_mod > 1 then
       return {

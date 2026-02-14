@@ -13,12 +13,12 @@ SMODS.Joker {
       for i = 1, #G.jokers.cards do
         if G.jokers.cards[i] == card then
           local next_i = i + 1
-          next_joker = G.jokers.cards[next_i]
+          local next_joker = G.jokers.cards[next_i]
 
           if next_joker then
             next_joker:set_debuff(true)
-            card.ability.debuffed_card = next_joker
           end
+          card.ability.debuffed_card = next_joker
         end
       end
     end

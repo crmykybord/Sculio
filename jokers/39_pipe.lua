@@ -30,14 +30,14 @@ SMODS.Joker {
 
     if context.selling_self and card.ability.extra.rounds_elapsed >= card.ability.extra.rounds_until_active and not context.blueprint then
       -- Based on Ectoplasm.
-      eligible_jokers = {}
+      local eligible_jokers = {}
       for k, v in pairs(G.jokers.cards) do
         if v.ability.set == 'Joker' and (not v.edition) and v.ability.name ~= 'j_Sculio_pipe' then
           table.insert(eligible_jokers, v)
         end
       end
 
-      eligible_card = pseudorandom_element(eligible_jokers, pseudoseed('pipe'))
+      local eligible_card = pseudorandom_element(eligible_jokers, pseudoseed('pipe'))
 
       if eligible_card then
         eligible_card:set_edition({negative = true}, true)

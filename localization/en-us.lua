@@ -12,6 +12,7 @@ return {
           '{C:money}crmykybord{}: Sprite Artist',
           '{C:money}BrandonE{}: Developer',
           '{C:money}chily{}: Joker Ideas + Balancing',
+          '{C:money}Marffe{}: Ideas + Loc files for translation',
           ' ',
           '{C:attention}Special Thanks (Joker Ideas):{}',
           '{C:inactive}u/Spicy_burritos (Dunce Artwork + Concept), u/The_Math_Hatter,',
@@ -138,6 +139,8 @@ return {
         text = {
           'All cards are treated',
           'like {C:attention}Wild Cards{}'
+          -- TODO inaccurate text: for example, Extra Credit's Werewolf would not work
+          -- (should be "cards have all suits", cards aren't actually wild)
         },
       }, 
       -- 12. Crime Scene
@@ -155,9 +158,9 @@ return {
       j_Sculio_cutout = {
         name = 'Joker Cutout',
         text = {
-          '{X:red,C:white} X#1# {} Mult for each',
+          '{X:red,C:white}X#1#{} Mult for each',
           '{C:attention}other{} occupied {C:attention}Joker{} slot',
-          '{C:inactive}(Currently {X:red,C:white} X#2# {C:inactive} Mult)',
+          '{C:inactive}(Currently {X:red,C:white}X#2#{C:inactive} Mult)',
         },
       }, 
       -- 14. Figurine
@@ -195,7 +198,7 @@ return {
           'When {C:attention}Blind{} is selected,',
           'convert Joker to the right',
           'into another Joker',
-          'Joker of equal {C:attention}rarity{}'
+          'of equal {C:attention}rarity{}'
         }
       },
       -- 18. Chicken Coupon
@@ -262,7 +265,10 @@ return {
         name = 'Effigy',
         text = {
           'Copies ability of a',
-          '{C:attention}random Joker{}'
+          '{C:attention}random Joker{}',
+          -- TODO During played hand only, should clarify description
+          -- Also will behave weirdly with jokers that
+          -- do stuff during context.before/after
         },
       }, 
       -- 25. Bad Trip

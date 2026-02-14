@@ -36,7 +36,7 @@ SMODS.Joker {
 
       local score = chips * mult
 
-      if score >= required_score * card.ability.extra.required_chip_percentage and required_score > 0 and #G.consumeables.cards + G.GAME.consumeable_buffer < G.consumeables.config.card_limit then
+      if to_big(score) >= to_big(required_score * card.ability.extra.required_chip_percentage) and to_big(required_score) > to_big(0) and #G.consumeables.cards + G.GAME.consumeable_buffer < G.consumeables.config.card_limit then
         G.GAME.consumeable_buffer = G.GAME.consumeable_buffer + 1
 
         return {

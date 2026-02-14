@@ -23,7 +23,8 @@ SMODS.Joker {
     if not context.blueprint then
       for i = 1, #G.jokers.cards do
         if G.jokers.cards[i] == card then
-          refrigerator_position = i
+          refrigerator_position = i -- BUG: refrigerator_position is global,
+          -- but multiple refrigerators will conflict
           break
         end
       end

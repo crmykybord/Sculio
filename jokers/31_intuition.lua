@@ -9,6 +9,15 @@ SMODS.Joker {
   pos = { x = 2, y = 3 },
   cost = 9,
   blueprint_compat = true,
+  in_pool = function(self, args)
+    if G.playing_cards then
+      for _, card in ipairs(G.playing_cards) do
+        if SMODS.has_enhancement(card, 'm_gold') or SMODS.has_enhancement(card, 'm_steel') then
+          return true
+        end
+      end
+    end
+  end,
   loc_vars = function(self, info_queue, card)
     info_queue[#info_queue+1] = G.P_CENTERS.m_gold
     info_queue[#info_queue+1] = G.P_CENTERS.m_steel
@@ -16,8 +25,6 @@ SMODS.Joker {
   end,
   calculate = function(self, card, context)
     if context.individual and context.cardarea == G.play then
-      message = nil
-
       if not context.other_card.debuff then
         if context.other_card.config.center == G.P_CENTERS.m_gold then
           return {

@@ -19,8 +19,6 @@ SMODS.Joker {
     end
 
     if context.individual and context.cardarea == G.play then
-      message = nil
-
       if not context.other_card.debuff and context.other_card:is_face() then
         return {
           x_mult = card.ability.extra.x_mult_bonus,

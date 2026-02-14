@@ -10,10 +10,11 @@ SMODS.Joker {
   cost = 4,
   blueprint_compat = true,
   loc_vars = function(self, info_queue, card)
-    return { vars = { (G.GAME.probabilities.normal or 1), card.ability.extra.odds, card.ability.extra.x_mult } }
+    local numerator, denominator = SMODS.get_probability_vars(card, 1, card.ability.extra.odds, 'schrodinger')
+    return { vars = { numerator, denominator, card.ability.extra.x_mult } }
   end,
   calculate = function(self, card, context)
-    if context.joker_main and pseudorandom('schrodinger') < G.GAME.probabilities.normal / card.ability.extra.odds then
+    if context.joker_main and SMODS.pseudorandom_probability(card, 'schrodinger', 1, card.ability.extra.odds) then
       return {
         Xmult_mod = card.ability.extra.x_mult,
         message = localize { type = 'variable', key = 'a_xmult', vars = { card.ability.extra.x_mult } }

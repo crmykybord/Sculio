@@ -27,13 +27,13 @@ SMODS.Joker {
     end
 
     if context.selling_self then
-      tag = Tag('tag_Sculio_unstoppable')
+      local tag = Tag('tag_Sculio_unstoppable')
       tag.ability.x_mult = card.ability.extra.x_mult + card.ability.extra.x_mult_gain
 
       G.E_MANAGER:add_event(Event({
         func = (function()
           -- Do not trigger Double Tag.
-          apply_to_run_functions = {}
+          local apply_to_run_functions = {}
 
           for i = 1, #G.GAME.tags do
             table.insert(apply_to_run_functions, G.GAME.tags[i].apply_to_run)
@@ -67,7 +67,7 @@ SMODS.Tag {
   end,
   apply = function(self, tag, context)
     if context.type == 'store_joker_create' then
-      card = create_card('Joker', context.area, nil, 0, nil, nil, 'j_Sculio_unstoppable', 'uta')
+      local card = create_card('Joker', context.area, nil, 0, nil, nil, 'j_Sculio_unstoppable', 'uta')
       card.ability.extra.x_mult = tag.ability.x_mult
       create_shop_card_ui(card, 'Joker', context.area)
       card.states.visible = false

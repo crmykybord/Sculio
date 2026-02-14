@@ -34,7 +34,7 @@ SMODS.Joker {
 
     if context.selling_self and card.ability.extra.rounds_elapsed >= card.ability.extra.rounds_until_active and not context.blueprint then
       for k, v in ipairs(G.jokers.cards) do
-        is_perishable = v.ability.perishable
+        local is_perishable = v.ability.perishable
 
         v:set_eternal(false)
         v.ability.perishable = false

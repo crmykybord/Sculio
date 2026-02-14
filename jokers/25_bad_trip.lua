@@ -29,6 +29,7 @@ SMODS.Joker {
     end
 
     if context.selling_self and card.ability.extra.rounds_elapsed >= card.ability.extra.rounds_until_active and not context.blueprint then
+      local card_code
       for k, v in ipairs(G.deck.cards) do
         card_code, _ = pseudorandom_element(G.P_CARDS, pseudoseed('bad_trip'))
         v:set_base(card_code)

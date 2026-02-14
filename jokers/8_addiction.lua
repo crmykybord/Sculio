@@ -15,8 +15,8 @@ SMODS.Joker {
   calculate = function(self, card, context)
     if context.individual and context.cardarea == G.play then
       -- Based off of Obelisk.
-      most_played = true
-      most_played_count = (G.GAME.hands[context.scoring_name].played or 0)
+      local most_played = true
+      local most_played_count = (G.GAME.hands[context.scoring_name].played or 0)
 
       for k, v in pairs(G.GAME.hands) do
         if k ~= context.scoring_name and v.played >= most_played_count and v.visible then
@@ -25,7 +25,7 @@ SMODS.Joker {
       end
 
       if most_played then
-        perma_bonus_gain = most_played_count * card.ability.extra.hand_count_mult
+        local perma_bonus_gain = most_played_count * card.ability.extra.hand_count_mult
 
         -- Based off of Hiker.
         context.other_card.ability.perma_bonus = context.other_card.ability.perma_bonus or 0

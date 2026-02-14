@@ -245,12 +245,12 @@ SMODS.Joker {
   end,
   calculate = function(self, card, context)
     if context.hand_drawn and not context.blueprint then
-      suits, ids = self:get_suits_and_ids(G.hand.cards)
+      local suits, ids = self:get_suits_and_ids(G.hand.cards)
 
-      hands_sorted_by_level = {}
+      local hands_sorted_by_level = {}
 
       for k, v in pairs(G.GAME.hands) do
-        hand = { name = k, level = v.level, order = v.order }
+        local hand = { name = k, level = v.level, order = v.order }
         table.insert(hands_sorted_by_level, hand)
       end
 
@@ -262,7 +262,7 @@ SMODS.Joker {
         return a.level > b.level
       end)
 
-      selected_hand = nil
+      local selected_hand = nil
 
       for _, hand in ipairs(hands_sorted_by_level) do
         if self:select_hand(hand.name, suits, ids) then

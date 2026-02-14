@@ -19,12 +19,10 @@ SMODS.Joker {
     end
 
     if context.before then
-      burn_hand = false
-
       if G.GAME.current_round.hands_played == 0 then
         -- Based off of Obelisk.
-        most_played = true
-        most_played_count = (G.GAME.hands[context.scoring_name].played or 0)
+        local most_played = true
+        local most_played_count = (G.GAME.hands[context.scoring_name].played or 0)
 
         for k, v in pairs(G.GAME.hands) do
           if k ~= context.scoring_name and v.played >= most_played_count and v.visible then
@@ -41,13 +39,17 @@ SMODS.Joker {
             level_up_hand(context.blueprint_card or card, text, nil, 1)
           end
 
-          burn_hand = true
+          card.ability.extra.burn_hand = true
         end
       end
     end
 
-    if context.destroying_card and not context.blueprint then
-      return burn_hand
+    if context.destroying_card and not context.blueprint and card.ability.extra.burn_hand then
+      return { remove = true }
+    end
+
+    if context.after then
+      card.ability.extra.burn_hand = nil
     end
   end
 }
