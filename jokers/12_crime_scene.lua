@@ -1,7 +1,7 @@
 SMODS.Joker {
   key = 'crime_scene',
 
-  config = { extra = { mult = 0 } },
+  config = { extra = { mult = 0, rankless_mult = 10 } },
   unlocked = true,
   discovered = false,
   rarity = 2, -- Uncommon
@@ -11,7 +11,7 @@ SMODS.Joker {
   blueprint_compat = true,
   perishable_compat = false,
   loc_vars = function(self, info_queue, card)
-    return { vars = { card.ability.extra.mult } }
+    return { vars = { card.ability.extra.mult, card.ability.extra.rankless_mult } }
   end,
   calculate = function(self, card, context)
     if context.first_hand_drawn and not context.blueprint then
@@ -23,15 +23,19 @@ SMODS.Joker {
       if #context.full_hand == 1 then
         local base_chips = context.full_hand[1]:get_id()
 
-        if base_chips > 10 then
+        if not base_chips then
+          card.ability.extra.mult = card.ability.extra.mult + card.ability.extra.rankless_mult
+        elseif base_chips > 10 then
           if base_chips == 14 then
             base_chips = 11
           else
             base_chips = 10
           end
-        end
 
-        card.ability.extra.mult = card.ability.extra.mult + (base_chips / 2)
+          card.ability.extra.mult = card.ability.extra.mult + (base_chips / 2)
+        else
+          card.ability.extra.mult = card.ability.extra.mult + (base_chips / 2)
+        end
 
         return { message = localize('k_upgrade_ex') }
       end
