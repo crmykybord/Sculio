@@ -27,10 +27,10 @@ return {
     },
     Other = {
       Sculio_refrigerable_jokers = {
-        name = 'Comodines Refrigerables',
+        name = 'Comodines de Comida',
         text = {
-          '{C:attention}Helado{}, {C:attention}Refresco{}, {C:attention}Ramen{},',
-          '{C:attention}Palomitas de maíz{} y {C:attention}Frijol Negro{}'
+          'Cualquier {C:attention}Comodín{}',
+          'que sea {C:attention}Comida{}'
         }
       },
       Sculio_ailments = {
@@ -250,9 +250,8 @@ return {
       j_Sculio_jokerium = {
         name = 'Jokerium',
         text = {
-          'Ganas {C:attention}#1#{} {C:spectral}Agujero negro{}',
-          '{C:dark_edition}negativo{} al derrotar',
-          'a la {C:attention}Ciega Jefe{}',
+          'Sube de nivel {C:planet}todas las manos{}',
+          'al derrotar una {C:attention}Ciega Jefe{}',
         },
       }, 
       -- 24. Effigy
@@ -419,10 +418,10 @@ return {
       j_Sculio_binary = {
         name = 'Comodín Binario',
         text = {
-          'Tiene una Prob. de {C:green}#1# en #2#{} de',
-          'ganar {C:chips}+#3#{} fichas y {C:mult}+#4#{} multi',
-          'al seleccionar una ciega',
-          '{C:inactive,s:0.8}(Actualmente {C:chips,s:0.8}+#5#{}{C:inactive,s:0.8} Chips and {C:mult,s:0.8}+#6#{} Multi)'
+          'Tiene una prob. de {C:green}#1# en #2#{} de',
+          'obtener {C:chips}+#3#{} Fichas o {C:mult}+#4#{} Multi',
+          'por cada carta en mano al final de la ronda',
+          '{C:inactive}(Actualmente {C:chips}+#5#{}{C:inactive} Fichas y {C:mult}+#6#{} Multi)'
         },
       }, 
       -- 42. Red Dragon
@@ -440,10 +439,11 @@ return {
         name = 'Combate Automático',
         text = {
           'Automáticamente selecciona',
-          'la {C:attention}mejor{} mano disponible'
+          'la {C:attention}mejor{} mano disponible',
+          '{X:mult,C:white}X#1#{} Multi al jugarla'
         },
       }, 
-      -- 44. 
+      -- 44. Car sale
       j_Sculio_wacky = {
         name = 'Venta de Autos',
         text = {
@@ -472,5 +472,10 @@ return {
         },
       }
     },
+  },
+  misc = {
+    dictionary = {
+      k_Sculio_binary_upgrade = '01001110',
+    }
   }
 }

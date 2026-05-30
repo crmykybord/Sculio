@@ -26,10 +26,10 @@ return {
     },
     Other = {
       Sculio_refrigerable_jokers = {
-        name = 'Refrigerable Jokers',
+        name = 'Food Jokers',
         text = {
-          '{C:attention}Ice Cream{}, {C:attention}Seltzer{}, {C:attention}Ramen{},',
-          '{C:attention}Popcorn{}, and {C:attention}Turtle Bean{}'
+          'Any {C:attention}Joker{} thats is',
+          '{C:attention}Food{}'
         }
       },
       Sculio_ailments = {
@@ -254,10 +254,8 @@ return {
       j_Sculio_jokerium = {
         name = 'Jokerium',
         text = {
-          'Adds {C:attention}#1#{} {C:dark_edition}Negative{}',
-          '{C:spectral}Black Hole{} card each time',
-          '{C:attention}#2# {C:attention}Boss Blind{} is defeated',
-          '{C:inactive}#3# remaining{}',
+          'Levels up {C:planet}all hands{}',
+          'when defeating a {C:attention}Boss Blind{}',
         },
       }, 
       -- 24. Effigy
@@ -430,10 +428,9 @@ return {
       j_Sculio_binary = {
         name = 'Binary Joker',
         text = {
-          'This Joker has a',
-          '{C:green}#1# in #2#{} chance of gaining',
-          '{C:chips}+#3#{} chips and {C:mult}+#4#{} Mult',
-          'at the end of each blind',
+          'This Joker has a {C:green}#1# in #2#{} chance',
+          'of obtaining {C:chips}+#3#{} Chips or {C:mult}+#4#{} Mult',
+          'for each card held in hand at the end of round',
           '{C:inactive}(Currently {C:chips}+#5#{}{C:inactive} Chips and {C:mult}+#6#{} Mult)'
         },
       }, 
@@ -452,7 +449,8 @@ return {
         name = 'Auto Battle',
         text = {
           'Automatically selects {C:attention}highest{}',
-          '{C:attention}level{} hand available'
+          '{C:attention}level{} hand available',
+          '{X:mult,C:white}X#1#{} Mult when played'
         },
       }, 
       -- 44. 
@@ -484,5 +482,10 @@ return {
         },
       }
     },
+  },
+  misc = {
+    dictionary = {
+      k_Sculio_binary_upgrade = '01001110',
+    }
   }
 }

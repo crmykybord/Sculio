@@ -1,3 +1,124 @@
+local Sculio_refrigerator_vanilla_food = {
+  j_gros_michel = true,
+  j_egg = true,
+  j_ice_cream = true,
+  j_cavendish = true,
+  j_turtle_bean = true,
+  j_diet_cola = true,
+  j_popcorn = true,
+  j_ramen = true,
+  j_selzer = true
+}
+
+local function Sculio_refrigerator_is_food(card)
+  if not card or not card.config or not card.config.center then
+    return false
+  end
+
+  if PB_UTIL and PB_UTIL.is_food and PB_UTIL.is_food(card) then
+    return true
+  end
+
+  local center = card.config.center
+
+  if center.pools and center.pools.Food then
+    return true
+  end
+
+  return Sculio_refrigerator_vanilla_food[center.key] or false
+end
+
+local function Sculio_refrigerator_get_left(card)
+  local refrigerators = {}
+
+  if not G or not G.jokers or not G.jokers.cards then
+    return refrigerators
+  end
+
+  for k, v in ipairs(G.jokers.cards) do
+    if v == card then
+      return refrigerators
+    end
+
+    if v.config and v.config.center and v.config.center.key == 'j_Sculio_refrigerator' then
+      table.insert(refrigerators, v)
+    end
+  end
+
+  return {}
+end
+
+local function Sculio_refrigerator_restore_ability(card, ability)
+  for k, v in pairs(card.ability) do
+    card.ability[k] = nil
+  end
+
+  for k, v in pairs(ability) do
+    card.ability[k] = v
+  end
+end
+
+local function Sculio_refrigerator_lost_value(before, after)
+  for k, v in pairs(before) do
+    if type(v) == 'number' and type(after[k]) == 'number' and after[k] < v then
+      return true
+    end
+
+    if type(v) == 'table' and type(after[k]) == 'table' and Sculio_refrigerator_lost_value(v, after[k]) then
+      return true
+    end
+  end
+
+  return false
+end
+
+local function Sculio_refrigerator_juice(refrigerators, food)
+  G.E_MANAGER:add_event(Event({
+    func = function()
+      for k, v in ipairs(refrigerators) do
+        v:juice_up(0.5, 0.5)
+      end
+
+      food:juice_up(0.5, 0.5)
+      return true
+    end
+  }))
+end
+
+if not Sculio_refrigerator_calculate_joker_ref then
+  Sculio_refrigerator_calculate_joker_ref = Card.calculate_joker
+
+  Card.calculate_joker = function(self, context)
+    local refrigerators = Sculio_refrigerator_is_food(self) and Sculio_refrigerator_get_left(self) or {}
+    local preserve = next(refrigerators) ~= nil and not context.selling_self
+    local ability = preserve and copy_table(self.ability) or nil
+    local h_size = preserve and ability and ability.extra and ability.extra.h_size or nil
+    local ret = Sculio_refrigerator_calculate_joker_ref(self, context)
+
+    if preserve and ability then
+      local removed = ret and ret.remove and not context.selling_self
+      local lost_value = Sculio_refrigerator_lost_value(ability, self.ability)
+      local perished = self.debuff and self.ability and self.ability.perishable
+
+      if h_size and self.ability and self.ability.extra and self.ability.extra.h_size and self.ability.extra.h_size < h_size and G.hand then
+        G.hand:change_size(h_size - self.ability.extra.h_size)
+      end
+
+      if removed then
+        ret.remove = nil
+      end
+
+      if removed or lost_value or perished then
+        Sculio_refrigerator_restore_ability(self, ability)
+        self:set_debuff(false)
+        Sculio_refrigerator_juice(refrigerators, self)
+      end
+    end
+
+    return ret
+  end
+end
+
 SMODS.Joker {
   key = 'refrigerator',
 
@@ -9,91 +130,5 @@ SMODS.Joker {
   cost = 6,
   loc_vars = function(self, info_queue, card)
     info_queue[#info_queue+1] = { key = 'Sculio_refrigerable_jokers', set = 'Other' }
-  end,
-  juice_two = function(self, card, other_joker)
-    G.E_MANAGER:add_event(Event({
-      func = function()
-        card:juice_up(0.5, 0.5)
-        other_joker:juice_up(0.5, 0.5)
-        return true
-      end
-    }))
-  end,
-  calculate = function(self, card, context)
-    if not context.blueprint then
-      for i = 1, #G.jokers.cards do
-        if G.jokers.cards[i] == card then
-          refrigerator_position = i -- BUG: refrigerator_position is global,
-          -- but multiple refrigerators will conflict
-          break
-        end
-      end
-
-      if context.before then
-        refrigerator_triggered = false
-        return true
-      end
-
-      if context.joker_main then
-        refrigerator_triggered = true
-        return true
-      end
-
-      if context.discard then
-        for i = refrigerator_position + 1, #G.jokers.cards do
-          other_joker = G.jokers.cards[i]
-
-          if other_joker.ability.name == 'Ramen' then
-            other_joker.ability.x_mult = other_joker.ability.x_mult + other_joker.ability.extra
-            self:juice_two(card, other_joker)
-          end
-        end
-      end
-
-      -- Refrigerator must be placed before the other Joker to be preserved.
-      if context.other_joker and refrigerator_triggered then
-        other_joker = context.other_joker
-
-        if other_joker.ability.name == 'Ice Cream' then
-          other_joker.ability.extra.chips = other_joker.ability.extra.chips + other_joker.ability.extra.chip_mod
-
-          return {
-            message = localize{type='variable',key='a_chips',vars={other_joker.ability.extra.chip_mod}},
-            colour = G.C.CHIPS,
-            focus = other_joker
-          }
-        elseif other_joker.ability.name == 'Seltzer' then
-          other_joker.ability.extra = other_joker.ability.extra + 1
-
-          return {
-            message = other_joker.ability.extra .. '',
-            colour = G.C.FILTER,
-            focus = other_joker
-          }
-        end
-      end
-
-      if context.end_of_round and not context.repetition and context.game_over == false then
-        for i = 1, #G.jokers.cards do
-          if G.jokers.cards[i] == card then
-            refrigerator_position = i
-            break
-          end
-        end
-
-        for i = refrigerator_position + 1, #G.jokers.cards do
-          other_joker = G.jokers.cards[i]
-
-          if other_joker.ability.name == 'Popcorn' then
-            other_joker.ability.mult = other_joker.ability.mult + other_joker.ability.extra
-            self:juice_two(card, other_joker)
-          elseif other_joker.ability.name == 'Turtle Bean' then
-            other_joker.ability.extra.h_size = other_joker.ability.extra.h_size + other_joker.ability.extra.h_mod
-            G.hand:change_size(other_joker.ability.extra.h_mod)
-            self:juice_two(card, other_joker)
-          end
-        end
-      end
-    end
   end
 }
