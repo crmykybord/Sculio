@@ -23,21 +23,23 @@ SMODS.Joker {
       if #context.full_hand == 1 then
         local base_chips = context.full_hand[1]:get_id()
 
-        if not base_chips then
-          card.ability.extra.mult = card.ability.extra.mult + card.ability.extra.rankless_mult
+        --Rankless check
+        if not base_chips or base_chips <= 0 then
+          -- Chooses between 2 and 11 as the value for rankless card
+          base_chips = pseudorandom('crime_scene', 2, 11)
+        
+        -- Face cards and Aces
         elseif base_chips > 10 then
           if base_chips == 14 then
             base_chips = 11
           else
             base_chips = 10
           end
-
-          card.ability.extra.mult = card.ability.extra.mult + (base_chips / 2)
-        else
-          card.ability.extra.mult = card.ability.extra.mult + (base_chips / 2)
         end
+        -- Calculation rounds up
+        card.ability.extra.mult = card.ability.extra.mult + math.ceil(base_chips / 2)
 
-        return { message = localize('k_upgrade_ex') }
+        return { message = localize('k_Sculio_crime_scene'), colour = G.C.RED }
       end
     end
 

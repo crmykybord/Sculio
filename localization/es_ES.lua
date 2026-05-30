@@ -477,6 +477,7 @@ return {
     dictionary = {
       k_Sculio_binary_scale_chips = '01000011',
       k_Sculio_binary_scale_mult = '01001101',
+      k_Sculio_crime_scene = '¡Destruído!',
     }
   }
 }
