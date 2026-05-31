@@ -4,7 +4,7 @@ SMODS.Joker {
   config = { extra = { levels = 1 } },
   unlocked = true,
   discovered = false,
-  rarity = 2, -- Uncommon
+  rarity = 3, -- Rare
   atlas = 'Sculio',
   pos = { x = 4, y = 2 },
   cost = 7,
@@ -14,19 +14,64 @@ SMODS.Joker {
   end,
   calculate = function(self, card, context)
     if context.end_of_round and not context.repetition and context.game_over == false and G.GAME.blind.boss then
-      for hand, hand_data in pairs(G.GAME.hands) do
-        if hand_data.visible then
-          for i = 1, card.ability.extra.levels, 1 do
-            update_hand_text({sound = 'button', volume = 0.7, pitch = 0.8, delay = 0.3}, {handname=localize(hand, 'poker_hands'),chips = hand_data.chips, mult = hand_data.mult, level=hand_data.level})
-            level_up_hand(context.blueprint_card or card, hand, nil, 1)
-          end
+      local eff_card = context.blueprint_card or card
+      G.E_MANAGER:add_event(Event({
+        func = function()
+          card_eval_status_text(eff_card, 'extra', nil, nil, nil,
+            { message = localize('k_upgrade_ex'), colour = G.C.FILTER })
+          return true
         end
-      end
+      }))
+      G.E_MANAGER:add_event(Event({
+        trigger = 'after',
+        func = function()
+          update_hand_text({ sound = 'button', volume = 0.7, pitch = 0.8, delay = 0.3 },
+            { handname = localize('k_all_hands'), chips = '...', mult = '...', level = '' })
+          G.E_MANAGER:add_event(Event({
+            trigger = 'after',
+            delay = 0.2,
+            func = function()
+              play_sound('tarot1')
+              eff_card:juice_up(0.8, 0.5)
+              G.TAROT_INTERRUPT_PULSE = true
+              return true
+            end
+          }))
+          update_hand_text({ delay = 0 }, { mult = '+', StatusText = true })
+          G.E_MANAGER:add_event(Event({
+            trigger = 'after',
+            delay = 0.9,
+            func = function()
+              play_sound('tarot1')
+              eff_card:juice_up(0.8, 0.5)
+              return true
+            end
+          }))
+          update_hand_text({ delay = 0 }, { chips = '+', StatusText = true })
+          G.E_MANAGER:add_event(Event({
+            trigger = 'after',
+            delay = 0.9,
+            func = function()
+              play_sound('tarot1')
+              eff_card:juice_up(0.8, 0.5)
+              G.TAROT_INTERRUPT_PULSE = nil
+              return true
+            end
+          }))
+          update_hand_text({ sound = 'button', volume = 0.7, pitch = 0.9, delay = 0 }, { level = '+' .. card.ability.extra.levels })
+          delay(1.3)
+          for k, v in pairs(G.GAME.hands) do
+            for i = 1, card.ability.extra.levels, 1 do
+              level_up_hand(eff_card, k, true)
+            end
+          end
+          update_hand_text({ sound = 'button', volume = 0.7, pitch = 1.1, delay = 0 },
+            { mult = 0, chips = 0, handname = '', level = '' })
+          return true
+        end
+      }))
 
-      return {
-        message = localize('k_upgrade_ex'),
-        colour = G.C.FILTER
-      }
+      return nil, true
     end
   end
 }
