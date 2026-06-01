@@ -448,9 +448,9 @@ return {
       j_Sculio_earthbound = {
         name = 'Auto Battle',
         text = {
-          'Automatically selects {C:attention}highest{}',
+          '{X:mult,C:white}X#1#{} Mult',
+          '{C:attention}Automatically{} selects the {C:attention}highest{}',
           '{C:attention}level{} hand available',
-          '{X:mult,C:white}X#1#{} Mult when played'
         },
       }, 
       -- 44. 

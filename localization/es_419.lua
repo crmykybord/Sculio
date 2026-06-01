@@ -438,9 +438,9 @@ return {
       j_Sculio_earthbound = {
         name = 'Combate Automático',
         text = {
-          'Automáticamente selecciona',
-          'la {C:attention}mejor{} mano disponible',
-          '{X:mult,C:white}X#1#{} Multi al jugarla'
+          '{X:mult,C:white}X#1#{} Multi',
+          '{C:attention}Automaticamente{} selecciona',
+          'la mejor {C:attention}mano{} disponible',
         },
       }, 
       -- 44. Car sale
