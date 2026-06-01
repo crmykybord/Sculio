@@ -451,9 +451,10 @@ return {
           '{X:mult,C:white}X#1#{} Mult',
           '{C:attention}Automatically{} selects the {C:attention}highest{}',
           '{C:attention}level{} hand available',
+          "{C:inactive,s:0.8}(You can't select your cards){}"
         },
       }, 
-      -- 44. 
+      -- 44. Car Sale
       j_Sculio_wacky = {
         name = 'Car Sale',
         text = {

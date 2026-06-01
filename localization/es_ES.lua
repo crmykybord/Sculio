@@ -441,6 +441,7 @@ return {
           '{X:mult,C:white}X#1#{} Multi',
           '{C:attention}Automaticamente{} selecciona',
           'la mejor {C:attention}mano{} disponible',
+          "{C:inactive,s:0.8}(No puedes seleccionar tus cartas){}"
         },
       }, 
       -- 44. Car sale
