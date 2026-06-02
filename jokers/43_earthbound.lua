@@ -2,7 +2,8 @@
 local sculio_eb_drawn_ref = Blind.drawn_to_hand
 function Blind:drawn_to_hand()
   local ret = sculio_eb_drawn_ref(self)
-  if G.jokers then
+  if G.jokers and not G.GAME.sculio_autobattle_multicopy_safeguard then
+    G.GAME.sculio_autobattle_multicopy_safeguard = true
     for _, j in ipairs(G.jokers.cards) do
       if j.config.center.key == 'j_Sculio_earthbound' and not j.debuff then
         j.config.center:_select_and_force(j)
@@ -24,6 +25,7 @@ G.FUNCS.play_cards_from_highlighted = function(e)
   end
   local ret = sculio_eb_play_ref(e)
   for _, v in ipairs(forced) do v.ability.forced_selection = true end
+  G.GAME.sculio_autobattle_multicopy_safeguard = false
   return ret
 end
 
@@ -38,6 +40,7 @@ G.FUNCS.discard_cards_from_highlighted = function(e, hook)
   end
   local ret = sculio_eb_discard_ref(e, hook)
   for _, v in ipairs(forced) do v.ability.forced_selection = true end
+  G.GAME.sculio_autobattle_multicopy_safeguard = false
   return ret
 end
 
@@ -62,7 +65,7 @@ SMODS.Joker {
     local evaluated = evaluate_poker_hand(cards) or {}
     local available = {}
     for hand_name, hand_data in pairs(G.GAME.hands) do
-      if hand_data.visible and evaluated[hand_name] and next(evaluated[hand_name]) then
+      if evaluated[hand_name] and next(evaluated[hand_name]) then
         table.insert(available, {
           name = hand_name,
           level = hand_data.level,
@@ -76,6 +79,50 @@ SMODS.Joker {
       return a.order < b.order
     end)
     return available
+  end,
+
+  -- Validates that cards actually form the claimed hand
+  _validate_hand = function(self, hand_name, cards)
+    if not cards or #cards == 0 then return false end
+
+    -- Get unique suits from cards (handles custom suits)
+    local suits = {}
+    local ranks = {}
+    for _, c in ipairs(cards) do
+      if c.ability then
+        suits[c.ability.suit or c.base and c.base.suit] = true
+        ranks[c:get_id()] = true
+      end
+    end
+    local suit_count = 0
+    for _ in pairs(suits) do suit_count = suit_count + 1 end
+
+    -- Check for debuffed cards in any hand
+    for _, c in ipairs(cards) do
+      if c.debuff then return false end
+    end
+
+    -- Hand-specific validations
+    if hand_name == 'Spectrum' or hand_name == 'spectrum' then
+      return suit_count >= 5 and #cards >= 5
+    elseif hand_name == 'Flush' or hand_name == 'flush' then
+      return suit_count == 1 and #cards >= 5
+    elseif hand_name == 'Straight' or hand_name == 'straight' then
+      if #cards < 5 then return false end
+      local ids = {}
+      for _, c in ipairs(cards) do table.insert(ids, c:get_id()) end
+      table.sort(ids)
+      for i = 2, #ids do
+        if ids[i] - ids[i-1] ~= 1 then return false end
+      end
+      return true
+    elseif hand_name == 'Straight Flush' or hand_name == 'straight_flush' then
+      return self:_validate_hand('Flush', cards) and self:_validate_hand('Straight', cards)
+    end
+
+    -- Fallback: check if these exact cards evaluate to this hand
+    local re_evaluated = evaluate_poker_hand(cards)
+    return re_evaluated[hand_name] and next(re_evaluated[hand_name])
   end,
 
   -- Clears previous force picks, evaluates best hand, force-locks those cards.
@@ -92,7 +139,13 @@ SMODS.Joker {
     card.ability.selected_hand = nil
 
     local available = self:get_available_hands(G.hand.cards)
-    local best = available[1]
+    local best = nil
+    for _, candidate in ipairs(available) do
+      if self:_validate_hand(candidate.name, candidate.cards) then
+        best = candidate
+        break
+      end
+    end
     if best and best.cards then
       card.ability.selected_hand = best.name
       for _, c in ipairs(best.cards) do
