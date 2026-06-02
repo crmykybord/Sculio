@@ -50,7 +50,7 @@ SMODS.Joker {
           update_hand_text({ delay = 0 }, { chips = '+', StatusText = true })
           G.E_MANAGER:add_event(Event({
             trigger = 'after',
-            delay = 0.9,
+            delay = 0.3,
             func = function()
               play_sound('tarot1')
               eff_card:juice_up(0.8, 0.5)
