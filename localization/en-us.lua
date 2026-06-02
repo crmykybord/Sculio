@@ -303,9 +303,8 @@ return {
       j_Sculio_refrigerator = {
         name = 'Refrigerator',
         text = {
-          '{C:attention}Refrigerable Jokers{}',
-          'placed {C:attention}to the right of this Joker{}',
-          'do not {C:attention}lose potency{} or {C:attention}expire{}'
+          '{C:attention}Food Jokers{} to the right',
+          'cannot {C:attention}decay{}, {C:attention}expire{}, or be {C:red}destroyed{}',
         },
       }, 
       -- 29. Hammer and Chisel

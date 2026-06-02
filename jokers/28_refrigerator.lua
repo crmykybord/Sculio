@@ -10,6 +10,11 @@ local Sculio_refrigerator_vanilla_food = {
   j_selzer = true
 }
 
+-- Mod-specific food jokers (populate with entries like: j_aij_omlette = true)
+local Sculio_refrigerator_modded_food = {
+  -- Add modded food jokers here
+}
+
 local function Sculio_refrigerator_is_food(card)
   if not card or not card.config or not card.config.center then
     return false
@@ -25,7 +30,7 @@ local function Sculio_refrigerator_is_food(card)
     return true
   end
 
-  return Sculio_refrigerator_vanilla_food[center.key] or false
+  return Sculio_refrigerator_vanilla_food[center.key] or Sculio_refrigerator_modded_food[center.key] or false
 end
 
 local function Sculio_refrigerator_get_left(card)
@@ -83,6 +88,23 @@ local function Sculio_refrigerator_juice(refrigerators, food)
       return true
     end
   }))
+end
+
+-- Prevent probabilistic destruction (e.g., Gros Michel explosion)
+if not Sculio_refrigerator_dissolve_ref then
+  Sculio_refrigerator_dissolve_ref = Card.start_dissolve
+
+  Card.start_dissolve = function(self, dissolve_colours, silent, dissolve_time_fac, no_juice)
+    -- Only intercept food jokers being destroyed (not sold)
+    if self.ability.set == 'Joker' and Sculio_refrigerator_is_food(self) then
+      local refrigerators = Sculio_refrigerator_get_left(self)
+      if next(refrigerators) then
+        Sculio_refrigerator_juice(refrigerators, self)
+        return self  -- Cancel dissolve
+      end
+    end
+    return Sculio_refrigerator_dissolve_ref(self, dissolve_colours, silent, dissolve_time_fac, no_juice)
+  end
 end
 
 if not Sculio_refrigerator_calculate_joker_ref then

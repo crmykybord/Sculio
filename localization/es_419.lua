@@ -295,9 +295,8 @@ return {
       j_Sculio_refrigerator = {
         name = 'Nevera',
         text = {
-          'Los {C:attention}Comodines de comida{} que se',
-          'coloquen a la {C:attention}dercha de este comodín{}',
-          'no {C:attention}pierden valor{} ni {C:attention}expiran{}'
+          'Los {C:attention}Comodines de comida{} a la derecha',
+          'no pueden {C:attention}decaer{}, {C:attention}expirar{}, ni ser {C:red}destruidos{}',
         },
       }, 
       -- 29. Hammer and Chisel
