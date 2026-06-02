@@ -114,7 +114,7 @@ if not Sculio_refrigerator_calculate_joker_ref then
     local refrigerators = Sculio_refrigerator_is_food(self) and Sculio_refrigerator_get_left(self) or {}
     local preserve = next(refrigerators) ~= nil and not context.selling_self
     local ability = preserve and copy_table(self.ability) or nil
-    local h_size = preserve and ability and ability.extra and ability.extra.h_size or nil
+    local h_size = preserve and ability and type(ability.extra) == 'table' and ability.extra.h_size or nil
     local ret = Sculio_refrigerator_calculate_joker_ref(self, context)
 
     if preserve and ability then
