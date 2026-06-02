@@ -12,7 +12,27 @@ local Sculio_refrigerator_vanilla_food = {
 
 -- Mod-specific food jokers (populate with entries like: j_aij_omlette = true)
 local Sculio_refrigerator_modded_food = {
-  -- Add modded food jokers here
+  -- Paperback food jokers
+  j_paperback_cakepop = true,
+  j_paperback_caramel_apple = true,
+  j_paperback_charred_marshmallow = true,
+  j_paperback_rock_candy = true,
+  j_paperback_tanghulu = true,
+  j_paperback_dreamsicle = true,
+  j_paperback_ice_cube = true,
+  j_paperback_complete_breakfast = true,
+  -- Bundles of Fun appetizers
+  j_bof_a_dragonfruit = true,
+  j_bof_a_blueberry = true,
+  j_bof_a_grapes = true,
+  j_bof_a_leek = true,
+  j_bof_a_durian = true,
+  j_bof_a_wonderous_bread = true,
+  j_bof_a_jelly_beans = true,
+  j_bof_a_apple = true,
+  j_bof_a_apple_core = true,
+  j_bof_a_tomato = true,
+  -- Add other modded food jokers here
 }
 
 local function Sculio_refrigerator_is_food(card)
@@ -96,7 +116,7 @@ if not Sculio_refrigerator_dissolve_ref then
 
   Card.start_dissolve = function(self, dissolve_colours, silent, dissolve_time_fac, no_juice)
     -- Only intercept food jokers being destroyed (not sold)
-    if self.ability.set == 'Joker' and Sculio_refrigerator_is_food(self) then
+    if self.ability.set == 'Joker' and Sculio_refrigerator_is_food(self) and self.config.center.key ~= 'j_diet_cola' then
       local refrigerators = Sculio_refrigerator_get_left(self)
       if next(refrigerators) then
         Sculio_refrigerator_juice(refrigerators, self)
