@@ -12,15 +12,84 @@ local Sculio_refrigerator_vanilla_food = {
 
 -- Mod-specific food jokers (populate with entries like: j_aij_omlette = true)
 local Sculio_refrigerator_modded_food = {
+  -- Bunco food jokers
+  j_bunc_starfruit = true,
+  -- Handsome Devils food jokers
+  j_hnds_coffee_break = true,
+  -- Prism food jokers
+  j_prism_pizza_cap = true,
+  j_prism_pizza_mar = true,
+  j_prism_pizza_for = true,
+  j_prism_pizza_ruc = true,
+  j_prism_pizza_haw = true,
+  j_prism_pizza_det = true,
+  j_prism_pizza_con = true,
+  -- Artbox food jokers
+  j_artb_energy_drink = true,
+  -- KC Vanilla food jokers
+  j_kcvanilla_fortunecookie = true,
+  -- Ortalab food jokers
+  j_ortalab_taliaferro = true,
+  j_ortalab_hot_chocolate = true,
+  j_ortalab_royal_gala = true,
+  j_ortalab_popcorn_bag = true,
+  j_ortalab_salad = true,
   -- Paperback food jokers
-  j_paperback_cakepop = true,
-  j_paperback_caramel_apple = true,
-  j_paperback_charred_marshmallow = true,
-  j_paperback_rock_candy = true,
-  j_paperback_tanghulu = true,
-  j_paperback_dreamsicle = true,
   j_paperback_ice_cube = true,
   j_paperback_complete_breakfast = true,
+  j_paperback_apple = true,
+  j_paperback_double_dutchman = true,
+  j_paperback_nachos = true,
+  j_paperback_crispy_taco = true,
+  j_paperback_soft_taco = true,
+  j_paperback_watermelon = true,
+  j_paperback_marble_soda = true,
+  j_paperback_black_forest_cake = true,
+  j_paperback_cream_liqueur = true,
+  j_paperback_deviled_egg = true,
+  j_paperback_chocolate_coins = true,
+  j_paperback_golden_apple = true,
+  j_paperback_champagne = true,
+  j_paperback_coffee = true,
+  j_paperback_matcha = true,
+  j_paperback_pinot_noir = true,
+  j_paperback_milk_tea = true,
+  j_paperback_epic_sauce = true,
+  j_paperback_aperol = true,
+  j_paperback_grenadine = true,
+  j_paperback_blue_curacao = true,
+  j_paperback_stout = true,
+  j_paperback_pear = true,
+  j_paperback_nigori = true,
+  j_paperback_lager = true,
+  -- Plantain food jokers
+  j_pl_plantain = true,
+  j_pl_apple_pie = true,
+  j_pl_croissant = true,
+  j_pl_lasagna = true,
+  -- Lucky Rabbit food jokers
+  j_fmod_pub_burger = true,
+  j_fmod_edibles = true,
+  -- Extra Credit food jokers
+  j_ExtraCredit_starfruit = true,
+  j_ExtraCredit_candynecklace = true,
+  j_ExtraCredit_espresso = true,
+  j_ExtraCredit_ambrosia = true,
+  j_ExtraCredit_badapple = true,
+  -- All in Jest food jokers
+  j_aij_silly_sausage = true,
+  j_aij_totally_nuts = true,
+  j_aij_banana_man = true,
+  j_aij_fortune_cookie = true,
+  j_aij_chips_n_dip = true,
+  j_aij_fish_fingers = true,
+  j_aij_candy_floss = true,
+  j_aij_stargazy_pie = true,
+  j_aij_cheese_squigglies = true,
+  j_aij_corndog = true,
+  j_aij_triple_sundae = true,
+  -- Monarchy food jokers
+  j_monarchy_sushi_rolls = true,
   -- Bundles of Fun appetizers
   j_bof_a_dragonfruit = true,
   j_bof_a_blueberry = true,
@@ -32,7 +101,6 @@ local Sculio_refrigerator_modded_food = {
   j_bof_a_apple = true,
   j_bof_a_apple_core = true,
   j_bof_a_tomato = true,
-  -- Add other modded food jokers here
 }
 
 local function Sculio_refrigerator_is_food(card)
@@ -133,6 +201,15 @@ if not Sculio_refrigerator_calculate_joker_ref then
   Card.calculate_joker = function(self, context)
     local refrigerators = Sculio_refrigerator_is_food(self) and Sculio_refrigerator_get_left(self) or {}
     local preserve = next(refrigerators) ~= nil and not context.selling_self
+
+    -- Bypass destruction logic for Epic Sauce and Banana Man when refrigerated during context.after
+    if preserve and context.after then
+      if self.config.center.key == 'j_paperback_epic_sauce' or self.config.center.key == 'j_aij_banana_man' then
+        Sculio_refrigerator_juice(refrigerators, self)
+        return nil
+      end
+    end
+
     local ability = preserve and copy_table(self.ability) or nil
     local h_size = preserve and ability and type(ability.extra) == 'table' and ability.extra.h_size or nil
     local ret = Sculio_refrigerator_calculate_joker_ref(self, context)
