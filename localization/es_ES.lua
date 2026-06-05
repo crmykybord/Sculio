@@ -427,9 +427,9 @@ return {
       j_Sculio_mahjong = {
         name = 'Pieza de Mahjong',
         text = {
-          'Gana {C:chips}+#2#{} fichas si la mano jugada',
-          'contiene un {C:attention}número par de cartas{}',
-          'y la {C:attention}mitad{} son menores a {C:attention}#3#{}',
+          'Obtiene {C:chips}+#2#{} fichas si la mano',
+          'contiene un {C:attention}par mayor a 7{}',
+          'y un {C:attention}par menor a 7{}',
           '{C:inactive}(Actualmente {C:chips}+#1#{}{C:inactive} Fichas)',
         },
       }, 
@@ -452,15 +452,101 @@ return {
           '{C:inactive}(Debe haber espacio){}'
         }
       }, 
+      -- 45. Googly Eyes
+      j_Sculio_googly_eyes = {
+        name = 'Ojos Saltones',
+        text = {
+          'La primera carta anotada otorga',
+          'sus {C:attention}fichas base{}',
+          "como {C:mult}Multi{}",
+        },
+      },
+      -- 46. Pocket Money
+      j_Sculio_pocket_money = {
+        name = 'Sencillo',
+        text = {
+          'Recupera {C:money}$#1#{} en la',
+          'primera compra de cada ronda'
+        },
+      },
+      -- 47. Jimbo Says
+      j_Sculio_jimbo_says = {
+        name = 'Jimbo Dice',
+        text = {
+          'El primer {C:attention}Color{} de {C:attention}(#1#){}',
+          'jugado cada ronda otorga',
+          'una {C:attention}etiqueta al azar{}',
+          '{C:inactive,s:0.8}(El palo cambia cada ronda){}'
+        },
+      },
+      -- 48. Joker Metro
+      j_Sculio_joker_metro = {
+        name = 'Metro Comodín',
+        text = {
+          'Gana {C:mult}+#2#{} Multi al',
+          'jugar {C:attention}#3#{}',
+          'aumenta en {C:mult}+#4#{} entre manos',
+          'al jugar la siguiente mano',
+          '{C:inactive}(Actualmente {C:mult}+#1#{}{C:inactive} Multi)',
+          '{C:inactive}(Carta Alta > Par > Doble Par > Trío > Escalera > Color > Póker){}'
+        },
+      },
+      -- 49. Gladiator Joker
+      j_Sculio_gladiator = {
+        name = 'Comodín Gladiador',
+        text = {
+          'Gana {C:mult}+Multi{} igual a',
+          'las {C:attention}fichas base{} de',
+          'cartas {C:attention}destruidas{}',
+          '{C:inactive}(Actualmente {C:mult}+#1#{}{C:inactive} Multi)'
+        },
+      },
+      -- 50. Card Against Jokers
+      j_Sculio_card_against = {
+        name = 'Cartas Contra Comodines',
+        text = {
+          '{X:mult,C:white}X#1#{} Multi',
+          '{C:green}1 en 2{} de probabilidad de',
+          '{C:attention}debilitar{} 2 comodines aleatorios',
+          'antes de cada mano'
+        },
+      },
+      -- 51. Scrabble Joker
+      j_Sculio_scrabble = {
+        name = 'Comodín Scrabble',
+        text = {
+          'Las {C:attention}Jotas{} anotadas otorgan',
+          '{C:mult}+#1#{} Multi al anotar'
+        },
+      },
+      -- 52. Untextured Joker
+      j_Sculio_untextured = {
+        name = 'Comodín Sin Textura',
+        text = {
+          'Las {C:attention}Cartas Versátiles{}',
+          'otorgan {C:mult}+#1#{} Multi por cada',
+          '{C:attention}Carta Versátil{} en tu baraja',
+          '{C:inactive}(Actualmente {C:mult}+#2#{}{C:inactive} Multi)'
+        },
+      },
+      -- 53. The Leader
+      j_Sculio_leader = {
+        name = 'El Líder',
+        text = {
+          'Obtiene {C:mult}+#1#{} Multi antes de anotar',
+          'al jugar {C:attention}Carta más Alta{}',
+          'por cada vez que se jugó {C:attention}anteriormente{}'
+        },
+      },
       -- 100. Puck
       j_Sculio_puck = {
         name = 'Puck',
         text = {
-          'Anotar cartas con {C:attention}edición{} otorga',
+          'Anotar cartas con {C:dark_edition}edición{} otorga',
           'sus {C:attention}bonificaciones{} a este comodín',
           '{C:inactive,s:0.8}(Actualmente {C:chips,s:0.8}+#1#{}{C:inactive,s:0.8} Fichas, {C:mult,s:0.8}+#2#{}{C:inactive,s:0.8} Multi y {X:mult,C:white,s:0.8}X#3#{}{C:inactive,s:0.8} Multi)'
         }
-      },
+      }
     },
     Tag = {
       tag_Sculio_unstoppable = {

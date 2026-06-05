@@ -438,8 +438,8 @@ return {
         name = 'Red Dragon',
         text = {
           'This Joker gains {C:chips}+#2#{} Chips if hand',
-          'played contains an {C:attention}even number of cards{}',
-          'and {C:attention}exactly half{} are less than {C:attention}#3#{}',
+          'played contains a {C:attention}pair above 7{}',
+          'and a {C:attention}pair below 7{}',
           '{C:inactive}(Currently {C:chips}+#1#{}{C:inactive} Chips)',
         },
       }, 
@@ -470,6 +470,89 @@ return {
           'this Joker gains {C:attention}#4#%{} of the {C:attention}edition\'s bonus{}',
           '{C:inactive}(Currently {C:chips}+#1#{}{C:inactive} Chips, {C:mult}+#2#{}{C:inactive} Mult, and {X:mult,C:white}X#3#{}{C:inactive} Mult)'
         }
+      },
+      -- 45. Googly Eyes
+      j_Sculio_googly_eyes = {
+        name = 'Googly Eyes',
+        text = {
+          'First scored card gives',
+          'its {C:attention}base chips{} as {C:mult}Mult{}'
+        },
+      },
+      -- 46. Pocket Money
+      j_Sculio_pocket_money = {
+        name = 'Pocket Money',
+        text = {
+          'Recover {C:money}$#1#{} on the',
+          'first purchase each round'
+        },
+      },
+      -- 47. Jimbo Says
+      j_Sculio_jimbo_says = {
+        name = 'Jimbo Says',
+        text = {
+          'First {C:attention}Flush{} of {C:attention}(#1#){}',
+          'played each round',
+          'grants a {C:attention}random tag{}',
+          '{C:inactive}(Suit changes each round)'
+        },
+      },
+      -- 48. Joker Metro
+      j_Sculio_joker_metro = {
+        name = 'Joker Metro',
+        text = {
+          '{C:mult}+#1#{} Mult, gains {C:mult}+#2#{} Mult',
+          'when playing {C:attention}#3#{}',
+          'Progresses through hands',
+          'when playing the next hand',
+          '{C:inactive}(High Card > Pair > Two Pair > 3K > Straight > Flush > 4K){}'
+        },
+      },
+      -- 49. Gladiator Joker
+      j_Sculio_gladiator = {
+        name = 'Gladiator Joker',
+        text = {
+          'Gains {C:mult}+Mult{} equal to',
+          'the {C:attention}base chips{} of',
+          '{C:attention}destroyed{} cards',
+          '{C:inactive}(Currently {C:mult}+#1#{}{C:inactive} Mult)'
+        },
+      },
+      -- 50. Card Against Jokers
+      j_Sculio_card_against = {
+        name = 'Cards Against Jokers',
+        text = {
+          '{X:mult,C:white}X#1#{} Mult',
+          '{C:green}1 in 3{} chance to {C:attention}debuff{}',
+          '2 random Jokers before each hand'
+        },
+      },
+      -- 51. Scrabble Joker
+      j_Sculio_scrabble = {
+        name = 'Scrabble Joker',
+        text = {
+          'Scored {C:attention}Jacks{} give',
+          '{C:mult}+#1#{} Mult when scored'
+        },
+      },
+      -- 52. Untextured Joker
+      j_Sculio_untextured = {
+        name = 'Untextured Joker',
+        text = {
+          'Scored {C:attention}Wild Cards{} give',
+          '{C:mult}+#1#{} Mult for each',
+          '{C:attention}Wild Card{} in your deck',
+          '{C:inactive}(Currently {C:mult}+#2#{}{C:inactive} Mult)'
+        },
+      },
+      -- 53. The Leader
+      j_Sculio_leader = {
+        name = 'The Leader',
+        text = {
+          '{C:attention}High Card{} gives',
+          '{C:mult}+#1#{} Mult before scoring',
+          'for each time it was played'
+        },
       },
     },
     Tag = {
