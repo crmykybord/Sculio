@@ -473,7 +473,7 @@ return {
       j_Sculio_jimbo_says = {
         name = 'Jimbo Dice',
         text = {
-          'El primer {C:attention}Color{} de {C:attention}(#1#){}',
+          'El primer {C:attention}Color{} de {V:1}#1#{}',
           'jugado cada ronda otorga',
           'una {C:attention}etiqueta al azar{}',
           '{C:inactive,s:0.8}(El palo cambia cada ronda){}'
@@ -484,9 +484,8 @@ return {
         name = 'Metro Comodín',
         text = {
           'Gana {C:mult}+#2#{} Multi al',
-          'jugar {C:attention}#3#{}',
-          'aumenta en {C:mult}+#4#{} entre manos',
-          'al jugar la siguiente mano',
+          'jugar {C:attention}#3#{} y',
+          'avanza a la siguiente mano',
           '{C:inactive}(Actualmente {C:mult}+#1#{}{C:inactive} Multi)',
           '{C:inactive}(Carta Alta > Par > Doble Par > Trío > Escalera > Color > Póker){}'
         },

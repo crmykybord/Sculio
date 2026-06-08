@@ -491,7 +491,7 @@ return {
       j_Sculio_jimbo_says = {
         name = 'Jimbo Says',
         text = {
-          'First {C:attention}Flush{} of {C:attention}(#1#){}',
+          'First {C:attention}Flush{} of {V:1}#1#{}',
           'played each round',
           'grants a {C:attention}random tag{}',
           '{C:inactive}(Suit changes each round)'
@@ -501,11 +501,12 @@ return {
       j_Sculio_joker_metro = {
         name = 'Joker Metro',
         text = {
-          '{C:mult}+#1#{} Mult, gains {C:mult}+#2#{} Mult',
-          'when playing {C:attention}#3#{}',
-          'Progresses through hands',
-          'when playing the next hand',
-          '{C:inactive}(High Card > Pair > Two Pair > 3K > Straight > Flush > 4K){}'
+          'Gains {C:mult}+#2#{} Mult when',
+          'playing {C:attention}#3#{} and',
+          'advances to the next hand',
+          '{C:inactive,s:0.8}(High Card > Pair > Two Pair > 3K',
+          '{C:inactive,s:0.8}> Straight > Flush > 4K){}',
+          '{C:inactive}(Currently {C:mult}+#1#{}{C:inactive} Mult)'
         },
       },
       -- 49. Gladiator Joker
@@ -550,8 +551,9 @@ return {
         name = 'The Leader',
         text = {
           '{C:attention}High Card{} gives',
-          '{C:mult}+#1#{} Mult before scoring',
-          'for each time it was played'
+          '{C:mult}+2{} Mult before scoring',
+          'for each time it was played',
+          '{C:inactive}(Currently {C:mult}+0{}{C:inactive} Mult)'
         },
       },
     },
