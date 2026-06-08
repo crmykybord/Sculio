@@ -18,9 +18,10 @@ SMODS.Joker {
       if context.scoring_name == 'High Card' then
         local times_played = G.GAME.hands['High Card'].played or 0
         if times_played > 0 then
+          local mult_gain = times_played * 2
           return {
-            mult_mod = times_played,
-            message = localize { type = 'variable', key = 'a_mult', vars = { times_played } }
+            mult_mod = mult_gain,
+            message = localize { type = 'variable', key = 'a_mult', vars = { mult_gain } }
           }
         end
       end
