@@ -12,7 +12,7 @@ SMODS.Joker {
   loc_vars = function(self, info_queue, card)
     local suits = { 'Hearts', 'Clubs', 'Diamonds', 'Spades' }
     local current_suit = suits[card.ability.extra.suit_index] or 'Hearts'
-    return { vars = { localize(current_suit, 'suits_plural') } }
+    return { vars = { localize(current_suit, 'suits_plural'), colours = { G.C.SUITS[current_suit] } } }
   end,
   calculate = function(self, card, context)
     if context.before and not context.blueprint then
