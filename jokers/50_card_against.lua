@@ -28,10 +28,11 @@ SMODS.Joker {
       end
       card.ability.debuffed_jokers = {}
       
-      -- Randomly debuff 2 jokers
+      -- Randomly debuff 2 jokers (excluding self and other copies of Card Against)
       local available_jokers = {}
       for _, j in ipairs(G.jokers.cards) do
-        if j ~= card and not j.ability.eternal then
+        local is_card_against = j.config and j.config.center and j.config.center.key == 'j_Sculio_card_against'
+        if j ~= card and not is_card_against then
           table.insert(available_jokers, j)
         end
       end
@@ -50,7 +51,7 @@ SMODS.Joker {
         
         local to_debuff = math.min(2, #shuffled)
         for i = 1, to_debuff do
-          if SMODS.pseudorandom_probability(card, 'card_against', 1, 2) then
+          if SMODS.pseudorandom_probability(card, 'card_against', 1, 4) then
             shuffled[i]:set_debuff(true)
             table.insert(card.ability.debuffed_jokers, shuffled[i])
           end
