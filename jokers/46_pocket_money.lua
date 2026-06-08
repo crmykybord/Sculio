@@ -13,13 +13,27 @@ SMODS.Joker {
     return { vars = { card.ability.extra.money_recover } }
   end,
   calculate = function(self, card, context)
-    if context.buying_card and not context.blueprint and context.card ~= card then
+    if (context.buying_card or context.buying_voucher or context.open_booster) and not context.blueprint and context.card ~= card then
       if not card.ability.extra.used_this_round then
         card.ability.extra.used_this_round = true
-        return {
-          dollars = card.ability.extra.money_recover,
-          message = localize('k_dollars')
-        }
+
+        local cost = context.card and context.card.cost or 0
+        local amount = math.min(cost, card.ability.extra.money_recover)
+
+        if amount > 0 then
+          G.E_MANAGER:add_event(Event({
+            trigger = 'immediate',
+            func = function()
+              ease_dollars(amount)
+              card_eval_status_text(card, 'extra', nil, nil, nil, {
+                message = '+$' .. amount,
+                colour = G.C.GOLD,
+                delay = 0.45
+              })
+              return true
+            end
+          }))
+        end
       end
     end
     
