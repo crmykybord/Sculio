@@ -344,8 +344,8 @@ return {
         name = 'Tanque de Clonación',
         text = {
           'Las {C:attention}Cartas de juego{} pueden',
-          "aparecer en la tienda y",
-          'siempre son de la {C:attention}categoría más común{},',
+          "aparecer en la tienda y siempre",
+          'son de la {C:attention}categoría más común{},',
           "de tu baraja"
         },
       }, 
