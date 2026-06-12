@@ -478,9 +478,9 @@ return {
       j_Sculio_jimbo_says = {
         name = 'Jimbo Dice',
         text = {
-          'El primer {C:attention}Color{} de {V:1}#1#{}',
-          'jugado cada ronda otorga',
-          'una {C:attention}etiqueta al azar{}',
+          'La primera vez que jueges',
+          'un {C:attention}Color{} de {V:1}#1#{} crea',
+          'una {C:attention}etiqueta{} al azar',
           '{C:inactive,s:0.8}(El palo cambia cada ronda){}'
         },
       },

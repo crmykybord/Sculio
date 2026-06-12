@@ -4,7 +4,7 @@ SMODS.Joker {
   config = { extra = { suit_index = 1, triggered_this_round = false } },
   unlocked = true,
   discovered = false,
-  rarity = 3, -- Rare
+  rarity = 2, -- Uncommon
   atlas = 'Sculio',
   pos = { x = 9, y = 4 },
   cost = 10,
