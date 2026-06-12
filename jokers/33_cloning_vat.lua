@@ -42,7 +42,61 @@ SMODS.Joker {
         best_id == 12 and 'Q' or best_id == 13 and 'K' or 'A'
     end
 
-    -- Helper: apply rank + random seal/edition to a card
+    local seals     = {'Gold', 'Red', 'Blue', 'Purple'}
+    local editions  = {'e_foil', 'e_holo', 'e_polychrome'}
+    -- All enhancement keys except the blank default
+    local function get_enhancements()
+      local enh = {}
+      for k, v in pairs(G.P_CENTERS) do
+        if v.set == 'Enhanced' then enh[#enh+1] = k end
+      end
+      return enh
+    end
+
+    -- Phase 1: guarantee at least one of seal / edition / enhancement
+    local function vat_ensure_one(c)
+      -- Pool: only types the card doesn't already have
+      local pool = {}
+      if not c.seal    then pool[#pool+1] = 'seal'        end
+      if not c.edition then pool[#pool+1] = 'edition'     end
+      -- enhancement: check center set
+      local has_enh = c.config and c.config.center and c.config.center.set == 'Enhanced'
+      if not has_enh then pool[#pool+1] = 'enhancement'   end
+      if #pool == 0 then return end -- already has all three, nothing to do
+
+      local choice = pool[pseudorandom('cloning_vat_ensure', 1, #pool)]
+      if choice == 'seal' then
+        c:set_seal(seals[pseudorandom('cloning_vat_ensure_seal', 1, #seals)], true, true)
+      elseif choice == 'edition' then
+        c:set_edition(editions[pseudorandom('cloning_vat_ensure_edition', 1, #editions)], true, true)
+      else
+        local enhs = get_enhancements()
+        if #enhs > 0 then
+          local enh_key = enhs[pseudorandom('cloning_vat_ensure_enh', 1, #enhs)]
+          c:set_ability(G.P_CENTERS[enh_key])
+        end
+      end
+    end
+
+    -- Phase 2: probabilistic bonus roll for a second type
+    local function vat_bonus_roll(c)
+      local has_enh = c.config and c.config.center and c.config.center.set == 'Enhanced'
+      if not c.seal and pseudorandom('cloning_vat_bonus_seal') > 0.75 then
+        c:set_seal(seals[pseudorandom('cloning_vat_bonus_seal_pick', 1, #seals)], true, true)
+      end
+      if not c.edition and pseudorandom('cloning_vat_bonus_edition') > 0.85 then
+        c:set_edition(editions[pseudorandom('cloning_vat_bonus_edition_pick', 1, #editions)], true, true)
+      end
+      if not has_enh and pseudorandom('cloning_vat_bonus_enh') > 0.85 then
+        local enhs = get_enhancements()
+        if #enhs > 0 then
+          local enh_key = enhs[pseudorandom('cloning_vat_bonus_enh_pick', 1, #enhs)]
+          c:set_ability(G.P_CENTERS[enh_key])
+        end
+      end
+    end
+
+    -- Helper: apply rank + guaranteed bonus + extra roll to a card
     local function vat_card(c)
       if not (c and c.base and c.base.id) then return false end
       local rank_suffix = get_best_rank_suffix(c)
@@ -53,14 +107,8 @@ SMODS.Joker {
       local front = G.P_CARDS[suit_prefix .. rank_suffix]
       if front then c:set_base(front) end
 
-      local seals = {'Gold', 'Red', 'Blue', 'Purple'}
-      local editions = {'e_foil', 'e_holo', 'e_polychrome'}
-      if not c.seal and pseudorandom('cloning_vat_seal') > 0.85 then
-        c:set_seal(seals[pseudorandom('cloning_vat_seal_pick', 1, #seals)], true, true)
-      end
-      if not c.edition and pseudorandom('cloning_vat_edition') > 0.95 then
-        c:set_edition(editions[pseudorandom('cloning_vat_edition_pick', 1, #editions)], true, true)
-      end
+      vat_ensure_one(c)   -- Phase 1: guaranteed at least one
+      vat_bonus_roll(c)   -- Phase 2: chance at a second
       return true
     end
 

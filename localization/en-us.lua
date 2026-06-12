@@ -348,10 +348,10 @@ return {
       j_Sculio_cloning_vat = {
         name = 'Cloning Vat',
         text = {
-          '{C:attention}Playing cards{} can',
-          "appear in the shop and",
-          'are always your {C:attention}most common rank{},',
-          "in your deck"
+          'Your {C:attention}most common rank{} appears in',
+          'the shop and {C:attention}Standard Packs{}',
+          'and always has at least one {C:attention}Enhancement{},',
+          '{C:dark_edition}Edition{} or {C:attention}Seal{}'
         },
       }, 
       -- 34. Rorschach

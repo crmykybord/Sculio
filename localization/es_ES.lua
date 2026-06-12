@@ -343,12 +343,12 @@ return {
       j_Sculio_cloning_vat = {
         name = 'Tanque de Clonación',
         text = {
-          'Las {C:attention}Cartas de juego{} pueden',
-          "aparecer en la tienda y siempre",
-          'son de la {C:attention}categoría más común{},',
-          "de tu baraja"
+          'Tu {C:attention}Categoría más común{} aparece en',
+          "la tienda y {C:attention}Paquetes Estándar{} y",
+          'siempre tiene al menos una {C:attention}Mejora{},',
+          "{C:dark_edition}Edición{} o {C:attention}Sello{}",
         },
-      }, 
+      },
       -- 34. Rorschach
       j_Sculio_rorschach = {
         name = 'Comodín Rorschach',
