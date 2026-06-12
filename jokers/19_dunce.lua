@@ -8,6 +8,16 @@ SMODS.Joker {
   pos = { x = 0, y = 2 },
   cost = 10,
   blueprint_compat = true,
+  loc_vars = function(self, info_queue, card)
+    local last_joker = G.jokers and G.jokers.cards[#G.jokers.cards]
+    local name = ''
+    local compat = localize('k_Sculio_incompatible')
+    if last_joker and last_joker ~= card then
+      name = last_joker.ability.name or ''
+      compat = last_joker.config.center.blueprint_compat and localize('k_Sculio_compatible') or localize('k_Sculio_incompatible')
+    end
+    return { vars = { name, compat } }
+  end,
   calculate = function(self, card, context)
     if context.before then
       for i = 1, #G.jokers.cards do

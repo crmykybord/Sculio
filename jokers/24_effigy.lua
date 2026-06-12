@@ -1,7 +1,7 @@
 SMODS.Joker {
   key = 'effigy',
 
-  config = { extra = {} },
+  config = { extra = { copying = '' } },
   unlocked = true,
   discovered = false,
   rarity = 2, -- Uncommon
@@ -9,25 +9,35 @@ SMODS.Joker {
   pos = { x = 5, y = 2 },
   cost = 8,
   blueprint_compat = true,
+  loc_vars = function(self, info_queue, card)
+    return { vars = { card.ability.extra.copying } }
+  end,
   calculate = function(self, card, context)
     if context.before then
-      local other_jokers = {}
+      local bp_jokers = {}
+      local all_jokers = {}
 
       for i = 1, #G.jokers.cards do
         local this_joker = G.jokers.cards[i]
-
         if this_joker ~= card then
-          table.insert(other_jokers, this_joker)
+          table.insert(all_jokers, this_joker)
+          if this_joker.config.center.blueprint_compat then
+            table.insert(bp_jokers, this_joker)
+          end
         end
       end
 
-      if #other_jokers > 0 and not card.ability.extra.random_joker then
-        card.ability.extra.random_joker = other_jokers[pseudorandom('scheming_idol', 1, #other_jokers)]
+      local pool = #bp_jokers > 0 and bp_jokers or all_jokers
+
+      if #pool > 0 and not card.ability.extra.random_joker then
+        card.ability.extra.random_joker = pool[pseudorandom('scheming_idol', 1, #pool)]
+        card.ability.extra.copying = card.ability.extra.random_joker.ability.name or ''
       end
     end
 
     if context.after then
       card.ability.extra.random_joker = nil
+      card.ability.extra.copying = ''
     end
 
     if card.ability.extra.random_joker then

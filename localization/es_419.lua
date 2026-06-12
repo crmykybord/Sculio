@@ -215,6 +215,8 @@ return {
         'Copia la habilidad del comodín',
         'del {C:attention}extremo derecho{} y debilita',
         'el comodín a su {C:attention}derecha{}',
+        "durante la mano jugada",
+        '{C:inactive}(Copiando: {C:attention}#1#{C:inactive} - {C:attention}#2#{C:inactive})'
         }
       },
       -- 20. Frequent Flyer
@@ -259,7 +261,8 @@ return {
         name = 'Efigie',
         text = {
           'Copia la habilidad de un',
-          '{C:attention}Comodín{} al azar'
+          '{C:attention}Comodín{} al azar',
+          '{C:inactive}(Copiando: {C:attention}#1#{C:inactive})'
         },
       }, 
       -- 25. Bad Trip
@@ -324,8 +327,8 @@ return {
       j_Sculio_intuition = {
         name = 'Intuición',
         text = {
-          'Las {C:attention}Cartas de Oro{} y {C:attention}Cartas de Acero{}',
-          'Activan sus efectos al anotar'
+          'La primera {C:attention}Carta de Oro{} anotada da {C:money}$#1#{}',
+          'La primera {C:attention}Carta de Acero{} anotada da {X:mult,C:white}X#2#{} Multi'
         },
       }, 
       -- 32. Sensory Overload
@@ -340,9 +343,10 @@ return {
       j_Sculio_cloning_vat = {
         name = 'Tanque de Clonación',
         text = {
-          'Comprar {C:attention}Cartas{} crea',
-          'una {C:attention}copia{} adicional',
-          'a tu baraja'
+          'Las {C:attention}Cartas de juego{} pueden',
+          "aparecer en la tienda y",
+          'siempre son de la {C:attention}categoría más común{},',
+          "de tu baraja"
         },
       }, 
       -- 34. Rorschach
@@ -398,10 +402,11 @@ return {
       j_Sculio_pipe = {
         name = 'Comodín Altanero',
         text = {
-          'Después de {C:attention}#1#{} ronda, vende este',
-          'comodín para otorgar edición',
-          '{C:dark_edition}negativa{} a un {C:attention}comodín{} al azar',
-          '{C:inactive}(Actualmente {C:attention}#2#{C:inactive} / #1#)'
+          '{C:blue}-1 Mano{}, {C:red}-1 Descarte{}',
+          'Después de {C:attention}#1#{} rondas, vende este',
+          "comodín para otorgar edición",
+          "{C:dark_edition}negativa{} a un {C:attention}comodín{} al azar",
+          "{C:inactive}(Actualmente {C:attention}#2#{C:inactive} / #1#)"
         },
       }, 
       -- 40. Nametag
@@ -563,6 +568,10 @@ return {
       k_Sculio_binary_scale_chips = '01000011',
       k_Sculio_binary_scale_mult = '01001101',
       k_Sculio_crime_scene = '¡+Multi!',
+      k_Sculio_beyond_reach_saved = '¡No estaba fuera de alcance!',
+      k_Sculio_cloning_vat_active = '¡Clonado!',
+      k_Sculio_compatible = 'Compatible',
+      k_Sculio_incompatible = 'Incompatible',
     }
   }
 }

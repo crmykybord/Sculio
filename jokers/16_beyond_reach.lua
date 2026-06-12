@@ -27,7 +27,8 @@ SMODS.Joker {
 
       return {
         message = '+1 Hand',
-        saved = true
+        colour = G.C.BLUE,
+        saved = 'k_Sculio_beyond_reach_saved'
       }
     end
   end

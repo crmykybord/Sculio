@@ -215,10 +215,10 @@ return {
       j_Sculio_dunce = {
         name = 'Dunce',
         text = {
-        'Copies the ability of the',
-        '{C:attention}rightmost{} Joker and',
-        'temporarily disables Joker',
-        '{C:attention}to the right{}',
+        'Copies the ability of the {C:attention}rightmost{} Joker',
+        'and {C:attention}debuffs{} Joker to the right',
+        'during played hand',
+        '{C:inactive}(Copying: {C:attention}#1#{C:inactive} - {C:attention}#2#{C:inactive})'
         }
       },
       -- 20. Frequent Flyer
@@ -262,11 +262,9 @@ return {
       j_Sculio_effigy = {
         name = 'Effigy',
         text = {
-          'Copies ability of a',
-          '{C:attention}random Joker{}',
-          -- TODO During played hand only, should clarify description
-          -- Also will behave weirdly with jokers that
-          -- do stuff during context.before/after
+          'Copies ability of a random',
+          '{C:attention}compatible Joker{} during hand',
+          '{C:inactive}(Currently copying: {C:attention}#1#{C:inactive})'
         },
       }, 
       -- 25. Bad Trip
@@ -333,8 +331,8 @@ return {
       j_Sculio_intuition = {
         name = 'Intuition',
         text = {
-          'Scored {C:attention}Gold Cards{} give {C:money}$#1#{}.',
-          'Scored {C:attention}Steel Cards{} give {X:mult,C:white}X#2#{} Mult'
+          'First scored {C:attention}Gold Card{} gives {C:money}$#1#{}',
+          'First scored {C:attention}Steel Card{} gives {X:mult,C:white}X#2#{} Mult'
         },
       }, 
       -- 32. Sensory Overload
@@ -350,9 +348,10 @@ return {
       j_Sculio_cloning_vat = {
         name = 'Cloning Vat',
         text = {
-          'When a {C:attention}playing card{}',
-          'is {C:attention}purchased{}, add a',
-          '{C:attention}permanent copy{} to deck'
+          '{C:attention}Playing cards{} can',
+          "appear in the shop and",
+          'are always your {C:attention}most common rank{},',
+          "in your deck"
         },
       }, 
       -- 34. Rorschach
@@ -408,9 +407,9 @@ return {
       j_Sculio_pipe = {
         name = 'Treachery',
         text = {
-          'After {C:attention}#1#{} rounds, sell this',
-          'card to add {C:dark_edition}Negative{}',
-          'to a random {C:attention}Joker',
+          '{C:blue}-1 Hand{}, {C:red}-1 Discard{}',
+          'After {C:attention}#1#{} rounds, sell this card to',
+          'add {C:dark_edition}Negative{} to a random {C:attention}Joker{}',
           '{C:inactive}(Currently {C:attention}#2#{C:inactive} / #1#)'
         },
       }, 
@@ -573,6 +572,10 @@ return {
       k_Sculio_binary_scale_chips = '01000011',
       k_Sculio_binary_scale_mult = '01001101',
       k_Sculio_crime_scene = '+Mult!',
+      k_Sculio_beyond_reach_saved = 'It was not beyond reach!',
+      k_Sculio_cloning_vat_active = 'Cloned!',
+      k_Sculio_compatible = 'Compatible',
+      k_Sculio_incompatible = 'Incompatible',
     }
   }
 }
