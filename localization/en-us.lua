@@ -348,11 +348,11 @@ return {
       j_Sculio_cloning_vat = {
         name = 'Cloning Vat',
         text = {
-          'Your {C:attention}most common rank{} appears in',
-          'the shop and {C:attention}Standard Packs{}',
-          'and always has at least one {C:attention}Enhancement{},',
+          'Your {C:attention}most common rank{} appears in the',
+          'shop and {C:attention}Standard Packs{} and always',
+          'has at least one {C:attention}Enhancement{},',
           '{C:dark_edition}Edition{} or {C:attention}Seal{}'
-        },
+        },mmmmmmm
       }, 
       -- 34. Rorschach
       j_Sculio_rorschach = {
