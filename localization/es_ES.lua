@@ -540,6 +540,7 @@ return {
           'Obtiene {C:mult}+#1#{} Multi antes de anotar',
           'al jugar {C:attention}Carta más Alta{}',
           'por cada vez que se jugó {C:attention}anteriormente{}'
+          '{C:inactive}(Actualmente {C:mult}+#2#{}{C:inactive} Multi)'
         },
       },
       -- 100. Puck
@@ -570,6 +571,8 @@ return {
       k_Sculio_crime_scene = '¡+Multi!',
       k_Sculio_beyond_reach_saved = '¡No estaba fuera de alcance!',
       k_Sculio_cloning_vat_active = '¡Clonado!',
+      k_Sculio_sticky_keys_changed = '¡Multi cambiado!',
+      k_Sculio_bad_trip_randomized = '¡Baraja cambiada!',
       k_Sculio_compatible = 'Compatible',
       k_Sculio_incompatible = 'Incompatible',
     }

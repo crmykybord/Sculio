@@ -573,6 +573,8 @@ return {
       k_Sculio_crime_scene = '+Mult!',
       k_Sculio_beyond_reach_saved = 'It was not beyond reach!',
       k_Sculio_cloning_vat_active = 'Cloned!',
+      k_Sculio_sticky_keys_changed = 'Mult Changed!',
+      k_Sculio_bad_trip_randomized = 'Deck randomized!',
       k_Sculio_compatible = 'Compatible',
       k_Sculio_incompatible = 'Incompatible',
     }

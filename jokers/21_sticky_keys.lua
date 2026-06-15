@@ -15,7 +15,7 @@ SMODS.Joker {
   calculate = function(self, card, context)
     if context.joker_main and card.ability.extra.mult > 0 then
       return {
-        mult_mod = card.ability.extra.mult,
+        mult = card.ability.extra.mult,
         message = localize { type = 'variable', key = 'a_mult', vars = { card.ability.extra.mult } }
       }
     end
@@ -37,9 +37,7 @@ SMODS.Joker {
         card.ability.extra.mult = base_chips
         card.ability.extra.hands_elapsed = 0
 
-        return {
-          message = 'Mult Changed!'
-        }
+        return { message = localize('k_Sculio_sticky_keys_changed') }
       end
     end
   end
