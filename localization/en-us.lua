@@ -549,10 +549,9 @@ return {
       j_Sculio_leader = {
         name = 'The Leader',
         text = {
-          '{C:attention}High Card{} gives',
-          '{C:mult}+2{} Mult before scoring',
+          '{C:attention}High Card{} gives {C:mult}+#1#{} Mult',
           'for each time it was played',
-          '{C:inactive}(Currently {C:mult}+0{}{C:inactive} Mult)'
+          '{C:inactive}(Currently {C:mult}+#2#{}{C:inactive} Mult)'
         },
       },
     },

@@ -57,7 +57,7 @@ SMODS.Joker {
 
         G.E_MANAGER:add_event(Event({
           func = function()
-            local card = create_card('Joker', G.jokers, legendary, rarity, nil, nil, nil, sliced_card.key)
+            local card = SMODS.create_card({ set = 'Joker', area = G.jokers, legendary = legendary, rarity = rarity, key_append = sliced_card.key })
             card:add_to_deck()
             G.jokers:emplace(card)
             if sliced_edition then

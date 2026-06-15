@@ -23,10 +23,7 @@ SMODS.Joker {
     local x_mult_mod = self:get_x_mult_mod(self)
 
     if context.joker_main and x_mult_mod > 1 then
-      return {
-        Xmult_mod = x_mult_mod,
-        message = localize { type = 'variable', key = 'a_xmult', vars = { x_mult_mod } }
-      }
+      return { xmult = x_mult_mod, message = localize { type = 'variable', key = 'a_xmult', vars = { x_mult_mod } } }
     end
   end
 }

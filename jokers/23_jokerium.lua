@@ -13,7 +13,7 @@ SMODS.Joker {
     return { vars = { card.ability.extra.levels } }
   end,
   calculate = function(self, card, context)
-    if context.end_of_round and not context.repetition and context.game_over == false and G.GAME.blind.boss then
+    if context.end_of_round and context.main_eval and not context.game_over and G.GAME.blind.boss then
       local eff_card = context.blueprint_card or card
       G.E_MANAGER:add_event(Event({
         func = function()
@@ -71,7 +71,7 @@ SMODS.Joker {
         end
       }))
 
-      return nil, true
+      return
     end
   end
 }

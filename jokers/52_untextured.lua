@@ -14,7 +14,7 @@ SMODS.Joker {
     local wild_count = 0
     if G.playing_cards then
       for _, c in ipairs(G.playing_cards) do
-        if c.ability.name == 'Wild Card' then
+        if SMODS.has_enhancement(c, 'm_wild') then
           wild_count = wild_count + 1
         end
       end
@@ -23,12 +23,12 @@ SMODS.Joker {
   end,
   calculate = function(self, card, context)
     if context.individual and context.cardarea == G.play then
-      if context.other_card.ability.name == 'Wild Card' then
+      if SMODS.has_enhancement(context.other_card, 'm_wild') then
         -- Count wild cards in deck
         local wild_count = 0
         if G.playing_cards then
           for _, c in ipairs(G.playing_cards) do
-            if c.ability.name == 'Wild Card' then
+            if SMODS.has_enhancement(c, 'm_wild') then
               wild_count = wild_count + 1
             end
           end
@@ -37,7 +37,7 @@ SMODS.Joker {
         local total_mult = wild_count * card.ability.extra.mult_per_wild
         if total_mult > 0 then
           return {
-            mult_mod = total_mult,
+            mult = total_mult,
             message = localize { type = 'variable', key = 'a_mult', vars = { total_mult } }
           }
         end

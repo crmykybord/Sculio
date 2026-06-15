@@ -44,23 +44,14 @@ SMODS.Joker {
       end
 
       if add >= 0 then
-        return {
-          message = localize{type='variable', key='a_mult', vars={add}},
-          colour = G.C.MULT
-        }
+        return { message = localize{type='variable', key='a_mult', vars={add}}, colour = G.C.MULT }
       else
-        return {
-          message = localize{type='variable', key='a_mult_minus', vars={math.abs(add)}},
-          colour = G.C.MULT
-        }
+        return { message = localize{type='variable', key='a_mult_minus', vars={math.abs(add)}}, colour = G.C.MULT }
       end
     end
 
     if context.joker_main then
-      return {
-        mult_mod = card.ability.extra.mult,
-        message = localize { type = 'variable', key = 'a_mult', vars = { card.ability.extra.mult } }
-      }
+      return { mult = card.ability.extra.mult, message = localize { type = 'variable', key = 'a_mult', vars = { card.ability.extra.mult } } }
     end
   end
 }

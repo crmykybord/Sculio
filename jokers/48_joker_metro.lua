@@ -32,15 +32,12 @@ SMODS.Joker {
           card.ability.extra.current_hand_index = 1 -- Loop back to start
         end
         
-        return {
-          message = localize('k_upgrade_ex'),
-          colour = G.C.MULT
-        }
+        return { message = localize('k_upgrade_ex'), colour = G.C.MULT }
       end
     end
     
     if context.joker_main and card.ability.extra.mult > 0 then
-      return { mult_mod = card.ability.extra.mult, message = localize { type = 'variable', key = 'a_mult', vars = { card.ability.extra.mult } } }
+      return { mult = card.ability.extra.mult, message = localize { type = 'variable', key = 'a_mult', vars = { card.ability.extra.mult } } }
     end
   end
 }

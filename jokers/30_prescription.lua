@@ -18,7 +18,7 @@ SMODS.Joker {
   end,
   calculate = function(self, card, context)
     -- Based off of Invisible Joker.
-    if context.end_of_round and not context.repetition and context.game_over == false and not context.blueprint then
+    if context.end_of_round and context.main_eval and not context.game_over and not context.blueprint then
       card.ability.extra.rounds_elapsed = card.ability.extra.rounds_elapsed + 1
 
       if card.ability.extra.rounds_elapsed >= card.ability.extra.rounds_until_active then

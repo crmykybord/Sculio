@@ -50,11 +50,7 @@ SMODS.Joker {
     end
 
     if context.joker_main then
-      return {
-        chips = card.ability.extra.chips,
-        mult = card.ability.extra.mult,
-        Xmult = card.ability.extra.x_mult
-      }
+      return { chips = card.ability.extra.chips, mult = card.ability.extra.mult, xmult = card.ability.extra.x_mult }
     end
   end
 }

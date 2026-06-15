@@ -48,18 +48,12 @@ SMODS.Joker {
 
       if has_pair_above_7 and has_pair_below_7 then
         card.ability.extra.chips = card.ability.extra.chips + card.ability.extra.chips_gain
-        return {
-          message = localize('k_upgrade_ex'),
-          colour = G.C.CHIPS
-        }
+        return { message = localize('k_upgrade_ex'), colour = G.C.CHIPS }
       end
     end
 
     if context.joker_main and card.ability.extra.chips > 0 then
-      return {
-        chip_mod = card.ability.extra.chips,
-        message = localize{type='variable',key='a_chips',vars={card.ability.extra.chips}},
-      }
+      return { chips = card.ability.extra.chips, message = localize{type='variable',key='a_chips',vars={card.ability.extra.chips}} }
     end
   end
 }

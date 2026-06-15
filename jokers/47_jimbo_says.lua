@@ -28,7 +28,7 @@ SMODS.Joker {
           -- Check if all cards match current suit
           local suit_match = true
           for _, c in ipairs(context.full_hand) do
-            if c.ability.name ~= 'Wild Card' then
+            if not SMODS.has_enhancement(c, 'm_wild') then
               local card_suit = c.base.suit
               if card_suit ~= current_suit then
                 suit_match = false
@@ -57,7 +57,7 @@ SMODS.Joker {
       end
     end
     
-    if context.end_of_round and not context.repetition and context.game_over == false and not context.blueprint then
+    if context.end_of_round and context.main_eval and not context.game_over and not context.blueprint then
       card.ability.extra.triggered_this_round = false
       -- Cycle to next suit
       card.ability.extra.suit_index = card.ability.extra.suit_index + 1

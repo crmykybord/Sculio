@@ -48,10 +48,7 @@ SMODS.Joker {
           end
         end
         if is_first_steel then
-          return {
-            x_mult = card.ability.extra.steel_x_mult,
-            card = card
-          }
+          return { xmult = card.ability.extra.steel_x_mult, card = card }
         end
       end
     end

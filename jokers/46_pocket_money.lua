@@ -37,7 +37,7 @@ SMODS.Joker {
       end
     end
     
-    if context.end_of_round and not context.repetition and context.game_over == false then
+    if context.end_of_round and context.main_eval and not context.game_over then
       card.ability.extra.used_this_round = false
     end
   end

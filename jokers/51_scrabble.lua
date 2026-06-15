@@ -15,10 +15,7 @@ SMODS.Joker {
   calculate = function(self, card, context)
     if context.individual and context.cardarea == G.play then
       if context.other_card:get_id() == 11 then -- Jack
-        return {
-          mult_mod = card.ability.extra.mult,
-          message = localize { type = 'variable', key = 'a_mult', vars = { card.ability.extra.mult } }
-        }
+        return { mult = card.ability.extra.mult, message = localize { type = 'variable', key = 'a_mult', vars = { card.ability.extra.mult } } }
       end
     end
   end

@@ -45,7 +45,7 @@ SMODS.Joker {
         end
         -- Fisher-Yates shuffle
         for i = #shuffled, 2, -1 do
-          local j = math.random(i)
+          local j = pseudorandom('card_against_shuffle', 1, i)
           shuffled[i], shuffled[j] = shuffled[j], shuffled[i]
         end
         
@@ -72,10 +72,7 @@ SMODS.Joker {
     end
     
     if context.joker_main then
-      return {
-        Xmult_mod = card.ability.extra.x_mult,
-        message = localize { type = 'variable', key = 'a_xmult', vars = { card.ability.extra.x_mult } }
-      }
+      return { xmult = card.ability.extra.x_mult, message = localize { type = 'variable', key = 'a_xmult', vars = { card.ability.extra.x_mult } } }
     end
   end
 }

@@ -1,12 +1,12 @@
 local Card_is_suit_ref = Card.is_suit
 function Card:is_suit(suit, bypass_debuff, flush_calc)
   if flush_calc then
-    if next(find_joker('j_Sculio_handheld')) and not self.debuff then
+    if next(SMODS.find_card('j_Sculio_handheld')) and not self.debuff then
       return true
     end
   else
     if not (self.debuff and not bypass_debuff) then
-      if next(find_joker('j_Sculio_handheld')) then
+      if next(SMODS.find_card('j_Sculio_handheld')) then
         return true
       end
     end
