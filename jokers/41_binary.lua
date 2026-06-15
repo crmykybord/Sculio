@@ -19,10 +19,9 @@ calculate = function(self, card, context)
       return { chips = card.ability.extra.chips, mult = card.ability.extra.mult }
     end
     if context.end_of_round and context.individual and context.cardarea == G.hand and not context.blueprint then
-      local numerator, denominator = SMODS.get_probability_vars(card, 1, card.ability.extra.odds, 'binary')
-      if pseudorandom('binary') < (numerator/denominator) then
+      if SMODS.pseudorandom_probability(card, 'binary', 1, card.ability.extra.odds) then
         local other_card = context.other_card
-        if pseudorandom('binary') < 0.5 then
+        if pseudorandom('binary_side') < 0.5 then
           card.ability.extra.chips = card.ability.extra.chips + card.ability.extra.chips_gain
           other_card:juice_up(0.3, 0.5)
           G.E_MANAGER:add_event(Event({
