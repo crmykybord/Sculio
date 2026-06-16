@@ -168,8 +168,8 @@ return {
         name = 'Figurine',
         text = {
           'When a Joker with an {C:attention}edition{} is sold,',
-          'this Joker gains {C:attention}#4#%{} of the {C:attention}edition\'s bonus{}',
-          '{C:inactive}(Currently {C:chips}+#1#{}{C:inactive} Chips, {C:mult}+#2#{}{C:inactive} Mult, and {X:mult,C:white}X#3#{}{C:inactive} Mult)'
+          'this Joker gains {C:attention}#5#%{} of the {C:attention}edition\'s bonus{}',
+          '{C:inactive}(Currently {C:chips}+#1#{}{C:inactive} Chips, {C:mult}+#2#{}{C:inactive} Mult, {X:mult,C:white}X#3#{}{C:inactive} Mult, and {X:chips,C:white}X#4#{}{C:inactive} Chips)'
         },
       }, 
       -- 15. Crooked Joker
@@ -466,8 +466,8 @@ return {
         name = 'Puck',
         text = {
           'When a card with an {C:attention}edition{} is scored,',
-          'this Joker gains {C:attention}#4#%{} of the {C:attention}edition\'s bonus{}',
-          '{C:inactive}(Currently {C:chips}+#1#{}{C:inactive} Chips, {C:mult}+#2#{}{C:inactive} Mult, and {X:mult,C:white}X#3#{}{C:inactive} Mult)'
+          'this Joker gains {C:attention}#5#%{} of the {C:attention}edition\'s bonus{}',
+          '{C:inactive}(Currently {C:chips}+#1#{}{C:inactive} Chips, {C:mult}+#2#{}{C:inactive} Mult, {X:mult,C:white}X#3#{}{C:inactive} Mult, and {X:chips,C:white}X#4#{}{C:inactive} Chips)'
         }
       },
       -- 45. Googly Eyes
