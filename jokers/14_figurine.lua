@@ -1,7 +1,8 @@
 SMODS.Joker {
   key = 'figurine',
+  attributes = { 'chips', 'mult', 'xmult', 'xchips', 'editions', 'scaling' },
 
-  config = { extra = { chips = 0, mult = 0, x_mult = 1, bonus_mult = 1 } },
+  config = { extra = { chips = 0, mult = 0, x_mult = 1, x_chips = 1, bonus_mult = 1 } },
   unlocked = true,
   discovered = false,
   rarity = 2, -- Uncommon
@@ -11,7 +12,7 @@ SMODS.Joker {
   blueprint_compat = true,
   perishable_compat = false,
   loc_vars = function(self, info_queue, card)
-    return { vars = { card.ability.extra.chips, card.ability.extra.mult, card.ability.extra.x_mult, card.ability.extra.bonus_mult * 100 } }
+    return { vars = { card.ability.extra.chips, card.ability.extra.mult, card.ability.extra.x_mult, card.ability.extra.x_chips, card.ability.extra.bonus_mult * 100 } }
   end,
   calculate = function(self, card, context)
     if context.cardarea == G.jokers and context.selling_card and context.card ~= card and not context.blueprint then
@@ -37,6 +38,12 @@ SMODS.Joker {
           message = '+ ' .. localize { type = 'variable', key = 'a_xmult', vars = { gain } }
           card.ability.extra.x_mult = card.ability.extra.x_mult + gain
         end
+
+        if sold_joker.edition.type == 'fluorite' then
+          gain = 0.5 * card.ability.extra.bonus_mult
+          message = '+ ' .. localize { type = 'variable', key = 'a_xchips', vars = { gain } }
+          card.ability.extra.x_chips = card.ability.extra.x_chips + gain
+        end
       end
 
       if message then
@@ -50,7 +57,7 @@ SMODS.Joker {
     end
 
     if context.joker_main then
-      return { chips = card.ability.extra.chips, mult = card.ability.extra.mult, xmult = card.ability.extra.x_mult }
+      return { chips = card.ability.extra.chips, mult = card.ability.extra.mult, xmult = card.ability.extra.x_mult, xchips = card.ability.extra.x_chips }
     end
   end
 }

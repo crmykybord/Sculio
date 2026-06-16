@@ -1,5 +1,6 @@
 SMODS.Joker {
   key = 'cutout',
+  attributes = { 'xmult', 'joker_slot' },
 
   config = { extra = { x_mult = 0.5 } },
   unlocked = true,

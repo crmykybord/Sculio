@@ -1,5 +1,6 @@
 SMODS.Joker {
   key = 'pocket_money',
+  attributes = { 'economy' },
 
   config = { extra = { money_recover = 3, used_this_round = false } },
   unlocked = true,

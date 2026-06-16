@@ -1,5 +1,6 @@
 SMODS.Joker {
   key = 'dunce',
+  attributes = { 'copying' },
 
   unlocked = true,
   discovered = false,

@@ -1,5 +1,6 @@
 SMODS.Joker {
   key = 'mahjong',
+  attributes = { 'chips', 'rank', "scaling" },
 
   config = { extra = { chips = 0, chips_gain = 5 } },
   unlocked = true,

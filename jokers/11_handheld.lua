@@ -16,6 +16,7 @@ end
 
 SMODS.Joker {
   key = 'handheld',
+  attributes = { 'passive', 'suit' },
 
   unlocked = true,
   discovered = false,

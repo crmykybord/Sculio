@@ -1,5 +1,6 @@
 SMODS.Joker {
   key = 'card_against',
+  attributes = { 'xmult', "chance", "joker" },
 
   config = { extra = { x_mult = 4 } },
   unlocked = true,

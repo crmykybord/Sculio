@@ -1,5 +1,6 @@
 SMODS.Joker {
   key = 'unstoppable',
+  attributes = { 'xmult', 'on_sell', 'tag', "scaling" },
 
   config = { extra = { x_mult = 1, x_mult_gain = 0.1, sell_cost = 0 } },
   unlocked = true,

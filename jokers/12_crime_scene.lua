@@ -1,5 +1,6 @@
 SMODS.Joker {
   key = 'crime_scene',
+  attributes = { 'mult', 'rank', "scaling" },
 
   config = { extra = { mult = 0, rankless_mult = 10 } },
   unlocked = true,

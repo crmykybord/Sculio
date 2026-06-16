@@ -1,5 +1,6 @@
 SMODS.Joker {
   key = 'wacky',
+  attributes = { 'generation', 'tarot' },
 
   config = { extra = { required_chip_percentage = 1.5 } },
   unlocked = true,

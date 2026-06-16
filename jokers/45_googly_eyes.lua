@@ -1,5 +1,6 @@
 SMODS.Joker {
   key = 'googly_eyes',
+  attributes = { 'mult', 'rank' },
 
   config = { },
   unlocked = true,

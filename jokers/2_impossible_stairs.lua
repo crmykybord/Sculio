@@ -1,5 +1,6 @@
 SMODS.Joker {
   key = 'impossible_stairs',
+  attributes = { 'mult', 'scaling', 'chance' },
 
   config = { extra = { mult = 8, mult_add_min = -2, mult_add_max = 2, mult_min = 0 } },
   unlocked = true,

@@ -1,5 +1,6 @@
 SMODS.Joker {
   key = 'bad_trip',
+  attributes = { 'on_sell', "generation" },
 
   config = { extra = { rounds_until_active = 2, rounds_elapsed = 0 } },
   unlocked = true,

@@ -1,5 +1,6 @@
 SMODS.Joker {
   key = 'crooked',
+  attributes = { 'hand_size', 'economy' },
 
   config = { extra = { hand_size_bonus = 3, steal = 3, money_min = 0 } },
   unlocked = true,

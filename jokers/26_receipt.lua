@@ -1,5 +1,6 @@
 SMODS.Joker {
   key = 'receipt',
+  attributes = { 'on_sell', 'generation', 'tag' },
 
   unlocked = true,
   discovered = false,

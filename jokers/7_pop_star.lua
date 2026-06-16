@@ -1,5 +1,6 @@
 SMODS.Joker {
   key = 'pop_star',
+  attributes = { 'modify_card', 'enhancements', 'chance' },
 
   config = { extra = { odds = 4 } },
   unlocked = true,

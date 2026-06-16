@@ -1,12 +1,6 @@
 SMODS.Joker {
   key = 'signage',
-  loc_txt = {
-    name = 'Signage',
-    text = {
-      'Only {C:attention}Jokers{} will',
-      'appear in the shop'
-    },
-  },
+  attributes = { 'passive', 'joker' },
 
   unlocked = true,
   discovered = false,

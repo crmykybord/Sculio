@@ -1,5 +1,6 @@
 SMODS.Joker {
   key = 'nametag',
+  attributes = { 'xmult', 'on_sell', 'joker', "scaling" },
 
   config = { extra = { x_mult = 1, x_mult_gain = 0.15 } },
   unlocked = true,

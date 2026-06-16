@@ -1,5 +1,6 @@
 SMODS.Joker {
   key = 'house_party',
+  attributes = { 'xmult', 'hand_type', 'reset', 'scaling' },
 
   config = { extra = { x_mult = 1, x_mult_gain = 0.25 } },
   unlocked = true,

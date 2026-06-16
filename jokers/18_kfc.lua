@@ -1,5 +1,6 @@
 SMODS.Joker {
   key = 'kfc',
+  attributes = { 'xmult', 'sell_value', 'economy', "scaling" },
 
   config = { extra = { x_mult = 1, dollar_steal = 1, x_mult_scale = 0.1, dollar_scale = 1 } },
   unlocked = true,

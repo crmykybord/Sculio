@@ -1,5 +1,6 @@
 SMODS.Joker {
   key = 'beyond_reach',
+  attributes = { 'prevents_death', 'hands' },
 
   config = { extra = { hands_gain = 1, required_score_percentage = 85 } },
   unlocked = true,
@@ -25,11 +26,7 @@ SMODS.Joker {
         end
       }))
 
-      return {
-        message = '+1 Hand',
-        colour = G.C.BLUE,
-        saved = 'k_Sculio_beyond_reach_saved'
-      }
+      return { message = '+1 Hand', colour = G.C.BLUE, saved = 'k_Sculio_beyond_reach_saved' }
     end
   end
 }

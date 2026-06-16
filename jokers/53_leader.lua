@@ -1,5 +1,6 @@
 SMODS.Joker {
   key = 'leader',
+  attributes = { 'mult', 'hand_type', "scaling" },
 
   config = { extra = { current_mult = 0 } },
   unlocked = true,

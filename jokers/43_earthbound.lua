@@ -46,6 +46,7 @@ end
 
 SMODS.Joker {
   key = 'earthbound',
+  attributes = { 'xmult', 'hand_type' },
 
   config = { extra = { x_mult = 3 } },
   unlocked = true,

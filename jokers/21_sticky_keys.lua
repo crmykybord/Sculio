@@ -1,5 +1,6 @@
 SMODS.Joker {
   key = 'sticky_keys',
+  attributes = { 'mult', 'rank' },
 
   config = { extra = { mult = 0, hands_until_change = 3, hands_elapsed = 0 } },
   unlocked = true,

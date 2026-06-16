@@ -1,5 +1,6 @@
 SMODS.Joker {
   key = 'intuition',
+  attributes = { 'economy', 'xmult', 'enhancements' },
 
   config = { extra = { gold_dollars = 10, steel_x_mult = 3 } },
   unlocked = true,

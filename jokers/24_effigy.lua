@@ -1,5 +1,6 @@
 SMODS.Joker {
   key = 'effigy',
+  attributes = { 'copying' },
 
   config = { extra = { copying = '' } },
   unlocked = true,

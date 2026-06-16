@@ -1,5 +1,6 @@
 SMODS.Joker {
   key = 'prescription',
+  attributes = { 'on_sell', "joker" },
 
   config = { extra = { rounds_until_active = 2, rounds_elapsed = 0 } },
   unlocked = true,

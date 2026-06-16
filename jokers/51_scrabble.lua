@@ -1,5 +1,6 @@
 SMODS.Joker {
   key = 'scrabble',
+  attributes = { 'mult', 'jack' },
 
   config = { extra = { mult = 8 } },
   unlocked = true,

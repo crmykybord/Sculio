@@ -1,14 +1,6 @@
 SMODS.Joker {
   key = 'soup',
-  loc_txt = {
-    name = 'Soup Can',
-    text = {
-      'This Joker gains {X:mult,C:white}X#2#{} Mult',
-      'for {C:attention}every hand played{}.',
-      '{C:attention}Maximum{} is {X:mult,C:white}X#3#{} Mult',
-      '{C:inactive}(Currently {X:mult,C:white}X#1#{}{C:inactive} Mult)',
-    }
-  },
+  attributes = { 'xmult', 'food' },
 
   config = { extra = { x_mult = 1.0, x_mult_gain = 0.03, x_mult_max = 2 } },
   unlocked = true,

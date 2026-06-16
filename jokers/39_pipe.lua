@@ -1,5 +1,6 @@
 SMODS.Joker {
   key = 'pipe',
+  attributes = { 'on_sell', 'hands', 'discard', 'editions', "joker", "joker_slot" },
 
   config = { extra = { rounds_until_active = 2, rounds_elapsed = 0, already_active = false } },
   unlocked = true,

@@ -1,5 +1,6 @@
 SMODS.Joker {
   key = 'mad_scientist',
+  attributes = { 'joker', 'generation' },
 
   unlocked = true,
   discovered = false,

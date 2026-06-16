@@ -1,5 +1,6 @@
 SMODS.Joker {
   key = 'sensory_overload',
+  attributes = { 'economy' },
 
   config = { extra = { money_gain = 1, triggers_per_gain = 5, triggers_since_gain = 0 } },
   unlocked = true,

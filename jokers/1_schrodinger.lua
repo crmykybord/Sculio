@@ -1,5 +1,6 @@
 SMODS.Joker {
   key = 'schrodinger',
+  attributes = { 'xmult', 'chance' },
 
   config = { extra = { odds = 2, x_mult = 2 } },
   unlocked = true,

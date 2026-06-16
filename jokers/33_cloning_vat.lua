@@ -269,6 +269,7 @@ end
 
 SMODS.Joker {
   key = 'cloning_vat',
+  attributes = { 'generation', 'modify_card', 'enhancements', 'seals', 'editions' },
   unlocked = true,
   discovered = false,
   rarity = 3, -- Rare

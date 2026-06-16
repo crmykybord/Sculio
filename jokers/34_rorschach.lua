@@ -1,5 +1,6 @@
 SMODS.Joker {
   key = 'rorschach',
+  attributes = { 'discard' },
 
   config = { extra = { card_ids_to_draw_next = {} } },
   unlocked = true,

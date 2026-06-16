@@ -1,13 +1,6 @@
 SMODS.Joker {
   key = 'anatomy',
-  loc_txt = {
-    name = 'Anatomy',
-    text = {
-      'Scored {C:attention}number cards{} have',
-      '{C:green}#1#% of their rank out of #2#{}',
-      'to be retriggered once'
-    }
-  },
+  attributes = { 'retrigger', 'rank', 'chance' },
 
   config = { extra = { odds = 10 } },
   unlocked = true,

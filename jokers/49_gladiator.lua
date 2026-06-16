@@ -1,5 +1,6 @@
 SMODS.Joker {
   key = 'gladiator',
+  attributes = { 'mult', "scaling", "destroy_card" },
 
   config = { extra = { mult = 0 } },
   unlocked = true,

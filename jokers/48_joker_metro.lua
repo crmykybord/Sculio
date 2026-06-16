@@ -1,5 +1,6 @@
 SMODS.Joker {
   key = 'joker_metro',
+  attributes = { 'mult', 'hand_type', "scaling" },
 
   config = { extra = { mult = 0, current_hand_index = 1 } },
   unlocked = true,

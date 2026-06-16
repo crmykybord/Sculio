@@ -1,5 +1,6 @@
 SMODS.Joker {
   key = 'untextured',
+  attributes = { 'mult', 'full_deck', 'enhancements', "scaling" },
 
   config = { extra = { mult_per_wild = 2 } },
   unlocked = true,

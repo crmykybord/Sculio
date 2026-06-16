@@ -1,5 +1,6 @@
 SMODS.Joker {
   key = 'critical_failure',
+  attributes = { 'xmult', 'chance', 'reset', 'enhancements' },
 
   config = { extra = { x_mult = 1, x_mult_gain = 0.25 } },
   unlocked = true,

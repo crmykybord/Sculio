@@ -240,6 +240,7 @@ end
 
 SMODS.Joker {
   key = 'refrigerator',
+  attributes = { 'food', "passive" },
 
   unlocked = true,
   discovered = false,

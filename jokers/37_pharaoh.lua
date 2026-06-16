@@ -1,5 +1,6 @@
 SMODS.Joker {
   key = 'pharaoh',
+  attributes = { 'xmult', 'face', 'modify_card' },
 
   config = { extra = { x_mult_bonus = 1.5 } },
   unlocked = true,

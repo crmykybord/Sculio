@@ -1,5 +1,6 @@
 SMODS.Joker {
   key = 'binary',
+  attributes = { 'chips', 'mult', 'modify_card', 'chance', "scaling" },
 
   config = { extra = { odds = 2, chips_gain = 2, mult_gain = 2, chips = 0, mult = 0 } },
   unlocked = true,

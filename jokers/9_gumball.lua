@@ -1,5 +1,6 @@
 SMODS.Joker {
   key = 'gumball',
+  attributes = { 'mult', "scaling" },
 
   config = { extra = { mult = 3, mult_add_open = 2, mult_add_skip = -4, mult_min = 0 } },
   unlocked = true,

@@ -1,5 +1,6 @@
 SMODS.Joker {
   key = 'jimbo_says',
+  attributes = { 'suit', 'tag', 'hand_type' },
 
   config = { extra = { suit_index = 1, triggered_this_round = false } },
   unlocked = true,
