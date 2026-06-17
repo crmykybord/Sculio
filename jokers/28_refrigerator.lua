@@ -248,6 +248,16 @@ SMODS.Joker {
   atlas = 'Sculio',
   pos = { x = 9, y = 2 },
   cost = 6,
+  in_pool = function(self)
+    if G.jokers then
+      for _, j in ipairs(G.jokers.cards) do
+        if Sculio_refrigerator_is_food(j) then
+          return true
+        end
+      end
+    end
+    return false
+  end,
   loc_vars = function(self, info_queue, card)
     info_queue[#info_queue+1] = { key = 'Sculio_refrigerable_jokers', set = 'Other' }
   end
