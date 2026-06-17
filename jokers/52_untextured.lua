@@ -10,6 +10,16 @@ SMODS.Joker {
   pos = { x = 4, y = 5 },
   cost = 6,
   blueprint_compat = true,
+  in_pool = function(self)
+    if G.playing_cards then
+      for _, c in ipairs(G.playing_cards) do
+        if SMODS.has_enhancement(c, 'm_wild') then
+          return true
+        end
+      end
+    end
+    return false
+  end,
   loc_vars = function(self, info_queue, card)
     -- Count wild cards in deck
     local wild_count = 0
