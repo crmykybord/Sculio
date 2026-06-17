@@ -539,7 +539,7 @@ return {
         text = {
           'Obtiene {C:mult}+#1#{} Multi antes de anotar',
           'al jugar {C:attention}Carta más Alta{}',
-          'por cada vez que se jugó {C:attention}anteriormente{}'
+          'por cada vez que se jugó {C:attention}anteriormente{}',
           '{C:inactive}(Actualmente {C:mult}+#2#{}{C:inactive} Multi)'
         },
       },
