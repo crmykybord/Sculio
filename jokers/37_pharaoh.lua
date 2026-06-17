@@ -27,7 +27,7 @@ SMODS.Joker {
     end
   end,
   calculate = function(self, card, context)
-    if context.before then
+    if context.before or context.hand_drawn then
       for _, v in ipairs(G.hand.cards) do
         if not v:is_face() then
           v:set_debuff(true)
