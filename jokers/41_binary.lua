@@ -25,24 +25,10 @@ calculate = function(self, card, context)
         if pseudorandom('binary_side') < 0.5 then
           card.ability.extra.chips = card.ability.extra.chips + card.ability.extra.chips_gain
           other_card:juice_up(0.3, 0.5)
-          G.E_MANAGER:add_event(Event({
-            func = function() 
-              other_card:set_ability(G.P_CENTERS.c_base, nil, false)
-              other_card:calculate_joker({blueprint = card, full_hand = G.hand.cards})
-              return true
-            end,
-          }))
           return { message = localize('k_Sculio_binary_scale_chips'), colour = G.C.CHIPS, card = other_card }
         else
           card.ability.extra.mult = card.ability.extra.mult + card.ability.extra.mult_gain
           other_card:juice_up(0.3, 0.5)
-          G.E_MANAGER:add_event(Event({
-            func = function() 
-              other_card:set_ability(G.P_CENTERS.c_base, nil, false)
-              other_card:calculate_joker({blueprint = card, full_hand = G.hand.cards})
-              return true
-            end,
-          }))
           return { message = localize('k_Sculio_binary_scale_mult'), colour = G.C.MULT, card = other_card }
         end
       end
