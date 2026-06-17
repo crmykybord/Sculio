@@ -296,31 +296,42 @@ SMODS.Joker {
   
   add_to_deck = function(self, card, from_debuff)
     cv_install_shim()
-    if G.GAME.shop then
-      change_shop_size(1)
+    if not G.shop_jokers or not G.GAME.shop then return end
+    -- Count vats AFTER this one is added (it's already in G.jokers at this point)
+    local vat_count = cv_count_active_vats()
+    -- Ensure base_joker_max is stored before any vat inflation
+    if not G.GAME.sculio_vat_base_joker_max then
+      G.GAME.sculio_vat_base_joker_max = (G.GAME.shop.joker_max or 2) - (vat_count - 1)
+    end
+    local target = G.GAME.sculio_vat_base_joker_max + vat_count
+    local delta = target - (G.GAME.shop.joker_max or 2)
+    if delta ~= 0 then
+      change_shop_size(delta)
     end
   end,
   
   remove_from_deck = function(self, card, from_debuff)
-    -- Count remaining Vats (excluding the one being removed)
-    local others = 0
-    for _, v in ipairs(G.jokers and G.jokers.cards or {}) do
-      if v ~= card and v.config.center.key == card.config.center.key then
-        others = others + 1
-      end
-    end
-    
-    if others == 0 and G.GAME.shop then
-      if G.shop_jokers then
-        for i = #G.shop_jokers.cards, 1, -1 do
-          if G.shop_jokers.cards[i].Sculio_vat_card then
-            G.shop_jokers.cards[i]:remove()
-            table.remove(G.shop_jokers.cards, i)
-            break
-          end
+    if not G.shop_jokers or not G.GAME.shop then return end
+    -- Count remaining vats AFTER removal (card is still in list here, so subtract 1)
+    local vat_count = cv_count_active_vats() - 1
+    if vat_count <= 0 then
+      -- No more vats — remove the vat shop slot and any vat card
+      for i = #G.shop_jokers.cards, 1, -1 do
+        if G.shop_jokers.cards[i].Sculio_vat_card then
+          G.shop_jokers.cards[i]:remove()
+          table.remove(G.shop_jokers.cards, i)
+          break
         end
       end
-      change_shop_size(-1)
+      local base = G.GAME.sculio_vat_base_joker_max or ((G.GAME.shop.joker_max or 2) - 1)
+      local delta = base - (G.GAME.shop.joker_max or 2)
+      if delta ~= 0 then change_shop_size(delta) end
+      G.GAME.sculio_vat_base_joker_max = nil
+    else
+      -- Still have vats — shrink by 1
+      local target = (G.GAME.sculio_vat_base_joker_max or (G.GAME.shop.joker_max or 2)) + vat_count
+      local delta = target - (G.GAME.shop.joker_max or 2)
+      if delta ~= 0 then change_shop_size(delta) end
     end
   end
 }
