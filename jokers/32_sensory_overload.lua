@@ -13,7 +13,7 @@ SMODS.Joker {
     return { vars = { card.ability.extra.money_gain, card.ability.extra.triggers_per_gain, card.ability.extra.triggers_since_gain } }
   end,
   calculate = function(self, card, context)
-    if context.post_trigger and context.other_card.ability and context.other_card.ability.name ~= 'j_Sculio_sensory_overload' then
+    if context.post_trigger and not (context.other_card.config and context.other_card.config.center and context.other_card.config.center.key == 'j_Sculio_sensory_overload') then
       card.ability.extra.triggers_since_gain = card.ability.extra.triggers_since_gain + 1
 
       if card.ability.extra.triggers_since_gain >= card.ability.extra.triggers_per_gain then
