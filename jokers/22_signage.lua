@@ -8,6 +8,7 @@ SMODS.Joker {
   atlas = 'Sculio',
   pos = { x = 3, y = 2 },
   cost = 5,
+  blueprint_compat = false,
   add_to_deck = function(self, card, from_debuff)
     G.GAME.tarot_rate = 0
     G.GAME.planet_rate = 0
