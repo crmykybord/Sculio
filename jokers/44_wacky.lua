@@ -9,6 +9,7 @@ SMODS.Joker {
   atlas = 'Sculio',
   pos = { x = 5, y = 4 },
   cost = 6,
+  blueprint_compat = true,
   loc_vars = function(self, info_queue, card)
     return { vars = { card.ability.extra.required_chip_percentage * 100 } }
   end,
@@ -24,7 +25,7 @@ SMODS.Joker {
       }))
     end
 
-    if context.end_of_round and context.main_eval and not context.game_over and not context.blueprint and card.ability.current_hand_chips and card.ability.current_hand_mult then
+    if context.end_of_round and context.main_eval and not context.game_over and card.ability.current_hand_chips and card.ability.current_hand_mult then
       local chips = card.ability.current_hand_chips
       local mult = card.ability.current_hand_mult
       local required_score = G.ARGS.score_intensity.required_score
