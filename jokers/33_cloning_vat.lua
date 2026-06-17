@@ -307,7 +307,7 @@ SMODS.Joker {
     if not card.Sculio_vat_slot_added then return end
     card.Sculio_vat_slot_added = nil
     if not G.GAME.shop then return end
-    if G.shop_jokers then
+    if G.shop_jokers and G.shop_jokers.cards then
       for i = #G.shop_jokers.cards, 1, -1 do
         if G.shop_jokers.cards[i].Sculio_vat_card then
           G.shop_jokers.cards[i]:remove()
