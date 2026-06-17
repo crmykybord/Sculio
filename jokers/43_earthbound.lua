@@ -191,7 +191,7 @@ SMODS.Joker {
 
   calculate = function(self, card, context)
     if context.joker_main then
-      return { xmult = card.ability.extra.x_mult, message = localize { type = 'variable', key = 'a_xmult', vars = { card.ability.extra.x_mult } } }
+      return { xmult = card.ability.extra.x_mult }
     end
   end
 }
