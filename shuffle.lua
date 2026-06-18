@@ -1,6 +1,4 @@
-local old_shuffle = CardArea.shuffle
-
-function contains(cards, card)
+local function contains(cards, card)
   for _, v in pairs(cards) do
     if v == card then
       return true
@@ -10,15 +8,21 @@ function contains(cards, card)
   return false
 end
 
+-- Install the shuffle hook once, storing the original under the mod table.
+if not Sculio.shuffle_ref then
+  Sculio.shuffle_ref = CardArea.shuffle
+end
+local old_shuffle = Sculio.shuffle_ref
+
 -- Original implementation for Verified User: Somethingcom515 {SealsOnAll}
 function CardArea:shuffle(_seed)
   local g = old_shuffle(self, _seed)
 
-  rorschach = nil
-  verified_user = nil
+  local rorschach = nil
+  local verified_user = nil
 
   for i = 1, #G.jokers.cards do
-    joker = G.jokers.cards[i]
+    local joker = G.jokers.cards[i]
 
     if joker and joker.ability.name == 'j_Sculio_rorschach' and #joker.ability.extra.card_ids_to_draw_next >= 1 then
       rorschach = joker
