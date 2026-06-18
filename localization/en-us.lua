@@ -505,6 +505,7 @@ return {
           'advances to the next hand',
           '{C:inactive,s:0.8}(High Card > Pair > Two Pair > 3K',
           '{C:inactive,s:0.8}> Straight > Flush > 4K){}',
+          'Gain grows {C:mult}+#4#{} each cycle restart',
           '{C:inactive}(Currently {C:mult}+#1#{}{C:inactive} Mult)'
         },
       },

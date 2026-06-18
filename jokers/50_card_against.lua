@@ -28,7 +28,7 @@ SMODS.Joker {
         end
       end
       card.ability.debuffed_jokers = {}
-      
+
       -- Randomly debuff 2 jokers (excluding self and other copies of Card Against)
       local available_jokers = {}
       for _, j in ipairs(G.jokers.cards) do
@@ -37,7 +37,7 @@ SMODS.Joker {
           table.insert(available_jokers, j)
         end
       end
-      
+
       -- Shuffle and pick 2
       if #available_jokers > 0 then
         local shuffled = {}
@@ -49,7 +49,7 @@ SMODS.Joker {
           local j = pseudorandom('card_against_shuffle', 1, i)
           shuffled[i], shuffled[j] = shuffled[j], shuffled[i]
         end
-        
+
         local to_debuff = math.min(2, #shuffled)
         for i = 1, to_debuff do
           if SMODS.pseudorandom_probability(card, 'card_against', 1, 4) then
@@ -59,7 +59,7 @@ SMODS.Joker {
         end
       end
     end
-    
+
     if context.final_scoring_step and not context.blueprint then
       -- Clear debuffs after scoring
       if card.ability.debuffed_jokers then
@@ -71,7 +71,7 @@ SMODS.Joker {
         card.ability.debuffed_jokers = {}
       end
     end
-    
+
     if context.joker_main then
       return { xmult = card.ability.extra.x_mult, message = localize { type = 'variable', key = 'a_xmult', vars = { card.ability.extra.x_mult } } }
     end

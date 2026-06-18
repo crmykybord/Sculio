@@ -179,8 +179,8 @@ local function Sculio_refrigerator_juice(refrigerators, food)
 end
 
 -- Prevent probabilistic destruction (e.g., Gros Michel explosion)
-if not Sculio_refrigerator_dissolve_ref then
-  Sculio_refrigerator_dissolve_ref = Card.start_dissolve
+if not Sculio.refrigerator_dissolve_ref then
+  Sculio.refrigerator_dissolve_ref = Card.start_dissolve
 
   Card.start_dissolve = function(self, dissolve_colours, silent, dissolve_time_fac, no_juice)
     -- Only intercept food jokers being destroyed (not sold)
@@ -191,12 +191,12 @@ if not Sculio_refrigerator_dissolve_ref then
         return self  -- Cancel dissolve
       end
     end
-    return Sculio_refrigerator_dissolve_ref(self, dissolve_colours, silent, dissolve_time_fac, no_juice)
+    return Sculio.refrigerator_dissolve_ref(self, dissolve_colours, silent, dissolve_time_fac, no_juice)
   end
 end
 
-if not Sculio_refrigerator_calculate_joker_ref then
-  Sculio_refrigerator_calculate_joker_ref = Card.calculate_joker
+if not Sculio.refrigerator_calculate_joker_ref then
+  Sculio.refrigerator_calculate_joker_ref = Card.calculate_joker
 
   Card.calculate_joker = function(self, context)
     local refrigerators = Sculio_refrigerator_is_food(self) and Sculio_refrigerator_get_left(self) or {}
@@ -212,7 +212,7 @@ if not Sculio_refrigerator_calculate_joker_ref then
 
     local ability = preserve and copy_table(self.ability) or nil
     local h_size = preserve and ability and type(ability.extra) == 'table' and ability.extra.h_size or nil
-    local ret = Sculio_refrigerator_calculate_joker_ref(self, context)
+    local ret = Sculio.refrigerator_calculate_joker_ref(self, context)
 
     if preserve and ability then
       local removed = ret and ret.remove and not context.selling_self

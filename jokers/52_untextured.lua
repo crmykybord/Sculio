@@ -44,7 +44,7 @@ SMODS.Joker {
             end
           end
         end
-        
+
         local total_mult = wild_count * card.ability.extra.mult_per_wild
         if total_mult > 0 then
           return {

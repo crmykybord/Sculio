@@ -24,7 +24,7 @@ SMODS.Joker {
           break
         end
       end
-      
+
       if is_first and not context.other_card.debuff then
         local base_chips = context.other_card.base.nominal or 0
         if base_chips > 0 then

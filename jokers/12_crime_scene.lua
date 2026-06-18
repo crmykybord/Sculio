@@ -28,7 +28,7 @@ SMODS.Joker {
         if not base_chips or base_chips <= 0 then
           -- Chooses between 2 and 11 as the value for rankless card
           base_chips = pseudorandom('crime_scene', 2, 11)
-        
+
         -- Face cards and Aces
         elseif base_chips > 10 then
           if base_chips == 14 then

@@ -72,7 +72,7 @@ SMODS.Tag {
       card.ability.extra.x_mult = tag.ability.x_mult
       create_shop_card_ui(card, 'Joker', context.area)
       card.states.visible = false
-      tag:yep('+', G.C.RED,function() 
+      tag:yep('+', G.C.RED,function()
         card:start_materialize()
         return true
       end)

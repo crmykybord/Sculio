@@ -20,11 +20,11 @@ SMODS.Joker {
       if not card.ability.extra.triggered_this_round then
         local suits = { 'Hearts', 'Clubs', 'Diamonds', 'Spades' }
         local current_suit = suits[card.ability.extra.suit_index] or 'Hearts'
-        
+
         -- Check if hand is a flush of current suit
         local is_flush = false
         local hand_name = context.scoring_name or ''
-        
+
         if hand_name == 'Flush' or hand_name == 'Straight Flush' or hand_name == 'Royal Flush' then
           -- Check if all cards match current suit
           local suit_match = true
@@ -39,10 +39,10 @@ SMODS.Joker {
           end
           is_flush = suit_match
         end
-        
+
         if is_flush then
           card.ability.extra.triggered_this_round = true
-          
+
           -- Create random tag
           G.E_MANAGER:add_event(Event({
             func = function()
@@ -52,12 +52,12 @@ SMODS.Joker {
               return true
             end
           }))
-          
+
           return { message = localize('k_plus_tag') }
         end
       end
     end
-    
+
     if context.end_of_round and context.main_eval and not context.game_over and not context.blueprint then
       card.ability.extra.triggered_this_round = false
       -- Cycle to next suit
