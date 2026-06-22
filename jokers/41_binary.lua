@@ -1,7 +1,9 @@
 SMODS.Joker {
   key = 'binary',
   attributes = { 'chips', 'mult', 'modify_card', 'chance', "scaling" },
-
+  eternal_compat = true,
+  blueprint_compat = true,
+  perishable_compat = false,
   config = { extra = { odds = 2, chips_gain = 2, mult_gain = 2, chips = 0, mult = 0 } },
   unlocked = true,
   discovered = false,

@@ -1,7 +1,9 @@
 SMODS.Joker {
   key = 'prescription',
   attributes = { 'on_sell', "joker" },
-
+  eternal_compat = true,
+  blueprint_compat = true,
+  perishable_compat = true,
   config = { extra = { rounds_until_active = 2, rounds_elapsed = 0 } },
   unlocked = true,
   discovered = false,

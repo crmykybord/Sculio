@@ -9,7 +9,9 @@ SMODS.Joker {
   atlas = 'Sculio',
   pos = { x = 9, y = 0 },
   cost = 7,
+  eternal_compat = true,
   blueprint_compat = true,
+  perishable_compat = true,
   loc_vars = function(self, info_queue, card)
     local numerator, denominator = SMODS.get_probability_vars(card, 1, card.ability.extra.odds, 'anatomy')
     return { vars = { numerator * 100, denominator } }

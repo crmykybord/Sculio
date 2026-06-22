@@ -1,7 +1,9 @@
 SMODS.Joker {
   key = 'mahjong',
   attributes = { 'chips', 'rank', "scaling" },
-
+  eternal_compat = true,
+  blueprint_compat = true,
+  perishable_compat = false,
   config = { extra = { chips = 0, chips_gain = 5 } },
   unlocked = true,
   discovered = false,
@@ -9,8 +11,6 @@ SMODS.Joker {
   atlas = 'Sculio',
   pos = { x = 3, y = 4 },
   cost = 3,
-  blueprint_compat = true,
-  perishable_compat = false,
   loc_vars = function(self, info_queue, card)
     return { vars = { card.ability.extra.chips, card.ability.extra.chips_gain } }
   end,

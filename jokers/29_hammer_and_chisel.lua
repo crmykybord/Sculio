@@ -10,7 +10,9 @@ SMODS.Joker {
   pos = { x = 0, y = 3 },
   cost = 6,
   enhancement_gate = 'm_stone',
+  eternal_compat = true,
   blueprint_compat = true,
+  perishable_compat = true,
   loc_vars = function(self, info_queue, card)
     info_queue[#info_queue+1] = G.P_CENTERS.m_stone
     local numerator, denominator = SMODS.get_probability_vars(card, 1, card.ability.extra.shatter_odds, 'hammer_and_chisel')

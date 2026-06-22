@@ -1,7 +1,9 @@
 SMODS.Joker {
   key = 'unstoppable',
   attributes = { 'xmult', 'on_sell', 'tag', "scaling" },
-
+  eternal_compat = false,
+  blueprint_compat = true,
+  perishable_compat = false,
   config = { extra = { x_mult = 1, x_mult_gain = 0.1, sell_cost = 0 } },
   unlocked = true,
   discovered = false,
@@ -9,8 +11,6 @@ SMODS.Joker {
   atlas = 'Sculio',
   pos = { x = 8, y = 2 },
   cost = 6,
-  eternal_compat = false,
-  blueprint_compat = true,
   loc_vars = function(self, info_queue, card)
     return { vars = { card.ability.extra.x_mult, card.ability.extra.x_mult_gain, card.ability.extra.sell_cost } }
   end,

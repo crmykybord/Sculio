@@ -1,7 +1,9 @@
 SMODS.Joker {
   key = 'gladiator',
   attributes = { 'mult', "scaling", "destroy_card" },
-
+  eternal_compat = true,
+  blueprint_compat = true,
+  perishable_compat = false,
   config = { extra = { mult = 0 } },
   unlocked = true,
   discovered = false,

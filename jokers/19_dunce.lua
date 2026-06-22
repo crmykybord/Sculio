@@ -8,7 +8,9 @@ SMODS.Joker {
   atlas = 'Sculio',
   pos = { x = 0, y = 2 },
   cost = 10,
+  eternal_compat = true,
   blueprint_compat = true,
+  perishable_compat = true,
   loc_vars = function(self, info_queue, card)
     local last_joker = G.jokers and G.jokers.cards[#G.jokers.cards]
     local name = ''

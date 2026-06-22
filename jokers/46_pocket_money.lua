@@ -1,7 +1,9 @@
 SMODS.Joker {
   key = 'pocket_money',
   attributes = { 'economy' },
-
+  eternal_compat = true,
+  blueprint_compat = true,
+  perishable_compat = true,
   config = { extra = { money_recover = 3, used_this_round = false } },
   unlocked = true,
   discovered = false,
@@ -9,7 +11,6 @@ SMODS.Joker {
   atlas = 'Sculio',
   pos = { x = 7, y = 4 },
   cost = 4,
-  blueprint_compat = true,
   loc_vars = function(self, info_queue, card)
     return { vars = { card.ability.extra.money_recover } }
   end,

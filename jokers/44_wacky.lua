@@ -1,7 +1,9 @@
 SMODS.Joker {
   key = 'wacky',
   attributes = { 'generation', 'tarot' },
-
+  eternal_compat = true,
+  blueprint_compat = true,
+  perishable_compat = true,
   config = { extra = { required_chip_percentage = 1.5 } },
   unlocked = true,
   discovered = false,
@@ -9,7 +11,6 @@ SMODS.Joker {
   atlas = 'Sculio',
   pos = { x = 5, y = 4 },
   cost = 6,
-  blueprint_compat = true,
   loc_vars = function(self, info_queue, card)
     return { vars = { card.ability.extra.required_chip_percentage * 100 } }
   end,

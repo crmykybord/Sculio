@@ -1,7 +1,9 @@
 SMODS.Joker {
   key = 'effigy',
   attributes = { 'copying' },
-
+  eternal_compat = true,
+  blueprint_compat = false,
+  perishable_compat = true,
   config = { extra = { copying = '' } },
   unlocked = true,
   discovered = false,

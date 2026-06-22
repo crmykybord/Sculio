@@ -1,7 +1,9 @@
 SMODS.Joker {
   key = 'pyromaniac',
   attributes = { 'destroy_card', 'hands', 'hand_type' },
-
+  eternal_compat = true,
+  blueprint_compat = true,
+  perishable_compat = true,
   config = { extra = { levels_to_increase = 1 } },
   unlocked = true,
   discovered = false,

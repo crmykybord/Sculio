@@ -1,7 +1,9 @@
 SMODS.Joker {
   key = 'jimbo_says',
   attributes = { 'suit', 'tag', 'hand_type' },
-
+  eternal_compat = true,
+  blueprint_compat = true,
+  perishable_compat = true,
   config = { extra = { suit_index = 1, triggered_this_round = false } },
   unlocked = true,
   discovered = false,
@@ -9,7 +11,6 @@ SMODS.Joker {
   atlas = 'Sculio',
   pos = { x = 9, y = 4 },
   cost = 10,
-  blueprint_compat = false,
   loc_vars = function(self, info_queue, card)
     local suits = { 'Hearts', 'Clubs', 'Diamonds', 'Spades' }
     local current_suit = suits[card.ability.extra.suit_index] or 'Hearts'

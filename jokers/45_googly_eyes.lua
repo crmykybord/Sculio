@@ -1,7 +1,9 @@
 SMODS.Joker {
   key = 'googly_eyes',
   attributes = { 'mult', 'rank' },
-
+  eternal_compat = true,
+  blueprint_compat = true,
+  perishable_compat = true,
   config = { },
   unlocked = true,
   discovered = false,
@@ -9,7 +11,6 @@ SMODS.Joker {
   atlas = 'Sculio',
   pos = { x = 6, y = 4 },
   cost = 4,
-  blueprint_compat = true,
   calculate = function(self, card, context)
     if context.individual and context.cardarea == G.play then
       -- Check if this is the first scored card
