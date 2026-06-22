@@ -1,5 +1,6 @@
 SMODS.Joker {
   key = 'crooked',
+  attributes = { 'hand_size', 'economy' },
 
   config = { extra = { hand_size_bonus = 3, steal = 3, money_min = 0 } },
   unlocked = true,
@@ -19,7 +20,7 @@ SMODS.Joker {
     G.hand:change_size(-card.ability.extra.hand_size_bonus)
   end,
   calculate = function(self, card, context)
-    if context.end_of_round and not context.repetition and context.game_over == false and not context.blueprint then
+    if context.end_of_round and context.main_eval and not context.game_over and not context.blueprint then
       ease_dollars(-card.ability.extra.steal)
 
       if to_big(G.GAME.dollars - card.ability.extra.steal) <= to_big(card.ability.extra.money_min) then
@@ -45,15 +46,9 @@ SMODS.Joker {
           end
         }))
 
-        return {
-          message = 'Stole $' .. card.ability.extra.steal .. ', bailed!',
-          colour = G.C.FILTER
-        }
+        return { message = 'Stole $' .. card.ability.extra.steal .. ', bailed!', colour = G.C.FILTER }
       else
-        return {
-          message = 'Stole $' .. card.ability.extra.steal,
-          colour = G.C.FILTER
-        }
+        return { message = 'Stole $' .. card.ability.extra.steal, colour = G.C.FILTER }
       end
     end
   end

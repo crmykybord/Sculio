@@ -1,5 +1,6 @@
 SMODS.Joker {
   key = 'addiction',
+  attributes = { 'perma_bonus', 'hand_type', "scaling" },
 
   config = { extra = { hand_count_mult = 0.5 } },
   unlocked = true,

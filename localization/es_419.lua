@@ -27,10 +27,10 @@ return {
     },
     Other = {
       Sculio_refrigerable_jokers = {
-        name = 'Comodines Refrigerables',
+        name = 'Comodines de Comida',
         text = {
-          '{C:attention}Helado{}, {C:attention}Refresco{}, {C:attention}Ramen{},',
-          '{C:attention}Palomitas de maíz{} y {C:attention}Frijol Negro{}'
+          'Cualquier {C:attention}Comodín{}',
+          'que sea {C:attention}Comida{}'
         }
       },
       Sculio_ailments = {
@@ -168,7 +168,7 @@ return {
         text = {
           'Al vender comodines con {C:attention}edición{}, este',
           'gana las {C:attention}mejoras de la edición{}',
-          '{C:inactive,s:0.8}(Actualmente {C:chips,,s:0.8}+#1#{}{C:inactive,,s:0.8} Fichas, {C:mult,,s:0.8}+#2#{}{C:inactive,,s:0.8} Multi y {X:mult,C:white,,s:0.8}X#3#{}{C:inactive,,s:0.8} Multi)'
+          '{C:inactive,s:0.8}(Actualmente {C:chips,s:0.8}+#1#{}{C:inactive,s:0.8} Fichas, {C:mult,s:0.8}+#2#{}{C:inactive,s:0.8} Multi, {X:mult,C:white,s:0.8}X#3#{}{C:inactive,s:0.8} Multi y {X:chips,C:white,s:0.8}X#4#{}{C:inactive,s:0.8} Fichas)'
         },
       }, 
       -- 15. Crooked Joker
@@ -215,6 +215,8 @@ return {
         'Copia la habilidad del comodín',
         'del {C:attention}extremo derecho{} y debilita',
         'el comodín a su {C:attention}derecha{}',
+        "durante la mano jugada",
+        '{C:inactive}(Copiando: {C:attention}#1#{C:inactive} - {C:attention}#2#{C:inactive})'
         }
       },
       -- 20. Frequent Flyer
@@ -250,9 +252,8 @@ return {
       j_Sculio_jokerium = {
         name = 'Jokerium',
         text = {
-          'Ganas {C:attention}#1#{} {C:spectral}Agujero negro{}',
-          '{C:dark_edition}negativo{} al derrotar',
-          'a la {C:attention}Ciega Jefe{}',
+          'Sube de nivel {C:planet}todas las manos{}',
+          'al derrotar una {C:attention}Ciega Jefe{}',
         },
       }, 
       -- 24. Effigy
@@ -260,7 +261,8 @@ return {
         name = 'Efigie',
         text = {
           'Copia la habilidad de un',
-          '{C:attention}Comodín{} al azar'
+          '{C:attention}Comodín{} al azar',
+          '{C:inactive}(Copiando: {C:attention}#1#{C:inactive})'
         },
       }, 
       -- 25. Bad Trip
@@ -296,9 +298,8 @@ return {
       j_Sculio_refrigerator = {
         name = 'Nevera',
         text = {
-          'Los {C:attention}Comodines de comida{} que se',
-          'coloquen a la {C:attention}dercha de este comodín{}',
-          'no {C:attention}pierden valor{} ni {C:attention}expiran{}'
+          'Los {C:attention}Comodines de comida{} a la derecha',
+          'no pueden {C:attention}decaer{}, {C:attention}expirar{}, ni ser {C:red}destruidos{}',
         },
       }, 
       -- 29. Hammer and Chisel
@@ -326,8 +327,8 @@ return {
       j_Sculio_intuition = {
         name = 'Intuición',
         text = {
-          'Las {C:attention}Cartas de Oro{} y {C:attention}Cartas de Acero{}',
-          'Activan sus efectos al anotar'
+          'La primera {C:attention}Carta de Oro{} anotada da {C:money}$#1#{}',
+          'La primera {C:attention}Carta de Acero{} anotada da {X:mult,C:white}X#2#{} Multi'
         },
       }, 
       -- 32. Sensory Overload
@@ -342,11 +343,12 @@ return {
       j_Sculio_cloning_vat = {
         name = 'Tanque de Clonación',
         text = {
-          'Comprar {C:attention}Cartas{} crea',
-          'una {C:attention}copia{} adicional',
-          'a tu baraja'
+          'Tu {C:attention}Categoría más común{} aparece en',
+          "la tienda y {C:attention}Paquetes Estándar{} y",
+          'siempre tiene al menos una {C:attention}Mejora{},',
+          "{C:dark_edition}Edición{} o {C:attention}Sello{}",
         },
-      }, 
+      },
       -- 34. Rorschach
       j_Sculio_rorschach = {
         name = 'Comodín Rorschach',
@@ -400,10 +402,11 @@ return {
       j_Sculio_pipe = {
         name = 'Comodín Altanero',
         text = {
-          'Después de {C:attention}#1#{} ronda, vende este',
-          'comodín para otorgar edición',
-          '{C:dark_edition}negativa{} a un {C:attention}comodín{} al azar',
-          '{C:inactive}(Actualmente {C:attention}#2#{C:inactive} / #1#)'
+          '{C:blue}-1 Mano{}, {C:red}-1 Descarte{}',
+          'Después de {C:attention}#1#{} rondas, vende este',
+          "comodín para otorgar edición",
+          "{C:dark_edition}negativa{} a un {C:attention}comodín{} al azar",
+          "{C:inactive}(Actualmente {C:attention}#2#{C:inactive} / #1#)"
         },
       }, 
       -- 40. Nametag
@@ -419,19 +422,19 @@ return {
       j_Sculio_binary = {
         name = 'Comodín Binario',
         text = {
-          'Tiene una Prob. de {C:green}#1# en #2#{} de',
-          'ganar {C:chips}+#3#{} fichas y {C:mult}+#4#{} multi',
-          'al seleccionar una ciega',
-          '{C:inactive,s:0.8}(Actualmente {C:chips,s:0.8}+#5#{}{C:inactive,s:0.8} Chips and {C:mult,s:0.8}+#6#{} Multi)'
+          'Tiene una prob. de {C:green}#1# en #2#{} de',
+          'obtener {C:chips}+#3#{} Fichas o {C:mult}+#4#{} Multi',
+          'por cada carta en mano al final de la ronda',
+          '{C:inactive}(Actualmente {C:chips}+#5#{}{C:inactive} Fichas y {C:mult}+#6#{} Multi)'
         },
       }, 
       -- 42. Red Dragon
       j_Sculio_mahjong = {
         name = 'Pieza de Mahjong',
         text = {
-          'Gana {C:chips}+#2#{} fichas si la mano jugada',
-          'contiene un {C:attention}número par de cartas{}',
-          'y la {C:attention}mitad{} son menores a {C:attention}#3#{}',
+          'Obtiene {C:chips}+#2#{} fichas si la mano',
+          'contiene un {C:attention}par mayor a 7{}',
+          'y un {C:attention}par menor a 7{}',
           '{C:inactive}(Actualmente {C:chips}+#1#{}{C:inactive} Fichas)',
         },
       }, 
@@ -439,11 +442,13 @@ return {
       j_Sculio_earthbound = {
         name = 'Combate Automático',
         text = {
-          'Automáticamente selecciona',
-          'la {C:attention}mejor{} mano disponible'
+          '{X:mult,C:white}X#1#{} Multi',
+          '{C:attention}Automaticamente{} selecciona',
+          'la mejor {C:attention}mano{} disponible',
+          "{C:inactive,s:0.8}(No puedes seleccionar tus cartas){}"
         },
       }, 
-      -- 44. 
+      -- 44. Car sale
       j_Sculio_wacky = {
         name = 'Venta de Autos',
         text = {
@@ -452,15 +457,101 @@ return {
           '{C:inactive}(Debe haber espacio){}'
         }
       }, 
+      -- 45. Googly Eyes
+      j_Sculio_googly_eyes = {
+        name = 'Ojos Saltones',
+        text = {
+          'La primera carta anotada otorga',
+          'sus {C:attention}fichas base{}',
+          "como {C:mult}Multi{}",
+        },
+      },
+      -- 46. Pocket Money
+      j_Sculio_pocket_money = {
+        name = 'Sencillo',
+        text = {
+          'Recupera {C:money}$#1#{} en la',
+          'primera compra de cada ronda'
+        },
+      },
+      -- 47. Jimbo Says
+      j_Sculio_jimbo_says = {
+        name = 'Jimbo Dice',
+        text = {
+          'La primera vez que juegas',
+          'un {C:attention}Color{} de {V:1}#1#{} crea',
+          'una {C:attention}etiqueta{} al azar',
+          '{C:inactive,s:0.8}(El palo cambia cada ronda){}'
+        },
+      },
+      -- 48. Joker Metro
+      j_Sculio_joker_metro = {
+        name = 'Metro Comodín',
+        text = {
+          'Gana {C:mult}+#2#{} Multi al',
+          'jugar {C:attention}#3#{} y',
+          'avanza a la siguiente mano',
+          '{C:inactive}(Actualmente {C:mult}+#1#{}{C:inactive} Multi)',
+          '{C:inactive}(Carta Alta > Par > Doble Par > Trío > Escalera > Color > Póker){}'
+        },
+      },
+      -- 49. Gladiator Joker
+      j_Sculio_gladiator = {
+        name = 'Comodín Gladiador',
+        text = {
+          'Gana {C:mult}+Multi{} igual a',
+          'las {C:attention}fichas base{} de',
+          'cartas {C:attention}destruidas{}',
+          '{C:inactive}(Actualmente {C:mult}+#1#{}{C:inactive} Multi)'
+        },
+      },
+      -- 50. Card Against Jokers
+      j_Sculio_card_against = {
+        name = 'Cartas Contra Comodines',
+        text = {
+          '{X:mult,C:white}X#1#{} Multi',
+          '{C:green}1 en 2{} de probabilidad de',
+          '{C:attention}debilitar{} 2 comodines aleatorios',
+          'antes de cada mano'
+        },
+      },
+      -- 51. Scrabble Joker
+      j_Sculio_scrabble = {
+        name = 'Comodín Scrabble',
+        text = {
+          'Las {C:attention}Jotas{} anotadas otorgan',
+          '{C:mult}+#1#{} Multi al anotar'
+        },
+      },
+      -- 52. Untextured Joker
+      j_Sculio_untextured = {
+        name = 'Comodín Sin Textura',
+        text = {
+          'Las {C:attention}Cartas Versátiles{}',
+          'otorgan {C:mult}+#1#{} Multi por cada',
+          '{C:attention}Carta Versátil{} en tu baraja',
+          '{C:inactive}(Actualmente {C:mult}+#2#{}{C:inactive} Multi)'
+        },
+      },
+      -- 53. The Leader
+      j_Sculio_leader = {
+        name = 'El Líder',
+        text = {
+          'Obtiene {C:mult}+#1#{} Multi antes de anotar',
+          'al jugar {C:attention}Carta más Alta{}',
+          'por cada vez que se jugó {C:attention}anteriormente{}',
+          '{C:inactive}(Actualmente {C:mult}+#2#{}{C:inactive} Multi)'
+        },
+      },
       -- 100. Puck
       j_Sculio_puck = {
         name = 'Puck',
         text = {
-          'Anotar cartas con {C:attention}edición{} otorga',
+          'Anotar cartas con {C:dark_edition}edición{} otorga',
           'sus {C:attention}bonificaciones{} a este comodín',
-          '{C:inactive,s:0.8}(Actualmente {C:chips,s:0.8}+#1#{}{C:inactive,s:0.8} Fichas, {C:mult,s:0.8}+#2#{}{C:inactive,s:0.8} Multi y {X:mult,C:white,s:0.8}X#3#{}{C:inactive,s:0.8} Multi)'
+          '{C:inactive,s:0.8}(Actualmente {C:chips,s:0.8}+#1#{}{C:inactive,s:0.8} Fichas, {C:mult,s:0.8}+#2#{}{C:inactive,s:0.8} Multi, {X:mult,C:white,s:0.8}X#3#{}{C:inactive,s:0.8} Multi y {X:chips,C:white,s:0.8}X#4#{}{C:inactive,s:0.8} Fichas)'
         }
-      },
+      }
     },
     Tag = {
       tag_Sculio_unstoppable = {
@@ -472,5 +563,18 @@ return {
         },
       }
     },
+  },
+  misc = {
+    dictionary = {
+      k_Sculio_binary_scale_chips = '01000011',
+      k_Sculio_binary_scale_mult = '01001101',
+      k_Sculio_crime_scene = '¡+Multi!',
+      k_Sculio_beyond_reach_saved = '¡No estaba fuera de alcance!',
+      k_Sculio_cloning_vat_active = '¡Clonado!',
+      k_Sculio_sticky_keys_changed = '¡Multi cambiado!',
+      k_Sculio_bad_trip_randomized = '¡Baraja cambiada!',
+      k_Sculio_compatible = 'Compatible',
+      k_Sculio_incompatible = 'Incompatible',
+    }
   }
 }

@@ -6,8 +6,10 @@
   "prefix": "Sculio",
   "main_file": "Sculio.lua",
   "badge_colour": "7851A9",
+  "icon_path": "modicon.png",
+  "icon_width": 32,
   "dependencies": [
-    "Steamodded (>=1.0.0~BETA-0312b)"
+    "Steamodded (>=1.0.0~BETA-1620a)"
   ],
-  "version": "1.0.0"
+  "version": "1.1.0"
 }

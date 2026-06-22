@@ -1,279 +1,197 @@
--- This works with Four Fingers and Shortcut when the code is copied and pasted.
--- Otherwise, it does not.
--- TODO: Figure out why and remove the copy.
-function get_straight_copy(hand)
-  local ret = {}
-  local four_fingers = next(find_joker('Four Fingers'))
-  if #hand > 5 or #hand < (5 - (four_fingers and 1 or 0)) then return ret else
-    local t = {}
-    local IDS = {}
-    for i=1, #hand do
-      local id = hand[i]:get_id()
-      if id > 1 and id < 15 then
-        if IDS[id] then
-          IDS[id][#IDS[id]+1] = hand[i]
-        else
-          IDS[id] = {hand[i]}
-        end
+-- Trigger force-pick whenever cards are drawn to hand (blind start + re-draws)
+local sculio_eb_drawn_ref = Blind.drawn_to_hand
+function Blind:drawn_to_hand()
+  local ret = sculio_eb_drawn_ref(self)
+  if G.jokers and not G.GAME.sculio_autobattle_multicopy_safeguard then
+    G.GAME.sculio_autobattle_multicopy_safeguard = true
+    for _, j in ipairs(G.jokers.cards) do
+      if j.config.center.key == 'j_Sculio_earthbound' and not j.debuff then
+        j.config.center:_select_and_force(j)
+        break
       end
     end
-
-    local straight_length = 0
-    local straight = false
-    local can_skip = next(find_joker('Shortcut')) 
-    local skipped_rank = false
-    for j = 1, 14 do
-      if IDS[j == 1 and 14 or j] then
-        straight_length = straight_length + 1
-        skipped_rank = false
-        for k, v in ipairs(IDS[j == 1 and 14 or j]) do
-          t[#t+1] = v
-        end
-      elseif can_skip and not skipped_rank and j ~= 14 then
-          skipped_rank = true
-      else
-        straight_length = 0
-        skipped_rank = false
-        if not straight then t = {} end
-        if straight then break end
-      end
-      if straight_length >= (5 - (four_fingers and 1 or 0)) then straight = true end 
-    end
-    if not straight then return ret end
-    table.insert(ret, t)
-    return ret
   end
+  return ret
+end
+
+-- Preserve force picks after playing (vanilla clears forced_selection during play)
+local sculio_eb_play_ref = G.FUNCS.play_cards_from_highlighted
+G.FUNCS.play_cards_from_highlighted = function(e)
+  local forced = {}
+  if G.playing_cards then
+    for _, v in ipairs(G.playing_cards) do
+      if v.ability.earthbound_forced then table.insert(forced, v) end
+    end
+  end
+  local ret = sculio_eb_play_ref(e)
+  for _, v in ipairs(forced) do v.ability.forced_selection = true end
+  G.GAME.sculio_autobattle_multicopy_safeguard = false
+  return ret
+end
+
+-- Preserve force picks after discarding
+local sculio_eb_discard_ref = G.FUNCS.discard_cards_from_highlighted
+G.FUNCS.discard_cards_from_highlighted = function(e, hook)
+  local forced = {}
+  if G.playing_cards then
+    for _, v in ipairs(G.playing_cards) do
+      if v.ability.earthbound_forced then table.insert(forced, v) end
+    end
+  end
+  local ret = sculio_eb_discard_ref(e, hook)
+  for _, v in ipairs(forced) do v.ability.forced_selection = true end
+  G.GAME.sculio_autobattle_multicopy_safeguard = false
+  return ret
 end
 
 SMODS.Joker {
   key = 'earthbound',
-  loc_txt = {
-    name = 'Auto Battle',
-    text = {
-      'Automatically selects {C:attention}highest{}',
-      '{C:attention}level{} hand available'
-    }
-  },
+  attributes = { 'xmult', 'hand_type' },
 
+  config = { extra = { x_mult = 3 } },
   unlocked = true,
   discovered = false,
-  rarity = 2, -- Common
+  rarity = 2,
   atlas = 'Sculio',
   pos = { x = 4, y = 4 },
   cost = 6,
-  get_suits_and_ids = function(self, cards)
-    suits = { Hearts = {}, Diamonds = {}, Clubs = {}, Spades = {} }
-    ids = {}
-
-    for k, v in ipairs(cards) do
-      if v.config.center ~= G.P_CENTERS.m_stone then
-        for suit, _ in pairs(suits) do
-          if v:is_suit(suit) then
-            table.insert(suits[suit], v)
-          end
-        end
-
-        if not ids[v:get_id()] then
-          ids[v:get_id()] = {}
-        end
-
-        table.insert(ids[v:get_id()], v)
-      end
-    end
-
-    local descending_ids = {}
-
-    for i = 14, 2, -1 do
-      if ids[i] then
-        table.insert(descending_ids, ids[i])
-      end
-    end
-
-    return suits, descending_ids
+  blueprint_compat = true,
+  loc_vars = function(self, info_queue, card)
+    return { vars = { card.ability.extra.x_mult } }
   end,
-  select_hand = function(self, hand_name, suits, ids)
-    if string.find(hand_name, 'Flush') then
-      for _, suit_cards in pairs(suits) do
-        if #suit_cards >= 5 or (#suit_cards >= 4 and next(find_joker('Four Fingers'))) then
-          local flush_suits, flush_ids = self:get_suits_and_ids(suit_cards)
 
-          if hand_name == 'Flush Five' then
-            return self:select_hand('Five of a Kind', flush_suits, flush_ids)
-          elseif hand_name == 'Flush House' then
-            return self:select_hand('Full House', flush_suits, flush_ids)
-          elseif hand_name == 'Straight Flush' then
-            return self:select_hand('Straight', flush_suits, flush_ids)
-          else
-            for i = 1, 5 do
-              if suit_cards[i] then
-                G.hand:add_to_highlighted(suit_cards[i])
-              end
-            end
-
-            return true
-          end
-        end
+  -- Returns all available hands sorted by level desc, order asc.
+  -- evaluate_poker_hand natively includes SMODS-registered custom hands.
+  get_available_hands = function(self, cards)
+    local evaluated = evaluate_poker_hand(cards) or {}
+    local available = {}
+    for hand_name, hand_data in pairs(G.GAME.hands) do
+      if evaluated[hand_name] and next(evaluated[hand_name]) then
+        table.insert(available, {
+          name = hand_name,
+          level = hand_data.level,
+          order = hand_data.order or 999,
+          cards = evaluated[hand_name][1]
+        })
       end
-    elseif hand_name == 'Straight' then
-      local first_card_of_each_id = {}
+    end
+    table.sort(available, function(a, b)
+      if a.level ~= b.level then return a.level > b.level end
+      return a.order < b.order
+    end)
+    return available
+  end,
 
-      for _, id_cards in pairs(ids) do
-        if id_cards and #id_cards >= 1 then
-          table.insert(first_card_of_each_id, id_cards[1])
-        end
+  -- Validates that cards actually form the claimed hand
+  _validate_hand = function(self, hand_name, cards)
+    if not cards or #cards == 0 then return false end
+
+    -- Get unique suits from cards (handles custom suits)
+    local suits = {}
+    local ranks = {}
+    for _, c in ipairs(cards) do
+      if c.ability then
+        suits[c.ability.suit or c.base and c.base.suit] = true
+        ranks[c:get_id()] = true
       end
+    end
+    local suit_count = 0
+    for _ in pairs(suits) do suit_count = suit_count + 1 end
 
-      table.sort(first_card_of_each_id, function(a, b)
-        return a:get_id() > b:get_id()
-      end)
+    -- Check for debuffed cards in any hand
+    for _, c in ipairs(cards) do
+      if c.debuff then return false end
+    end
 
-      for i = 1, #first_card_of_each_id do
-        local possible_straight_cards = {}
-
-        for j = i, i + 4 do
-          if j <= #first_card_of_each_id then
-            table.insert(possible_straight_cards, first_card_of_each_id[j])
-          elseif j == #first_card_of_each_id + 1 and #possible_straight_cards < 5 and first_card_of_each_id[1]:get_id() == 14 and first_card_of_each_id[j - 1]:get_id() == 2 then
-            -- Ace Low Straight
-            table.insert(possible_straight_cards, first_card_of_each_id[1])
-          end
-        end
-
-        if #possible_straight_cards >= 4 then
-          straight_cards = get_straight_copy(possible_straight_cards)
-
-          if #straight_cards >= 1 then
-            for k = 1, 5 do
-              if possible_straight_cards[k] then
-                G.hand:add_to_highlighted(possible_straight_cards[k])
-              end
-            end
-
-            return true
-          end
-        end
+    -- Hand-specific validations
+    if hand_name == 'Spectrum' or hand_name == 'spectrum' then
+      return suit_count >= 5 and #cards >= 5
+    elseif hand_name == 'Flush' or hand_name == 'flush' then
+      return suit_count == 1 and #cards >= 5
+    elseif hand_name == 'Straight' or hand_name == 'straight' then
+      if #cards < 5 then return false end
+      local ids = {}
+      for _, c in ipairs(cards) do table.insert(ids, c:get_id()) end
+      table.sort(ids)
+      for i = 2, #ids do
+        if ids[i] - ids[i-1] ~= 1 then return false end
       end
+      return true
+    elseif hand_name == 'Straight Flush' or hand_name == 'straight_flush' then
+      return self:_validate_hand('Flush', cards) and self:_validate_hand('Straight', cards)
+    end
 
-      return false
-    else
-      two_of_a_kinds = {}
-      three_of_a_kinds = {}
-      four_of_a_kinds = {}
-      five_of_a_kinds = {}
+    -- Fallback: check if these exact cards evaluate to this hand
+    local re_evaluated = evaluate_poker_hand(cards)
+    return re_evaluated[hand_name] and next(re_evaluated[hand_name])
+  end,
 
-      for _, id_cards in pairs(ids) do
-        if hand_name == 'High Card' and #id_cards >= 1 then
-          G.hand:add_to_highlighted(id_cards[1])
-          return true
-        end
-
-        if #id_cards >= 2 then
-          table.insert(two_of_a_kinds, id_cards)
-        end
-
-        if #id_cards >= 3 then
-          table.insert(three_of_a_kinds, id_cards)
-        end
-
-        if #id_cards >= 4 then
-          table.insert(four_of_a_kinds, id_cards)
-        end
-
-        if #id_cards >= 5 then
-          table.insert(five_of_a_kinds, id_cards)
-        end
-      end
-
-      if hand_name == 'Pair' then
-        if #two_of_a_kinds >= 1 then
-          G.hand:add_to_highlighted(two_of_a_kinds[1][1])
-          G.hand:add_to_highlighted(two_of_a_kinds[1][2])
-          return true
-        end
-      elseif hand_name == 'Three of a Kind' then
-        if #three_of_a_kinds >= 1 then
-          G.hand:add_to_highlighted(three_of_a_kinds[1][1])
-          G.hand:add_to_highlighted(three_of_a_kinds[1][2])
-          G.hand:add_to_highlighted(three_of_a_kinds[1][3])
-          return true
-        end
-      elseif hand_name == 'Four of a Kind' then
-        if #four_of_a_kinds >= 1 then
-          G.hand:add_to_highlighted(four_of_a_kinds[1][1])
-          G.hand:add_to_highlighted(four_of_a_kinds[1][2])
-          G.hand:add_to_highlighted(four_of_a_kinds[1][3])
-          G.hand:add_to_highlighted(four_of_a_kinds[1][4])
-          return true
-        end
-      elseif hand_name == 'Five of a Kind' then
-        if #five_of_a_kinds >= 1 then
-          G.hand:add_to_highlighted(five_of_a_kinds[1][1])
-          G.hand:add_to_highlighted(five_of_a_kinds[1][2])
-          G.hand:add_to_highlighted(five_of_a_kinds[1][3])
-          G.hand:add_to_highlighted(five_of_a_kinds[1][4])
-          G.hand:add_to_highlighted(five_of_a_kinds[1][5])
-          return true
-        end
-      elseif hand_name == 'Two Pair' then
-        if #two_of_a_kinds >= 2 then
-          G.hand:add_to_highlighted(two_of_a_kinds[1][1])
-          G.hand:add_to_highlighted(two_of_a_kinds[1][2])
-          G.hand:add_to_highlighted(two_of_a_kinds[2][1])
-          G.hand:add_to_highlighted(two_of_a_kinds[2][2])
-          return true
-        end
-      elseif hand_name == 'Full House' then
-        if #two_of_a_kinds >= 2 and #three_of_a_kinds >= 1 then
-          G.hand:add_to_highlighted(three_of_a_kinds[1][1])
-          G.hand:add_to_highlighted(three_of_a_kinds[1][2])
-          G.hand:add_to_highlighted(three_of_a_kinds[1][3])
-
-          -- Three of a Kinds are also Two of a Kinds. Make sure not to select the rank twice.
-          if two_of_a_kinds[1][1]:get_id() == three_of_a_kinds[1][1]:get_id() then
-            G.hand:add_to_highlighted(two_of_a_kinds[2][1])
-            G.hand:add_to_highlighted(two_of_a_kinds[2][2])
-          else
-            G.hand:add_to_highlighted(two_of_a_kinds[1][1])
-            G.hand:add_to_highlighted(two_of_a_kinds[1][2])
-          end
-          return true
+  -- Clears previous force picks, evaluates best hand, force-locks those cards.
+  _select_and_force = function(self, card)
+    if G.playing_cards then
+      for _, v in ipairs(G.playing_cards) do
+        if v.ability.earthbound_forced == card.unique_val then
+          v.ability.earthbound_forced = nil
+          v.ability.forced_selection = nil
         end
       end
     end
+    G.hand:unhighlight_all()
+    card.ability.selected_hand = nil
 
-    return false
+    local available = self:get_available_hands(G.hand.cards)
+    local best = nil
+    for _, candidate in ipairs(available) do
+      if self:_validate_hand(candidate.name, candidate.cards) then
+        best = candidate
+        break
+      end
+    end
+    if best and best.cards then
+      card.ability.selected_hand = best.name
+      for _, c in ipairs(best.cards) do
+        c.ability.earthbound_forced = card.unique_val
+        c.ability.forced_selection = true
+        G.hand:add_to_highlighted(c)
+      end
+      update_hand_text({}, {
+        handname = localize(best.name, 'poker_hands'),
+        chips = G.GAME.hands[best.name].chips,
+        mult = G.GAME.hands[best.name].mult,
+        level = G.GAME.hands[best.name].level
+      })
+    end
   end,
+
+  add_to_deck = function(self, card, from_debuff)
+    if from_debuff then
+      -- Restore forced picks on undebuff
+      if G.playing_cards then
+        for _, v in ipairs(G.playing_cards) do
+          if v.ability.earthbound_forced == card.unique_val then
+            v.ability.forced_selection = true
+          end
+        end
+      end
+    elseif G.hand and G.hand.cards and #G.hand.cards > 0 then
+      self:_select_and_force(card)
+    end
+  end,
+
+  remove_from_deck = function(self, card, from_debuff)
+    if G.playing_cards then
+      for _, v in ipairs(G.playing_cards) do
+        if v.ability.earthbound_forced == card.unique_val then
+          if not from_debuff then v.ability.earthbound_forced = nil end
+          v.ability.forced_selection = nil
+        end
+      end
+    end
+  end,
+
   calculate = function(self, card, context)
-    if context.hand_drawn and not context.blueprint then
-      local suits, ids = self:get_suits_and_ids(G.hand.cards)
-
-      local hands_sorted_by_level = {}
-
-      for k, v in pairs(G.GAME.hands) do
-        local hand = { name = k, level = v.level, order = v.order }
-        table.insert(hands_sorted_by_level, hand)
-      end
-
-      table.sort(hands_sorted_by_level, function(a, b)
-        if a.level == b.level then
-          return a.order < b.order
-        end
-
-        return a.level > b.level
-      end)
-
-      local selected_hand = nil
-
-      for _, hand in ipairs(hands_sorted_by_level) do
-        if self:select_hand(hand.name, suits, ids) then
-          selected_hand = hand.name
-          break
-        end
-      end
-
-      if selected_hand then
-        update_hand_text({}, {handname=localize(selected_hand, 'poker_hands'),chips = G.GAME.hands[selected_hand].chips, mult = G.GAME.hands[selected_hand].mult, level=G.GAME.hands[selected_hand].level})
-      end
+    if context.joker_main then
+      return { xmult = card.ability.extra.x_mult }
     end
   end
 }

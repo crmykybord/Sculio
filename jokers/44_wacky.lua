@@ -1,5 +1,6 @@
 SMODS.Joker {
   key = 'wacky',
+  attributes = { 'generation', 'tarot' },
 
   config = { extra = { required_chip_percentage = 1.5 } },
   unlocked = true,
@@ -8,6 +9,7 @@ SMODS.Joker {
   atlas = 'Sculio',
   pos = { x = 5, y = 4 },
   cost = 6,
+  blueprint_compat = true,
   loc_vars = function(self, info_queue, card)
     return { vars = { card.ability.extra.required_chip_percentage * 100 } }
   end,
@@ -23,7 +25,7 @@ SMODS.Joker {
       }))
     end
 
-    if context.end_of_round and not context.repetition and context.game_over == false and not context.blueprint and card.ability.current_hand_chips and card.ability.current_hand_mult then
+    if context.end_of_round and context.main_eval and not context.game_over and card.ability.current_hand_chips and card.ability.current_hand_mult then
       local chips = card.ability.current_hand_chips
       local mult = card.ability.current_hand_mult
       local required_score = G.ARGS.score_intensity.required_score
@@ -47,7 +49,7 @@ SMODS.Joker {
               G.E_MANAGER:add_event(Event({
                 delay = 0.0,
                 func = function()
-                  local card = create_card('Tarot', G.consumeables, nil, nil, nil, nil, 'c_fool')
+                  local card = SMODS.create_card({ set = 'Tarot', area = G.consumeables, key = 'c_fool' })
                   card:add_to_deck()
                   G.consumeables:emplace(card)
                   G.GAME.consumeable_buffer = 0

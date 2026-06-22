@@ -1,14 +1,6 @@
 SMODS.Joker {
   key = 'soup',
-  loc_txt = {
-    name = 'Soup Can',
-    text = {
-      'This Joker gains {X:mult,C:white}X#2#{} Mult',
-      'for {C:attention}every hand played{}.',
-      '{C:attention}Maximum{} is {X:mult,C:white}X#3#{} Mult',
-      '{C:inactive}(Currently {X:mult,C:white}X#1#{}{C:inactive} Mult)',
-    }
-  },
+  attributes = { 'xmult', 'food' },
 
   config = { extra = { x_mult = 1.0, x_mult_gain = 0.03, x_mult_max = 2 } },
   unlocked = true,
@@ -32,10 +24,7 @@ SMODS.Joker {
     end
 
     if context.joker_main and card.ability.extra.x_mult > 1 then
-      return {
-        Xmult_mod = card.ability.extra.x_mult,
-        message = localize { type = 'variable', key = 'a_xmult', vars = { card.ability.extra.x_mult } }
-      }
+      return { xmult = card.ability.extra.x_mult, message = localize { type = 'variable', key = 'a_xmult', vars = { card.ability.extra.x_mult } } }
     end
   end
 }

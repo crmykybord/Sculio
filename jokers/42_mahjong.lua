@@ -1,7 +1,8 @@
 SMODS.Joker {
   key = 'mahjong',
+  attributes = { 'chips', 'rank', "scaling" },
 
-  config = { extra = { chips = 0, chips_gain = 5, less_than = 7 } },
+  config = { extra = { chips = 0, chips_gain = 5 } },
   unlocked = true,
   discovered = false,
   rarity = 1, -- Common
@@ -11,39 +12,49 @@ SMODS.Joker {
   blueprint_compat = true,
   perishable_compat = false,
   loc_vars = function(self, info_queue, card)
-    return { vars = { card.ability.extra.chips, card.ability.extra.chips_gain, card.ability.extra.less_than } }
+    return { vars = { card.ability.extra.chips, card.ability.extra.chips_gain } }
   end,
   calculate = function(self, card, context)
-    if context.before and (#context.full_hand == 2 or #context.full_hand == 4) then
-      local less_than_count = 0
+    if context.before then
+      -- Count ranks to find pairs
+      local rank_counts = {}
+      local has_pair_above_7 = false
+      local has_pair_below_7 = false
 
       for i = 1, #context.full_hand do
         local this_card = context.full_hand[i]
 
         if this_card.config.center == G.P_CENTERS.m_stone then
-          -- Stone cards should not count as either higher or less than a number.
-          return
+          -- Stone cards don't count
+          goto continue
         end
 
-        if this_card:get_id() < card.ability.extra.less_than then
-          less_than_count = less_than_count + 1
+        local id = this_card:get_id()
+        rank_counts[id] = (rank_counts[id] or 0) + 1
+
+        ::continue::
+      end
+
+      -- Check for pairs above and below 7
+      for rank, count in pairs(rank_counts) do
+        if count >= 2 then
+          if rank > 7 then
+            has_pair_above_7 = true
+          end
+          if rank < 7 then
+            has_pair_below_7 = true
+          end
         end
       end
 
-      if less_than_count == #context.full_hand / 2 then
+      if has_pair_above_7 and has_pair_below_7 then
         card.ability.extra.chips = card.ability.extra.chips + card.ability.extra.chips_gain
-        return {
-          message = localize('k_upgrade_ex'),
-          colour = G.C.CHIPS
-        }
+        return { message = localize('k_upgrade_ex'), colour = G.C.CHIPS }
       end
     end
 
     if context.joker_main and card.ability.extra.chips > 0 then
-      return {
-        chip_mod = card.ability.extra.chips,
-        message = localize{type='variable',key='a_chips',vars={card.ability.extra.chips}},
-      }
+      return { chips = card.ability.extra.chips, message = localize{type='variable',key='a_chips',vars={card.ability.extra.chips}} }
     end
   end
 }

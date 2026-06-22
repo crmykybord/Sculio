@@ -1,5 +1,6 @@
 SMODS.Joker {
   key = 'kfc',
+  attributes = { 'xmult', 'sell_value', 'economy', "scaling" },
 
   config = { extra = { x_mult = 1, dollar_steal = 1, x_mult_scale = 0.1, dollar_scale = 1 } },
   unlocked = true,
@@ -14,7 +15,7 @@ SMODS.Joker {
     return { vars = { card.ability.extra.x_mult, card.ability.extra.dollar_steal, card.ability.extra.x_mult_scale, card.ability.extra.dollar_scale } }
   end,
   calculate = function(self, card, context)
-    if context.end_of_round and not context.repetition and context.game_over == false and not context.blueprint then
+    if context.end_of_round and context.main_eval and not context.game_over and not context.blueprint then
       local stolen = 0
 
       for k, v in ipairs(G.jokers.cards) do
@@ -40,18 +41,12 @@ SMODS.Joker {
         local x_mult_gain = card.ability.extra.x_mult_scale * (stolen / card.ability.extra.dollar_scale)
         card.ability.extra.x_mult = card.ability.extra.x_mult + x_mult_gain
 
-        return {
-          message = 'Stole $' .. stolen,
-          colour = G.C.MONEY
-        }
+        return { message = 'Stole $' .. stolen, colour = G.C.MONEY }
       end
     end
 
     if context.joker_main and card.ability.extra.x_mult > 1 then
-      return {
-        Xmult_mod = card.ability.extra.x_mult,
-        message = localize { type = 'variable', key = 'a_xmult', vars = { card.ability.extra.x_mult } }
-      }
+      return { xmult = card.ability.extra.x_mult, message = localize { type = 'variable', key = 'a_xmult', vars = { card.ability.extra.x_mult } } }
     end
   end
 }

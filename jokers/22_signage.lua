@@ -1,12 +1,6 @@
 SMODS.Joker {
   key = 'signage',
-  loc_txt = {
-    name = 'Signage',
-    text = {
-      'Only {C:attention}Jokers{} will',
-      'appear in the shop'
-    },
-  },
+  attributes = { 'passive', 'joker' },
 
   unlocked = true,
   discovered = false,
@@ -14,6 +8,7 @@ SMODS.Joker {
   atlas = 'Sculio',
   pos = { x = 3, y = 2 },
   cost = 5,
+  blueprint_compat = false,
   add_to_deck = function(self, card, from_debuff)
     G.GAME.tarot_rate = 0
     G.GAME.planet_rate = 0

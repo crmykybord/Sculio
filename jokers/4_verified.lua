@@ -1,12 +1,6 @@
 SMODS.Joker {
   key = 'verified',
-  loc_txt = {
-    name = 'Verified User',
-    text = {
-      'Cards with a {C:blue}Blue Seal{}',
-      'get drawn first'
-    },
-  },
+  attributes = { 'passive', 'seals' },
 
   unlocked = true,
   discovered = false,

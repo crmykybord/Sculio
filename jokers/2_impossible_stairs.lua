@@ -1,7 +1,8 @@
 SMODS.Joker {
   key = 'impossible_stairs',
+  attributes = { 'mult', 'scaling', 'chance' },
 
-  config = { extra = { mult = 5, mult_add_min = -2, mult_add_max = 2, mult_min = 0 } },
+  config = { extra = { mult = 8, mult_add_min = -2, mult_add_max = 2, mult_min = 0 } },
   unlocked = true,
   discovered = false,
   rarity = 1, -- Common
@@ -44,23 +45,14 @@ SMODS.Joker {
       end
 
       if add >= 0 then
-        return {
-          message = localize{type='variable', key='a_mult', vars={add}},
-          colour = G.C.MULT
-        }
+        return { message = localize{type='variable', key='a_mult', vars={add}}, colour = G.C.MULT }
       else
-        return {
-          message = localize{type='variable', key='a_mult_minus', vars={math.abs(add)}},
-          colour = G.C.MULT
-        }
+        return { message = localize{type='variable', key='a_mult_minus', vars={math.abs(add)}}, colour = G.C.MULT }
       end
     end
 
     if context.joker_main then
-      return {
-        mult_mod = card.ability.extra.mult,
-        message = localize { type = 'variable', key = 'a_mult', vars = { card.ability.extra.mult } }
-      }
+      return { mult = card.ability.extra.mult, message = localize { type = 'variable', key = 'a_mult', vars = { card.ability.extra.mult } } }
     end
   end
 }

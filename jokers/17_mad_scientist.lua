@@ -1,5 +1,6 @@
 SMODS.Joker {
   key = 'mad_scientist',
+  attributes = { 'joker', 'generation' },
 
   unlocked = true,
   discovered = false,
@@ -21,6 +22,7 @@ SMODS.Joker {
         sliced_card.getting_sliced = true
         G.GAME.joker_buffer = G.GAME.joker_buffer - 1
 
+        local sliced_edition = sliced_card.edition and copy_table(sliced_card.edition) or nil
         local rarity_index = sliced_card.config.center.rarity
         local legendary = false
         local rarity
@@ -56,9 +58,12 @@ SMODS.Joker {
 
         G.E_MANAGER:add_event(Event({
           func = function()
-            local card = create_card('Joker', G.jokers, legendary, rarity, nil, nil, nil, sliced_card.key)
+            local card = SMODS.create_card({ set = 'Joker', area = G.jokers, legendary = legendary, rarity = rarity, key_append = sliced_card.key })
             card:add_to_deck()
             G.jokers:emplace(card)
+            if sliced_edition then
+              card:set_edition(sliced_edition, true, true)
+            end
             card:start_materialize()
             G.GAME.joker_buffer = 0
 

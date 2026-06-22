@@ -1,5 +1,6 @@
 SMODS.Joker {
   key = 'bad_trip',
+  attributes = { 'on_sell', "generation" },
 
   config = { extra = { rounds_until_active = 2, rounds_elapsed = 0 } },
   unlocked = true,
@@ -14,7 +15,7 @@ SMODS.Joker {
   end,
   calculate = function(self, card, context)
     -- Based off of Invisible Joker.
-    if context.end_of_round and not context.repetition and context.game_over == false and not context.blueprint then
+    if context.end_of_round and context.main_eval and not context.game_over and not context.blueprint then
       card.ability.extra.rounds_elapsed = card.ability.extra.rounds_elapsed + 1
 
       if card.ability.extra.rounds_elapsed >= card.ability.extra.rounds_until_active then
@@ -22,10 +23,7 @@ SMODS.Joker {
         juice_card_until(card, eval, true)
       end
 
-      return {
-        message = (card.ability.extra.rounds_elapsed < card.ability.extra.rounds_until_active) and (card.ability.extra.rounds_elapsed .. '/' .. card.ability.extra.rounds_until_active) or localize('k_active_ex'),
-        colour = G.C.FILTER
-      }
+      return { message = (card.ability.extra.rounds_elapsed < card.ability.extra.rounds_until_active) and (card.ability.extra.rounds_elapsed .. '/' .. card.ability.extra.rounds_until_active) or localize('k_active_ex'), colour = G.C.FILTER }
     end
 
     if context.selling_self and card.ability.extra.rounds_elapsed >= card.ability.extra.rounds_until_active and not context.blueprint then
@@ -40,9 +38,7 @@ SMODS.Joker {
         v:set_base(card_code)
       end
 
-      return {
-        message = 'Deck randomized!'
-      }
+      return { message = localize('k_Sculio_bad_trip_randomized') }
     end
   end
 }

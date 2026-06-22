@@ -1,5 +1,6 @@
 SMODS.Joker {
   key = 'gumball',
+  attributes = { 'mult', "scaling" },
 
   config = { extra = { mult = 3, mult_add_open = 2, mult_add_skip = -4, mult_min = 0 } },
   unlocked = true,
@@ -16,10 +17,7 @@ SMODS.Joker {
   end,
   calculate = function(self, card, context)
     if context.joker_main then
-      return {
-        mult_mod = card.ability.extra.mult,
-        message = localize { type = 'variable', key = 'a_mult', vars = { card.ability.extra.mult } }
-      }
+      return { mult = card.ability.extra.mult, message = localize { type = 'variable', key = 'a_mult', vars = { card.ability.extra.mult } } }
     end
 
     if not context.blueprint then

@@ -26,10 +26,10 @@ return {
     },
     Other = {
       Sculio_refrigerable_jokers = {
-        name = 'Refrigerable Jokers',
+        name = 'Food Jokers',
         text = {
-          '{C:attention}Ice Cream{}, {C:attention}Seltzer{}, {C:attention}Ramen{},',
-          '{C:attention}Popcorn{}, and {C:attention}Turtle Bean{}'
+          'Any {C:attention}Joker{} thats is',
+          '{C:attention}Food{}'
         }
       },
       Sculio_ailments = {
@@ -168,8 +168,8 @@ return {
         name = 'Figurine',
         text = {
           'When a Joker with an {C:attention}edition{} is sold,',
-          'this Joker gains {C:attention}#4#%{} of the {C:attention}edition\'s bonus{}',
-          '{C:inactive}(Currently {C:chips}+#1#{}{C:inactive} Chips, {C:mult}+#2#{}{C:inactive} Mult, and {X:mult,C:white}X#3#{}{C:inactive} Mult)'
+          'this Joker gains {C:attention}#5#%{} of the {C:attention}edition\'s bonus{}',
+          '{C:inactive}(Currently {C:chips}+#1#{}{C:inactive} Chips, {C:mult}+#2#{}{C:inactive} Mult, {X:mult,C:white}X#3#{}{C:inactive} Mult, and {X:chips,C:white}X#4#{}{C:inactive} Chips)'
         },
       }, 
       -- 15. Crooked Joker
@@ -215,10 +215,10 @@ return {
       j_Sculio_dunce = {
         name = 'Dunce',
         text = {
-        'Copies the ability of the',
-        '{C:attention}rightmost{} Joker and',
-        'temporarily disables Joker',
-        '{C:attention}to the right{}',
+        'Copies the ability of the {C:attention}rightmost{} Joker',
+        'and {C:attention}debuffs{} Joker to the right',
+        'during played hand',
+        '{C:inactive}(Copying: {C:attention}#1#{C:inactive} - {C:attention}#2#{C:inactive})'
         }
       },
       -- 20. Frequent Flyer
@@ -254,21 +254,17 @@ return {
       j_Sculio_jokerium = {
         name = 'Jokerium',
         text = {
-          'Adds {C:attention}#1#{} {C:dark_edition}Negative{}',
-          '{C:spectral}Black Hole{} card each time',
-          '{C:attention}#2# {C:attention}Boss Blind{} is defeated',
-          '{C:inactive}#3# remaining{}',
+          'Levels up {C:planet}all hands{}',
+          'when defeating a {C:attention}Boss Blind{}',
         },
       }, 
       -- 24. Effigy
       j_Sculio_effigy = {
         name = 'Effigy',
         text = {
-          'Copies ability of a',
-          '{C:attention}random Joker{}',
-          -- TODO During played hand only, should clarify description
-          -- Also will behave weirdly with jokers that
-          -- do stuff during context.before/after
+          'Copies ability of a random',
+          '{C:attention}compatible Joker{} during hand',
+          '{C:inactive}(Currently copying: {C:attention}#1#{C:inactive})'
         },
       }, 
       -- 25. Bad Trip
@@ -305,9 +301,8 @@ return {
       j_Sculio_refrigerator = {
         name = 'Refrigerator',
         text = {
-          '{C:attention}Refrigerable Jokers{}',
-          'placed {C:attention}to the right of this Joker{}',
-          'do not {C:attention}lose potency{} or {C:attention}expire{}'
+          '{C:attention}Food Jokers{} to the right',
+          'cannot {C:attention}decay{}, {C:attention}expire{}, or be {C:red}destroyed{}',
         },
       }, 
       -- 29. Hammer and Chisel
@@ -336,8 +331,8 @@ return {
       j_Sculio_intuition = {
         name = 'Intuition',
         text = {
-          'Scored {C:attention}Gold Cards{} give {C:money}$#1#{}.',
-          'Scored {C:attention}Steel Cards{} give {X:mult,C:white}X#2#{} Mult'
+          'First scored {C:attention}Gold Card{} gives {C:money}$#1#{}',
+          'First scored {C:attention}Steel Card{} gives {X:mult,C:white}X#2#{} Mult'
         },
       }, 
       -- 32. Sensory Overload
@@ -353,9 +348,10 @@ return {
       j_Sculio_cloning_vat = {
         name = 'Cloning Vat',
         text = {
-          'When a {C:attention}playing card{}',
-          'is {C:attention}purchased{}, add a',
-          '{C:attention}permanent copy{} to deck'
+          'Your {C:attention}most common rank{} appears in the',
+          'shop and {C:attention}Standard Packs{} and always',
+          'has at least one {C:attention}Enhancement{},',
+          '{C:dark_edition}Edition{} or {C:attention}Seal{}'
         },
       }, 
       -- 34. Rorschach
@@ -411,9 +407,9 @@ return {
       j_Sculio_pipe = {
         name = 'Treachery',
         text = {
-          'After {C:attention}#1#{} rounds, sell this',
-          'card to add {C:dark_edition}Negative{}',
-          'to a random {C:attention}Joker',
+          '{C:blue}-1 Hand{}, {C:red}-1 Discard{}',
+          'After {C:attention}#1#{} rounds, sell this card to',
+          'add {C:dark_edition}Negative{} to a random {C:attention}Joker{}',
           '{C:inactive}(Currently {C:attention}#2#{C:inactive} / #1#)'
         },
       }, 
@@ -430,10 +426,9 @@ return {
       j_Sculio_binary = {
         name = 'Binary Joker',
         text = {
-          'This Joker has a',
-          '{C:green}#1# in #2#{} chance of gaining',
-          '{C:chips}+#3#{} chips and {C:mult}+#4#{} Mult',
-          'at the end of each blind',
+          'This Joker has a {C:green}#1# in #2#{} chance',
+          'of obtaining {C:chips}+#3#{} Chips or {C:mult}+#4#{} Mult',
+          'for each card held in hand at the end of round',
           '{C:inactive}(Currently {C:chips}+#5#{}{C:inactive} Chips and {C:mult}+#6#{} Mult)'
         },
       }, 
@@ -442,8 +437,8 @@ return {
         name = 'Red Dragon',
         text = {
           'This Joker gains {C:chips}+#2#{} Chips if hand',
-          'played contains an {C:attention}even number of cards{}',
-          'and {C:attention}exactly half{} are less than {C:attention}#3#{}',
+          'played contains a {C:attention}pair above 7{}',
+          'and a {C:attention}pair below 7{}',
           '{C:inactive}(Currently {C:chips}+#1#{}{C:inactive} Chips)',
         },
       }, 
@@ -451,11 +446,13 @@ return {
       j_Sculio_earthbound = {
         name = 'Auto Battle',
         text = {
-          'Automatically selects {C:attention}highest{}',
-          '{C:attention}level{} hand available'
+          '{X:mult,C:white}X#1#{} Mult',
+          '{C:attention}Automatically{} selects the {C:attention}highest{}',
+          '{C:attention}level{} hand available',
+          "{C:inactive,s:0.8}(You can't select your cards){}"
         },
       }, 
-      -- 44. 
+      -- 44. Car Sale
       j_Sculio_wacky = {
         name = 'Car Sale',
         text = {
@@ -469,9 +466,94 @@ return {
         name = 'Puck',
         text = {
           'When a card with an {C:attention}edition{} is scored,',
-          'this Joker gains {C:attention}#4#%{} of the {C:attention}edition\'s bonus{}',
-          '{C:inactive}(Currently {C:chips}+#1#{}{C:inactive} Chips, {C:mult}+#2#{}{C:inactive} Mult, and {X:mult,C:white}X#3#{}{C:inactive} Mult)'
+          'this Joker gains {C:attention}#5#%{} of the {C:attention}edition\'s bonus{}',
+          '{C:inactive}(Currently {C:chips}+#1#{}{C:inactive} Chips, {C:mult}+#2#{}{C:inactive} Mult, {X:mult,C:white}X#3#{}{C:inactive} Mult, and {X:chips,C:white}X#4#{}{C:inactive} Chips)'
         }
+      },
+      -- 45. Googly Eyes
+      j_Sculio_googly_eyes = {
+        name = 'Googly Eyes',
+        text = {
+          'First scored card gives',
+          'its {C:attention}base chips{} as {C:mult}Mult{}'
+        },
+      },
+      -- 46. Pocket Money
+      j_Sculio_pocket_money = {
+        name = 'Pocket Money',
+        text = {
+          'Recover {C:money}$#1#{} on the',
+          'first purchase each round'
+        },
+      },
+      -- 47. Jimbo Says
+      j_Sculio_jimbo_says = {
+        name = 'Jimbo Says',
+        text = {
+          'First {C:attention}Flush{} of {V:1}#1#{}',
+          'played each round',
+          'grants a {C:attention}random tag{}',
+          '{C:inactive}(Suit changes each round)'
+        },
+      },
+      -- 48. Joker Metro
+      j_Sculio_joker_metro = {
+        name = 'Joker Metro',
+        text = {
+          'Gains {C:mult}+#2#{} Mult when',
+          'playing {C:attention}#3#{} and',
+          'advances to the next hand',
+          '{C:inactive,s:0.8}(High Card > Pair > Two Pair > 3K',
+          '{C:inactive,s:0.8}> Straight > Flush > 4K){}',
+          'Gain grows {C:mult}+#4#{} each cycle restart',
+          '{C:inactive}(Currently {C:mult}+#1#{}{C:inactive} Mult)'
+        },
+      },
+      -- 49. Gladiator Joker
+      j_Sculio_gladiator = {
+        name = 'Gladiator Joker',
+        text = {
+          'Gains {C:mult}+Mult{} equal to',
+          'the {C:attention}base chips{} of',
+          '{C:attention}destroyed{} cards',
+          '{C:inactive}(Currently {C:mult}+#1#{}{C:inactive} Mult)'
+        },
+      },
+      -- 50. Card Against Jokers
+      j_Sculio_card_against = {
+        name = 'Cards Against Jokers',
+        text = {
+          '{X:mult,C:white}X#1#{} Mult',
+          '{C:green}1 in 3{} chance to {C:attention}debuff{}',
+          '2 random Jokers before each hand'
+        },
+      },
+      -- 51. Scrabble Joker
+      j_Sculio_scrabble = {
+        name = 'Scrabble Joker',
+        text = {
+          'Scored {C:attention}Jacks{} give',
+          '{C:mult}+#1#{} Mult when scored'
+        },
+      },
+      -- 52. Untextured Joker
+      j_Sculio_untextured = {
+        name = 'Untextured Joker',
+        text = {
+          'Scored {C:attention}Wild Cards{} give',
+          '{C:mult}+#1#{} Mult for each',
+          '{C:attention}Wild Card{} in your deck',
+          '{C:inactive}(Currently {C:mult}+#2#{}{C:inactive} Mult)'
+        },
+      },
+      -- 53. The Leader
+      j_Sculio_leader = {
+        name = 'The Leader',
+        text = {
+          '{C:attention}High Card{} gives {C:mult}+#1#{} Mult',
+          'for each time it was played',
+          '{C:inactive}(Currently {C:mult}+#2#{}{C:inactive} Mult)'
+        },
       },
     },
     Tag = {
@@ -484,5 +566,18 @@ return {
         },
       }
     },
+  },
+  misc = {
+    dictionary = {
+      k_Sculio_binary_scale_chips = '01000011',
+      k_Sculio_binary_scale_mult = '01001101',
+      k_Sculio_crime_scene = '+Mult!',
+      k_Sculio_beyond_reach_saved = 'It was not beyond reach!',
+      k_Sculio_cloning_vat_active = 'Cloned!',
+      k_Sculio_sticky_keys_changed = 'Mult Changed!',
+      k_Sculio_bad_trip_randomized = 'Deck randomized!',
+      k_Sculio_compatible = 'Compatible',
+      k_Sculio_incompatible = 'Incompatible',
+    }
   }
 }

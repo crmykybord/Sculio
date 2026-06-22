@@ -1,5 +1,6 @@
 SMODS.Joker {
   key = 'pyromaniac',
+  attributes = { 'destroy_card', 'hands', 'hand_type' },
 
   config = { extra = { levels_to_increase = 1 } },
   unlocked = true,

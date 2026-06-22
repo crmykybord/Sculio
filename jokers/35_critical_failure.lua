@@ -1,5 +1,6 @@
 SMODS.Joker {
   key = 'critical_failure',
+  attributes = { 'xmult', 'chance', 'reset', 'enhancements' },
 
   config = { extra = { x_mult = 1, x_mult_gain = 0.25 } },
   unlocked = true,
@@ -19,25 +20,16 @@ SMODS.Joker {
       if not context.other_card.lucky_trigger then
         card.ability.extra.x_mult = card.ability.extra.x_mult + card.ability.extra.x_mult_gain
 
-        return {
-          extra = {focus = card, message = localize('k_upgrade_ex'), colour = G.C.MULT},
-          card = card
-        }
+        return { extra = {focus = card, message = localize('k_upgrade_ex'), colour = G.C.MULT}, card = card }
       elseif card.ability.extra.x_mult > 1 then
         card.ability.extra.x_mult = 1
 
-        return {
-          extra = {focus = card, message = localize('k_reset'), colour = G.C.MULT},
-          card = card
-        }
+        return { extra = {focus = card, message = localize('k_reset'), colour = G.C.MULT}, card = card }
       end
     end
 
     if context.joker_main and card.ability.extra.x_mult > 1 then
-      return {
-        Xmult_mod = card.ability.extra.x_mult,
-        message = localize { type = 'variable', key = 'a_xmult', vars = { card.ability.extra.x_mult } }
-      }
+      return { xmult = card.ability.extra.x_mult, message = localize { type = 'variable', key = 'a_xmult', vars = { card.ability.extra.x_mult } } }
     end
   end
 }

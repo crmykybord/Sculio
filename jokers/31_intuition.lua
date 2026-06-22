@@ -1,7 +1,8 @@
 SMODS.Joker {
   key = 'intuition',
+  attributes = { 'economy', 'xmult', 'enhancements' },
 
-  config = { extra = { gold_dollar_bonus = 3, steel_x_mult_bonus = 1.5 } },
+  config = { extra = { gold_dollars = 10, steel_x_mult = 3 } },
   unlocked = true,
   discovered = false,
   rarity = 3, -- Rare
@@ -21,21 +22,34 @@ SMODS.Joker {
   loc_vars = function(self, info_queue, card)
     info_queue[#info_queue+1] = G.P_CENTERS.m_gold
     info_queue[#info_queue+1] = G.P_CENTERS.m_steel
-    return { vars = { card.ability.extra.gold_dollar_bonus, card.ability.extra.steel_x_mult_bonus } }
+    return { vars = { card.ability.extra.gold_dollars, card.ability.extra.steel_x_mult } }
   end,
   calculate = function(self, card, context)
-    if context.individual and context.cardarea == G.play then
-      if not context.other_card.debuff then
-        if context.other_card.config.center == G.P_CENTERS.m_gold then
+    if context.individual and context.cardarea == G.play and not context.other_card.debuff then
+      if SMODS.has_enhancement(context.other_card, 'm_gold') then
+        local is_first_gold = false
+        for i = 1, #context.scoring_hand do
+          if SMODS.has_enhancement(context.scoring_hand[i], 'm_gold') then
+            is_first_gold = context.scoring_hand[i] == context.other_card
+            break
+          end
+        end
+        if is_first_gold then
           return {
-            dollars = card.ability.extra.gold_dollar_bonus,
+            dollars = card.ability.extra.gold_dollars,
             card = card
           }
-        elseif context.other_card.config.center == G.P_CENTERS.m_steel then
-          return {
-            x_mult = card.ability.extra.steel_x_mult_bonus,
-            card = card
-          }
+        end
+      elseif SMODS.has_enhancement(context.other_card, 'm_steel') then
+        local is_first_steel = false
+        for i = 1, #context.scoring_hand do
+          if SMODS.has_enhancement(context.scoring_hand[i], 'm_steel') then
+            is_first_steel = context.scoring_hand[i] == context.other_card
+            break
+          end
+        end
+        if is_first_steel then
+          return { xmult = card.ability.extra.steel_x_mult, card = card }
         end
       end
     end

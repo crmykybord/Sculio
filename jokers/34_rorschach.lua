@@ -1,5 +1,6 @@
 SMODS.Joker {
   key = 'rorschach',
+  attributes = { 'discard' },
 
   config = { extra = { card_ids_to_draw_next = {} } },
   unlocked = true,
@@ -23,7 +24,7 @@ SMODS.Joker {
       if #context.full_hand == 1 then
         for i = 1, #G.jokers.cards do
           local joker = G.jokers.cards[i]
-      
+
           if joker and joker.ability.name == 'Trading Card' then
             return
           end

@@ -1,5 +1,6 @@
 SMODS.Joker {
   key = 'frequent_flyer',
+  attributes = { 'mult', 'economy', "scaling" },
 
   config = { extra = { money_gain = 3, mult = 0, mult_gain = 4, spend_per_gain = 30, spent_since_gain = 0 } },
   unlocked = true,
@@ -16,7 +17,7 @@ SMODS.Joker {
   -- NOTE could look at instances of inc_career_stat('c_shop_dollars_spent', ...)
   -- to accurately determine how much was spent
   calculate = function(self, card, context)
-    rerolls_were_free = rerolls_are_free or G.GAME.current_round.reroll_cost == 0
+    local rerolls_were_free = rerolls_are_free or G.GAME.current_round.reroll_cost == 0
 
     if (context.buying_card or context.open_booster or context.reroll_shop) and not context.blueprint and context.card ~= card then
       if context.buying_card or context.open_booster then
@@ -33,18 +34,12 @@ SMODS.Joker {
         card.ability.extra.mult = card.ability.extra.mult + card.ability.extra.mult_gain
         card.ability.extra.spent_since_gain = card.ability.extra.spent_since_gain - card.ability.extra.spend_per_gain
 
-        return {
-          dollars = card.ability.extra.money_gain,
-          message = localize('k_upgrade_ex')
-        }
+        return { dollars = card.ability.extra.money_gain, message = localize('k_upgrade_ex') }
       end
     end
 
     if context.joker_main and card.ability.extra.mult > 0 then
-      return {
-        mult_mod = card.ability.extra.mult,
-        message = localize { type = 'variable', key = 'a_mult', vars = { card.ability.extra.mult } }
-      }
+      return { mult = card.ability.extra.mult, message = localize { type = 'variable', key = 'a_mult', vars = { card.ability.extra.mult } } }
     end
   end
 }

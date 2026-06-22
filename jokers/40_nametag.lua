@@ -1,5 +1,6 @@
 SMODS.Joker {
   key = 'nametag',
+  attributes = { 'xmult', 'on_sell', 'joker', "scaling" },
 
   config = { extra = { x_mult = 1, x_mult_gain = 0.15 } },
   unlocked = true,
@@ -26,9 +27,7 @@ SMODS.Joker {
     end
 
     if context.joker_main then
-      return {
-        Xmult = card.ability.extra.x_mult
-      }
+      return { xmult = card.ability.extra.x_mult }
     end
   end
 }

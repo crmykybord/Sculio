@@ -1,5 +1,6 @@
 SMODS.Joker {
   key = 'unstoppable',
+  attributes = { 'xmult', 'on_sell', 'tag', "scaling" },
 
   config = { extra = { x_mult = 1, x_mult_gain = 0.1, sell_cost = 0 } },
   unlocked = true,
@@ -21,7 +22,7 @@ SMODS.Joker {
   calculate = function(self, card, context)
     if context.joker_main and card.ability.extra.x_mult > 1 then
       return {
-        Xmult_mod = card.ability.extra.x_mult,
+        xmult = card.ability.extra.x_mult,
         message = localize { type = 'variable', key = 'a_xmult', vars = { card.ability.extra.x_mult } }
       }
     end
@@ -67,11 +68,11 @@ SMODS.Tag {
   end,
   apply = function(self, tag, context)
     if context.type == 'store_joker_create' then
-      local card = create_card('Joker', context.area, nil, 0, nil, nil, 'j_Sculio_unstoppable', 'uta')
+      local card = SMODS.create_card({ set = 'Joker', area = context.area, key = 'j_Sculio_unstoppable', key_append = 'uta' })
       card.ability.extra.x_mult = tag.ability.x_mult
       create_shop_card_ui(card, 'Joker', context.area)
       card.states.visible = false
-      tag:yep('+', G.C.RED,function() 
+      tag:yep('+', G.C.RED,function()
         card:start_materialize()
         return true
       end)

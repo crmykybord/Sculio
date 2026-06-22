@@ -1,5 +1,6 @@
 SMODS.Joker {
   key = 'hammer_and_chisel',
+  attributes = { 'destroy_card', 'perma_bonus', 'enhancements', 'chance' },
 
   config = { extra = { chip_perma_bonus = 15, shatter_odds = 10 } },
   unlocked = true,
