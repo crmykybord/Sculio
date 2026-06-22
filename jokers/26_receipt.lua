@@ -1,7 +1,9 @@
 SMODS.Joker {
   key = 'receipt',
   attributes = { 'on_sell', 'generation', 'tag' },
-
+  eternal_compat = false,
+  blueprint_compat = false,
+  perishable_compat = false,
   unlocked = true,
   discovered = false,
   rarity = 1, -- Common

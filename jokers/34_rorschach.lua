@@ -1,7 +1,9 @@
 SMODS.Joker {
   key = 'rorschach',
   attributes = { 'discard' },
-
+  eternal_compat = true,
+  blueprint_compat = true,
+  perishable_compat = true,
   config = { extra = { card_ids_to_draw_next = {} } },
   unlocked = true,
   discovered = false,

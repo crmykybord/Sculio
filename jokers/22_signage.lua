@@ -1,14 +1,15 @@
 SMODS.Joker {
   key = 'signage',
   attributes = { 'passive', 'joker' },
-
   unlocked = true,
   discovered = false,
   rarity = 1, -- Common
   atlas = 'Sculio',
   pos = { x = 3, y = 2 },
   cost = 5,
+  eternal_compat = true,
   blueprint_compat = false,
+  perishable_compat = true,
   add_to_deck = function(self, card, from_debuff)
     G.GAME.tarot_rate = 0
     G.GAME.planet_rate = 0

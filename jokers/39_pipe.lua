@@ -1,7 +1,9 @@
 SMODS.Joker {
   key = 'pipe',
   attributes = { 'on_sell', 'hands', 'discard', 'editions', "joker", "joker_slot" },
-
+  eternal_compat = true,
+  blueprint_compat = true,
+  perishable_compat = true,
   config = { extra = { rounds_until_active = 2, rounds_elapsed = 0, already_active = false } },
   unlocked = true,
   discovered = false,
@@ -9,7 +11,6 @@ SMODS.Joker {
   atlas = 'Sculio',
   pos = { x = 0, y = 4 },
   cost = 9,
-  eternal_compat = false,
   loc_vars = function(self, info_queue, card)
     return { vars = { card.ability.extra.rounds_until_active, card.ability.extra.rounds_elapsed } }
   end,

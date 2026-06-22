@@ -9,6 +9,7 @@ SMODS.Joker {
   atlas = 'Sculio',
   pos = { x = 1, y = 1 },
   cost = 7,
+  eternal_compat = true,
   blueprint_compat = true,
   perishable_compat = false,
   loc_vars = function(self, info_queue, card)

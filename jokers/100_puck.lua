@@ -1,6 +1,9 @@
 SMODS.Joker {
   key = 'puck',
   attributes = { 'chips', 'mult', 'xmult', 'xchips', 'editions', "scaling" },
+  eternal_compat = true,
+  blueprint_compat = true,
+  perishable_compat = false,
   config = { extra = { chips = 0, mult = 0, x_mult = 1, x_chips = 1, bonus_mult = 1 } },
   unlocked = true,
   discovered = false,
@@ -9,8 +12,6 @@ SMODS.Joker {
   pos = { x = 8, y = 1 },
   soul_pos = { x = 9, y = 1 },
   cost = 20,
-  blueprint_compat = true,
-  perishable_compat = false,
   loc_vars = function(self, info_queue, card)
     return { vars = { card.ability.extra.chips, card.ability.extra.mult, card.ability.extra.x_mult, card.ability.extra.x_chips, card.ability.extra.bonus_mult * 100 } }
   end,

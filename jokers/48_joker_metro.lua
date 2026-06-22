@@ -3,7 +3,9 @@ local hand_order = { 'High Card', 'Pair', 'Two Pair', 'Three of a Kind', 'Straig
 SMODS.Joker {
   key = 'joker_metro',
   attributes = { 'mult', 'hand_type', "scaling" },
-
+  eternal_compat = true,
+  blueprint_compat = true,
+  perishable_compat = false,
   config = { extra = { mult = 0, gain = 4, gain_increase = 2, current_hand_index = 1 } },
   unlocked = true,
   discovered = false,

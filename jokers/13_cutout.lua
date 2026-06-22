@@ -9,7 +9,9 @@ SMODS.Joker {
   atlas = 'Sculio',
   pos = { x = 2, y = 1 },
   cost = 8,
+  eternal_compat = true,
   blueprint_compat = true,
+  perishable_compat = true,
   get_x_mult_mod = function(self)
     if G.jokers and #G.jokers.cards > 1 then
       return 1 + (self.config.extra.x_mult * (#G.jokers.cards - 1))

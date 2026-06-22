@@ -1,7 +1,9 @@
 SMODS.Joker {
   key = 'leader',
   attributes = { 'mult', 'hand_type', "scaling" },
-
+  eternal_compat = true,
+  blueprint_compat = true,
+  perishable_compat = false,
   config = { extra = { current_mult = 0 } },
   unlocked = true,
   discovered = false,
@@ -9,7 +11,6 @@ SMODS.Joker {
   atlas = 'Sculio',
   pos = { x = 5, y = 5 },
   cost = 10,
-  blueprint_compat = true,
   loc_vars = function(self, info_queue, card)
     local times_played = G.GAME and G.GAME.hands and G.GAME.hands['High Card'] and G.GAME.hands['High Card'].played or 0
     return { vars = { 2, times_played * 2 } }

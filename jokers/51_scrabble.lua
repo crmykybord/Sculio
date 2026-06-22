@@ -1,7 +1,9 @@
 SMODS.Joker {
   key = 'scrabble',
   attributes = { 'mult', 'jack' },
-
+  eternal_compat = true,
+  blueprint_compat = true,
+  perishable_compat = true,
   config = { extra = { mult = 8 } },
   unlocked = true,
   discovered = false,
@@ -9,7 +11,6 @@ SMODS.Joker {
   atlas = 'Sculio',
   pos = { x = 3, y = 5 },
   cost = 6,
-  blueprint_compat = true,
   loc_vars = function(self, info_queue, card)
     return { vars = { card.ability.extra.mult } }
   end,

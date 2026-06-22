@@ -1,7 +1,9 @@
 SMODS.Joker {
   key = 'card_against',
   attributes = { 'xmult', "chance", "joker" },
-
+  eternal_compat = true,
+  blueprint_compat = true,
+  perishable_compat = true,
   config = { extra = { x_mult = 4 } },
   unlocked = true,
   discovered = false,
@@ -9,7 +11,6 @@ SMODS.Joker {
   atlas = 'Sculio',
   pos = { x = 2, y = 5 },
   cost = 10,
-  blueprint_compat = true,
   loc_vars = function(self, info_queue, card)
     return { vars = { card.ability.extra.x_mult } }
   end,

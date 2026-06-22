@@ -241,7 +241,9 @@ end
 SMODS.Joker {
   key = 'refrigerator',
   attributes = { 'food', "passive" },
-
+  eternal_compat = true,
+  blueprint_compat = false,
+  perishable_compat = true,
   unlocked = true,
   discovered = false,
   rarity = 1, -- Common

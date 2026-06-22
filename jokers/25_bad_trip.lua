@@ -1,7 +1,9 @@
 SMODS.Joker {
   key = 'bad_trip',
   attributes = { 'on_sell', "generation" },
-
+  eternal_compat = true,
+  blueprint_compat = false,
+  perishable_compat = false,
   config = { extra = { rounds_until_active = 2, rounds_elapsed = 0 } },
   unlocked = true,
   discovered = false,

@@ -47,7 +47,9 @@ end
 SMODS.Joker {
   key = 'earthbound',
   attributes = { 'xmult', 'hand_type' },
-
+  eternal_compat = true,
+  blueprint_compat = true,
+  perishable_compat = true,
   config = { extra = { x_mult = 3 } },
   unlocked = true,
   discovered = false,
@@ -55,7 +57,6 @@ SMODS.Joker {
   atlas = 'Sculio',
   pos = { x = 4, y = 4 },
   cost = 6,
-  blueprint_compat = true,
   loc_vars = function(self, info_queue, card)
     return { vars = { card.ability.extra.x_mult } }
   end,

@@ -1,7 +1,9 @@
 SMODS.Joker {
   key = 'pharaoh',
   attributes = { 'xmult', 'face', 'modify_card' },
-
+  eternal_compat = true,
+  blueprint_compat = true,
+  perishable_compat = true,
   config = { extra = { x_mult_bonus = 1.5 } },
   unlocked = true,
   discovered = false,
