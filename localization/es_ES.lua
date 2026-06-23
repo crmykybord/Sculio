@@ -508,11 +508,11 @@ return {
       },
       -- 50. Card Against Jokers
       j_Sculio_card_against = {
-        name = 'Cartas Contra Comodines',
+        name = 'En Contra del Sarcasmo',
         text = {
           '{X:mult,C:white}X#1#{} Multi',
-          '{C:green}1 en 2{} de probabilidad de',
-          '{C:attention}debilitar{} 2 comodines aleatorios',
+          'Prob. de {C:green}1 en 2{} de {C:attention}debilitar{}',
+          '2 {C:attention}comodines{} al azar',
           'antes de cada mano'
         },
       },
