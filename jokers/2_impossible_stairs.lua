@@ -12,6 +12,7 @@ SMODS.Joker {
   eternal_compat = false,
   perishable_compat = true,
   blueprint_compat = true,
+  rental_compat = true,
   loc_vars = function(self, info_queue, card)
     return { vars = { card.ability.extra.mult, card.ability.extra.mult_add_min, card.ability.extra.mult_add_max, card.ability.extra.mult_min } }
   end,

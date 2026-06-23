@@ -279,6 +279,7 @@ SMODS.Joker {
   eternal_compat = true,
   perishable_compat = true,
   rental_compat = true,
+  blueprint_compat = false,
   calculate = function(self, card, context)
     if context.blueprint then return end
     if card.debuff then return end  -- Does not work when debuffed

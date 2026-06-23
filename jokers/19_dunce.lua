@@ -11,6 +11,7 @@ SMODS.Joker {
   eternal_compat = true,
   blueprint_compat = true,
   perishable_compat = true,
+  rental_compat = true,
   loc_vars = function(self, info_queue, card)
     local last_joker = G.jokers and G.jokers.cards[#G.jokers.cards]
     local name = ''

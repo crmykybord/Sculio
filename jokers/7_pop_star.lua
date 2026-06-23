@@ -8,6 +8,7 @@ SMODS.Joker {
   eternal_compat = true,
   blueprint_compat = true,
   perishable_compat = true,
+  rental_compat = true,
   rarity = 2, -- Uncommon
   atlas = 'Sculio',
   pos = { x = 6, y = 0 },

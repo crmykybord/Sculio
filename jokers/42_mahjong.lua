@@ -4,6 +4,7 @@ SMODS.Joker {
   eternal_compat = true,
   blueprint_compat = true,
   perishable_compat = false,
+  rental_compat = true,
   config = { extra = { chips = 0, chips_gain = 5 } },
   unlocked = true,
   discovered = false,

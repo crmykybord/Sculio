@@ -12,6 +12,7 @@ SMODS.Joker {
   eternal_compat = true,
   blueprint_compat = false,
   perishable_compat = true,
+  rental_compat = true,
   loc_vars = function(self, info_queue, card)
     return { vars = { card.ability.extra.hands_gain, card.ability.extra.required_score_percentage } }
   end,
