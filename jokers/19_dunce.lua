@@ -1,7 +1,6 @@
 SMODS.Joker {
   key = 'dunce',
   attributes = { 'copying' },
-
   unlocked = true,
   discovered = false,
   rarity = 3, -- Rare
@@ -17,7 +16,8 @@ SMODS.Joker {
     local name = ''
     local compat = localize('k_Sculio_incompatible')
     if last_joker and last_joker ~= card then
-      name = last_joker.ability.name or ''
+      local joker_key = last_joker.config and last_joker.config.center and last_joker.config.center.key
+      name = joker_key and localize({ type = 'name_text', set = 'Joker', key = joker_key }) or (last_joker.ability.name or '')
       compat = last_joker.config.center.blueprint_compat and localize('k_Sculio_compatible') or localize('k_Sculio_incompatible')
     end
     return { vars = { name, compat } }

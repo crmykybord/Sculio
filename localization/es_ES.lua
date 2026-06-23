@@ -576,6 +576,7 @@ return {
       k_Sculio_bad_trip_randomized = '¡Baraja cambiada!',
       k_Sculio_compatible = 'Compatible',
       k_Sculio_incompatible = 'Incompatible',
+      k_Sculio_none = 'Nada',
     }
   }
 }

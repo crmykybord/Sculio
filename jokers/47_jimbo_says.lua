@@ -23,16 +23,14 @@ SMODS.Joker {
         local suits = { 'Hearts', 'Clubs', 'Diamonds', 'Spades' }
         local current_suit = suits[card.ability.extra.suit_index] or 'Hearts'
 
-        -- Check if hand is a flush of current suit
         local is_flush = false
         local hand_name = context.scoring_name or ''
 
         if hand_name == 'Flush' or hand_name == 'Straight Flush' or hand_name == 'Royal Flush' then
-          -- Check if all cards match current suit
           local suit_match = true
           for _, c in ipairs(context.full_hand) do
             if not SMODS.has_enhancement(c, 'm_wild') then
-              local card_suit = c.base.suit
+              local card_suit = c:is_suit(current_suit, false, true) and current_suit or c.base.suit
               if card_suit ~= current_suit then
                 suit_match = false
                 break
