@@ -245,7 +245,8 @@ return {
         name = 'Área de Personal',
         text = {
           'Solo aparecerán',
-          '{C:attention}Comodines{} en la tienda'
+          '{C:attention}Comodines{} en la tienda',
+          "{C:inactive,s:0.8}No interfiere con los Vales{}"
         },
       }, 
       -- 23. Jokerium
@@ -507,11 +508,11 @@ return {
       },
       -- 50. Card Against Jokers
       j_Sculio_card_against = {
-        name = 'Cartas Contra Comodines',
+        name = 'En Contra del Sarcasmo',
         text = {
           '{X:mult,C:white}X#1#{} Multi',
-          '{C:green}1 en 2{} de probabilidad de',
-          '{C:attention}debilitar{} 2 comodines aleatorios',
+          'Prob. de {C:green}1 en 2{} de {C:attention}debilitar{}',
+          '2 {C:attention}comodines{} al azar',
           'antes de cada mano'
         },
       },
@@ -575,6 +576,7 @@ return {
       k_Sculio_bad_trip_randomized = '¡Baraja cambiada!',
       k_Sculio_compatible = 'Compatible',
       k_Sculio_incompatible = 'Incompatible',
+      k_Sculio_none = 'Nada',
     }
   }
 }

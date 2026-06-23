@@ -10,6 +10,7 @@ SMODS.Joker {
   eternal_compat = true,
   blueprint_compat = false,
   perishable_compat = true,
+  rental_compat = true,
   add_to_deck = function(self, card, from_debuff)
     G.GAME.tarot_rate = 0
     G.GAME.planet_rate = 0

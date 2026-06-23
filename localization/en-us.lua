@@ -247,7 +247,8 @@ return {
         name = 'Signage',
         text = {
           'Only {C:attention}Jokers{} will',
-          'appear in the shop'
+          'appear in the shop',
+          "{C:inactive,s:0.8}Does not interfere with Vouchers{}"
         },
       }, 
       -- 23. Jokerium
@@ -578,6 +579,7 @@ return {
       k_Sculio_bad_trip_randomized = 'Deck randomized!',
       k_Sculio_compatible = 'Compatible',
       k_Sculio_incompatible = 'Incompatible',
+      k_Sculio_none = 'None',
     }
   }
 }

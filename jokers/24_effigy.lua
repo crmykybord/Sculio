@@ -4,19 +4,28 @@ SMODS.Joker {
   eternal_compat = true,
   blueprint_compat = false,
   perishable_compat = true,
-  config = { extra = { copying = '' } },
+  rental_compat = true,
+  config = { extra = { random_joker_key = nil } },
   unlocked = true,
   discovered = false,
   rarity = 2, -- Uncommon
   atlas = 'Sculio',
   pos = { x = 5, y = 2 },
   cost = 8,
-  blueprint_compat = true,
   loc_vars = function(self, info_queue, card)
-    return { vars = { card.ability.extra.copying } }
+    local key = card.ability.extra.random_joker_key
+    local name = key and G.localization.descriptions.Joker[key] and G.localization.descriptions.Joker[key].name
+      or localize('k_Sculio_none')
+    return { vars = { name } }
+  end,
+  add_to_deck = function(self, card, from_debuff)
+    card.ability.extra.random_joker_key = nil
+  end,
+  remove_from_deck = function(self, card, from_debuff)
+    card.ability.extra.random_joker_key = nil
   end,
   calculate = function(self, card, context)
-    if context.before then
+    if context.after and not context.blueprint and context.cardarea == G.jokers then
       local bp_jokers = {}
       local all_jokers = {}
 
@@ -31,21 +40,18 @@ SMODS.Joker {
       end
 
       local pool = #bp_jokers > 0 and bp_jokers or all_jokers
+      local chosen = pool[pseudorandom('scheming_idol', 1, #pool)]
+      card.ability.extra.random_joker_key = chosen and chosen.config.center_key or nil
+    end
 
-      if #pool > 0 and not card.ability.extra.random_joker then
-        card.ability.extra.random_joker = pool[pseudorandom('scheming_idol', 1, #pool)]
-        card.ability.extra.copying = card.ability.extra.random_joker.ability.name or ''
+    if card.ability.extra.random_joker_key and not context.blueprint then
+      local jokers = SMODS.find_card(card.ability.extra.random_joker_key)
+      local target = jokers and jokers[1]
+      if target then
+        return SMODS.blueprint_effect(card, target, context)
+      else
+        card.ability.extra.random_joker_key = nil
       end
-    end
-
-    if context.after then
-      card.ability.extra.random_joker = nil
-      card.ability.extra.copying = ''
-    end
-
-    if card.ability.extra.random_joker then
-      local random_joker_ret = SMODS.blueprint_effect(card, card.ability.extra.random_joker, context)
-      return random_joker_ret
     end
   end
 }
