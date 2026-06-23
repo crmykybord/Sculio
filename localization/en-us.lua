@@ -248,6 +248,7 @@ return {
         text = {
           'Only {C:attention}Jokers{} will',
           'appear in the shop'
+          "{C:inactive,s:0.8}Does not interfere with Vouchers{}"
         },
       }, 
       -- 23. Jokerium

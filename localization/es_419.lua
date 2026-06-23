@@ -245,7 +245,8 @@ return {
         name = 'Área de Personal',
         text = {
           'Solo aparecerán',
-          '{C:attention}Comodines{} en la tienda'
+          '{C:attention}Comodines{} en la tienda',
+          "{C:inactive,s:0.8}No interfiere con los Vales{}"
         },
       }, 
       -- 23. Jokerium
