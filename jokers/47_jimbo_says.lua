@@ -18,10 +18,11 @@ SMODS.Joker {
     return { vars = { localize(current_suit, 'suits_plural'), colours = { G.C.SUITS[current_suit] } } }
   end,
   calculate = function(self, card, context)
-    if context.before and not context.blueprint then
+    local source = context.blueprint and context.blueprint_card or card
+    if context.before then
       if not card.ability.extra.triggered_this_round then
         local suits = { 'Hearts', 'Clubs', 'Diamonds', 'Spades' }
-        local current_suit = suits[card.ability.extra.suit_index] or 'Hearts'
+        local current_suit = suits[source.ability.extra.suit_index] or 'Hearts'
 
         local is_flush = false
         local hand_name = context.scoring_name or ''

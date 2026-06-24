@@ -30,7 +30,7 @@ SMODS.Joker {
       if is_first and not context.other_card.debuff then
         local base_chips = context.other_card.base.nominal or 0
         if base_chips > 0 then
-          return { mult = base_chips, message = localize { type = 'variable', key = 'a_mult', vars = { base_chips } } }
+          return { mult = base_chips }
         end
       end
     end
