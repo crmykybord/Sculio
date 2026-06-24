@@ -1,13 +1,3 @@
-local function contains(cards, card)
-  for _, v in pairs(cards) do
-    if v == card then
-      return true
-    end
-  end
-
-  return false
-end
-
 -- Install the shuffle hook once, storing the original under the mod table.
 if not Sculio.shuffle_ref then
   Sculio.shuffle_ref = CardArea.shuffle
@@ -59,9 +49,14 @@ function CardArea:shuffle(_seed)
     if rorschach then
       local priorities = {}
       local others = {}
+      local ids = rorschach.ability.extra.card_ids_to_draw_next or {}
 
       for _, v in pairs(self.cards) do
-        if contains(rorschach.ability.extra.card_ids_to_draw_next, v.ID) then
+        local found = false
+        for _, id in ipairs(ids) do
+          if id == v.ID then found = true break end
+        end
+        if found then
           table.insert(priorities, v)
         else
           table.insert(others, v)
@@ -71,9 +66,9 @@ function CardArea:shuffle(_seed)
       for _, card in ipairs(priorities) do
         table.insert(others, card)
       end
-  
+
       self.cards = others
-      rorschach.ability.extra.cards_to_draw_next = {}
+      rorschach.ability.extra.card_ids_to_draw_next = {}
     end
 
     self:set_ranks()
