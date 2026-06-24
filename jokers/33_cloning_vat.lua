@@ -131,6 +131,25 @@ local function cv_build_rankless_card()
   return card
 end
 
+-- Returns guaranteed_type, enhancement_center for ranked cards
+local function cv_pick_guaranteed_bonus()
+  local enhs = {}
+  for k, v in pairs(G.P_CENTERS) do
+    if v.set == 'Enhanced' then enhs[#enhs + 1] = k end
+  end
+
+  if #enhs > 0 then
+    local pool = {'seal', 'edition', 'enhancement'}
+    local choice = pool[pseudorandom('cv_ensure', 1, #pool)]
+    if choice == 'enhancement' then
+      return 'edition', G.P_CENTERS[enhs[pseudorandom('cv_enh', 1, #enhs)]]
+    else
+      return choice, G.P_CENTERS.c_base
+    end
+  end
+  return (pseudorandom('cv_ensure', 1, 2) == 1 and 'seal' or 'edition'), G.P_CENTERS.c_base
+end
+
 local function cv_build_ranked_card()
   local best_id, _, _ = cv_get_analysis()
   if not best_id then return nil end
@@ -140,27 +159,7 @@ local function cv_build_ranked_card()
   local front = G.P_CARDS[suit_prefix .. rank_suffix]
   if not front then return nil end
 
-  -- Collect enhancements
-  local enhs = {}
-  for k, v in pairs(G.P_CENTERS) do
-    if v.set == 'Enhanced' then enhs[#enhs + 1] = k end
-  end
-
-  -- Determine guaranteed bonus type
-  local guaranteed_type = nil
-  local center = G.P_CENTERS.c_base
-  if #enhs > 0 then
-    local pool = {'seal', 'edition', 'enhancement'}
-    local choice = pool[pseudorandom('cv_ensure', 1, #pool)]
-    if choice == 'enhancement' then
-      center = G.P_CENTERS[enhs[pseudorandom('cv_enh', 1, #enhs)]]
-      guaranteed_type = 'edition'  -- Already have enhancement, guarantee edition
-    else
-      guaranteed_type = choice
-    end
-  else
-    guaranteed_type = pseudorandom('cv_ensure', 1, 2) == 1 and 'seal' or 'edition'
-  end
+  local guaranteed_type, center = cv_pick_guaranteed_bonus()
 
   local card = Card(
     G.shop_jokers.T.x + G.shop_jokers.T.w / 2,
@@ -242,25 +241,9 @@ local function cv_apply_to_booster_card(card)
     local front = G.P_CARDS[suit_prefix .. rank_suffix]
     if front then card:set_base(front) end
 
-    -- Collect enhancements for possible bonus
-    local enhs = {}
-    for k, v in pairs(G.P_CENTERS) do
-      if v.set == 'Enhanced' then enhs[#enhs + 1] = k end
-    end
-
-    -- Determine guaranteed type
-    local guaranteed_type = nil
-    if #enhs > 0 then
-      local pool = {'seal', 'edition', 'enhancement'}
-      local choice = pool[pseudorandom('cv_ensure', 1, #pool)]
-      if choice == 'enhancement' then
-        card:set_ability(G.P_CENTERS[enhs[pseudorandom('cv_enh', 1, #enhs)]])
-        guaranteed_type = 'edition'
-      else
-        guaranteed_type = choice
-      end
-    else
-      guaranteed_type = pseudorandom('cv_ensure', 1, 2) == 1 and 'seal' or 'edition'
+    local guaranteed_type, enh_center = cv_pick_guaranteed_bonus()
+    if enh_center and enh_center ~= G.P_CENTERS.c_base then
+      card:set_ability(enh_center)
     end
 
     cv_apply_bonuses(card, guaranteed_type, nil)
