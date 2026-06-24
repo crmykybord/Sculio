@@ -1,7 +1,7 @@
 SMODS.Joker {
   key = 'prescription',
   attributes = { 'on_sell', "joker" },
-  eternal_compat = true,
+  eternal_compat = false,
   blueprint_compat = true,
   perishable_compat = true,
   rental_compat = true,
@@ -12,7 +12,6 @@ SMODS.Joker {
   atlas = 'Sculio',
   pos = { x = 1, y = 3 },
   cost = 8,
-  eternal_compat = false,
   in_pool = function (self, args)
     return G.GAME.stake >= 4 -- Black Stake
   end,

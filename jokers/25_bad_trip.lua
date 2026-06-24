@@ -1,7 +1,7 @@
 SMODS.Joker {
   key = 'bad_trip',
   attributes = { 'on_sell', "generation" },
-  eternal_compat = true,
+  eternal_compat = false,
   blueprint_compat = false,
   perishable_compat = false,
   rental_compat = true,
@@ -12,7 +12,6 @@ SMODS.Joker {
   atlas = 'Sculio',
   pos = { x = 6, y = 2 },
   cost = 7,
-  eternal_compat = false,
   loc_vars = function(self, info_queue, card)
     return { vars = { card.ability.extra.rounds_until_active, card.ability.extra.rounds_elapsed } }
   end,
