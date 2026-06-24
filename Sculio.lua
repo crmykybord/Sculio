@@ -9,6 +9,8 @@ end
 -- Talisman compat
 to_big = to_big or function(...) return ... end
 
+assert(SMODS.load_file('utils.lua'))()
+
 -- Load Jokers: https://github.com/neatoqueen/NeatoJokers/blob/main/NeatoJokers.lua#L32
 local subdir = 'jokers'
 local cards = NFS.getDirectoryItems(SMODS.current_mod.path .. subdir)
