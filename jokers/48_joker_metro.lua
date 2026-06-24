@@ -14,8 +14,6 @@ SMODS.Joker {
   atlas = 'Sculio',
   pos = { x = 0, y = 5 },
   cost = 7,
-  blueprint_compat = true,
-  perishable_compat = false,
   loc_vars = function(self, info_queue, card)
     local current_hand = hand_order[card.ability.extra.current_hand_index] or 'High Card'
     return { vars = { card.ability.extra.mult, card.ability.extra.gain, localize(current_hand, 'poker_hands'), card.ability.extra.gain_increase } }

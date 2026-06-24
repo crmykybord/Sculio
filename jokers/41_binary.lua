@@ -12,8 +12,6 @@ SMODS.Joker {
   atlas = 'Sculio',
   pos = { x = 2, y = 4 },
   cost = 4,
-  blueprint_compat = true,
-  perishable_compat = false,
   loc_vars = function(self, info_queue, card)
     local numerator, denominator = SMODS.get_probability_vars(card, 1, card.ability.extra.odds, 'binary')
     return { vars = { numerator, denominator, card.ability.extra.chips_gain, card.ability.extra.mult_gain, card.ability.extra.chips, card.ability.extra.mult } }

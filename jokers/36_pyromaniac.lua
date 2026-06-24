@@ -12,7 +12,6 @@ SMODS.Joker {
   atlas = 'Sculio',
   pos = { x = 7, y = 3 },
   cost = 10,
-  blueprint_compat = true,
   loc_vars = function(self, info_queue, card)
     return { vars = { card.ability.extra.levels_to_increase } }
   end,
@@ -24,18 +23,8 @@ SMODS.Joker {
 
     if context.before then
       if G.GAME.current_round.hands_played == 0 then
-        -- Based off of Obelisk.
-        local most_played = true
-        local most_played_count = (G.GAME.hands[context.scoring_name].played or 0)
-
-        for k, v in pairs(G.GAME.hands) do
-          if k ~= context.scoring_name and v.played >= most_played_count and v.visible then
-            most_played = false
-          end
-        end
-
-        if most_played then
-          local text, disp_text = context.scoring_name
+        if Sculio.is_most_played(context.scoring_name) then
+          local text = context.scoring_name
 
           for i = 1, card.ability.extra.levels_to_increase, 1 do
             card_eval_status_text(context.blueprint_card or card, 'extra', nil, nil, nil, {message = localize('k_upgrade_ex')})

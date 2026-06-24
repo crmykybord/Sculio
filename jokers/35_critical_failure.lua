@@ -2,8 +2,8 @@ SMODS.Joker {
   key = 'critical_failure',
   attributes = { 'xmult', 'chance', 'reset', 'enhancements' },
   eternal_compat = true,
-  blueprint_compat = false,
-  perishable_compat = true,
+  blueprint_compat = true,
+  perishable_compat = false,
   rental_compat = true,
   config = { extra = { x_mult = 1, x_mult_gain = 0.25 } },
   unlocked = true,
@@ -12,9 +12,6 @@ SMODS.Joker {
   atlas = 'Sculio',
   pos = { x = 6, y = 3 },
   cost = 8,
-  blueprint_compat = true,
-  perishable_compat = false,
-  eternal_compat = true,
   loc_vars = function(self, info_queue, card)
     info_queue[#info_queue+1] = G.P_CENTERS.m_lucky
     return { vars = { card.ability.extra.x_mult, card.ability.extra.x_mult_gain } }

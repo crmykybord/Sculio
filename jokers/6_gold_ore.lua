@@ -21,7 +21,7 @@ SMODS.Joker {
     if context.before and not context.blueprint then
       -- Based off of Vampire.
       for k, v in ipairs(context.scoring_hand) do
-        if v.debuff == false and v.config.center == G.P_CENTERS.m_stone and not v.debuff and not v.vampired then
+        if v.debuff == false and v.config.center == G.P_CENTERS.m_stone and not v.vampired then
           v:set_seal('Gold', nil, true)
 
           G.E_MANAGER:add_event(Event({

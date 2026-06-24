@@ -19,24 +19,12 @@ SMODS.Joker {
     card.ability.extra.debuffed_jokers = card.ability.extra.debuffed_jokers or {}
   end,
   remove_from_deck = function(self, card, from_debuff)
-    if card.ability.extra.debuffed_jokers then
-      for _, j in ipairs(card.ability.extra.debuffed_jokers) do
-        if j and not j.gone then
-          j:set_debuff(false)
-        end
-      end
-    end
+    Sculio.undebuff_list(card.ability.extra.debuffed_jokers)
     card.ability.extra.debuffed_jokers = {}
   end,
   calculate = function(self, card, context)
     if context.before and not context.blueprint then
-      if card.ability.extra.debuffed_jokers then
-        for _, j in ipairs(card.ability.extra.debuffed_jokers) do
-          if j and not j.gone then
-            j:set_debuff(false)
-          end
-        end
-      end
+      Sculio.undebuff_list(card.ability.extra.debuffed_jokers)
       card.ability.extra.debuffed_jokers = {}
 
       local available_jokers = {}
@@ -68,14 +56,8 @@ SMODS.Joker {
     end
 
     if context.final_scoring_step and not context.blueprint then
-      if card.ability.extra.debuffed_jokers then
-        for _, j in ipairs(card.ability.extra.debuffed_jokers) do
-          if j and not j.gone then
-            j:set_debuff(false)
-          end
-        end
-        card.ability.extra.debuffed_jokers = {}
-      end
+      Sculio.undebuff_list(card.ability.extra.debuffed_jokers)
+      card.ability.extra.debuffed_jokers = {}
     end
 
     if context.joker_main then
