@@ -90,11 +90,9 @@ SMODS.Joker {
 
     -- Get unique suits from cards (handles custom suits)
     local suits = {}
-    local ranks = {}
     for _, c in ipairs(cards) do
       if c.ability then
         suits[c.ability.suit or c.base and c.base.suit] = true
-        ranks[c:get_id()] = true
       end
     end
     local suit_count = 0
