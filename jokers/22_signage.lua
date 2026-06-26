@@ -34,15 +34,22 @@ SMODS.Joker {
     force_zero_rates()
   end,
   remove_from_deck = function(self, card, from_debuff)
+    -- Snapshot current rates before restoring. Any rate that is non-zero
+    -- at this point was set by a voucher (or deck/mod) while Signage was
+    -- active. We preserve those values instead of re-applying every voucher
+    -- via Card.apply_to_run (which would duplicate slot/discount/etc effects).
+    local current = {
+      tarot_rate        = G.GAME.tarot_rate,
+      planet_rate       = G.GAME.planet_rate,
+      spectral_rate     = G.GAME.spectral_rate,
+      playing_card_rate = G.GAME.playing_card_rate,
+    }
     local s = card.ability.extra.saved_rates or {}
-    G.GAME.tarot_rate        = s.tarot_rate        or 0
-    G.GAME.planet_rate       = s.planet_rate       or 0
-    G.GAME.spectral_rate     = s.spectral_rate     or 0
-    G.GAME.playing_card_rate = s.playing_card_rate or 0
-
-    for voucher_key in pairs(G.GAME.used_vouchers or {}) do
-      if G.P_CENTERS[voucher_key] then
-        Card.apply_to_run(nil, G.P_CENTERS[voucher_key])
+    for _, rate in ipairs(RATES) do
+      if current[rate] and current[rate] ~= 0 then
+        G.GAME[rate] = current[rate]
+      else
+        G.GAME[rate] = s[rate] or 0
       end
     end
   end,
