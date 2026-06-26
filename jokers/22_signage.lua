@@ -54,7 +54,7 @@ SMODS.Joker {
           local set = center.set or center.kind
           if set and set ~= 'Joker' then
             local rate_key = set:lower() .. '_rate'
-            if (G.GAME[rate_key] or 0) == 0 then
+            if (G.GAME[rate_key] ~= nil) and G.GAME[rate_key] == 0 then
               entry.weight = 0
             end
           end
