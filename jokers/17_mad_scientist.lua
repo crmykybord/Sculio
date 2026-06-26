@@ -29,21 +29,16 @@ SMODS.Joker {
         local rarity_index = sliced_card.config.center.rarity
         local legendary = false
         local rarity
-        local rarity_text
 
         if rarity_index == 2 then
           rarity = 0.71
-          rarity_text = 'Uncommon'
         elseif rarity_index == 3 then
           rarity = 0.96
-          rarity_text = 'Rare'
         elseif rarity_index == 4 then
           rarity = nil
           legendary = true
-          rarity_text = 'Legendary'
         else
           rarity = 0
-          rarity_text = 'Common'
         end
 
         G.E_MANAGER:add_event(Event({
@@ -67,6 +62,12 @@ SMODS.Joker {
             if sliced_edition then
               card:set_edition(sliced_edition, true, true)
             end
+            local base_sell = math.max(1, math.floor(card.cost / 2))
+            local sliced_sell = sliced_card.sell_cost or base_sell
+            if sliced_sell > base_sell then
+              card.ability.extra_value = (card.ability.extra_value or 0) + (sliced_sell - base_sell)
+              card:set_cost()
+            end
             card:start_materialize()
             G.GAME.joker_buffer = 0
 
@@ -74,7 +75,7 @@ SMODS.Joker {
           end
         }))
 
-        return { message = rarity_text .. '!' }
+        return { message = localize('k_Sculio_mad_scientist_spawn') }
       end
     end
   end
