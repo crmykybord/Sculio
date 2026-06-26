@@ -22,7 +22,7 @@ SMODS.Joker {
         source.ability.extra.used_this_round = true
 
         local cost = context.card and context.card.cost or 0
-        local amount = math.min(cost, card.ability.extra.money_recover)
+        local amount = math.min(cost, source.ability.extra.money_recover)
 
         if amount > 0 then
           G.E_MANAGER:add_event(Event({
@@ -42,7 +42,7 @@ SMODS.Joker {
     end
 
     if context.end_of_round and context.main_eval and not context.game_over then
-      card.ability.extra.used_this_round = false
+      source.ability.extra.used_this_round = false
     end
   end
 }
