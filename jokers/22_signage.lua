@@ -1,7 +1,3 @@
--- Signage suppresses non-joker shop spawns via G.GAME rates (type selection)
--- plus SMODS object_weights (specific card selection within a type).
--- A non-zero G.GAME rate means a voucher/deck/mod has taken control;
--- Signage only zeroes weights for types whose rate is still 0.
 local RATES = { 'tarot_rate', 'planet_rate', 'spectral_rate', 'playing_card_rate' }
 
 local function force_zero_rates()
