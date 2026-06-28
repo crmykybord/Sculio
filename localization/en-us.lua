@@ -573,6 +573,7 @@ return {
       k_Sculio_binary_scale_chips = '01000011',
       k_Sculio_binary_scale_mult = '01001101',
       k_Sculio_crime_scene = '+Mult!',
+      k_Sculio_mad_scientist_spawn = 'Science!',
       k_Sculio_beyond_reach_saved = 'It was not beyond reach!',
       k_Sculio_cloning_vat_active = 'Cloned!',
       k_Sculio_sticky_keys_changed = 'Mult Changed!',

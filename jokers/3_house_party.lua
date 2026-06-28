@@ -1,7 +1,6 @@
 SMODS.Joker {
   key = 'house_party',
   attributes = { 'xmult', 'hand_type', 'reset', 'scaling' },
-
   config = { extra = { x_mult = 1, x_mult_gain = 0.25 } },
   unlocked = true,
   discovered = false,
@@ -27,10 +26,7 @@ SMODS.Joker {
     end
 
     if context.joker_main and card.ability.extra.x_mult > 1 then
-      return {
-        xmult = card.ability.extra.x_mult,
-        message = localize { type = 'variable', key = 'a_xmult', vars = { card.ability.extra.x_mult } }
-      }
+      return { xmult = card.ability.extra.x_mult, message = localize { type = 'variable', key = 'a_xmult', vars = { card.ability.extra.x_mult } } }
     end
   end
 }

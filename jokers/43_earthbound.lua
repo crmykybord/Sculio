@@ -6,7 +6,9 @@ function Blind:drawn_to_hand()
     G.GAME.sculio_autobattle_multicopy_safeguard = true
     for _, j in ipairs(G.jokers.cards) do
       if j.config.center.key == 'j_Sculio_earthbound' and not j.debuff then
-        j.config.center:_select_and_force(j)
+        if j.config.center:_is_active_owner(j) then
+          j.config.center:_select_and_force(j)
+        end
         break
       end
     end
@@ -57,7 +59,7 @@ SMODS.Joker {
   rarity = 2,
   atlas = 'Sculio',
   pos = { x = 4, y = 4 },
-  cost = 6,
+  cost = 7,
   loc_vars = function(self, info_queue, card)
     return { vars = { card.ability.extra.x_mult } }
   end,
@@ -84,53 +86,21 @@ SMODS.Joker {
     return available
   end,
 
-  -- Validates that cards actually form the claimed hand
-  _validate_hand = function(self, hand_name, cards)
-    if not cards or #cards == 0 then return false end
-
-    -- Get unique suits from cards (handles custom suits)
-    local suits = {}
-    for _, c in ipairs(cards) do
-      if c.ability then
-        suits[c.ability.suit or c.base and c.base.suit] = true
+  _is_active_owner = function(self, card)
+    for _, j in ipairs(G.jokers and G.jokers.cards or {}) do
+      if j.config.center.key == 'j_Sculio_earthbound' and not j.debuff then
+        return j == card
       end
     end
-    local suit_count = 0
-    for _ in pairs(suits) do suit_count = suit_count + 1 end
-
-    -- Check for debuffed cards in any hand
-    for _, c in ipairs(cards) do
-      if c.debuff then return false end
-    end
-
-    -- Hand-specific validations
-    if hand_name == 'Spectrum' or hand_name == 'spectrum' then
-      return suit_count >= 5 and #cards >= 5
-    elseif hand_name == 'Flush' or hand_name == 'flush' then
-      return suit_count == 1 and #cards >= 5
-    elseif hand_name == 'Straight' or hand_name == 'straight' then
-      if #cards < 5 then return false end
-      local ids = {}
-      for _, c in ipairs(cards) do table.insert(ids, c:get_id()) end
-      table.sort(ids)
-      for i = 2, #ids do
-        if ids[i] - ids[i-1] ~= 1 then return false end
-      end
-      return true
-    elseif hand_name == 'Straight Flush' or hand_name == 'straight_flush' then
-      return self:_validate_hand('Flush', cards) and self:_validate_hand('Straight', cards)
-    end
-
-    -- Fallback: check if these exact cards evaluate to this hand
-    local re_evaluated = evaluate_poker_hand(cards)
-    return re_evaluated[hand_name] and next(re_evaluated[hand_name])
+    return false
   end,
 
   -- Clears previous force picks, evaluates best hand, force-locks those cards.
   _select_and_force = function(self, card)
+    if not self:_is_active_owner(card) then return end
     if G.playing_cards then
       for _, v in ipairs(G.playing_cards) do
-        if v.ability.earthbound_forced == card.unique_val then
+        if v.ability.earthbound_forced then
           v.ability.earthbound_forced = nil
           v.ability.forced_selection = nil
         end
@@ -139,14 +109,7 @@ SMODS.Joker {
     G.hand:unhighlight_all()
     card.ability.selected_hand = nil
 
-    local available = self:get_available_hands(G.hand.cards)
-    local best = nil
-    for _, candidate in ipairs(available) do
-      if self:_validate_hand(candidate.name, candidate.cards) then
-        best = candidate
-        break
-      end
-    end
+    local best = self:get_available_hands(G.hand.cards)[1]
     if best and best.cards then
       card.ability.selected_hand = best.name
       for _, c in ipairs(best.cards) do
@@ -173,7 +136,7 @@ SMODS.Joker {
           end
         end
       end
-    elseif G.hand and G.hand.cards and #G.hand.cards > 0 then
+    elseif G.hand and G.hand.cards and #G.hand.cards > 0 and self:_is_active_owner(card) then
       self:_select_and_force(card)
     end
   end,

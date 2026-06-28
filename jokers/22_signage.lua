@@ -1,9 +1,17 @@
+local RATES = { 'tarot_rate', 'planet_rate', 'spectral_rate', 'playing_card_rate' }
+
+local function force_zero_rates()
+  for _, rate in ipairs(RATES) do
+    G.GAME[rate] = 0
+  end
+end
+
 SMODS.Joker {
   key = 'signage',
   attributes = { 'passive', 'joker' },
   unlocked = true,
   discovered = false,
-  rarity = 1, -- Common
+  rarity = 1,
   atlas = 'Sculio',
   pos = { x = 3, y = 2 },
   cost = 5,
@@ -11,50 +19,37 @@ SMODS.Joker {
   blueprint_compat = false,
   perishable_compat = true,
   rental_compat = true,
+  config = { extra = {} },
   add_to_deck = function(self, card, from_debuff)
-    G.GAME.tarot_rate = 0
-    G.GAME.planet_rate = 0
-    G.GAME.playing_card_rate = 0
-    G.GAME.spectral_rate = 0
+    card.ability.extra.saved_rates = {
+      tarot_rate        = G.GAME.tarot_rate        or 0,
+      planet_rate       = G.GAME.planet_rate       or 0,
+      spectral_rate     = G.GAME.spectral_rate     or 0,
+      playing_card_rate = G.GAME.playing_card_rate or 0,
+    }
+    force_zero_rates()
   end,
   remove_from_deck = function(self, card, from_debuff)
-    G.GAME.tarot_rate = 4
-    G.GAME.planet_rate = 4
-
-    -- Restore Spectral Cards for Ghost Deck.
-    G.GAME.spectral_rate = G.GAME.selected_back.effect.config.spectral_rate
-
-    local shopping_card_frequency_voucher_names = {
-      'tarot_merchant',
-      'tarot_tycoon',
-      'planet_merchant',
-      'planet_tycoon',
-      'magic_trick',
-      'illusion',
-    }
-
-    for i = 1, #shopping_card_frequency_voucher_names do
-      local voucher_name = shopping_card_frequency_voucher_names[i]
-      local voucher_key = 'v_' .. voucher_name
-
-      if G.GAME.used_vouchers[voucher_key] then
-        Card.apply_to_run(nil, G.P_CENTERS[voucher_key])
-      end
-    end
+    local s = card.ability.extra.saved_rates or {}
+    G.GAME.tarot_rate        = s.tarot_rate        or 0
+    G.GAME.planet_rate       = s.planet_rate       or 0
+    G.GAME.spectral_rate     = s.spectral_rate     or 0
+    G.GAME.playing_card_rate = s.playing_card_rate or 0
   end,
   calculate = function(self, card, context)
-    if context.buying_card and not context.blueprint then
-      -- Override Voucher effects.
-      G.E_MANAGER:add_event(Event({
-        delay = 2.0,
-        func = function()
-          G.GAME.tarot_rate = 0
-          G.GAME.planet_rate = 0
-          G.GAME.playing_card_rate = 0
-
-          return true
+    if context.modify_weights then
+      for _, entry in ipairs(context.pool) do
+        local center = G.P_CENTERS[entry.key]
+        if center then
+          local set = center.set or center.kind
+          if set and set ~= 'Joker' then
+            local rate_key = set:lower() .. '_rate'
+            if (G.GAME[rate_key] ~= nil) and G.GAME[rate_key] == 0 then
+              entry.weight = 0
+            end
+          end
         end
-      }))
+      end
     end
   end
 }

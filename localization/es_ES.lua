@@ -539,8 +539,8 @@ return {
         name = 'El Líder',
         text = {
           'Obtiene {C:mult}+#1#{} Multi antes de anotar',
-          'al jugar {C:attention}Carta más Alta{}',
-          'por cada vez que se jugó {C:attention}anteriormente{}',
+          'al jugar {C:attention}Carta más Alta{} por cada',
+          'vez que se jugó {C:attention}anteriormente{}',
           '{C:inactive}(Actualmente {C:mult}+#2#{}{C:inactive} Multi)'
         },
       },
@@ -570,6 +570,7 @@ return {
       k_Sculio_binary_scale_chips = '01000011',
       k_Sculio_binary_scale_mult = '01001101',
       k_Sculio_crime_scene = '¡+Multi!',
+      k_Sculio_mad_scientist_spawn = '¡Ciencia!',
       k_Sculio_beyond_reach_saved = '¡No estaba fuera de alcance!',
       k_Sculio_cloning_vat_active = '¡Clonado!',
       k_Sculio_sticky_keys_changed = '¡Multi cambiado!',

@@ -23,17 +23,15 @@ SMODS.Joker {
     return false
   end,
   loc_vars = function(self, info_queue, card)
-    return { vars = { card.ability.extra.mult_per_wild, Sculio.count_enhanced('m_wild') } }
+    local total_mult = Sculio.count_enhanced('m_wild') * card.ability.extra.mult_per_wild
+    return { vars = { card.ability.extra.mult_per_wild, total_mult } }
   end,
   calculate = function(self, card, context)
     if context.individual and context.cardarea == G.play then
       if SMODS.has_enhancement(context.other_card, 'm_wild') then
         local total_mult = Sculio.count_enhanced('m_wild') * card.ability.extra.mult_per_wild
         if total_mult > 0 then
-          return {
-            mult = total_mult,
-            message = localize { type = 'variable', key = 'a_mult', vars = { total_mult } }
-          }
+          return { mult = total_mult, }
         end
       end
     end
