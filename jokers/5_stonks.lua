@@ -18,7 +18,7 @@ SMODS.Joker {
   end,
   calculate = function(self, card, context)
     if context.joker_main then
-      return { mult = card.ability.extra.mult, message = localize { type = 'variable', key = 'a_mult', vars = { card.ability.extra.mult } } }
+      return { mult = card.ability.extra.mult }
     end
 
     if context.end_of_round and context.main_eval and not context.game_over and not context.blueprint and G.GAME.blind.boss then
