@@ -423,10 +423,10 @@ return {
       j_Sculio_binary = {
         name = 'Comodín Binario',
         text = {
-          'Tiene una prob. de {C:green}#1# en #2#{} de',
-          'obtener {C:chips}+#3#{} Fichas o {C:mult}+#4#{} Multi',
-          'por cada carta en mano al final de la ronda',
-          '{C:inactive}(Actualmente {C:chips}+#5#{}{C:inactive} Fichas y {C:mult}+#6#{} Multi)'
+          'Tiene una prob. de {C:green}#1# en #2#{} de obtener',
+          '{C:chips}+#3#{} Fichas o {C:mult}+#4#{} Multi por cada',
+          'carta en mano al final de la ronda',
+          '{C:inactive}(Actualmente {C:chips}+#5#{}{C:inactive} Fichas y {C:mult}+#6#{} {C:inactive}Multi)'
         },
       }, 
       -- 42. Red Dragon
