@@ -10,9 +10,9 @@ return {
           ' ',
           '{C:attention}Credits:{}',
           '{C:money}crmykybord{}: Sprite Artist',
+          '{C:money}Marffe{}: Developer
           '{C:money}BrandonE{}: Developer',
-          '{C:money}chily{}: Joker Ideas + Balancing',
-          '{C:money}Marffe{}: Ideas + Loc files for translation',
+          '{C:money}chily{}: Emotional Support',
           ' ',
           '{C:attention}Special Thanks (Joker Ideas):{}',
           '{C:inactive}u/Spicy_burritos (Dunce Artwork + Concept), u/The_Math_Hatter,',
@@ -28,7 +28,7 @@ return {
       Sculio_refrigerable_jokers = {
         name = 'Food Jokers',
         text = {
-          'Any {C:attention}Joker{} thats is',
+          'Any {C:attention}Joker{} that is',
           '{C:attention}Food{}'
         }
       },
@@ -110,7 +110,7 @@ return {
         text = {
           'If you play your most played hand,',
           'each scored {C:attention}card{} permanently gains',
-          '{C:chips}chips{} equal to {C:attention}#1#% of the number{}',
+          '{C:chips}chips{} equal to {C:attention}half of the number{}',
           '{C:attention}of times it has been played{}'
         },
       },      
@@ -129,8 +129,8 @@ return {
         name = 'Anatomy',
         text = {
           'Scored {C:attention}number cards{} have',
-          '{C:green}#1#% of their rank out of #2#{}',
-          'to be retriggered once'
+          'their rank out of #2#{} to',
+          'be retriggered once'
         }
       },  
       -- 11. Handheld
@@ -168,7 +168,7 @@ return {
         name = 'Figurine',
         text = {
           'When a Joker with an {C:attention}edition{} is sold,',
-          'this Joker gains {C:attention}#5#%{} of the {C:attention}edition\'s bonus{}',
+          'this Joker gains the {C:attention}edition\'s bonus{}',
           '{C:inactive}(Currently {C:chips}+#1#{}{C:inactive} Chips, {C:mult}+#2#{}{C:inactive} Mult, {X:mult,C:white}X#3#{}{C:inactive} Mult, and {X:chips,C:white}X#4#{}{C:inactive} Chips)'
         },
       }, 
@@ -256,7 +256,7 @@ return {
         name = 'Jokerium',
         text = {
           'Levels up {C:planet}all hands{}',
-          'when defeating a {C:attention}Boss Blind{}',
+          'when a {C:attention}Boss Blind{} is defeated',
         },
       }, 
       -- 24. Effigy
@@ -467,7 +467,7 @@ return {
         name = 'Puck',
         text = {
           'When a card with an {C:attention}edition{} is scored,',
-          'this Joker gains {C:attention}#5#%{} of the {C:attention}edition\'s bonus{}',
+          'this Joker gains the {C:attention}edition\'s bonus{}',
           '{C:inactive}(Currently {C:chips}+#1#{}{C:inactive} Chips, {C:mult}+#2#{}{C:inactive} Mult, {X:mult,C:white}X#3#{}{C:inactive} Mult, and {X:chips,C:white}X#4#{}{C:inactive} Chips)'
         }
       },
