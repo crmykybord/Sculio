@@ -29,27 +29,11 @@ SMODS.Joker {
     }
     force_zero_rates()
   end,
-  remove_from_deck = function(self, card, from_debuff)
+remove_from_deck = function(self, card, from_debuff)
     local s = card.ability.extra.saved_rates or {}
     G.GAME.tarot_rate        = s.tarot_rate        or 0
     G.GAME.planet_rate       = s.planet_rate       or 0
     G.GAME.spectral_rate     = s.spectral_rate     or 0
     G.GAME.playing_card_rate = s.playing_card_rate or 0
   end,
-  calculate = function(self, card, context)
-    if context.modify_weights then
-      for _, entry in ipairs(context.pool) do
-        local center = G.P_CENTERS[entry.key]
-        if center then
-          local set = center.set or center.kind
-          if set and set ~= 'Joker' then
-            local rate_key = set:lower() .. '_rate'
-            if (G.GAME[rate_key] ~= nil) and G.GAME[rate_key] == 0 then
-              entry.weight = 0
-            end
-          end
-        end
-      end
-    end
-  end
 }
