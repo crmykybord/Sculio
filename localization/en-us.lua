@@ -10,7 +10,7 @@ return {
           ' ',
           '{C:attention}Credits:{}',
           '{C:money}crmykybord{}: Sprite Artist',
-          '{C:money}Marffe{}: Developer
+          "{C:money}Marffe{}: Developer",
           '{C:money}BrandonE{}: Developer',
           '{C:money}chily{}: Emotional Support',
           ' ',
