@@ -180,9 +180,9 @@ return {
           'te abandona si no tienes {C:money}dinero{}',
         },
       }, 
-      -- 16. Beyond Reach
-      j_Sculio_beyond_reach = {
-        name = 'Fuera de Alcance',
+      -- 16. Reach
+      j_Sculio_reach = {
+        name = 'Mano Pegajosa',
         text = {
           'Previene la muerte y se {S:1.1,C:red,E:2}destruye{}.',
           'Otorga {C:blue}+#1#{} mano adicional si tu puntuación',
@@ -231,7 +231,7 @@ return {
       },
       -- 21. Sticky Keys
       j_Sculio_sticky_keys = {
-        name = 'Comodín en Ventana',
+        name = 'Tecla Atascada',
         text = {
           'Gana {C:mult}Multi{} igual a las fichas base',
           'de la priemra carta {C:attention}anotada{},',
@@ -241,8 +241,8 @@ return {
         }
       }, 
       -- 22. Signage
-      j_Sculio_signage = {
-        name = 'Área de Personal',
+      j_Sculio_bathroom_signage = {
+        name = 'Baño Público',
         text = {
           'Solo aparecerán',
           '{C:attention}Comodines{} en la tienda',

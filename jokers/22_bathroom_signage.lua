@@ -7,11 +7,11 @@ local function force_zero_rates()
 end
 
 SMODS.Joker {
-  key = 'signage',
+  key = 'bathroom_signage',
   attributes = { 'passive', 'joker' },
   unlocked = true,
   discovered = false,
-  rarity = 1,
+  rarity = 2,
   atlas = 'Sculio',
   pos = { x = 3, y = 2 },
   cost = 5,

@@ -129,7 +129,7 @@ return {
         name = 'Anatomy',
         text = {
           'Scored {C:attention}number cards{} have',
-          'their rank out of #2#{} to',
+          '{C:attention}their rank out of #2#{} to',
           'be retriggered once'
         }
       },  
@@ -181,9 +181,9 @@ return {
           'Destroyed if money reaches {C:money}$#3#{}',
         },
       }, 
-      -- 16. Beyond Reach
-      j_Sculio_beyond_reach = {
-        name = 'Beyond Reach',
+      -- 16. Reach
+      j_Sculio_reach = {
+        name = 'Reach',
         text = {
           'Prevents Death, {S:1.1,C:red,E:2}self destructs{}, and',
           'permanently gains {C:blue}+#1#{} hand if chips',
@@ -242,9 +242,9 @@ return {
           '{C:inactive}(Currently {C:mult}+#1#{}{C:inactive} Mult)',
         }
       }, 
-      -- 22. Signage
-      j_Sculio_signage = {
-        name = 'Signage',
+      -- 22. Bathroom Signage
+      j_Sculio_bathroom_signage = {
+        name = 'Bathroom Signage',
         text = {
           'Only {C:attention}Jokers{} will',
           'appear in the shop',
@@ -520,18 +520,18 @@ return {
           '{C:inactive}(Currently {C:mult}+#1#{}{C:inactive} Mult)'
         },
       },
-      -- 50. Card Against Jokers
+      -- 50. Jokes against Humanity
       j_Sculio_card_against = {
-        name = 'Cards Against Jokers',
+        name = 'Jokes Against Humanity',
         text = {
           '{X:mult,C:white}X#1#{} Mult',
           '{C:green}1 in 3{} chance to {C:attention}debuff{}',
           '2 random Jokers before each hand'
         },
       },
-      -- 51. Scrabble Joker
+      -- 51. Letter Tile
       j_Sculio_scrabble = {
-        name = 'Scrabble Joker',
+        name = 'Letter Tile',
         text = {
           'Scored {C:attention}Jacks{} give',
           '{C:mult}+#1#{} Mult when scored'
