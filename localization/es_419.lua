@@ -328,8 +328,9 @@ return {
       j_Sculio_intuition = {
         name = 'Intuición',
         text = {
-          'La primera {C:attention}Carta de Oro{} anotada da {C:money}$#1#{}',
-          'La primera {C:attention}Carta de Acero{} anotada da {X:mult,C:white}X#2#{} Multi'
+          'Prob. de {C:green}1 en 4{} de que las cartas',
+          '{C:attention}en mano{} copien el efecto de una',
+          'carta {C:attention}mejorada{} anotada',
         },
       }, 
       -- 32. Sensory Overload
@@ -489,11 +490,11 @@ return {
       j_Sculio_joker_metro = {
         name = 'Metro Comodín',
         text = {
-          'Gana {C:mult}+#2#{} Multi al',
-          'jugar {C:attention}#3#{} y',
-          'avanza a la siguiente mano',
+          'Gana {C:mult}+#2#{} Multi al jugar {C:attention}#3#{}',
+          "y aumenta en {C:mult}+#4#{} al derrotar",
+          'una Ciega Jefe',
+          '{C:inactive,s:0.8}(La mano cambia en cada ronda){}',
           '{C:inactive}(Actualmente {C:mult}+#1#{}{C:inactive} Multi)',
-          '{C:inactive}(Carta Alta > Par > Doble Par > Trío > Escalera > Color > Póker){}'
         },
       },
       -- 49. Gladiator Joker
@@ -506,22 +507,22 @@ return {
           '{C:inactive}(Actualmente {C:mult}+#1#{}{C:inactive} Multi)'
         },
       },
-      -- 50. Card Against Jokers
-      j_Sculio_card_against = {
-        name = 'En Contra del Sarcasmo',
+      -- 50. Jokes against Humanity
+      j_Sculio_jokes_against_humanity = {
+        name = 'Chistes Contra la Humanidad',
         text = {
           '{X:mult,C:white}X#1#{} Multi',
-          'Prob. de {C:green}1 en 2{} de {C:attention}debilitar{}',
+          'Prob. de {C:green}1 en 3{} de {C:attention}debilitar{}',
           '2 {C:attention}comodines{} al azar',
           'antes de cada mano'
         },
       },
-      -- 51. Scrabble Joker
-      j_Sculio_scrabble = {
-        name = 'Comodín Scrabble',
+      -- 51. Letter Tile
+      j_Sculio_letter_tile = {
+        name = 'Ficha de Letra',
         text = {
           'Las {C:attention}Jotas{} anotadas otorgan',
-          '{C:mult}+#1#{} Multi al anotar'
+          '{C:mult}+#1#{} Multi al anotar',
         },
       },
       -- 52. Untextured Joker
@@ -531,7 +532,7 @@ return {
           'Las {C:attention}Cartas Versátiles{}',
           'otorgan {C:mult}+#1#{} Multi por cada',
           '{C:attention}Carta Versátil{} en tu baraja',
-          '{C:inactive}(Actualmente {C:mult}+#2#{}{C:inactive} Multi)'
+          '{C:inactive}(Actualmente {C:mult}+#2#{}{C:inactive} Multi)',
         },
       },
       -- 53. The Leader
@@ -540,8 +541,84 @@ return {
         text = {
           'Obtiene {C:mult}+#1#{} Multi antes de anotar',
           'al jugar {C:attention}Carta más Alta{} por cada',
-          'vez que se jugó {C:attention}anteriormente{}',
+          'vez que se jug ó {C:attention}anteriormente{}',
           '{C:inactive}(Actualmente {C:mult}+#2#{}{C:inactive} Multi)'
+        },
+      },
+      -- 54. Sheriff
+      j_Sculio_sheriff = {
+        name = 'Sheriff',
+        text = {
+          '{X:mult,C:white}X#1#{} Multi por cada',
+          '{C:attention}Ciega Jefe{} derrotada',
+          '{C:inactive}Actualmente ({X:mult,C:white}X#2#{}{C:inactive} Multi)'
+        },
+      },
+      -- 55. Computer Virus
+      j_Sculio_computer_virus = {
+        name = 'Virus Informático',
+        text = {
+          'Al derrotar una {C:attention}Ciega Jefe{},',
+          '{C:red}destruye{} el {C:attention}Comodín{}',
+          'del extremo derecho y crea',
+          'un {C:common}Comodín común{} con',
+          '{C:dark_edition,E:1}Negativa{} o {C:dark_edition}Polícroma{}'
+        },
+      },
+      -- 56. Manilla Folder
+      j_Sculio_manilla_folder = {
+        name = 'Carpeta Manila',
+        text = {
+          'Al jugar una {C:attention}mano secreta{},',
+          'llena los espacios de {C:attention}Consumibles{}',
+          'con {C:attention}Consumibles{} al azar',
+        },
+      },
+      -- 57. Nonogram Joker
+      j_Sculio_nonogram_joker = {
+        name = 'Comodín Nonograma',
+        text = {
+          '{C:inactive}WIP, ignorado{}'
+        },
+      },
+      -- 58. Telephone
+      j_Sculio_telephone = {
+        name = 'Teléfono',
+        text = {
+          '{C:inactive}WIP, ignorado{}'
+        },
+      },
+      -- 59. Joker of Nothing
+      j_Sculio_joker_of_nothing = {
+        name = 'Comodín de Nada',
+        text = {
+          'Los {C:attention}Reyes{} anotados otorgan',
+          '{X:mult,C:white}X#1#{} Multi por cada {C:attention}categoría{}',
+          'faltante en tu baraja',
+          '{C:inactive}({#2#} categorías faltantes, {X:mult,C:white}X#3#{}{C:inactive} Multi)'
+        },
+      },
+      -- 60. Game Package
+      j_Sculio_game_package = {
+        name = 'Juego Retro',
+        text = {
+          '{C:inactive}WIP, ignorado{}'
+        },
+      },
+      -- 61. Lost Keys
+      j_Sculio_lost_keys = {
+        name = 'Llaves Perdidas',
+        text = {
+          'Al derrotar una {C:attention}Ciega Jefe{},',
+          'la {C:money}Tienda{} tiene {C:attention}2{}',
+          '{C:attention}paquetes potenciadores{} pequeños gratis',
+        },
+      },
+      -- 62. Gun Target
+      j_Sculio_gun_target = {
+        name = 'Objetivo de Practica',
+        text = {
+          '{C:inactive}WIP, ignorado{}'
         },
       },
       -- 100. Puck
