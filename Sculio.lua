@@ -21,8 +21,17 @@ table.sort(cards, function(a, b)
   return a_num < b_num
 end)
 
+local skip_files = {
+  ['57_nonogram_joker.lua'] = true,
+  ['58_telephone.lua'] = true,
+  ['60_game_package.lua'] = true,
+  ['62_gun_target.lua'] = true,
+}
+
 for _, filename in ipairs(cards) do
-  assert(SMODS.load_file(subdir .. '/' .. filename))()
+  if not skip_files[filename] then
+    assert(SMODS.load_file(subdir .. '/' .. filename))()
+  end
 end
 
 assert(SMODS.load_file('libs/shuffle.lua'))()
