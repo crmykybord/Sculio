@@ -35,17 +35,5 @@ SMODS.Joker {
     if context.joker_main and card.ability.extra.x_mult > 1 then
       return { x_mult = card.ability.extra.x_mult, card = card }
     end
-  end,
-  joker_display_def = function(JokerDisplay)
-    return {
-      text = {
-        {
-          border_nodes = {
-            { text = 'X' },
-            { ref_table = 'card.ability.extra', ref_value = 'x_mult' }
-          }
-        }
-      }
-    }
   end
 }
