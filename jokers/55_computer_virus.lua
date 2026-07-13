@@ -16,48 +16,36 @@ SMODS.Joker {
     return { vars = {} }
   end,
   calculate = function(self, card, context)
-    if context.blind_defeated and not context.blueprint and #G.jokers.cards > 1 then
-      local rightmost_joker = G.jokers.cards[#G.jokers.cards]
-      if rightmost_joker and rightmost_joker ~= card then
-        G.E_MANAGER:add_event(Event({
-          func = function()
-            play_sound('tarot1')
-            rightmost_joker.T.r = -0.2
-            rightmost_joker:juice_up(0.3, 0.4)
-            rightmost_joker.children.center.pinch.x = true
-            G.E_MANAGER:add_event(Event({
-              trigger = 'after',
-              delay = 0.3,
-              blockable = false,
-              func = function()
-                G.jokers:remove_card(rightmost_joker)
-                rightmost_joker:remove()
-                rightmost_joker = nil
-                return true
-              end
-            }))
-            return true
-          end
-        }))
-
-        G.E_MANAGER:add_event(Event({
-          trigger = 'after',
-          delay = 0.5,
-          func = function()
-            local new_joker = SMODS.create_card({
-              set = 'Joker',
-              rarity = 1,
-              major = false,
-              no_soul = true
-            })
-            local edition = pseudorandom('computer_virus_edition') < 0.5 and 'Negative' or 'Polychrome'
-            new_joker:set_edition(edition, true)
-            new_joker.no_sell_value = true
-            G.jokers:emplace(new_joker)
-            return true
-          end
-        }))
+    if context.blind_defeated and not context.blueprint and G.GAME.blind:get_type() == 'Boss' and #G.jokers.cards > 1 then
+      -- find rightmost non-eternal joker
+      local rightmost = nil
+      for i = #G.jokers.cards, 1, -1 do
+        if G.jokers.cards[i] ~= card and not G.jokers.cards[i].ability.eternal then
+          rightmost = G.jokers.cards[i]
+          break
+        end
       end
+      if not rightmost then return end
+
+      -- Destroy target + create new joker in immediate succession (not deferred
+      -- to cash-out animation). We call the engine helpers synchronously so the
+      -- action lands during the blind-defeat moment.
+      rightmost.ability.eternal = nil
+      rightmost.ability.perishable = nil
+      rightmost.ability.rental = nil
+      G.jokers:remove_card(rightmost)
+      rightmost:remove()
+
+      local new_joker = SMODS.create_card({
+        set = 'Joker',
+        rarity = 'Common',
+        major = false,
+        no_soul = true,
+      })
+      local edition = pseudorandom('computer_virus_edition') < 0.5 and 'e_negative' or 'e_polychrome'
+      new_joker:set_edition(edition, true)
+      new_joker.no_sell_value = true
+      G.jokers:emplace(new_joker)
     end
   end
 }
