@@ -38,7 +38,7 @@ SMODS.Joker {
     end
 
     if context.joker_main and card.ability.extra.mult > 0 then
-      return { mult = card.ability.extra.mult, message = localize { type = 'variable', key = 'a_mult', vars = { card.ability.extra.mult } } }
+      return { mult = card.ability.extra.mult }
     end
   end
 }
