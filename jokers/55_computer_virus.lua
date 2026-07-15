@@ -17,7 +17,6 @@ SMODS.Joker {
   end,
   calculate = function(self, card, context)
     if context.blind_defeated and not context.blueprint and G.GAME.blind:get_type() == 'Boss' and #G.jokers.cards > 1 then
-      -- find rightmost non-eternal joker
       local rightmost = nil
       for i = #G.jokers.cards, 1, -1 do
         if G.jokers.cards[i] ~= card and not G.jokers.cards[i].ability.eternal then
@@ -27,9 +26,6 @@ SMODS.Joker {
       end
       if not rightmost then return end
 
-      -- Destroy target + create new joker in immediate succession (not deferred
-      -- to cash-out animation). We call the engine helpers synchronously so the
-      -- action lands during the blind-defeat moment.
       rightmost.ability.eternal = nil
       rightmost.ability.perishable = nil
       rightmost.ability.rental = nil
