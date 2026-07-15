@@ -5,7 +5,7 @@ SMODS.Joker {
   blueprint_compat = true,
   perishable_compat = true,
   rental_compat = true,
-  config = { extra = { boosters_given = 0 } },
+  config = { extra = { boosters = 2 } },
   unlocked = true,
   discovered = false,
   rarity = 3,
@@ -13,23 +13,27 @@ SMODS.Joker {
   pos = { x = 3, y = 6 },
   cost = 7,
   loc_vars = function(self, info_queue, card)
-    return { vars = { card.ability.extra.boosters_given } }
+    return { vars = { card.ability.extra.boosters } }
   end,
   calculate = function(self, card, context)
-    if context.blind_defeated and not context.blueprint then
+    if context.blind_defeated and not context.blueprint and G.GAME.blind:get_type() == 'Boss' then
+      card.ability.extra.pending = (card.ability.extra.pending or 0) + card.ability.extra.boosters
+    end
+    if context.starting_shop and (card.ability.extra.pending or 0) > 0 then
       G.E_MANAGER:add_event(Event({
         func = function()
-          card.ability.extra.boosters_given = card.ability.extra.boosters_given + 2
-          for i = 1, 2 do
-            local booster = SMODS.create_card({
-              set = 'Booster',
-              skip_choose = true,
-              select = false
-            })
-            booster.cost = 0
-            booster.free = true
-            G.shop:emplace(booster)
+          for _ = 1, card.ability.extra.pending do
+            local booster = SMODS.add_booster_to_shop()
+            if booster then
+              -- Vanilla's "free booster" mechanism (used by The Cloth, coupons,
+              -- Paperback's Celtic Cross). Much cleaner than brute-forcing the cost.
+              booster.ability.couponed = true
+              if type(booster.set_cost) == 'function' then
+                booster:set_cost()
+              end
+            end
           end
+          card.ability.extra.pending = 0
           return true
         end
       }))
