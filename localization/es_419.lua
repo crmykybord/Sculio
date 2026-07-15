@@ -328,7 +328,7 @@ return {
       j_Sculio_intuition = {
         name = 'Intuición',
         text = {
-          'Prob. de {C:green}1 en 4{} de que las cartas',
+          'Prob. de {C:green}#1# en #2#{} de que las cartas',
           '{C:attention}en mano{} copien el efecto de una',
           'carta {C:attention}mejorada{} anotada',
         },
