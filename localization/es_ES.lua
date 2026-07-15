@@ -490,10 +490,11 @@ return {
       j_Sculio_joker_metro = {
         name = 'Metro Comodín',
         text = {
-          'Gana {C:mult}+#2#{} Multi al jugar {C:attention}#3#{}',
-          "y aumenta en {C:mult}+#4#{} al derrotar",
-          'una Ciega Jefe',
+          'Gana {C:mult}+#2#{} Multi por ronda cuando',
+          'la mano jugada contiene {C:attention}#3#{}',
           '{C:inactive,s:0.8}(La mano cambia en cada ronda){}',
+          'La ganancia aumenta en {C:mult}+#4#{}',
+          'al derrotar una {C:attention}Ciega Jefe{}',
           '{C:inactive}(Actualmente {C:mult}+#1#{}{C:inactive} Multi)',
         },
       },
@@ -512,7 +513,7 @@ return {
         name = 'Chistes Contra la Humanidad',
         text = {
           '{X:mult,C:white}X#1#{} Multi',
-          'Prob. de {C:green}1 en 3{} de {C:attention}debilitar{}',
+          'Prob. de {C:green}#2# en #3#{} de {C:attention}debilitar{}',
           '2 {C:attention}comodines{} al azar',
           'antes de cada mano'
         },
@@ -539,9 +540,9 @@ return {
       j_Sculio_leader = {
         name = 'El Líder',
         text = {
-          'Obtiene {C:mult}+#1#{} Multi antes de anotar',
-          'al jugar {C:attention}Carta más Alta{} por cada',
-          'vez que se jug ó {C:attention}anteriormente{}',
+          'Al jugar {C:attention}Carta más Alta{},',
+          'añade {C:mult}+#1#{} Multi por cada',
+          'vez que se jugó anteriormente',
           '{C:inactive}(Actualmente {C:mult}+#2#{}{C:inactive} Multi)'
         },
       },
@@ -559,19 +560,20 @@ return {
         name = 'Virus Informático',
         text = {
           'Al derrotar una {C:attention}Ciega Jefe{},',
-          '{C:red}destruye{} el {C:attention}Comodín{}',
-          'del extremo derecho y crea',
-          'un {C:common}Comodín común{} con',
-          '{C:dark_edition,E:1}Negativa{} o {C:dark_edition}Polícroma{}'
+          'destruye el {C:attention}Comodín{} más a la derecha',
+          'y crea un {C:common}Comodín Común{}',
+          'con {C:dark_edition}Negativa{} o {C:dark_edition}Polícroma{}'
         },
+      },
       },
       -- 56. Manilla Folder
       j_Sculio_manilla_folder = {
         name = 'Carpeta Manila',
         text = {
           'Al jugar una {C:attention}mano secreta{},',
-          'llena los espacios de {C:attention}Consumibles{}',
-          'con {C:attention}Consumibles{} al azar',
+          'rellena los espacios vacíos de',
+          '{C:attention}Consumibles{} al azar',
+          '{C:inactive}(Debe haber espacio){}',
         },
       },
       -- 57. Nonogram Joker
@@ -595,7 +597,7 @@ return {
           'Los {C:attention}Reyes{} anotados otorgan',
           '{X:mult,C:white}X#1#{} Multi por cada {C:attention}categoría{}',
           'faltante en tu baraja',
-          '{C:inactive}({#2#} categorías faltantes, {X:mult,C:white}X#3#{}{C:inactive} Multi)'
+          '{C:inactive}(#2# categorías faltantes, {X:mult,C:white}X#3#{}{C:inactive} Multi)'
         },
       },
       -- 60. Game Package
@@ -610,7 +612,7 @@ return {
         name = 'Llaves Perdidas',
         text = {
           'Al derrotar una {C:attention}Ciega Jefe{},',
-          'la {C:money}Tienda{} tiene {C:attention}2{}',
+          'la {C:money}Tienda{} tiene {C:attention}#1#{}',
           '{C:attention}paquetes potenciadores{} pequeños gratis',
         },
       },

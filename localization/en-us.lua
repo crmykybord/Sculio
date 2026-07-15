@@ -502,10 +502,11 @@ return {
       j_Sculio_joker_metro = {
         name = 'Joker Metro',
         text = {
-          'Gains {C:mult}+#2#{} Mult when playing {C:attention}#3#{}',
+          'Gains {C:mult}+#2#{} Mult per round when',
+          'played hand contains {C:attention}#3#{}',
           '{C:inactive,s:0.8}(Hand chosen at random each round){}',
-          '{C:mult}+#2#{} gain increases by {C:mult}+#4#{}',
-          'after defeating a Boss Blind',
+          'Gain increases by {C:mult}+#4#{} per',
+          '{C:attention}Boss Blind{} defeated',
           '{C:inactive}(Currently {C:mult}+#1#{}{C:inactive} Mult)'
         },
       },
@@ -524,7 +525,7 @@ return {
         name = 'Jokes Against Humanity',
         text = {
           '{X:mult,C:white}X#1#{} Mult',
-          '{C:green}1 in 3{} chance to {C:attention}debuff{}',
+          '{C:green}#2# in #3#{} chance to {C:attention}debuff{}',
           '2 random Jokers before each hand'
         },
       },
@@ -550,8 +551,9 @@ return {
       j_Sculio_leader = {
         name = 'The Leader',
         text = {
-          '{C:attention}High Card{} gives {C:mult}+#1#{} Mult',
-          'for each time it was played',
+          'When {C:attention}High Card{} is played,',
+          'gains {C:mult}+#1#{} Mult per previous',
+          '{C:attention}High Card{} played',
           '{C:inactive}(Currently {C:mult}+#2#{}{C:inactive} Mult)'
         },
       },
@@ -561,7 +563,7 @@ return {
         text = {
           '{X:mult,C:white}X#1#{} Mult for each',
           '{C:attention}Boss Blind{} defeated',
-          '{C:inactive}Currently ({X:mult,C:white}X#2#{}{C:inactive} Mult)',
+          '{C:inactive}(Currently {X:mult,C:white}X#2#{}{C:inactive} Mult)',
         },
       },
       -- 55. Computer Virus
@@ -571,7 +573,7 @@ return {
           'After defeating a {C:attention}Boss Blind{},',
           'destroy the {C:attention}rightmost{} Joker',
           'and create a {C:common}Common Joker{}',
-          'with {C:dark_edition}Negative{} or {C:polychrome}Polychrome{}'
+          'with {C:dark_edition}Negative{} or {C:dark_edition}Polychrome{}'
         },
       },
       -- 56. Manilla Folder
@@ -579,8 +581,9 @@ return {
         name = 'Manilla Folder',
         text = {
           'When playing a {C:attention}Secret Hand{},',
-          'fill consumable slots with',
+          'fill empty consumable slots with',
           '{C:attention}random consumables{}',
+          '{C:inactive}(Must have room){}',
         },
       },
       -- 57. Nonogram Joker
@@ -603,7 +606,7 @@ return {
         text = {
           'Scored {C:attention}Kings{} give {X:mult,C:white}X#1#{} Mult',
           'for each {C:attention}missing rank{} in deck',
-          '{C:inactive}({#2#} missing ranks, {X:mult,C:white}X#3#{}{C:inactive} Mult)',
+          '{C:inactive}(#2# missing ranks, {}{X:mult,C:white}X#3#{}{C:inactive} Mult)',
         },
       },
       -- 60. Game Package
@@ -618,7 +621,7 @@ return {
         name = 'Lost Keys',
         text = {
           'After defeating a {C:attention}Boss Blind{},',
-          'shop has {C:attention}2 free{}',
+          'shop has {C:attention}#1# free{}',
           '{C:attention}small booster packs{}',
         },
       },
