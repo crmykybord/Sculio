@@ -2,7 +2,7 @@ SMODS.Joker {
   key = 'lost_keys',
   attributes = { 'boss_blind', 'booster' },
   eternal_compat = true,
-  blueprint_compat = true,
+  blueprint_compat = false,
   perishable_compat = true,
   rental_compat = true,
   config = { extra = { boosters = 2 } },
