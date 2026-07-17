@@ -12,11 +12,11 @@ local Sculio_refrigerator_vanilla_food = {
 
 -- Mod-specific food jokers (populate with entries like: j_aij_omlette = true)
 local Sculio_refrigerator_modded_food = {
-  -- Bunco food jokers
+  -- Bunco
   j_bunc_starfruit = true,
-  -- Handsome Devils food jokers
+  -- Handsome Devils
   j_hnds_coffee_break = true,
-  -- Prism food jokers
+  -- Prism
   j_prism_pizza_cap = true,
   j_prism_pizza_mar = true,
   j_prism_pizza_for = true,
@@ -24,17 +24,17 @@ local Sculio_refrigerator_modded_food = {
   j_prism_pizza_haw = true,
   j_prism_pizza_det = true,
   j_prism_pizza_con = true,
-  -- Artbox food jokers
+  -- Artbox
   j_artb_energy_drink = true,
-  -- KC Vanilla food jokers
+  -- KC Vanilla
   j_kcvanilla_fortunecookie = true,
-  -- Ortalab food jokers
+  -- Ortalab
   j_ortalab_taliaferro = true,
   j_ortalab_hot_chocolate = true,
   j_ortalab_royal_gala = true,
   j_ortalab_popcorn_bag = true,
   j_ortalab_salad = true,
-  -- Paperback food jokers
+  -- Paperback
   j_paperback_ice_cube = true,
   j_paperback_complete_breakfast = true,
   j_paperback_apple = true,
@@ -62,21 +62,23 @@ local Sculio_refrigerator_modded_food = {
   j_paperback_pear = true,
   j_paperback_nigori = true,
   j_paperback_lager = true,
-  -- Plantain food jokers
+  j_paperback_shabu_shabu = true,
+  j_paperback_b_soda = true,
+  j_paperback_jjs = true,
+  -- Plantain
   j_pl_plantain = true,
   j_pl_apple_pie = true,
   j_pl_croissant = true,
   j_pl_lasagna = true,
-  -- Lucky Rabbit food jokers
+  -- Lucky Rabbit
   j_fmod_pub_burger = true,
   j_fmod_edibles = true,
-  -- Extra Credit food jokers
+  -- Extra Credit
   j_ExtraCredit_starfruit = true,
   j_ExtraCredit_candynecklace = true,
   j_ExtraCredit_espresso = true,
   j_ExtraCredit_ambrosia = true,
-  j_ExtraCredit_badapple = true,
-  -- All in Jest food jokers
+  -- All in Jest
   j_aij_silly_sausage = true,
   j_aij_totally_nuts = true,
   j_aij_banana_man = true,
@@ -88,19 +90,19 @@ local Sculio_refrigerator_modded_food = {
   j_aij_cheese_squigglies = true,
   j_aij_corndog = true,
   j_aij_triple_sundae = true,
-  -- Monarchy food jokers
+  -- Monarchy
   j_monarchy_sushi_rolls = true,
-  -- Bundles of Fun appetizers
-  j_bof_a_dragonfruit = true,
-  j_bof_a_blueberry = true,
-  j_bof_a_grapes = true,
-  j_bof_a_leek = true,
-  j_bof_a_durian = true,
-  j_bof_a_wonderous_bread = true,
-  j_bof_a_jelly_beans = true,
-  j_bof_a_apple = true,
-  j_bof_a_apple_core = true,
-  j_bof_a_tomato = true,
+  -- Bundles of Fun
+  j_bof_dragonfruit = true,
+  j_bof_blueberry = true,
+  j_bof_grapes = true,
+  j_bof_leek = true,
+  j_bof_durian = true,
+  j_bof_wonderous_bread = true,
+  j_bof_jelly_beans = true,
+  j_bof_apple = true,
+  j_bof_apple_core = true,
+  j_bof_tomato = true,
 }
 
 local function Sculio_refrigerator_is_food(card)

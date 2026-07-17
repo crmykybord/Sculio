@@ -1,6 +1,6 @@
 SMODS.Joker {
   key = 'leader',
-  attributes = { 'mult', 'hand_type', "scaling" },
+  attributes = { 'mult', 'hand_type', 'scaling' },
   eternal_compat = true,
   blueprint_compat = true,
   perishable_compat = false,

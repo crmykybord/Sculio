@@ -332,8 +332,9 @@ return {
       j_Sculio_intuition = {
         name = 'Intuition',
         text = {
-          'First scored {C:attention}Gold Card{} gives {C:money}$#1#{}',
-          'First scored {C:attention}Steel Card{} gives {X:mult,C:white}X#2#{} Mult'
+          '{C:green}#1# in #2#{} chance held-in-hand cards',
+          'copy the effect of an {C:attention}enhanced{}',
+          'scored card'
         },
       }, 
       -- 32. Sensory Overload
@@ -501,12 +502,11 @@ return {
       j_Sculio_joker_metro = {
         name = 'Joker Metro',
         text = {
-          'Gains {C:mult}+#2#{} Mult when',
-          'playing {C:attention}#3#{} and',
-          'advances to the next hand',
-          '{C:inactive,s:0.8}(High Card > Pair > Two Pair > 3K',
-          '{C:inactive,s:0.8}> Straight > Flush > 4K){}',
-          'Gain grows {C:mult}+#4#{} each cycle restart',
+          'Gains {C:mult}+#2#{} Mult per round when',
+          'played hand contains {C:attention}#3#{}',
+          '{C:inactive,s:0.8}(Hand chosen at random each round){}',
+          'Gain increases by {C:mult}+#4#{} per',
+          '{C:attention}Boss Blind{} defeated',
           '{C:inactive}(Currently {C:mult}+#1#{}{C:inactive} Mult)'
         },
       },
@@ -521,16 +521,16 @@ return {
         },
       },
       -- 50. Jokes against Humanity
-      j_Sculio_card_against = {
+      j_Sculio_jokes_against_humanity = {
         name = 'Jokes Against Humanity',
         text = {
           '{X:mult,C:white}X#1#{} Mult',
-          '{C:green}1 in 3{} chance to {C:attention}debuff{}',
+          '{C:green}#2# in #3#{} chance to {C:attention}debuff{}',
           '2 random Jokers before each hand'
         },
       },
       -- 51. Letter Tile
-      j_Sculio_scrabble = {
+      j_Sculio_letter_tile = {
         name = 'Letter Tile',
         text = {
           'Scored {C:attention}Jacks{} give',
@@ -551,9 +551,85 @@ return {
       j_Sculio_leader = {
         name = 'The Leader',
         text = {
-          '{C:attention}High Card{} gives {C:mult}+#1#{} Mult',
-          'for each time it was played',
+          'When {C:attention}High Card{} is played,',
+          'gains {C:mult}+#1#{} Mult per previous',
+          '{C:attention}High Card{} played',
           '{C:inactive}(Currently {C:mult}+#2#{}{C:inactive} Mult)'
+        },
+      },
+      -- 54. Sheriff
+      j_Sculio_sheriff = {
+        name = 'Sheriff',
+        text = {
+          '{X:mult,C:white}X#1#{} Mult for each',
+          '{C:attention}Boss Blind{} defeated',
+          '{C:inactive}(Currently {X:mult,C:white}X#2#{}{C:inactive} Mult)',
+        },
+      },
+      -- 55. Computer Virus
+      j_Sculio_computer_virus = {
+        name = 'Computer Virus',
+        text = {
+          'After defeating a {C:attention}Boss Blind{},',
+          'destroy the {C:attention}rightmost{} Joker',
+          'and create a {C:common}Common Joker{}',
+          'with {C:dark_edition}Negative{} or {C:dark_edition}Polychrome{}'
+        },
+      },
+      -- 56. Manilla Folder
+      j_Sculio_manilla_folder = {
+        name = 'Manilla Folder',
+        text = {
+          'When playing a {C:attention}Secret Hand{},',
+          'fill empty consumable slots with',
+          '{C:attention}random consumables{}',
+          '{C:inactive}(Must have room){}',
+        },
+      },
+      -- 57. Nonogram Joker
+      j_Sculio_nonogram_joker = {
+        name = 'Nonogram Joker',
+        text = {
+          '{C:inactive}Placeholder{}',
+        },
+      },
+      -- 58. Telephone
+      j_Sculio_telephone = {
+        name = 'Telephone',
+        text = {
+          '{C:inactive}Placeholder{}',
+        },
+      },
+      -- 59. Joker of Nothing
+      j_Sculio_joker_of_nothing = {
+        name = 'Joker of Nothing',
+        text = {
+          'Scored {C:attention}Kings{} give {X:mult,C:white}X#1#{} Mult',
+          'for each {C:attention}missing rank{} in deck',
+          '{C:inactive}(#2# missing ranks, {}{X:mult,C:white}X#3#{}{C:inactive} Mult)',
+        },
+      },
+      -- 60. Game Package
+      j_Sculio_game_package = {
+        name = 'Game Package',
+        text = {
+          '{C:inactive}Placeholder{}'
+        },
+      },
+      -- 61. Lost Keys
+      j_Sculio_lost_keys = {
+        name = 'Lost Keys',
+        text = {
+          'After defeating a {C:attention}Boss Blind{},',
+          'shop has {C:attention}#1# free{}',
+          '{C:attention}small booster packs{}',
+        },
+      },
+      -- 62. Gun Target
+      j_Sculio_gun_target = {
+        name = 'Gun Target',
+        text = {
+          '{C:inactive}Placeholder{}'
         },
       },
     },

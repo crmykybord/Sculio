@@ -1,51 +1,3 @@
--- Trigger force-pick whenever cards are drawn to hand (blind start + re-draws)
-local sculio_eb_drawn_ref = Blind.drawn_to_hand
-function Blind:drawn_to_hand()
-  local ret = sculio_eb_drawn_ref(self)
-  if G.jokers and not G.GAME.sculio_autobattle_multicopy_safeguard then
-    G.GAME.sculio_autobattle_multicopy_safeguard = true
-    for _, j in ipairs(G.jokers.cards) do
-      if j.config.center.key == 'j_Sculio_earthbound' and not j.debuff then
-        if j.config.center:_is_active_owner(j) then
-          j.config.center:_select_and_force(j)
-        end
-        break
-      end
-    end
-  end
-  return ret
-end
-
--- Preserve force picks after playing (vanilla clears forced_selection during play)
-local sculio_eb_play_ref = G.FUNCS.play_cards_from_highlighted
-G.FUNCS.play_cards_from_highlighted = function(e)
-  local forced = {}
-  if G.playing_cards then
-    for _, v in ipairs(G.playing_cards) do
-      if v.ability.earthbound_forced then table.insert(forced, v) end
-    end
-  end
-  local ret = sculio_eb_play_ref(e)
-  for _, v in ipairs(forced) do v.ability.forced_selection = true end
-  G.GAME.sculio_autobattle_multicopy_safeguard = false
-  return ret
-end
-
--- Preserve force picks after discarding
-local sculio_eb_discard_ref = G.FUNCS.discard_cards_from_highlighted
-G.FUNCS.discard_cards_from_highlighted = function(e, hook)
-  local forced = {}
-  if G.playing_cards then
-    for _, v in ipairs(G.playing_cards) do
-      if v.ability.earthbound_forced then table.insert(forced, v) end
-    end
-  end
-  local ret = sculio_eb_discard_ref(e, hook)
-  for _, v in ipairs(forced) do v.ability.forced_selection = true end
-  G.GAME.sculio_autobattle_multicopy_safeguard = false
-  return ret
-end
-
 SMODS.Joker {
   key = 'earthbound',
   attributes = { 'xmult', 'hand_type' },
@@ -64,19 +16,32 @@ SMODS.Joker {
     return { vars = { card.ability.extra.x_mult } }
   end,
 
-  -- Returns all available hands sorted by level desc, order asc.
-  -- evaluate_poker_hand natively includes SMODS-registered custom hands.
+  is_active_owner = function(self, card)
+    for _, j in ipairs(G.jokers and G.jokers.cards or {}) do
+      if j.config.center.key == 'j_Sculio_earthbound' and not j.debuff then
+        return j == card
+      end
+    end
+    return false
+  end,
+
   get_available_hands = function(self, cards)
     local evaluated = evaluate_poker_hand(cards) or {}
     local available = {}
     for hand_name, hand_data in pairs(G.GAME.hands) do
-      if evaluated[hand_name] and next(evaluated[hand_name]) then
-        table.insert(available, {
-          name = hand_name,
-          level = hand_data.level,
-          order = hand_data.order or 999,
-          cards = evaluated[hand_name][1]
-        })
+      if hand_data.visible ~= false
+          and evaluated[hand_name]
+          and next(evaluated[hand_name]) then
+        for _, hand_cards in ipairs(evaluated[hand_name]) do
+          if hand_cards and #hand_cards > 0 then
+            table.insert(available, {
+              name = hand_name,
+              level = hand_data.level,
+              order = hand_data.order or 999,
+              cards = hand_cards,
+            })
+          end
+        end
       end
     end
     table.sort(available, function(a, b)
@@ -86,18 +51,8 @@ SMODS.Joker {
     return available
   end,
 
-  _is_active_owner = function(self, card)
-    for _, j in ipairs(G.jokers and G.jokers.cards or {}) do
-      if j.config.center.key == 'j_Sculio_earthbound' and not j.debuff then
-        return j == card
-      end
-    end
-    return false
-  end,
-
-  -- Clears previous force picks, evaluates best hand, force-locks those cards.
-  _select_and_force = function(self, card)
-    if not self:_is_active_owner(card) then return end
+  select_and_force = function(self, card)
+    if not self:is_active_owner(card) then return end
     if G.playing_cards then
       for _, v in ipairs(G.playing_cards) do
         if v.ability.earthbound_forced then
@@ -121,23 +76,28 @@ SMODS.Joker {
         handname = localize(best.name, 'poker_hands'),
         chips = G.GAME.hands[best.name].chips,
         mult = G.GAME.hands[best.name].mult,
-        level = G.GAME.hands[best.name].level
+        level = G.GAME.hands[best.name].level,
       })
+    end
+  end,
+
+  -- Re-apply force picks after vanilla would have cleared them.
+  reapply_force = function(self, card)
+    if not self:is_active_owner(card) then return end
+    if G.playing_cards then
+      for _, v in ipairs(G.playing_cards) do
+        if v.ability.earthbound_forced == card.unique_val then
+          v.ability.forced_selection = true
+        end
+      end
     end
   end,
 
   add_to_deck = function(self, card, from_debuff)
     if from_debuff then
-      -- Restore forced picks on undebuff
-      if G.playing_cards then
-        for _, v in ipairs(G.playing_cards) do
-          if v.ability.earthbound_forced == card.unique_val then
-            v.ability.forced_selection = true
-          end
-        end
-      end
-    elseif G.hand and G.hand.cards and #G.hand.cards > 0 and self:_is_active_owner(card) then
-      self:_select_and_force(card)
+      self:reapply_force(card)
+    elseif G.hand and G.hand.cards and #G.hand.cards > 0 and self:is_active_owner(card) then
+      self:select_and_force(card)
     end
   end,
 
@@ -153,8 +113,12 @@ SMODS.Joker {
   end,
 
   calculate = function(self, card, context)
-    if context.joker_main then
+    if context.hand_drawn then
+      self:select_and_force(card)
+    elseif context.press_play or context.pre_discard then
+      self:reapply_force(card)
+    elseif context.joker_main then
       return { xmult = card.ability.extra.x_mult }
     end
-  end
+  end,
 }

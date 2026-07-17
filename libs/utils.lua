@@ -68,16 +68,6 @@ function Sculio.is_most_played(scoring_name)
   return most_played
 end
 
--- Find the first card in scoring_hand with the given enhancement key
-function Sculio.find_first_enhanced(scoring_hand, enh_key)
-  for i = 1, #scoring_hand do
-    if SMODS.has_enhancement(scoring_hand[i], enh_key) then
-      return scoring_hand[i]
-    end
-  end
-  return nil
-end
-
 -- Count cards in the deck with the given enhancement key
 function Sculio.count_enhanced(enh_key)
   local count = 0
