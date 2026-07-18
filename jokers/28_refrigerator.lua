@@ -185,8 +185,9 @@ if not Sculio.refrigerator_dissolve_ref then
   Sculio.refrigerator_dissolve_ref = Card.start_dissolve
 
   Card.start_dissolve = function(self, dissolve_colours, silent, dissolve_time_fac, no_juice)
-    -- Only intercept food jokers being destroyed (not sold)
-    if self.ability.set == 'Joker' and Sculio_refrigerator_is_food(self) and self.config.center.key ~= 'j_diet_cola' then
+    -- Block food destroy only; sell sets G.CONTROLLER.locks.selling_card
+    local selling = G.CONTROLLER and G.CONTROLLER.locks and G.CONTROLLER.locks.selling_card
+    if not selling and self.ability.set == 'Joker' and Sculio_refrigerator_is_food(self) and self.config.center.key ~= 'j_diet_cola' then
       local refrigerators = Sculio_refrigerator_get_left(self)
       if next(refrigerators) then
         Sculio_refrigerator_juice(refrigerators, self)
