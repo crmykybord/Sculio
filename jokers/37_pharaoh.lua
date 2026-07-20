@@ -18,24 +18,22 @@ SMODS.Joker {
   add_to_deck = function(self, card, from_debuff)
     if G.hand then
       for _, v in ipairs(G.hand.cards) do
-        if not v:is_face() then v:set_debuff(true) end
+        SMODS.recalc_debuff(v)
       end
     end
   end,
   remove_from_deck = function(self, card, from_debuff)
     if G.hand then
       for _, v in ipairs(G.hand.cards) do
-        v:set_debuff(false)
+        SMODS.recalc_debuff(v)
       end
     end
   end,
   calculate = function(self, card, context)
-    if context.before or context.hand_drawn then
-      for _, v in ipairs(G.hand.cards) do
-        if not v:is_face() then
-          v:set_debuff(true)
-        end
-      end
+    if context.debuff_card
+        and (context.debuff_card.ability.set == 'Default' or context.debuff_card.ability.set == 'Enhanced')
+        and not context.debuff_card:is_face() then
+      return { debuff = true }
     end
 
     if context.individual and context.cardarea == G.play then
