@@ -21,22 +21,34 @@ SMODS.Joker {
   calculate = function(self, card, context)
     local rerolls_were_free = rerolls_are_free or G.GAME.current_round.reroll_cost == 0
 
-    if (context.buying_card or context.open_booster or context.reroll_shop) and not context.blueprint and context.card ~= card then
-      if context.buying_card or context.open_booster then
-        card.ability.extra.spent_since_gain = card.ability.extra.spent_since_gain + context.card.cost
-      elseif context.reroll_shop then
-        if not rerolls_were_free then
-          card.ability.extra.spent_since_gain = card.ability.extra.spent_since_gain + G.GAME.current_round.reroll_cost - 1
-        else
-          rerolls_were_free = false
+    if (context.buying_card or context.open_booster or context.reroll_shop) and context.card ~= card then
+      -- Token identifies this exact purchase so Blueprint copies pay out on the
+      -- same trigger without re-tracking spent (they must not scale, only copy money)
+      local token = context.card and tostring(context.card)
+          or ('reroll_' .. G.GAME.round .. '_' .. (G.GAME.current_round.reroll_cost or 0))
+
+      if context.blueprint then
+        if card.ability.extra.last_money_token == token then
+          return { dollars = card.ability.extra.money_gain }
         end
-      end
+      else
+        if context.buying_card or context.open_booster then
+          card.ability.extra.spent_since_gain = card.ability.extra.spent_since_gain + context.card.cost
+        elseif context.reroll_shop then
+          if not rerolls_were_free then
+            card.ability.extra.spent_since_gain = card.ability.extra.spent_since_gain + G.GAME.current_round.reroll_cost - 1
+          else
+            rerolls_were_free = false
+          end
+        end
 
-      if card.ability.extra.spent_since_gain >= card.ability.extra.spend_per_gain then
-        card.ability.extra.mult = card.ability.extra.mult + card.ability.extra.mult_gain
-        card.ability.extra.spent_since_gain = card.ability.extra.spent_since_gain - card.ability.extra.spend_per_gain
+        if card.ability.extra.spent_since_gain >= card.ability.extra.spend_per_gain then
+          card.ability.extra.mult = card.ability.extra.mult + card.ability.extra.mult_gain
+          card.ability.extra.spent_since_gain = card.ability.extra.spent_since_gain - card.ability.extra.spend_per_gain
+          card.ability.extra.last_money_token = token
 
-        return { dollars = card.ability.extra.money_gain, message = localize('k_upgrade_ex') }
+          return { dollars = card.ability.extra.money_gain, message = localize('k_upgrade_ex') }
+        end
       end
     end
 
