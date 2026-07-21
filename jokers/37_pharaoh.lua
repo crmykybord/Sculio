@@ -32,7 +32,8 @@ SMODS.Joker {
   calculate = function(self, card, context)
     if context.debuff_card
         and (context.debuff_card.ability.set == 'Default' or context.debuff_card.ability.set == 'Enhanced')
-        and not context.debuff_card:is_face() then
+        and not SMODS.has_no_rank(context.debuff_card)
+        and not context.debuff_card:is_face(true) then
       return { debuff = true }
     end
 
