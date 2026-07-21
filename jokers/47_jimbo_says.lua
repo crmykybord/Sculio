@@ -1,3 +1,13 @@
+local function roll_suit(card)
+  local valid_cards = {}
+  for _, v in ipairs(G.playing_cards or {}) do
+    if not SMODS.has_no_suit(v) then valid_cards[#valid_cards + 1] = v end
+  end
+  if valid_cards[1] then
+    card.ability.extra.suit = pseudorandom_element(valid_cards, pseudoseed('jimbo_says')).base.suit
+  end
+end
+
 SMODS.Joker {
   key = 'jimbo_says',
   attributes = { 'suit', 'tag', 'hand_type' },
@@ -5,7 +15,7 @@ SMODS.Joker {
   blueprint_compat = true,
   perishable_compat = true,
   rental_compat = true,
-  config = { extra = { suit_index = 1, triggered_this_round = false } },
+  config = { extra = { suit = 'Hearts', triggered_this_round = false } },
   unlocked = true,
   discovered = false,
   rarity = 2, -- Uncommon
@@ -13,16 +23,20 @@ SMODS.Joker {
   pos = { x = 9, y = 4 },
   cost = 10,
   loc_vars = function(self, info_queue, card)
-    local suits = { 'Hearts', 'Clubs', 'Diamonds', 'Spades' }
-    local current_suit = suits[card.ability.extra.suit_index] or 'Hearts'
+    local current_suit = card.ability.extra.suit
     return { vars = { localize(current_suit, 'suits_plural'), colours = { G.C.SUITS[current_suit] } } }
   end,
+  add_to_deck = function(self, card, from_debuff)
+    roll_suit(card)
+  end,
   calculate = function(self, card, context)
-    local source = context.blueprint and context.blueprint_card or card
+    if context.setting_blind and not context.blueprint then
+      roll_suit(card)
+    end
+
     if context.before then
-      if not card.ability.extra.triggered_this_round then
-        local suits = { 'Hearts', 'Clubs', 'Diamonds', 'Spades' }
-        local current_suit = suits[source.ability.extra.suit_index] or 'Hearts'
+      if context.blueprint or not card.ability.extra.triggered_this_round then
+        local current_suit = card.ability.extra.suit
 
         local is_flush = false
         local hand_name = context.scoring_name or ''
@@ -42,7 +56,9 @@ SMODS.Joker {
         end
 
         if is_flush then
-          card.ability.extra.triggered_this_round = true
+          if not context.blueprint then
+            card.ability.extra.triggered_this_round = true
+          end
 
           -- Create random tag
           G.E_MANAGER:add_event(Event({
@@ -61,11 +77,6 @@ SMODS.Joker {
 
     if context.end_of_round and context.main_eval and not context.game_over and not context.blueprint then
       card.ability.extra.triggered_this_round = false
-      -- Cycle to next suit
-      card.ability.extra.suit_index = card.ability.extra.suit_index + 1
-      if card.ability.extra.suit_index > 4 then
-        card.ability.extra.suit_index = 1
-      end
     end
   end
 }
