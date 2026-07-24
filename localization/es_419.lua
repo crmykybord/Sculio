@@ -603,7 +603,9 @@ return {
       j_Sculio_game_package = {
         name = 'Juego Retro',
         text = {
-          '{C:inactive}WIP, ignorado{}'
+          'Los {C:attention}2{} y {C:attention}4{} en mano',
+          'otorgan {X:mult,C:white}X#1#{} Multi por',
+          "cada carta anotada",
         },
       },
       -- 61. Lost Keys

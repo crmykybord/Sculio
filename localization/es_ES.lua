@@ -565,7 +565,6 @@ return {
           'con {C:dark_edition}Negativa{} o {C:dark_edition}Polícroma{}'
         },
       },
-      },
       -- 56. Manilla Folder
       j_Sculio_manilla_folder = {
         name = 'Carpeta Manila',
@@ -604,7 +603,9 @@ return {
       j_Sculio_game_package = {
         name = 'Juego Retro',
         text = {
-          '{C:inactive}WIP, ignorado{}'
+          'Los {C:attention}2{} y {C:attention}4{} en mano',
+          'otorgan {X:mult,C:white}X#1#{} Multi por',
+          "cada carta anotada",
         },
       },
       -- 61. Lost Keys
@@ -641,7 +642,7 @@ return {
           '{C:attention}Fuerza Imparable{}',
           'con {X:mult,C:white}X#1#{} Multi'
         },
-      },
+      }
     },
   },
   misc = {

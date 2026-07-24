@@ -613,7 +613,8 @@ return {
       j_Sculio_game_package = {
         name = 'Game Package',
         text = {
-          '{C:inactive}Placeholder{}'
+          '{C:attention}2s{} and {C:attention}4s{} in held hand',
+          'give {X:mult,C:white}X#1#{} Mult per scored card',
         },
       },
       -- 61. Lost Keys
