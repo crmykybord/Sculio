@@ -17,7 +17,7 @@ SMODS.Joker {
   end,
   calculate = function(self, card, context)
     if context.before then
-      card.ability.extra.x_mult = #(context.scoring_hand or {})
+      card.ability.extra.x_mult = #(context.full_hand or {})
     end
     if context.end_of_round then return nil end
     if context.individual and context.cardarea == G.hand then

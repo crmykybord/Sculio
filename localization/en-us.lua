@@ -614,7 +614,7 @@ return {
         name = 'Game Package',
         text = {
           '{C:attention}2s{} and {C:attention}4s{} in held hand',
-          'give {X:mult,C:white}X#1#{} Mult per scored card',
+          'give {X:mult,C:white}X#1#{} Mult per played card',
         },
       },
       -- 61. Lost Keys
