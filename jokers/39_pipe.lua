@@ -2,7 +2,7 @@ SMODS.Joker {
   key = 'pipe',
   attributes = { 'on_sell', 'hands', 'discard', 'editions', "joker", "joker_slot" },
   eternal_compat = true,
-  blueprint_compat = true,
+  blueprint_compat = false,
   perishable_compat = true,
   rental_compat = true,
   config = { extra = { rounds_until_active = 2, rounds_elapsed = 0, already_active = false } },
