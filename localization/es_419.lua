@@ -565,7 +565,6 @@ return {
           'con {C:dark_edition}Negativa{} o {C:dark_edition}Polícroma{}'
         },
       },
-      },
       -- 56. Manilla Folder
       j_Sculio_manilla_folder = {
         name = 'Carpeta Manila',

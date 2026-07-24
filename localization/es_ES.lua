@@ -641,7 +641,7 @@ return {
           '{C:attention}Fuerza Imparable{}',
           'con {X:mult,C:white}X#1#{} Multi'
         },
-      }
+      },
     },
   },
   misc = {
