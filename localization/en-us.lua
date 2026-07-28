@@ -6,7 +6,7 @@ return {
         text = {
           'A vanilla-esque mod that aims to add',
           'new and faithful content to Balatro',
-          '(Currently contains 45+ Jokers)',
+          '(Currently contains 60 Jokers)',
           ' ',
           '{C:attention}Credits:{}',
           '{C:money}crmykybord{}: Sprite Artist',
@@ -303,7 +303,7 @@ return {
         name = 'Refrigerator',
         text = {
           '{C:attention}Food Jokers{} to the right',
-          'cannot {C:attention}decay{}, {C:attention}expire{}, or be {C:red}destroyed{}',
+          'cannot {C:attention}decay{} or {C:attention}expire{}',
         },
       }, 
       -- 29. Hammer and Chisel
