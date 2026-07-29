@@ -101,7 +101,7 @@ return {
         text = {
           'Prob. de {C:green}#1# en #2#{} de otorgar',
           'una {C:attention}mejora al azar{}',
-          'a las {C:attention}cartas amotadas{},',
+          'a las {C:attention}cartas anotadas{},',
         },
       },
       -- 8. Addiction
