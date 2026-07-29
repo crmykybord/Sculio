@@ -7,7 +7,7 @@ return {
           'Un Mod Vanilla que busca agregar',
           'contenido nuevo a Balatro que se sienta',
           'como el original',
-          '(¡Tenemos 45 Comodines y una Etiqueta!)',
+          '(¡Tenemos 60 Comodines y una Etiqueta!)',
           ' ',
           '{C:attention}Créditos:{}',
           '{C:money}crmykybord{}: Dibujo y Diseño',
@@ -559,10 +559,10 @@ return {
       j_Sculio_computer_virus = {
         name = 'Virus Informático',
         text = {
-          'Al derrotar una {C:attention}Ciega Jefe{},',
-          'destruye el {C:attention}Comodín{} más a la derecha',
-          'y crea un {C:common}Comodín Común{}',
-          'con {C:dark_edition}Negativa{} o {C:dark_edition}Polícroma{}'
+          'Al derrotar una {C:attention}Ciega Jefe{}, {C:red}destruye{}',
+          'el {C:attention}Comodín{} del extremo derecho',
+          'y crea un {C:common}Comodín Común{} con',
+          'edición {C:dark_edition}Negativa{} o {C:dark_edition}Polícroma{}'
         },
       },
       -- 56. Manilla Folder
