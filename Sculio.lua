@@ -34,3 +34,9 @@ for _, filename in ipairs(cards) do
 end
 
 assert(SMODS.load_file('libs/shuffle.lua'))()
+
+-- Multiplayer compatibility
+if MP and MP.DECK and MP.DECK.ban_card then
+	sendDebugMessage("Sculio MP compatibility active", "MULTIPLAYER")
+	MP.DECK.ban_card("j_Sculio_reach")
+end
