@@ -35,11 +35,7 @@ local function load_dir(subdir, skip_files)
   end
 end
 
-local skip_files = {
-  ['57_nonogram_joker.lua'] = true,
-  ['58_telephone.lua'] = true,
-  ['62_gun_target.lua'] = true,
-}
+local skip_files = { }
 
 load_dir('jokers', skip_files)
 load_dir('consumables')

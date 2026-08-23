@@ -865,7 +865,7 @@ return {
         name = 'El Colapso',
         text = {
           'Por cada {C:diamonds}10 Diamantes{} en toda tu Baraja,',
-          'da una {C:edition}Edición{} al azar a una carta al azar',
+          'da una {C:dark_edition}Edición{} al azar a una carta al azar',
           '{C:inactive}(Actualmente: #2#){}',
         },
       },
