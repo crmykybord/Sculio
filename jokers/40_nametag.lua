@@ -16,7 +16,7 @@ SMODS.Joker {
     return { vars = { card.ability.extra.x_mult, card.ability.extra.x_mult_gain } }
   end,
   calculate = function(self, card, context)
-    if context.cardarea == G.jokers and context.selling_card and context.card.ability.set == 'Joker' and context.card ~= card and not context.blueprint then
+    if context.selling_card and context.card.ability.set == 'Joker' and context.card ~= card and not context.blueprint then
       card.ability.extra.x_mult = card.ability.extra.x_mult + card.ability.extra.x_mult_gain
 
       G.E_MANAGER:add_event(Event({
