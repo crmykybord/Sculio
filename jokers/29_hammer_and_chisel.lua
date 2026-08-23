@@ -24,7 +24,7 @@ SMODS.Joker {
       card.ability.cards_to_shatter = {}
     end
 
-    if context.individual and context.cardarea == G.play and not context.other_card.debuff and context.other_card.config.center == G.P_CENTERS.m_stone then
+    if context.individual and context.cardarea == G.play and not context.other_card.debuff and SMODS.has_enhancement(context.other_card, 'm_stone') then
       if SMODS.pseudorandom_probability(card, 'hammer_and_chisel', 1, card.ability.extra.shatter_odds) then
         table.insert(card.ability.cards_to_shatter, context.other_card)
       end

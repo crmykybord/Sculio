@@ -25,7 +25,7 @@ SMODS.Joker {
       for i = 1, #context.full_hand do
         local this_card = context.full_hand[i]
 
-        if this_card.config.center == G.P_CENTERS.m_stone then
+        if SMODS.has_enhancement(this_card, 'm_stone') then
           -- Stone cards don't count
           goto continue
         end

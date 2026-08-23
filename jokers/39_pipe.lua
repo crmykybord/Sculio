@@ -50,7 +50,7 @@ SMODS.Joker {
       -- Based on Ectoplasm.
       local eligible_jokers = {}
       for k, v in pairs(G.jokers.cards) do
-        if v.ability.set == 'Joker' and (not v.edition) and v.ability.name ~= 'j_Sculio_pipe' then
+        if v.ability.set == 'Joker' and (not v.edition) and v.config.center.key ~= 'j_Sculio_pipe' then
           table.insert(eligible_jokers, v)
         end
       end
