@@ -62,13 +62,26 @@ SMODS.Joker {
       local function is_my_pick(c)
         return c and not c.gone and (c == card.ability.extra.picked_a or c == card.ability.extra.picked_b)
       end
-      if a then a:juice_up() end
-      if b then b:juice_up() end
-      if a then juice_card_until(a, is_my_pick, nil, 0.75) end
-      if b then juice_card_until(b, is_my_pick, nil, 0.75) end
+      for _, target in ipairs({ a, b }) do
+        if target then
+          target:juice_up()
+          -- ponytail: guard avoids stacking a second shake loop when the same joker is picked again
+          if not target.Sculio_jokes_shaking then
+            target.Sculio_jokes_shaking = true
+            juice_card_until(target, function(cc)
+              local still = is_my_pick(cc)
+              if not still then cc.Sculio_jokes_shaking = nil end
+              return still
+            end, nil, 0.75)
+          end
+        end
+      end
     end
 
     if context.final_scoring_step then
+      -- stop the shake loops once the hand has been played (visual only)
+      card.ability.extra.picked_a = nil
+      card.ability.extra.picked_b = nil
       G.E_MANAGER:add_event(Event({
         func = function()
           Sculio.undebuff_list(card.ability.extra.debuffed_jokers)
