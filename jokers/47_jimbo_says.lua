@@ -41,7 +41,8 @@ SMODS.Joker {
         local is_flush = false
         local hand_name = context.scoring_name or ''
 
-        if hand_name == 'Flush' or hand_name == 'Straight Flush' or hand_name == 'Royal Flush' then
+        -- matches every flush-family hand (Flush, Straight Flush, Flush House, Flush Five)
+        if hand_name:find('Flush', 1, true) then
           local suit_match = true
           for _, c in ipairs(context.full_hand) do
             if not SMODS.has_enhancement(c, 'm_wild') then
