@@ -734,7 +734,7 @@ return {
     },
     Inverted = {
       c_Sculio_sane = {
-        name = 'El Cuerdo',
+        name = 'El Sensato',
         text = {
           'Copia el último {C:inverted}Tarot Invertido{} usado',
           '{C:inactive}(Actualmente: #1#){}',
@@ -743,21 +743,21 @@ return {
         },
       },
       c_Sculio_scientist = {
-        name = 'La Científica',
+        name = 'El Científico',
         text = {
           'Mejora {C:attention}#1#{} cartas seleccionadas',
           'en {C:attention}Cartas Experimentales{}',
         },
       },
       c_Sculio_secularist = {
-        name = 'La Secularista',
+        name = 'La Laica',
         text = {
           'Sube de nivel entre {C:attention}1{} y',
           '{C:attention}3{} manos de póker al azar',
         },
       },
       c_Sculio_exiled = {
-        name = 'El Desterrado',
+        name = 'La Exiliada',
         text = {
           'Mejora {C:attention}#1#{} cartas seleccionadas',
           'en {C:attention}Cartas Errantes{}',
@@ -785,14 +785,14 @@ return {
         },
       },
       c_Sculio_pikeman = {
-        name = 'El Lancero',
+        name = 'El Piquero',
         text = {
           'Mejora {C:attention}1{} carta seleccionada',
           'en {C:attention}Carta Falange{}',
         },
       },
       c_Sculio_arbitrariness = {
-        name = 'Arbitrariedad',
+        name = 'La Arbitrariedad',
         text = {
           'Mejora {C:attention}1{} carta seleccionada en una',
           '{C:attention}Carta Trampa{} con activador y efecto aleatorios',
@@ -815,7 +815,7 @@ return {
         },
       },
       c_Sculio_weakness = {
-        name = 'Debilidad',
+        name = 'La Debilidad',
         text = {
           'Reduce la categoría de hasta',
           '{C:attention}#1#{} cartas seleccionadas en {C:attention}1{}',
@@ -831,7 +831,7 @@ return {
         },
       },
       c_Sculio_reborn = {
-        name = 'Renacido',
+        name = 'El Renacido',
         text = {
           'Destruye {C:attention}1{} carta al azar y copia uno de',
           'sus modificadores en {C:attention}3{} cartas al azar',
