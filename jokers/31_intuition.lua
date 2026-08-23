@@ -23,13 +23,13 @@ SMODS.Joker {
   blueprint_compat = true,
   perishable_compat = true,
   rental_compat = true,
-  config = { extra = { odds = 4 } },
+  config = { extra = { odds = 6 } },
   unlocked = true,
   discovered = false,
   rarity = 3,
   atlas = 'Sculio',
   pos = { x = 2, y = 3 },
-  cost = 9,
+  cost = 10,
   loc_vars = function(self, info_queue, card)
     local n, d = SMODS.get_probability_vars(card, 1, card.ability.extra.odds, 'intuition')
     return { vars = { n, d } }
