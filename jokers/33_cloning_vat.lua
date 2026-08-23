@@ -7,20 +7,32 @@ Sculio.vat_state = Sculio.vat_state or {
 }
 
 -- Constants
-local CV_SUIT_PREFIXES = {'S_', 'H_', 'C_', 'D_'}
-local CV_RANK_ORDER = {2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14}  -- 2 through Ace (deterministic order)
+-- ponytail: rank/suit tables are rebuilt lazily so suits and ranks added by other mods
+-- (registered after us) still count; cache invalidates on buffer size change
+local CV_RANK_CACHE = nil
 
-local function cv_get_suit_prefix()
-  return CV_SUIT_PREFIXES[pseudorandom('cv_suit', 1, #CV_SUIT_PREFIXES)]
+local function cv_get_ranks()
+  local n = #SMODS.Rank.obj_buffer
+  if CV_RANK_CACHE and CV_RANK_CACHE.n == n then return CV_RANK_CACHE end
+  local ids, suffix = {}, {}
+  for _, key in ipairs(SMODS.Rank.obj_buffer) do
+    local rank = SMODS.Ranks[key]
+    ids[#ids + 1] = rank.id
+    suffix[rank.id] = rank.card_key
+  end
+  table.sort(ids)  -- deterministic order (fixes bug where pairs() order caused inconsistent results)
+  CV_RANK_CACHE = { n = n, ids = ids, suffix = suffix }
+  return CV_RANK_CACHE
 end
 
-local function cv_id_to_rank_suffix(id)
-  if id < 10 then return tostring(id)
-  elseif id == 10 then return 'T'
-  elseif id == 11 then return 'J'
-  elseif id == 12 then return 'Q'
-  elseif id == 13 then return 'K'
-  else return 'A' end
+local function cv_get_suit_prefix(rank_suffix)
+  local options = {}
+  for _, key in ipairs(SMODS.Suit.obj_buffer) do
+    local prefix = SMODS.Suits[key].card_key .. '_'
+    if G.P_CARDS[prefix .. rank_suffix] then options[#options + 1] = prefix end
+  end
+  if #options == 0 then return 'S_' end
+  return options[pseudorandom('cv_suit', 1, #options)]
 end
 
 -- Unified bonus application: Phase 1 (guaranteed), Phase 2 (probabilistic)
@@ -75,7 +87,7 @@ local function cv_analyze_deck_internal()
 
   -- Find best rank using DETERMINISTIC order (fixes bug where pairs() order caused inconsistent results)
   local best_id, best_count = nil, 0
-  for _, id in ipairs(CV_RANK_ORDER) do
+  for _, id in ipairs(cv_get_ranks().ids) do
     local count = rank_count[id] or 0
     if count > best_count then
       best_id, best_count = id, count
@@ -108,7 +120,7 @@ end
 
 local function cv_build_rankless_card()
   local _, _, best_enh = cv_get_analysis()
-  local suit_prefix = cv_get_suit_prefix()
+  local suit_prefix = cv_get_suit_prefix('2')
   local front = G.P_CARDS[suit_prefix .. '2'] or G.P_CARDS['S_2']
   local center = (best_enh and G.P_CENTERS[best_enh]) or G.P_CENTERS.m_stone
 
@@ -154,8 +166,9 @@ local function cv_build_ranked_card()
   local best_id, _, _ = cv_get_analysis()
   if not best_id then return nil end
 
-  local rank_suffix = cv_id_to_rank_suffix(best_id)
-  local suit_prefix = cv_get_suit_prefix()
+  local rank_suffix = cv_get_ranks().suffix[best_id]
+  if not rank_suffix then return nil end
+  local suit_prefix = cv_get_suit_prefix(rank_suffix)
   local front = G.P_CARDS[suit_prefix .. rank_suffix]
   if not front then return nil end
 
@@ -236,8 +249,9 @@ local function cv_apply_to_booster_card(card)
     card:set_ability(enh_center)
     cv_apply_bonuses(card, nil, nil)
   elseif best_id then
-    local rank_suffix = cv_id_to_rank_suffix(best_id)
-    local suit_prefix = cv_get_suit_prefix()
+    local rank_suffix = cv_get_ranks().suffix[best_id]
+    if not rank_suffix then return end
+    local suit_prefix = cv_get_suit_prefix(rank_suffix)
     local front = G.P_CARDS[suit_prefix .. rank_suffix]
     if front then card:set_base(front) end
 
