@@ -1,8 +1,7 @@
 SMODS.Enhancement {
   key = 'wandering',
-  atlas = 'centers',
-  pos = { x = 2, y = 1 },
-  prefix_config = { atlas = false },
+  atlas = 'Sculio_Enhancements',
+  pos = { x = 4, y = 0 },
 
   config = {},
   loc_vars = function(self, info_queue, card)

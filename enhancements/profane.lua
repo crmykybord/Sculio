@@ -1,8 +1,7 @@
 SMODS.Enhancement {
   key = 'profane',
-  atlas = 'centers',
-  pos = { x = 1, y = 1 },
-  prefix_config = { atlas = false },
+  atlas = 'Sculio_Enhancements',
+  pos = { x = 5, y = 0 },
 
   config = { bonus = 0 },
   loc_vars = function(self, info_queue, card)

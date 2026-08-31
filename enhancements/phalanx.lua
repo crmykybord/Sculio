@@ -1,8 +1,7 @@
 SMODS.Enhancement {
   key = 'phalanx',
-  atlas = 'centers',
-  pos = { x = 6, y = 1 },
-  prefix_config = { atlas = false },
+  atlas = 'Sculio_Enhancements',
+  pos = { x = 3, y = 0 },
 
   config = {},
   loc_vars = function(self, info_queue, card)

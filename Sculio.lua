@@ -2,6 +2,7 @@ Sculio = SMODS.current_mod
 SMODS.Atlas { key = 'Sculio', path = 'Sculio.png', px = 71, py = 95 }
 SMODS.Atlas { key = 'Sculio_Tags', path = 'Tags.png', px = 34, py = 34 }
 SMODS.Atlas { key = 'Sculio_Consumables', path = 'Consumables.png', px = 71, py = 95 }
+SMODS.Atlas { key = 'Sculio_Enhancements', path = 'Enhancements.png', px = 71, py = 95 }
 
 SMODS.ConsumableType {
   key = 'Inverted',
