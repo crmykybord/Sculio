@@ -24,7 +24,6 @@ end)
 local skip_files = {
   ['57_nonogram_joker.lua'] = true,
   ['58_telephone.lua'] = true,
-  ['60_game_package.lua'] = true,
   ['62_gun_target.lua'] = true,
 }
 

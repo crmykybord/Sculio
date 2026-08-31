@@ -21,22 +21,36 @@ SMODS.Joker {
   calculate = function(self, card, context)
     local rerolls_were_free = rerolls_are_free or G.GAME.current_round.reroll_cost == 0
 
-    if (context.buying_card or context.open_booster or context.reroll_shop) and not context.blueprint and context.card ~= card then
+    if (context.buying_card or context.open_booster or context.reroll_shop) and context.card ~= card then
+      -- Token identifies this exact purchase; cost is this trigger's spend
+      local token = context.card and tostring(context.card)
+          or ('reroll_' .. G.GAME.round .. '_' .. (G.GAME.current_round.reroll_cost or 0))
+      local cost = 0
       if context.buying_card or context.open_booster then
-        card.ability.extra.spent_since_gain = card.ability.extra.spent_since_gain + context.card.cost
-      elseif context.reroll_shop then
-        if not rerolls_were_free then
-          card.ability.extra.spent_since_gain = card.ability.extra.spent_since_gain + G.GAME.current_round.reroll_cost - 1
-        else
-          rerolls_were_free = false
-        end
+        cost = context.card.cost
+      elseif context.reroll_shop and not rerolls_were_free then
+        cost = G.GAME.current_round.reroll_cost - 1
       end
 
-      if card.ability.extra.spent_since_gain >= card.ability.extra.spend_per_gain then
-        card.ability.extra.mult = card.ability.extra.mult + card.ability.extra.mult_gain
-        card.ability.extra.spent_since_gain = card.ability.extra.spent_since_gain - card.ability.extra.spend_per_gain
+      if context.blueprint then
+        -- Copiers copy only the money, never the scaling. Blueprint sits left of
+        -- its target so it runs first: predict the payout from current spent.
+        -- If this card already paid this exact trigger (Brainstorm/chains),
+        -- match its token instead.
+        if card.ability.extra.spent_since_gain + cost >= card.ability.extra.spend_per_gain
+            or card.ability.extra.last_money_token == token then
+          return { dollars = card.ability.extra.money_gain }
+        end
+      else
+        card.ability.extra.spent_since_gain = card.ability.extra.spent_since_gain + cost
 
-        return { dollars = card.ability.extra.money_gain, message = localize('k_upgrade_ex') }
+        if card.ability.extra.spent_since_gain >= card.ability.extra.spend_per_gain then
+          card.ability.extra.mult = card.ability.extra.mult + card.ability.extra.mult_gain
+          card.ability.extra.spent_since_gain = card.ability.extra.spent_since_gain - card.ability.extra.spend_per_gain
+          card.ability.extra.last_money_token = token
+
+          return { dollars = card.ability.extra.money_gain, message = localize('k_upgrade_ex') }
+        end
       end
     end
 
