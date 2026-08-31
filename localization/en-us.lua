@@ -788,7 +788,7 @@ return {
       c_Sculio_pikeman = {
         name = 'The Pikeman',
         text = {
-          'Enhances {C:attention}1{} selected card',
+          'Enhances {C:attention}2{} selected cards',
           'into a {C:attention}Phalanx Card{}',
         },
       },

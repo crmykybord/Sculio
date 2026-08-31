@@ -11,9 +11,10 @@ SMODS.Consumable {
     return { vars = { card.ability.consumeable.max_highlighted } }
   end,
   can_use = function(self, card)
-    return Sculio.hand_selection_state() and #G.hand.highlighted >= 1
+    return Sculio.can_select(card)
   end,
   use = function(self, card, area, copier)
+    Sculio.track_inverted_use(card)
     local cards = {}
     for i = 1, math.min(#G.hand.highlighted, card.ability.consumeable.max_highlighted) do
       cards[#cards + 1] = G.hand.highlighted[i]

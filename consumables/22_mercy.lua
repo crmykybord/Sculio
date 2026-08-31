@@ -19,6 +19,7 @@ SMODS.Consumable {
       and (#G.jokers.cards < G.jokers.config.card_limit or card.area == G.jokers)
   end,
   use = function(self, card, area, copier)
+    Sculio.track_inverted_use(card)
     G.E_MANAGER:add_event(Event({ trigger = 'after', delay = 0.4, func = function()
       play_sound('timpani')
       local new_card = create_card('Joker', G.jokers, nil, nil, nil, nil, G.GAME.Sculio_last_joker_sold, 'sculio_mercy')

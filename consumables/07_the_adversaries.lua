@@ -12,9 +12,10 @@ SMODS.Consumable {
     return { vars = { card.ability.consumeable.max_highlighted } }
   end,
   can_use = function(self, card)
-    return Sculio.hand_selection_state() and #G.hand.highlighted >= card.ability.consumeable.min_highlighted
+    return Sculio.can_select(card)
   end,
   use = function(self, card, area, copier)
+    Sculio.track_inverted_use(card)
     Sculio.enhance_highlighted('m_Sculio_pierced', card.ability.consumeable.max_highlighted, card)
   end,
 }

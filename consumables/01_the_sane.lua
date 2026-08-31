@@ -19,6 +19,7 @@ SMODS.Consumable {
   end,
   use = function(self, card, area, copier)
     local last = G.GAME.Sculio_last_inverted
+    Sculio.track_inverted_use(card)
     if sendDebugMessage then sendDebugMessage('Sculio: Sane use, last=' .. tostring(last) .. ' last_tarot_planet=' .. tostring(G.GAME.last_tarot_planet), 'SCULIO') end
     if last and last ~= 'c_Sculio_sane' then
       Sculio.create_center_card(last, G.consumeables, 1, 'sculio_sane')

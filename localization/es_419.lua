@@ -792,7 +792,7 @@ return {
       c_Sculio_pikeman = {
         name = 'El Piquero',
         text = {
-          'Mejora {C:attention}1{} carta seleccionada',
+          'Mejora {C:attention}2{} cartas seleccionadas',
           'en {C:attention}Carta Falange{}',
         },
       },

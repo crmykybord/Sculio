@@ -11,9 +11,11 @@ SMODS.Enhancement {
   end,
   calculate = function(self, card, context)
     if context.main_scoring and context.cardarea == G.play then
+      if card.ability.extra.done then return end
       card.ability.extra.count = card.ability.extra.count + 1
       if card.ability.extra.count >= card.ability.extra.max then
         if sendDebugMessage then sendDebugMessage('Sculio: experimental -> lead (count ' .. card.ability.extra.count .. ')', 'SCULIO') end
+        card.ability.extra.done = true
         G.E_MANAGER:add_event(Event({ trigger = 'after', delay = 0.3, func = function()
           local tag_pool = get_current_pool('Tag')
           local selected_tag = pseudorandom_element(tag_pool, pseudoseed('sculio_experimental'))
@@ -28,14 +30,28 @@ SMODS.Enhancement {
           play_sound('holo1', 1.2 + math.random() * 0.1, 0.4)
           return true
         end }))
-        G.E_MANAGER:add_event(Event({ trigger = 'after', delay = 0.3, func = function()
-          card:set_ability(G.P_CENTERS.m_Sculio_lead, false)
-          card:juice_up(0.3, 0.5)
-          return true
-        end }))
         return { message = localize('k_upgrade_ex'), colour = G.C.FILTER }
       end
       return { message = card.ability.extra.count .. '/' .. card.ability.extra.max, colour = G.C.FILTER }
+    end
+    -- Convert to Lead at the end of the played hand, with the enhancement flip animation
+    if context.after and context.cardarea == G.play and card.ability.extra.done then
+      G.E_MANAGER:add_event(Event({ trigger = 'after', delay = 0.15, func = function()
+        card:flip()
+        play_sound('card1', 1, 0.6)
+        return true
+      end }))
+      G.E_MANAGER:add_event(Event({ trigger = 'after', delay = 0.1, func = function()
+        card:set_ability(G.P_CENTERS.m_Sculio_lead, false)
+        card:juice_up(0.3, 0.5)
+        return true
+      end }))
+      G.E_MANAGER:add_event(Event({ trigger = 'after', delay = 0.15, func = function()
+        card:flip()
+        play_sound('tarot2', 1, 0.6)
+        card:juice_up(0.3, 0.3)
+        return true
+      end }))
     end
   end,
 }

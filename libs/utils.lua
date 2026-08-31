@@ -100,6 +100,29 @@ function Sculio:calculate(context)
     if sendDebugMessage then sendDebugMessage('Sculio: recorded last inverted = ' .. tostring(context.consumeable.config.center_key), 'SCULIO') end
   end
 
+  -- Pierced Cards: 2+ played together destroy each other as the hand starts.
+  -- Must be queued at press_play so the dissolve happens before scoring resolves.
+  if context.press_play and G.hand and G.hand.highlighted then
+    local played = G.hand.highlighted
+    local pierced_cards = {}
+    for _, c in ipairs(played) do
+      if SMODS.has_enhancement(c, 'm_Sculio_pierced') then
+        pierced_cards[#pierced_cards + 1] = c
+      end
+    end
+    if #pierced_cards >= 2 then
+      local survivors = (#played == #pierced_cards) and 1 or 0
+      for i = 1, #pierced_cards - survivors do
+        local boom = pierced_cards[i]
+        G.E_MANAGER:add_event(Event({ trigger = 'after', delay = 0.15, func = function()
+          play_sound('tarot1')
+          SMODS.destroy_cards(boom)
+          return true
+        end }))
+      end
+    end
+  end
+
   -- The Atoned / Reborn: remember modifiers of the last destroyed card
   if context.remove_playing_cards and context.removed then
     for _, c in ipairs(context.removed) do
@@ -215,6 +238,23 @@ function Sculio.flip_highlighted(card, cards, apply_fn)
       return true
     end }))
   end
+
+  G.E_MANAGER:add_event(Event({ trigger = 'after', delay = 0.2, func = function()
+    G.hand:unhighlight_all()
+    return true
+  end }))
+end
+
+-- Selection gate for consumables that target highlighted cards
+function Sculio.can_select(card)
+  return Sculio.hand_selection_state()
+    and #G.hand.highlighted >= (card.ability.consumeable.min_highlighted or 1)
+    and #G.hand.highlighted <= (card.ability.consumeable.max_highlighted or 5)
+end
+
+-- Record the last Inverted Tarot used (Ortalab track_usage pattern)
+function Sculio.track_inverted_use(card)
+  G.GAME.Sculio_last_inverted = card.config.center_key
 end
 
 -- Enhance up to n highlighted cards
