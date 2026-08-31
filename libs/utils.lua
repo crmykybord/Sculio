@@ -111,9 +111,7 @@ function Sculio:calculate(context)
       end
     end
     if #pierced_cards >= 2 then
-      local survivors = (#played == #pierced_cards) and 1 or 0
-      for i = 1, #pierced_cards - survivors do
-        local boom = pierced_cards[i]
+      for _, boom in ipairs(pierced_cards) do
         G.E_MANAGER:add_event(Event({ trigger = 'after', delay = 0.15, func = function()
           play_sound('tarot1')
           SMODS.destroy_cards(boom)
