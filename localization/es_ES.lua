@@ -7,7 +7,7 @@ return {
           'Un Mod Vanilla que busca agregar',
           'contenido nuevo a Balatro que se sienta',
           'como el original',
-          '(¡Tenemos 60 Comodines y una Etiqueta!)',
+          '(¡Tenemos 63 Comodines y una Etiqueta!)',
           ' ',
           '{C:attention}Créditos:{}',
           '{C:money}crmykybord{}: Dibujo y Diseño',
@@ -659,42 +659,47 @@ return {
       m_Sculio_experimental = {
         name = 'Carta Experimental',
         text = {
-          'Tras anotarse {C:attention}#2# veces{},',
+          'Tras anotar {C:attention}#2# veces{} {C:inactive}(#1#/7){},',
           'crea una {C:attention}Etiqueta{} al azar',
           'y se convierte en {C:attention}Carta de Plomo{}',
-          '{C:inactive}(Actualmente #1#){}',
         },
       },
       m_Sculio_lead = {
         name = 'Carta de Plomo',
         text = {
-          'Siempre se coloca al fondo',
+          'Siempre está al fondo',
           'de la {C:attention}Baraja{}',
         },
       },
       m_Sculio_wandering = {
         name = 'Carta Errante',
         text = {
-          'Si queda en mano cuando juegas una mano,',
+          'Si está en mano al jugar,',
           'se autodescarta y gana',
-          '{C:mult}+1 Multi{} permanente',
+          '{C:mult}+1 Multi{}',
         },
       },
       m_Sculio_profane = {
         name = 'Carta Profana',
         text = {
-          'Al anotarse, drena {C:chips}1 Ficha{} de una carta',
-          'no Profana al azar en mano',
-          'y gana {C:chips}+3 Fichas{} permanente',
+          'Drena {C:chips}1 Ficha{} de una carta',
+          'en mano y gana {C:chips}+3 Fichas{}',
+          'al anotar',
+          "{C:inactive,s:0.8}(No puede drenar otras cartas profanas)",
         },
       },
       m_Sculio_pierced = {
         name = 'Carta Perforada',
         text = {
-          'Otorga {X:mult,C:white}X2{} Multi antes',
-          'y después de que la mano anote',
-          'Si se juegan {C:attention}2 o más{} juntas,',
-          'se destruyen antes de anotar',
+          {
+            "{X:mult,C:white}X2{} Multi antes y",
+            "después de jugar la mano",
+          },
+          {
+            "Si se juegan {C:attention}2 o más{}",
+            "cartas perforadas al mismo tiempo",
+            "se {C:red}destruyen{} antes de jugarse",
+          }
         },
       },
       m_Sculio_phalanx = {
@@ -865,7 +870,7 @@ return {
         name = 'El Colapso',
         text = {
           'Por cada {C:diamonds}10 Diamantes{} en toda tu Baraja,',
-          'da una {C:edition}Edición{} al azar a una carta al azar',
+          'da una {C:dark_edition}Edición{} al azar a una carta al azar',
           '{C:inactive}(Actualmente: #2#){}',
         },
       },
@@ -948,5 +953,5 @@ return {
     labels = {
       inverted = 'Tarot Invertido',
     },
-  }
+  },
 }
