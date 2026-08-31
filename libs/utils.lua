@@ -111,12 +111,9 @@ function Sculio:calculate(context)
       end
     end
     if #pierced_cards >= 2 then
+      play_sound('tarot1')
       for _, boom in ipairs(pierced_cards) do
-        G.E_MANAGER:add_event(Event({ trigger = 'after', delay = 0.15, func = function()
-          play_sound('tarot1')
-          SMODS.destroy_cards(boom)
-          return true
-        end }))
+        SMODS.destroy_cards(boom)
       end
     end
   end
