@@ -15,7 +15,8 @@ SMODS.Enhancement {
     if context.final_scoring_step and (G.GAME.Sculio_phalanx_tally or 0) > 0 then
       local xmult = 1 + G.GAME.Sculio_phalanx_tally
       G.GAME.Sculio_phalanx_tally = nil
-      return { x_mult = xmult }
+      local last_card = context.scoring_hand and context.scoring_hand[#context.scoring_hand]
+      return { x_mult = xmult, message_card = last_card }
     end
     if context.initial_scoring_step then
       G.GAME.Sculio_phalanx_tally = nil

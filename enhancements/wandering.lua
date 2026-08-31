@@ -11,7 +11,7 @@ SMODS.Enhancement {
     -- Like The Hook: when a hand is played, leftover Wandering Cards
     -- discard themselves and permanently gain +1 Mult.
     -- (ante, hands_left) uniquely identifies a hand within a run.
-    if context.before and context.cardarea == G.hand and not context.blueprint then
+    if context.main_scoring and context.cardarea == G.hand and not context.blueprint then
       local hand_id = tostring(G.GAME.round_resets.ante) .. ':' .. (G.GAME.current_round.hands_left or 0)
       if card.Sculio_wandering_hand_id ~= hand_id then
         card.Sculio_wandering_hand_id = hand_id

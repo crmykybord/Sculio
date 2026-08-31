@@ -82,19 +82,19 @@ function CardArea:shuffle(_seed)
       if SMODS.has_enhancement(v, 'm_Sculio_lead') then has_lead = true break end
     end
     if has_lead then
-      local lead_cards = {}
-      local others = {}
+      -- Deck draws from the END of self.cards, so leads must sit at the FRONT
+      local arranged = {}
       for _, v in ipairs(self.cards) do
         if SMODS.has_enhancement(v, 'm_Sculio_lead') then
-          table.insert(lead_cards, v)
-        else
-          table.insert(others, v)
+          table.insert(arranged, v)
         end
       end
-      for _, card in ipairs(lead_cards) do
-        table.insert(others, card)
+      for _, v in ipairs(self.cards) do
+        if not SMODS.has_enhancement(v, 'm_Sculio_lead') then
+          table.insert(arranged, v)
+        end
       end
-      self.cards = others
+      self.cards = arranged
       self:set_ranks()
     end
   end

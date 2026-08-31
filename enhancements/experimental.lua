@@ -13,8 +13,19 @@ SMODS.Enhancement {
     if context.main_scoring and context.cardarea == G.play then
       card.ability.extra.count = card.ability.extra.count + 1
       if card.ability.extra.count >= card.ability.extra.max then
+        if sendDebugMessage then sendDebugMessage('Sculio: experimental -> lead (count ' .. card.ability.extra.count .. ')', 'SCULIO') end
         G.E_MANAGER:add_event(Event({ trigger = 'after', delay = 0.3, func = function()
-          add_tag(Tag(pseudorandom_element(G.P_TAGS, pseudoseed('sculio_experimental'))))
+          local tag_pool = get_current_pool('Tag')
+          local selected_tag = pseudorandom_element(tag_pool, pseudoseed('sculio_experimental'))
+          local it = 1
+          while selected_tag == 'UNAVAILABLE' do
+            it = it + 1
+            selected_tag = pseudorandom_element(tag_pool, pseudoseed('sculio_experimental_resample' .. it))
+          end
+          local tag = Tag(selected_tag, false, 'Small')
+          add_tag(tag)
+          play_sound('generic1', 0.9 + math.random() * 0.1, 0.8)
+          play_sound('holo1', 1.2 + math.random() * 0.1, 0.4)
           return true
         end }))
         G.E_MANAGER:add_event(Event({ trigger = 'after', delay = 0.3, func = function()

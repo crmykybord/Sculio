@@ -14,14 +14,14 @@ SMODS.Consumable {
     return Sculio.hand_selection_state() and #G.hand.highlighted >= 1
   end,
   use = function(self, card, area, copier)
+    local cards = {}
     for i = 1, math.min(#G.hand.highlighted, card.ability.consumeable.max_highlighted) do
-      local conv_card = G.hand.highlighted[i]
-      G.E_MANAGER:add_event(Event({ trigger = 'after', delay = 0.4, func = function()
-        SMODS.modify_rank(conv_card, -1)
-        conv_card:juice_up(0.3, 0.5)
-        return true
-      end }))
+      cards[#cards + 1] = G.hand.highlighted[i]
     end
-    delay(0.8)
+    Sculio.flip_highlighted(card, cards, function()
+      for _, c in ipairs(cards) do
+        SMODS.modify_rank(c, -1)
+      end
+    end)
   end,
 }

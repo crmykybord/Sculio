@@ -15,6 +15,6 @@ SMODS.Consumable {
     return Sculio.hand_selection_state() and #G.hand.highlighted >= 1
   end,
   use = function(self, card, area, copier)
-    Sculio.enhance_highlighted('m_Sculio_experimental', card.ability.consumeable.max_highlighted)
+    Sculio.enhance_highlighted('m_Sculio_experimental', card.ability.consumeable.max_highlighted, card)
   end,
 }

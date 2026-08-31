@@ -26,21 +26,14 @@ SMODS.Enhancement {
           if not SMODS.has_enhancement(c, 'm_Sculio_pierced') then others_score = true break end
         end
         if others_score or context.full_hand[1] ~= card then
-          card.Sculio_pierce_boom = true
+          G.E_MANAGER:add_event(Event({ trigger = 'after', delay = 0.3, func = function()
+            play_sound('tarot1')
+            SMODS.destroy_cards(card, nil, nil, true)
+            return true
+          end }))
           return { remove_from_hand = true }
         end
       end
-    end
-
-    if context.before and (context.cardarea == G.play or context.cardarea == 'unscored')
-        and card.Sculio_pierce_boom
-        and not card.destroyed and not card.getting_sliced then
-      card.Sculio_pierce_boom = nil
-      G.E_MANAGER:add_event(Event({ trigger = 'after', delay = 0.3, func = function()
-        play_sound('tarot1')
-        SMODS.destroy_cards(card, nil, nil, true)
-        return true
-      end }))
     end
 
     -- X2 Mult before and after the hand scores

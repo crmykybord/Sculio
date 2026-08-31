@@ -25,7 +25,7 @@ SMODS.Enhancement {
       local victim = pool and #pool > 0 and pseudorandom_element(pool, pseudoseed('sculio_profane_v'))
       if victim then
         G.E_MANAGER:add_event(Event({ trigger = 'after', delay = 0.2, func = function()
-          victim.base.chips = math.max(0, (victim.base.chips or 0) - 1)
+          victim.base.nominal = math.max(0, (victim.base.nominal or 0) - 1)
           victim:juice_up(0.3, 0.4)
           return true
         end }))

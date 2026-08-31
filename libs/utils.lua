@@ -91,17 +91,15 @@ function Sculio.undebuff_list(list)
   end
 end
 
--- Remember the last Inverted Tarot used (The Sane needs it)
-local use_consumeable_ref = Card.use_consumeable
-function Card:use_consumeable(area, copier)
-  if self.ability and self.ability.set == 'Inverted' then
-    G.GAME.Sculio_last_inverted = self.config.center_key
-  end
-  return use_consumeable_ref(self, area, copier)
-end
-
 -- Mod-wide trackers used by the Inverted Tarots
 function Sculio:calculate(context)
+  -- The Sane: remember the last Inverted Tarot used
+  if context.using_consumeable and context.consumeable and context.consumeable.ability
+      and context.consumeable.ability.set == 'Inverted' then
+    G.GAME.Sculio_last_inverted = context.consumeable.config.center_key
+    if sendDebugMessage then sendDebugMessage('Sculio: recorded last inverted = ' .. tostring(context.consumeable.config.center_key), 'SCULIO') end
+  end
+
   -- The Atoned / Reborn: remember modifiers of the last destroyed card
   if context.remove_playing_cards and context.removed then
     for _, c in ipairs(context.removed) do
@@ -162,6 +160,8 @@ function Sculio.create_center_card(center_key, area, n, seed)
         local new_card = create_card(set, area, nil, nil, nil, nil, center_key, seed .. i)
         new_card:add_to_deck()
         area:emplace(new_card)
+      else
+        if sendDebugMessage then sendDebugMessage('Sculio: create_center_card skipped, no space for ' .. tostring(center_key), 'SCULIO') end
       end
       return true
     end }))
@@ -177,18 +177,57 @@ function Sculio.hand_selection_state()
     or G.STATE == G.STATES.PLANET_PACK
 end
 
--- Enhance up to n highlighted cards (vanilla Empress style)
-function Sculio.enhance_highlighted(enh_key, n)
-  local count = math.min(#G.hand.highlighted, n or #G.hand.highlighted)
-  for i = 1, count do
-    local conv_card = G.hand.highlighted[i]
+-- Flip animation for consumable targets, following PB_UTIL.use_consumable_animation (Paperback)
+function Sculio.flip_highlighted(card, cards, apply_fn)
+  if card then
     G.E_MANAGER:add_event(Event({ trigger = 'after', delay = 0.4, func = function()
-      conv_card:set_ability(G.P_CENTERS[enh_key], false)
-      conv_card:juice_up(0.3, 0.5)
+      play_sound('tarot1')
+      card:juice_up(0.3, 0.5)
       return true
     end }))
   end
-  delay(0.4 * count)
+
+  for i = 1, #cards do
+    local c = cards[i]
+    local percent = 1.15 - (i - 0.999) / (#cards - 0.998) * 0.3
+    G.E_MANAGER:add_event(Event({ trigger = 'after', delay = 0.15, func = function()
+      c:flip()
+      play_sound('card1', percent)
+      c:juice_up(0.3, 0.3)
+      return true
+    end }))
+  end
+
+  delay(0.2)
+
+  G.E_MANAGER:add_event(Event({ trigger = 'after', delay = 0.1, func = function()
+    if apply_fn then apply_fn() end
+    return true
+  end }))
+
+  for i = 1, #cards do
+    local c = cards[i]
+    local percent = 0.85 + (i - 0.999) / (#cards - 0.998) * 0.3
+    G.E_MANAGER:add_event(Event({ trigger = 'after', delay = 0.15, func = function()
+      c:flip()
+      play_sound('tarot2', percent)
+      c:juice_up(0.3, 0.3)
+      return true
+    end }))
+  end
+end
+
+-- Enhance up to n highlighted cards
+function Sculio.enhance_highlighted(enh_key, n, card)
+  local cards = {}
+  for i = 1, math.min(#G.hand.highlighted, n or #G.hand.highlighted) do
+    cards[#cards + 1] = G.hand.highlighted[i]
+  end
+  Sculio.flip_highlighted(card, cards, function()
+    for _, c in ipairs(cards) do
+      c:set_ability(G.P_CENTERS[enh_key], false)
+    end
+  end)
 end
 
 -- Weighted pick of one modifier kind available on a destroyed card
