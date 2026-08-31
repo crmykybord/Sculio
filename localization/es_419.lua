@@ -806,7 +806,7 @@ return {
       c_Sculio_mundane = {
         name = 'El Mundano',
         text = {
-          'Recupera el {C:money}25%{} del dinero gastado',
+          'Recupera el {C:money}30%{} del dinero gastado',
           'en la Tienda actual, hasta {C:money}$30{}',
           '{C:inactive}(Actualmente: $#3#){}',
         },
