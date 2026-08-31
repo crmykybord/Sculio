@@ -3,13 +3,7 @@ SMODS.Atlas { key = 'Sculio', path = 'Sculio.png', px = 71, py = 95 }
 SMODS.Atlas { key = 'Sculio_Tags', path = 'Tags.png', px = 34, py = 34 }
 SMODS.Atlas { key = 'Sculio_Consumables', path = 'Consumables.png', px = 71, py = 95 }
 SMODS.Atlas { key = 'Sculio_Enhancements', path = 'Enhancements.png', px = 71, py = 95 }
-
-SMODS.ConsumableType {
-  key = 'Inverted',
-  primary_colour = HEX 'B14AB8',
-  secondary_colour = HEX 'A84C45',
-  collection_rows = { 6, 5 },
-}
+SMODS.ConsumableType { key = 'Inverted', primary_colour = HEX 'B14AB8', secondary_colour = HEX 'A84C45', collection_rows = { 6, 5 }, }
 
 SMODS.current_mod.optional_features = function()
   return { post_trigger = true }
@@ -37,11 +31,29 @@ local function load_dir(subdir, skip_files)
   end
 end
 
-local skip_files = { }
+-- Temporarily disabled content: remove entries to re-enable
+local skip_files = {
+  -- Disable until they have a proper sprite
+  ['divine.lua'] = true,
+  ['siege.lua'] = true,
+  ['trap.lua'] = true,
+  -- Disable until my brain works properly
+  ['09_arbitrariness.lua'] = true,
+  ['11_immutable_wheel.lua'] = true,
+  ['13_the_atoned.lua'] = true,
+  ['14_reborn.lua'] = true,
+  ['15_the_impatient.lua'] = true,
+  ['16_the_archangel.lua'] = true,
+  ['17_the_siege.lua'] = true,
+  ['18_the_collapse.lua'] = true,
+  ['19_the_eclipse.lua'] = true,
+  ['20_the_twilight.lua'] = true,
+  ['21_the_cave.lua'] = true,
+}
 
 load_dir('jokers', skip_files)
-load_dir('consumables')
-load_dir('enhancements')
+load_dir('consumables', skip_files)
+load_dir('enhancements', skip_files)
 
 assert(SMODS.load_file('libs/shuffle.lua'))()
 
