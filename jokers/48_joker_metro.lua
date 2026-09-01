@@ -1,7 +1,9 @@
 local function pick_random_hand()
   local hands = {}
   for k in pairs(G.GAME.hands) do
-    table.insert(hands, k)
+    if SMODS.is_poker_hand_visible(k) then
+      table.insert(hands, k)
+    end
   end
   return hands[pseudorandom('joker_metro_hand', 1, #hands)]
 end
