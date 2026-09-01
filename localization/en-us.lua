@@ -220,10 +220,10 @@ return {
       j_Sculio_dunce = {
         name = 'Dunce',
         text = {
-        'Copies the ability of the {C:attention}rightmost{} Joker',
-        'and {C:attention}debuffs{} Joker to the right',
-        'during played hand',
-        '{C:inactive}(Copying: {C:attention}#1#{C:inactive} - {C:attention}#2#{C:inactive})'
+        'Copies the ability of the',
+        '{C:attention}rightmost{} Joker and {C:attention}debuffs{}',
+        'the Joker to its {C:attention}right{}',
+        'during the played hand',
         }
       },
       -- 20. Frequent Flyer
@@ -922,8 +922,6 @@ return {
       k_Sculio_cloning_vat_active = 'Cloned!',
       k_Sculio_sticky_keys_changed = 'Mult Changed!',
       k_Sculio_bad_trip_randomized = 'Deck randomized!',
-      k_Sculio_compatible = 'Compatible',
-      k_Sculio_incompatible = 'Incompatible',
       k_Sculio_none = 'None',
       k_inverted = 'Inverted Tarot',
       b_inverted_cards = 'Inverted Tarots',

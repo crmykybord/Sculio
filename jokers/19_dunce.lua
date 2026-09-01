@@ -12,15 +12,23 @@ SMODS.Joker {
   perishable_compat = true,
   rental_compat = true,
   loc_vars = function(self, info_queue, card)
-    local last_joker = G.jokers and G.jokers.cards[#G.jokers.cards]
-    local name = ''
-    local compat = localize('k_Sculio_incompatible')
-    if last_joker and last_joker ~= card then
-      local joker_key = last_joker.config and last_joker.config.center and last_joker.config.center.key
-      name = joker_key and localize({ type = 'name_text', set = 'Joker', key = joker_key }) or (last_joker.ability.name or '')
-      compat = last_joker.config.center.blueprint_compat and localize('k_Sculio_compatible') or localize('k_Sculio_incompatible')
+    local last_joker = G.jokers and G.jokers.cards and G.jokers.cards[#G.jokers.cards]
+    if last_joker and last_joker ~= card and last_joker.config.center.blueprint_compat then
+      card.ability.blueprint_compat = 'compatible'
+    else
+      card.ability.blueprint_compat = 'incompatible'
     end
-    return { vars = { name, compat } }
+    card.ability.blueprint_compat_ui = card.ability.blueprint_compat_ui or ''
+    card.ability.blueprint_compat_check = nil
+    return {
+      main_end = (card.area and card.area == G.jokers) and {
+        {n=G.UIT.C, config={align = "bm", minh = 0.4}, nodes={
+          {n=G.UIT.C, config={ref_table = card, align = "m", colour = G.C.JOKER_GREY, r = 0.05, padding = 0.06, func = 'blueprint_compat'}, nodes={
+            {n=G.UIT.T, config={ref_table = card.ability, ref_value = 'blueprint_compat_ui', colour = G.C.UI.TEXT_LIGHT, scale = 0.32*0.8}},
+          }}
+        }}
+      } or nil,
+    }
   end,
   calculate = function(self, card, context)
     if context.before then

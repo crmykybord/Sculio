@@ -223,7 +223,6 @@ return {
         'del {C:attention}extremo derecho{} y debilita',
         'el comodín a su {C:attention}derecha{}',
         "durante la mano jugada",
-        '{C:inactive}(Copiando: {C:attention}#1#{C:inactive} - {C:attention}#2#{C:inactive})'
         }
       },
       -- 20. Frequent Flyer
@@ -922,8 +921,6 @@ return {
       k_Sculio_cloning_vat_active = '¡Clonado!',
       k_Sculio_sticky_keys_changed = '¡Multi cambiado!',
       k_Sculio_bad_trip_randomized = '¡Baraja cambiada!',
-      k_Sculio_compatible = 'Compatible',
-      k_Sculio_incompatible = 'Incompatible',
       k_Sculio_none = 'Nada',
       k_inverted = 'Tarot Invertido',
       b_inverted_cards = 'Tarots Invertidos',
