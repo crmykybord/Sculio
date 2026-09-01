@@ -11,7 +11,7 @@ SMODS.Joker {
   rarity = 1, -- Common
   atlas = 'Sculio',
   pos = { x = 4, y = 6 },
-  cost = 6,
+  cost = 4,
   loc_vars = function(self, info_queue, card)
     return { vars = {} }
   end,
