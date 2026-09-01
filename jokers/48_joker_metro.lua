@@ -40,9 +40,12 @@ SMODS.Joker {
       return { message = localize('k_upgrade_ex'), colour = G.C.MULT }
     end
 
-    if context.before and not context.blueprint and context.scoring_name == card.ability.extra.current_hand then
-      card.ability.extra.mult = card.ability.extra.mult + card.ability.extra.gain
-      return { message = localize('k_upgrade_ex'), colour = G.C.MULT }
+    if context.before and not context.blueprint then
+      local hand_parts = context.poker_hands and context.poker_hands[card.ability.extra.current_hand]
+      if hand_parts and next(hand_parts) then
+        card.ability.extra.mult = card.ability.extra.mult + card.ability.extra.gain
+        return { message = localize('k_upgrade_ex'), colour = G.C.MULT }
+      end
     end
 
     if context.joker_main and card.ability.extra.mult > 0 then
