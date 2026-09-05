@@ -339,7 +339,7 @@ return {
         name = 'Intuition',
         text = {
           'Scored cards have a',
-          '{C:green}#1# in #2#{C:inactive} chance to copy the',
+          '{C:green}#1# in #2#{} chance to copy the',
           'effect of {C:attention}enhanced{}',
           'cards {C:attention}held in hand{}'
         },
@@ -470,15 +470,6 @@ return {
           '{C:inactive}(Must have room){}'
         }
       }, 
-      -- 100. Puck
-      j_Sculio_puck = {
-        name = 'Puck',
-        text = {
-          'When a card with an {C:attention}edition{} is scored,',
-          'this Joker gains the {C:attention}edition\'s bonus{}',
-          '{C:inactive}(Currently {C:chips}+#1#{}{C:inactive} Chips, {C:mult}+#2#{}{C:inactive} Mult, {X:mult,C:white}X#3#{}{C:inactive} Mult, and {X:chips,C:white}X#4#{}{C:inactive} Chips)'
-        }
-      },
       -- 45. Googly Eyes
       j_Sculio_googly_eyes = {
         name = 'Googly Eyes',
@@ -511,8 +502,8 @@ return {
         text = {
           'After defeating a {C:attention}Boss Blind{},',
           'grants a random {C:attention}Enhancement{},',
-          '{C:attention}Seal{} or {C:attention}Edition{} to',
-          '{C:attention}#1#{} cards in your deck'
+          '{C:attention}Seal{} or {C:dark_edition}Edition{} to {C:attention}#1#{} cards',
+          'in your deck'
         },
       },
       -- 49. Gladiator Joker
@@ -700,7 +691,7 @@ return {
         name = 'Pipe Dream',
         text = {
           'Scored cards have a',
-          '{C:green}#1# in #2#{C:inactive} chance to give',
+          '{C:green}#1# in #2#{} chance to give',
           '{C:chips}+#3#{} Chips',
         },
       },
@@ -722,6 +713,15 @@ return {
           'when selecting a Blind',
           '{C:inactive}(Must have room){}',
         },
+      },
+      -- 100. Puck
+      j_Sculio_puck = {
+        name = 'Puck',
+        text = {
+          'When a card with an {C:attention}edition{} is scored,',
+          'this Joker gains the {C:attention}edition\'s bonus{}',
+          '{C:inactive,s:0.8}(Currently {C:chips,s:0.8}+#1#{}{C:inactive,s:0.8} Chips, {C:mult,s:0.8}+#2#{}{C:inactive,s:0.8} Mult, {X:mult,C:white,s:0.8}X#3#{}{C:inactive,s:0.8} Mult, and {X:chips,C:white,s:0.8}X#4#{}{C:inactive,s:0.8} Chips)'
+        }
       },
     },
     Tag = {

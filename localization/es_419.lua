@@ -336,7 +336,7 @@ return {
         name = 'Intuición',
         text = {
           'Las cartas anotadas tienen una',
-          'prob. de {C:green}#1# en #2#{C:inactive} de copiar',
+          'prob. de {C:green}#1# en #2#{} de copiar',
           'el efecto de las cartas',
           '{C:attention}mejoradas{} en mano',
         },
@@ -593,8 +593,8 @@ return {
       j_Sculio_telephone = {
         name = 'Teléfono',
         text = {
-          'Las cartas de {C:attention}#1#{} anotadas',
-          'se {C:attention}reactivan{} una vez más',
+          'Los {C:attention}#1#{} anotados son',
+          '{C:attention}reactivados{}',
           '{C:inactive,s:0.8}Cambia cada ronda{}',
         },
       },
@@ -692,7 +692,7 @@ return {
         name = 'Ilusión de Tuberías',
         text = {
           'Las cartas anotadas tienen una',
-          'prob. de {C:green}#1# en #2#{C:inactive} de otorgar',
+          'prob. de {C:green}#1# en #2#{} de otorgar',
           '{C:chips}+#3#{} Fichas',
         },
       },
