@@ -674,8 +674,8 @@ return {
         name = 'Cometa Azul',
         text = {
           'Al derrotar una {C:attention}Ciega Jefe{},',
-          'sube de nivel tu',
-          '{C:attention}mano más jugada{}',
+          '{C:planet}sube de nivel{} tu mano',
+          '{C:attention}más jugada{}',
         },
       },
       -- 68. Dong Fang

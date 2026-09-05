@@ -673,8 +673,8 @@ return {
         name = 'Blue Comet',
         text = {
           'After defeating a {C:attention}Boss Blind{},',
-          'levels up your',
-          '{C:attention}most played hand{}',
+          '{C:planet}levels{} up your most',
+          '{C:attention}played hand{}',
         },
       },
       -- 68. Dong Fang
