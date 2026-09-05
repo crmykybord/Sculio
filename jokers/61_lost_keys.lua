@@ -1,6 +1,6 @@
 SMODS.Joker {
   key = 'lost_keys',
-  attributes = { 'boss_blind', 'booster' },
+  attributes = { 'booster', 'passive' },
   eternal_compat = true,
   blueprint_compat = false,
   perishable_compat = true,
@@ -16,13 +16,10 @@ SMODS.Joker {
     return { vars = { card.ability.extra.boosters } }
   end,
   calculate = function(self, card, context)
-    if context.blind_defeated and not context.blueprint and G.GAME.blind:get_type() == 'Boss' then
-      card.ability.extra.pending = (card.ability.extra.pending or 0) + card.ability.extra.boosters
-    end
-    if context.starting_shop and (card.ability.extra.pending or 0) > 0 then
+    if context.starting_shop and not context.blueprint then
       G.E_MANAGER:add_event(Event({
         func = function()
-          for _ = 1, card.ability.extra.pending do
+          for _ = 1, card.ability.extra.boosters do
             local booster = SMODS.add_booster_to_shop()
             if booster then
               -- Vanilla's "free booster" mechanism (used by The Cloth, coupons,
@@ -33,7 +30,6 @@ SMODS.Joker {
               end
             end
           end
-          card.ability.extra.pending = 0
           return true
         end
       }))
