@@ -144,10 +144,11 @@ return {
       j_Sculio_handheld = {
         name = 'Juego Retro',
         text = {
-          'Todas las cartas se consideran',
-          '{C:attention}Cartas Versátiles{}'
+          'Otorga la última {C:attention}Mejora{} obtenida',
+          'a la {C:attention}primera carta anotada{}',
+          '{C:inactive}(Actualmente: #1#){}',
         },
-      }, 
+      },
       -- 12. Crime Scene
       j_Sculio_crime_scene = {
         name = 'Escena del Crimen',
@@ -334,11 +335,12 @@ return {
       j_Sculio_intuition = {
         name = 'Intuición',
         text = {
-          'Prob. de {C:green}#1# en #2#{} de que las cartas',
-          '{C:attention}en mano{} copien el efecto de una',
-          'carta {C:attention}mejorada{} anotada',
+          'Las cartas anotadas tienen una',
+          'prob. de {C:green}#1# en #2#{C:inactive} de copiar',
+          'el efecto de las cartas',
+          '{C:attention}mejoradas{} en mano',
         },
-      }, 
+      },
       -- 32. Sensory Overload
       j_Sculio_sensory_overload = {
         name = 'Sobrecarga Sensorial',
@@ -496,12 +498,10 @@ return {
       j_Sculio_joker_metro = {
         name = 'Metro Comodín',
         text = {
-          'Gana {C:mult}+#2#{} Multi por ronda cuando',
-          'la mano jugada contiene {C:attention}#3#{}',
-          '{C:inactive,s:0.8}(La mano cambia en cada ronda){}',
-          'La ganancia aumenta en {C:mult}+#4#{}',
-          'al derrotar una {C:attention}Ciega Jefe{}',
-          '{C:inactive}(Actualmente {C:mult}+#1#{}{C:inactive} Multi)',
+          'Al derrotar una {C:attention}Ciega Jefe{},',
+          'otorga una {C:attention}Mejora{},',
+          '{C:attention}Sello{} o {C:attention}Edición{} al azar',
+          'a {C:attention}#1#{} cartas de tu Baraja',
         },
       },
       -- 49. Gladiator Joker
@@ -610,7 +610,7 @@ return {
       },
       -- 60. Game Package
       j_Sculio_game_package = {
-        name = 'Juego Retro',
+        name = 'Cartucho de Juego',
         text = {
           'Los {C:attention}2{} y {C:attention}4{} en mano',
           'otorgan {X:mult,C:white}X#1#{} Multi por',
@@ -621,9 +621,9 @@ return {
       j_Sculio_lost_keys = {
         name = 'Llaves Perdidas',
         text = {
-          'Al derrotar una {C:attention}Ciega Jefe{},',
+          'Al principio de cada {C:attention}Apuesta{},',
           'la {C:money}Tienda{} tiene {C:attention}#1#{}',
-          '{C:attention}paquetes potenciadores{} pequeños gratis',
+          '{C:attention}paquetes potenciadores{} gratis',
         },
       },
       -- 62. Gun Target
@@ -632,6 +632,87 @@ return {
         text = {
           'Ganas {C:money}$10{} al derrotar',
           'una {C:attention}Ciega Pequeña{}',
+        },
+      },
+      -- 63. ECG Joker
+      j_Sculio_ecg = {
+        name = 'Comodín ECG',
+        text = {
+          'Si te quedas sin manos, otorga',
+          '{C:blue}+1{} mano y {C:red}+1{} descarte',
+          '{C:inactive}(Solo 1 vez por ronda){}',
+        },
+      },
+      -- 64. Test Dummy
+      j_Sculio_test_dummy = {
+        name = 'Muñeco de Prueba',
+        text = {
+          'Obtiene {X:chips,C:white}X#1#{} Fichas por',
+          'cada {C:attention}Carta de Vidrio{} destruida',
+          '{C:inactive}(Actualmente {X:chips,C:white}X#2#{}{C:inactive} Fichas)',
+        },
+      },
+      -- 65. The Joker is Watching
+      j_Sculio_joker_watching = {
+        name = 'El Comodín nos Observa',
+        text = {
+          '{C:attention}Reactiva{} las cartas anotadas',
+          'si hay un {C:attention}Rey{} en mano',
+        },
+      },
+      -- 66. LED Joker
+      j_Sculio_led = {
+        name = 'Comodín LED',
+        text = {
+          'Gana {C:mult}+#2#{} Multi por cada',
+          '{C:attention}carta{} comprada en la {C:money}Tienda{}',
+          '{C:inactive}(Actualmente {C:mult}+#1#{}{C:inactive} Multi)',
+        },
+      },
+      -- 67. Blue Comet
+      j_Sculio_blue_comet = {
+        name = 'Cometa Azul',
+        text = {
+          'Al derrotar una {C:attention}Ciega Jefe{},',
+          'sube de nivel tu',
+          '{C:attention}mano más jugada{}',
+        },
+      },
+      -- 68. Dong Fang
+      j_Sculio_dong_fang = {
+        name = 'Dong Fang',
+        text = {
+          'Obtiene {C:mult}+#2#{} Multi por cada',
+          '{C:attention}Carta Errante{} descartada',
+          '{C:inactive}(Actualmente {C:mult}+#1#{}{C:inactive} Multi)',
+        },
+      },
+      -- 69. Pipe Dream
+      j_Sculio_pipe_dream = {
+        name = 'Ilusión de Tuberías',
+        text = {
+          'Las cartas anotadas tienen una',
+          'prob. de {C:green}#1# en #2#{C:inactive} de otorgar',
+          '{C:chips}+#3#{} Fichas',
+        },
+      },
+      -- 70. Autopsy Form
+      j_Sculio_autopsy_form = {
+        name = 'Formulario de Autopsia',
+        text = {
+          'Obtiene {C:mult}+#2#{} Multi por cada',
+          '{C:attention}carta mejorada{} destruida',
+          'Pierde {C:mult}-#3#{} Multi por mano jugada',
+          '{C:inactive}(Actualmente {C:mult}+#1#{}{C:inactive} Multi)',
+        },
+      },
+      -- 71. Cartomancer?
+      j_Sculio_cartomante = {
+        name = '¿Cartomante?',
+        text = {
+          'Crea un {C:inverted}Tarot Invertido{}',
+          'al azar al seleccionar una ciega',
+          '{C:inactive}(Debe haber espacio){}',
         },
       },
       -- 100. Puck
@@ -921,6 +1002,7 @@ return {
       k_Sculio_cloning_vat_active = '¡Clonado!',
       k_Sculio_sticky_keys_changed = '¡Multi cambiado!',
       k_Sculio_bad_trip_randomized = '¡Baraja cambiada!',
+      k_Sculio_ecg_discard = '+1 Descarte',
       k_Sculio_none = 'Nada',
       k_inverted = 'Tarot Invertido',
       b_inverted_cards = 'Tarots Invertidos',

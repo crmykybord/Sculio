@@ -144,12 +144,11 @@ return {
       j_Sculio_handheld = {
         name = 'Handheld',
         text = {
-          'All cards are treated',
-          'like {C:attention}Wild Cards{}'
-          -- TODO inaccurate text: for example, Extra Credit's Werewolf would not work
-          -- (should be "cards have all suits", cards aren't actually wild)
+          'Grants the last obtained {C:attention}Enhancement{}',
+          'to the {C:attention}first scored card{}',
+          '{C:inactive}(Currently: #1#){}',
         },
-      }, 
+      },
       -- 12. Crime Scene
       j_Sculio_crime_scene = {
         name = 'Crime Scene',
@@ -339,11 +338,12 @@ return {
       j_Sculio_intuition = {
         name = 'Intuition',
         text = {
-          '{C:green}#1# in #2#{} chance held-in-hand cards',
-          'copy the effect of an {C:attention}enhanced{}',
-          'scored card'
+          'Scored cards have a',
+          '{C:green}#1# in #2#{C:inactive} chance to copy the',
+          'effect of {C:attention}enhanced{}',
+          'cards {C:attention}held in hand{}'
         },
-      }, 
+      },
       -- 32. Sensory Overload
       j_Sculio_sensory_overload = {
         name = 'Sensory Overload',
@@ -509,12 +509,10 @@ return {
       j_Sculio_joker_metro = {
         name = 'Joker Metro',
         text = {
-          'Gains {C:mult}+#2#{} Mult per round when',
-          'played hand contains {C:attention}#3#{}',
-          '{C:inactive,s:0.8}(Hand chosen at random each round){}',
-          'Gain increases by {C:mult}+#4#{} per',
-          '{C:attention}Boss Blind{} defeated',
-          '{C:inactive}(Currently {C:mult}+#1#{}{C:inactive} Mult)'
+          'After defeating a {C:attention}Boss Blind{},',
+          'grants a random {C:attention}Enhancement{},',
+          '{C:attention}Seal{} or {C:attention}Edition{} to',
+          '{C:attention}#1#{} cards in your deck'
         },
       },
       -- 49. Gladiator Joker
@@ -631,9 +629,9 @@ return {
       j_Sculio_lost_keys = {
         name = 'Lost Keys',
         text = {
-          'After defeating a {C:attention}Boss Blind{},',
+          'At the start of each {C:attention}Ante{},',
           'shop has {C:attention}#1# free{}',
-          '{C:attention}small booster packs{}',
+          '{C:attention}booster packs{}',
         },
       },
       -- 62. Gun Target
@@ -642,6 +640,87 @@ return {
         text = {
           'Earn {C:money}$10{} when',
           'defeating a {C:attention}Small Blind{}',
+        },
+      },
+      -- 63. ECG Joker
+      j_Sculio_ecg = {
+        name = 'ECG Joker',
+        text = {
+          'If you run out of hands, grants',
+          '{C:blue}+1{} hand and {C:red}+1{} discard',
+          '{C:inactive}(Once per round){}',
+        },
+      },
+      -- 64. Test Dummy
+      j_Sculio_test_dummy = {
+        name = 'Test Dummy',
+        text = {
+          'Gains {X:chips,C:white}X#1#{} Chips for',
+          'each destroyed {C:attention}Glass Card{}',
+          '{C:inactive}(Currently {X:chips,C:white}X#2#{}{C:inactive} Chips)',
+        },
+      },
+      -- 65. The Joker is Watching
+      j_Sculio_joker_watching = {
+        name = 'The Joker is Watching',
+        text = {
+          '{C:attention}Retriggers{} scored cards',
+          'if a {C:attention}King{} is held in hand',
+        },
+      },
+      -- 66. LED Joker
+      j_Sculio_led = {
+        name = 'LED Joker',
+        text = {
+          'Gains {C:mult}+#2#{} Mult for each',
+          '{C:attention}card{} bought in the shop',
+          '{C:inactive}(Currently {C:mult}+#1#{}{C:inactive} Mult)',
+        },
+      },
+      -- 67. Blue Comet
+      j_Sculio_blue_comet = {
+        name = 'Blue Comet',
+        text = {
+          'After defeating a {C:attention}Boss Blind{},',
+          'levels up your',
+          '{C:attention}most played hand{}',
+        },
+      },
+      -- 68. Dong Fang
+      j_Sculio_dong_fang = {
+        name = 'Dong Fang',
+        text = {
+          'Gains {C:mult}+#2#{} Mult for each',
+          'discarded {C:attention}Wandering Card{}',
+          '{C:inactive}(Currently {C:mult}+#1#{}{C:inactive} Mult)',
+        },
+      },
+      -- 69. Pipe Dream
+      j_Sculio_pipe_dream = {
+        name = 'Pipe Dream',
+        text = {
+          'Scored cards have a',
+          '{C:green}#1# in #2#{C:inactive} chance to give',
+          '{C:chips}+#3#{} Chips',
+        },
+      },
+      -- 70. Autopsy Form
+      j_Sculio_autopsy_form = {
+        name = 'Autopsy Form',
+        text = {
+          'Gains {C:mult}+#2#{} Mult for each',
+          'destroyed {C:attention}enhanced card{}',
+          'Loses {C:mult}-#3#{} Mult per hand played',
+          '{C:inactive}(Currently {C:mult}+#1#{}{C:inactive} Mult)',
+        },
+      },
+      -- 71. Cartomancer?
+      j_Sculio_cartomante = {
+        name = 'Cartomancer?',
+        text = {
+          'Creates a random {C:inverted}Inverted Tarot{}',
+          'when selecting a Blind',
+          '{C:inactive}(Must have room){}',
         },
       },
     },
@@ -919,6 +998,7 @@ return {
       k_Sculio_cloning_vat_active = 'Cloned!',
       k_Sculio_sticky_keys_changed = 'Mult Changed!',
       k_Sculio_bad_trip_randomized = 'Deck randomized!',
+      k_Sculio_ecg_discard = '+1 Discard',
       k_Sculio_compatible = 'Compatible',
       k_Sculio_incompatible = 'Incompatible',
       k_Sculio_none = 'None',
