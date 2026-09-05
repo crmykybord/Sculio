@@ -131,6 +131,21 @@ function Sculio:calculate(context)
     end
   end
 
+  -- Juego Retro: remember the last enhancement obtained by a deck card
+  if context.setting_ability and context.other_card and context.new ~= context.old then
+    local center = G.P_CENTERS[context.new]
+    if center and center.set == 'Enhanced' then
+      G.GAME.Sculio_last_enhancement = context.new
+    end
+  end
+  if context.playing_card_added and context.cards then
+    for _, c in ipairs(context.cards) do
+      if c.ability and c.ability.set == 'Enhanced' then
+        G.GAME.Sculio_last_enhancement = c.config.center.key
+      end
+    end
+  end
+
   -- Mercy: remember the last Joker sold
   if context.selling_card and context.card and context.card.ability.set == 'Joker' then
     G.GAME.Sculio_last_joker_sold = context.card.config.center_key
