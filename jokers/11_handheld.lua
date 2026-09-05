@@ -1,34 +1,31 @@
-local Card_is_suit_ref = Card.is_suit
-function Card:is_suit(suit, bypass_debuff, flush_calc)
-  if flush_calc then
-    if next(SMODS.find_card('j_Sculio_handheld')) and not self.debuff then
-      return true
-    end
-  else
-    if not (self.debuff and not bypass_debuff) then
-      if next(SMODS.find_card('j_Sculio_handheld')) then
-        return true
-      end
-    end
-  end
-  return Card_is_suit_ref(self, suit, bypass_debuff, flush_calc)
-end
-
 SMODS.Joker {
   key = 'handheld',
-  attributes = { 'passive', 'suit' },
+  attributes = { 'modify_card', 'enhancements' },
 
   unlocked = true,
   discovered = false,
-  blueprint_compat = false,
+  blueprint_compat = true,
   eternal_compat = true,
   perishable_compat = true,
   rental_compat = true,
   rarity = 3, -- Rare
   atlas = 'Sculio',
   pos = { x = 0, y = 1 },
-  cost = 9,
+  cost = 6,
   loc_vars = function(self, info_queue, card)
-    info_queue[#info_queue+1] = G.P_CENTERS.m_wild
+    local last = G.GAME.Sculio_last_enhancement
+    local name = localize('k_none')
+    if last and G.P_CENTERS[last] then
+      name = localize { type = 'name_text', key = G.P_CENTERS[last].key, set = G.P_CENTERS[last].set }
+    end
+    return { vars = { name } }
+  end,
+  calculate = function(self, card, context)
+    if context.before and G.GAME.Sculio_last_enhancement then
+      local first = context.scoring_hand and context.scoring_hand[1]
+      if first and not first.debuff then
+        first:set_ability(G.P_CENTERS[G.GAME.Sculio_last_enhancement], false)
+      end
+    end
   end
 }
