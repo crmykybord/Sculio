@@ -25,6 +25,13 @@ return {
       }
     },
     Other = {
+      undiscovered_inverted = {
+        name = 'Undiscovered Inverted Tarot',
+        text = {
+          'Find or use this Inverted Tarot',
+          'to discover it.',
+        },
+      },
       Sculio_refrigerable_jokers = {
         name = 'Food Jokers',
         text = {
@@ -137,12 +144,11 @@ return {
       j_Sculio_handheld = {
         name = 'Handheld',
         text = {
-          'All cards are treated',
-          'like {C:attention}Wild Cards{}'
-          -- TODO inaccurate text: for example, Extra Credit's Werewolf would not work
-          -- (should be "cards have all suits", cards aren't actually wild)
+          'Grants the last obtained {C:attention}Enhancement{}',
+          'to the {C:attention}first scored card{}',
+          '{C:inactive}(Currently: #1#){}',
         },
-      }, 
+      },
       -- 12. Crime Scene
       j_Sculio_crime_scene = {
         name = 'Crime Scene',
@@ -332,11 +338,12 @@ return {
       j_Sculio_intuition = {
         name = 'Intuition',
         text = {
-          '{C:green}#1# in #2#{} chance held-in-hand cards',
-          'copy the effect of an {C:attention}enhanced{}',
-          'scored card'
+          'Scored cards have a',
+          '{C:green}#1# in #2#{} chance to copy the',
+          'effect of {C:attention}enhanced{}',
+          'cards {C:attention}held in hand{}'
         },
-      }, 
+      },
       -- 32. Sensory Overload
       j_Sculio_sensory_overload = {
         name = 'Sensory Overload',
@@ -463,15 +470,6 @@ return {
           '{C:inactive}(Must have room){}'
         }
       }, 
-      -- 100. Puck
-      j_Sculio_puck = {
-        name = 'Puck',
-        text = {
-          'When a card with an {C:attention}edition{} is scored,',
-          'this Joker gains the {C:attention}edition\'s bonus{}',
-          '{C:inactive}(Currently {C:chips}+#1#{}{C:inactive} Chips, {C:mult}+#2#{}{C:inactive} Mult, {X:mult,C:white}X#3#{}{C:inactive} Mult, and {X:chips,C:white}X#4#{}{C:inactive} Chips)'
-        }
-      },
       -- 45. Googly Eyes
       j_Sculio_googly_eyes = {
         name = 'Googly Eyes',
@@ -502,12 +500,10 @@ return {
       j_Sculio_joker_metro = {
         name = 'Joker Metro',
         text = {
-          'Gains {C:mult}+#2#{} Mult per round when',
-          'played hand contains {C:attention}#3#{}',
-          '{C:inactive,s:0.8}(Hand chosen at random each round){}',
-          'Gain increases by {C:mult}+#4#{} per',
-          '{C:attention}Boss Blind{} defeated',
-          '{C:inactive}(Currently {C:mult}+#1#{}{C:inactive} Mult)'
+          'After defeating a {C:attention}Boss Blind{},',
+          'grants a random {C:attention}Enhancement{},',
+          '{C:attention}Seal{} or {C:dark_edition}Edition{} to {C:attention}#1#{} cards',
+          'in your deck'
         },
       },
       -- 49. Gladiator Joker
@@ -590,14 +586,17 @@ return {
       j_Sculio_nonogram_joker = {
         name = 'Nonogram Joker',
         text = {
-          '{C:inactive}Placeholder{}',
+          'Scored cards give alternating',
+          '{C:chips}+#1#{} Chips and {C:mult}+#2#{} Mult',
         },
       },
       -- 58. Telephone
       j_Sculio_telephone = {
         name = 'Telephone',
         text = {
-          '{C:inactive}Placeholder{}',
+          'Scored {C:attention}#1#s{} trigger',
+          '{C:attention}one additional time{}',
+          '{C:inactive,s:0.8}Changes each round{}',
         },
       },
       -- 59. Joker of Nothing
@@ -621,17 +620,108 @@ return {
       j_Sculio_lost_keys = {
         name = 'Lost Keys',
         text = {
-          'After defeating a {C:attention}Boss Blind{},',
+          'At the start of each {C:attention}Ante{},',
           'shop has {C:attention}#1# free{}',
-          '{C:attention}small booster packs{}',
+          '{C:attention}booster packs{}',
         },
       },
       -- 62. Gun Target
       j_Sculio_gun_target = {
         name = 'Gun Target',
         text = {
-          '{C:inactive}Placeholder{}'
+          'Earn {C:money}$10{} when',
+          'defeating a {C:attention}Small Blind{}',
         },
+      },
+      -- 63. ECG Joker
+      j_Sculio_ecg = {
+        name = 'ECG Joker',
+        text = {
+          'If you run out of hands, grants',
+          '{C:blue}+1{} hand and {C:red}+1{} discard',
+          '{C:inactive}(Once per round){}',
+        },
+      },
+      -- 64. Test Dummy
+      j_Sculio_test_dummy = {
+        name = 'Test Dummy',
+        text = {
+          'Gains {X:chips,C:white}X#1#{} Chips for',
+          'each destroyed {C:attention}Glass Card{}',
+          '{C:inactive}(Currently {X:chips,C:white}X#2#{}{C:inactive} Chips)',
+        },
+      },
+      -- 65. The Joker is Watching
+      j_Sculio_joker_watching = {
+        name = 'The Joker is Watching',
+        text = {
+          '{C:attention}Retriggers{} scored cards',
+          'if a {C:attention}King{} is held in hand',
+        },
+      },
+      -- 66. LED Joker
+      j_Sculio_led = {
+        name = 'LED Joker',
+        text = {
+          'Gains {C:mult}+#2#{} Mult for each',
+          '{C:attention}card{} bought in the shop',
+          '{C:inactive}(Currently {C:mult}+#1#{}{C:inactive} Mult)',
+        },
+      },
+      -- 67. Blue Comet
+      j_Sculio_blue_comet = {
+        name = 'Blue Comet',
+        text = {
+          'After defeating a {C:attention}Boss Blind{},',
+          '{C:planet}levels{} up your most',
+          '{C:attention}played hand{}',
+        },
+      },
+      -- 68. Dong Fang
+      j_Sculio_dong_fang = {
+        name = 'Dong Fang',
+        text = {
+          'Gains {C:mult}+#2#{} Mult for each',
+          'discarded {C:attention}Wandering Card{}',
+          '{C:inactive}(Currently {C:mult}+#1#{}{C:inactive} Mult)',
+        },
+      },
+      -- 69. Pipe Dream
+      j_Sculio_pipe_dream = {
+        name = 'Pipe Dream',
+        text = {
+          'Scored cards have a',
+          '{C:green}#1# in #2#{} chance to give',
+          '{C:chips}+#3#{} Chips',
+        },
+      },
+      -- 70. Autopsy Form
+      j_Sculio_autopsy_form = {
+        name = 'Autopsy Form',
+        text = {
+          'Gains {C:mult}+#2#{} Mult for each',
+          'destroyed {C:attention}enhanced card{}',
+          'Loses {C:mult}-#3#{} Mult per hand played',
+          '{C:inactive}(Currently {C:mult}+#1#{}{C:inactive} Mult)',
+        },
+      },
+      -- 71. Cartomancer?
+      j_Sculio_cartomante = {
+        name = 'Cartomancer?',
+        text = {
+          'Creates a random {C:inverted}Inverted Tarot{}',
+          'when selecting a Blind',
+          '{C:inactive}(Must have room){}',
+        },
+      },
+      -- 100. Puck
+      j_Sculio_puck = {
+        name = 'Puck',
+        text = {
+          'When a card with an {C:attention}edition{} is scored,',
+          'this Joker gains the {C:attention}edition\'s bonus{}',
+          '{C:inactive,s:0.8}(Currently {C:chips,s:0.8}+#1#{}{C:inactive,s:0.8} Chips, {C:mult,s:0.8}+#2#{}{C:inactive,s:0.8} Mult, {X:mult,C:white,s:0.8}X#3#{}{C:inactive,s:0.8} Mult, and {X:chips,C:white,s:0.8}X#4#{}{C:inactive,s:0.8} Chips)'
+        }
       },
     },
     Tag = {
@@ -644,6 +734,263 @@ return {
         },
       }
     },
+    Enhanced = {
+      m_Sculio_experimental = {
+        name = 'Experimental Card',
+        text = {
+          'After being scored {C:attention}#2# times{},',
+          'creates a random {C:attention}Tag{}',
+          'and becomes a {C:attention}Lead Card{}',
+          '{C:inactive}(Currently #1#){}',
+        },
+      },
+      m_Sculio_lead = {
+        name = 'Lead Card',
+        text = {
+          'Is always placed at the',
+          'bottom of your {C:attention}deck{}',
+        },
+      },
+      m_Sculio_wandering = {
+        name = 'Wandering Card',
+        text = {
+          'If left in hand when you',
+          'play a hand, discards itself',
+          'and gains permanent {C:mult}+1 Mult{}',
+        },
+      },
+      m_Sculio_profane = {
+        name = 'Profane Card',
+        text = {
+          'When scored, drains {C:chips}1 Chip{} from a',
+          'random non-Profane card in hand',
+          'and permanently gains {C:chips}+3 Chips{}',
+        },
+      },
+      m_Sculio_pierced = {
+        name = 'Pierced Card',
+        text = {
+          {
+            'Gives {X:mult,C:white}X2{} Mult before',
+            'and after the hand scores',
+          },
+          {
+            'If {C:attention}2 or more{} are played together,',
+            'they are destroyed before scoring',
+          },
+        },
+      },
+      m_Sculio_phalanx = {
+        name = 'Phalanx Card',
+        text = {
+          'Each scored Phalanx Card adds',
+          '{X:mult,C:white}X0.2{} Mult to a shared multiplier',
+          'applied at the end of the hand',
+        },
+      },
+      m_Sculio_trap = {
+        name = 'Trap Card',
+        text = {
+          'When this card is {C:attention}#1#{},',
+          'it triggers:',
+          '#2#',
+        },
+      },
+      m_Sculio_divine = {
+        name = 'Divine Card',
+        text = {
+          'While held in hand, scoring cards',
+          'get {C:chips}+7 Chips{} or {C:mult}+3 Mult{}.',
+          'Its mode alternates between hands',
+        },
+      },
+      m_Sculio_siege = {
+        name = 'Siege Card',
+        text = {
+          'No rank or suit,',
+          'cannot be debuffed',
+          'Earns {C:money}$#1#, $#2# or $#3#{} if part of',
+          'the hand that defeats the Blind',
+          '{C:inactive}(Small, Big, Boss Blind){}',
+        },
+      },
+    },
+    Inverted = {
+      c_Sculio_sane = {
+        name = 'The Sane',
+        text = {
+          'Copies the last {C:inverted}Inverted Tarot{} used',
+          '{C:inactive}(Currently: #1#){}',
+          'If it would copy itself,',
+          'becomes {C:attention}The Fool{} instead',
+        },
+      },
+      c_Sculio_scientist = {
+        name = 'The Scientist',
+        text = {
+          'Enhances {C:attention}#1#{} selected cards',
+          'into {C:attention}Experimental Cards{}',
+        },
+      },
+      c_Sculio_secularist = {
+        name = 'The Secularist',
+        text = {
+          'Levels up between {C:attention}1{} and',
+          '{C:attention}3{} random Poker Hands',
+        },
+      },
+      c_Sculio_exiled = {
+        name = 'The Exiled',
+        text = {
+          'Enhances {C:attention}#1#{} selected cards',
+          'into {C:attention}Wandering Cards{}',
+        },
+      },
+      c_Sculio_regicide = {
+        name = 'Regicide',
+        text = {
+          'Creates up to {C:attention}2{} random',
+          '{C:inverted}Inverted Tarot{} cards',
+          '{C:inactive}(Must have room){}',
+        },
+      },
+      c_Sculio_apostate = {
+        name = 'The Apostate',
+        text = {
+          'Enhances {C:attention}#1#{} selected cards',
+          'into {C:attention}Profane Cards{}',
+        },
+      },
+      c_Sculio_adversaries = {
+        name = 'The Adversaries',
+        text = {
+          'Enhances exactly {C:attention}3{} cards',
+          'into {C:attention}Pierced Cards{}',
+        },
+      },
+      c_Sculio_pikeman = {
+        name = 'The Pikeman',
+        text = {
+          'Enhances {C:attention}2{} selected cards',
+          'into a {C:attention}Phalanx Card{}',
+        },
+      },
+      c_Sculio_arbitrariness = {
+        name = 'Arbitrariness',
+        text = {
+          'Enhances {C:attention}1{} selected card',
+          'into an {C:attention}Trap Card{} with a',
+          'random trigger and random effect',
+        },
+      },
+      c_Sculio_mundane = {
+        name = 'The Mundane',
+        text = {
+          'Recovers {C:money}30%{} of the money spent',
+          'in the current shop, up to {C:money}$30{}',
+          '{C:inactive}(Currently: $#3#){}',
+        },
+      },
+      c_Sculio_immutable_wheel = {
+        name = 'The Immutable Wheel',
+        text = {
+          'During a Blind, activates the effect',
+          'of a random {C:tarot}Tarot{} or {C:inverted}Inverted Tarot{}',
+          'It always does something',
+        },
+      },
+      c_Sculio_weakness = {
+        name = 'Weakness',
+        text = {
+          'Decreases the rank of',
+          'up to {C:attention}#1#{} selected cards by {C:attention}1{}',
+        },
+      },
+      c_Sculio_atoned = {
+        name = 'The Atoned',
+        text = {
+          'Copies one modifier from the last',
+          'destroyed card onto {C:attention}2{} selected cards',
+          'Can be an Enhancement, Seal',
+          'or Edition {C:green}(#1#-#2#-#3#){}',
+        },
+      },
+      c_Sculio_reborn = {
+        name = 'Reborn',
+        text = {
+          'Destroys {C:attention}1{} random card and copies',
+          'one of its modifiers onto {C:attention}3{} random cards',
+          'Can be an Enhancement, Seal or Edition',
+        },
+      },
+      c_Sculio_impatient = {
+        name = 'The Impatient',
+        text = {
+          'Gives money based on the sell value',
+          'of all Jokers and Consumables',
+          'Maximum payout of {C:money}$#1#{}. Then reduces the',
+          'sell value of a random Joker by {C:money}$1{}',
+        },
+      },
+      c_Sculio_archangel = {
+        name = 'The Archangel',
+        text = {
+          'Enhances {C:attention}1{} selected card',
+          'into a {C:attention}Divine Card{}',
+        },
+      },
+      c_Sculio_siege = {
+        name = 'The Siege',
+        text = {
+          'Enhances {C:attention}1{} selected card',
+          'into a {C:attention}Siege Card{}',
+        },
+      },
+      c_Sculio_collapse = {
+        name = 'The Collapse',
+        text = {
+          'For every {C:diamonds}10 Diamonds{} in your full deck,',
+          'give a random card a random {C:edition}Edition{}',
+          '{C:inactive}(Currently: #2#){}',
+        },
+      },
+      c_Sculio_eclipse = {
+        name = 'The Eclipse',
+        text = {
+          'For every {C:clubs}10 Clubs{} in your full deck,',
+          'cards currently held in hand permanently',
+          'gain {C:mult}+1 Mult{}',
+          '{C:inactive}(Currently: x#2#){}',
+        },
+      },
+      c_Sculio_twilight = {
+        name = 'The Twilight',
+        text = {
+          'For every {C:hearts}10 Hearts{} in your full deck,',
+          '{C:attention}2{} random cards receive',
+          'random Enhancements',
+          '{C:inactive}(Currently: #2# cards){}',
+        },
+      },
+      c_Sculio_cave = {
+        name = 'The Cave',
+        text = {
+          'For every {C:spades}10 Spades{} in your full deck,',
+          'cards currently held in hand permanently',
+          'gain {C:chips}+5 Chips{}',
+          '{C:inactive}(Currently: x#2#){}',
+        },
+      },
+      c_Sculio_mercy = {
+        name = 'Mercy',
+        text = {
+          'Creates a {C:dark_edition}Negative{}, Perishable copy',
+          'of the last Joker sold',
+          '{C:inactive}(Currently: #1#){}',
+          'The copy has {C:money}$0{} sell value',
+        },
+      },
+    },
   },
   misc = {
     dictionary = {
@@ -655,9 +1002,37 @@ return {
       k_Sculio_cloning_vat_active = 'Cloned!',
       k_Sculio_sticky_keys_changed = 'Mult Changed!',
       k_Sculio_bad_trip_randomized = 'Deck randomized!',
+      k_Sculio_ecg_discard = '+1 Discard',
       k_Sculio_compatible = 'Compatible',
       k_Sculio_incompatible = 'Incompatible',
       k_Sculio_none = 'None',
-    }
-  }
+      k_inverted = 'Inverted Tarot',
+      b_inverted_cards = 'Inverted Tarots',
+      Sculio_trap_unknown_trigger = 'rolled',
+      Sculio_trap_unknown_effect = 'A random effect from weighted rarity pools',
+      Sculio_trap_played = 'played',
+      Sculio_trap_scored = 'scored',
+      Sculio_trap_discarded = 'discarded',
+      Sculio_trap_held = 'held in hand',
+      Sculio_trap_destroyed = 'destroyed',
+      Sculio_trap_chips75 = '{C:chips}+75 Chips{}',
+      Sculio_trap_mult20 = '{C:mult}+20 Mult{}',
+      Sculio_trap_dollars5 = '{C:money}$5{}',
+      Sculio_trap_draw2 = 'Draws {C:attention}2{} cards',
+      Sculio_trap_xmult175 = '{X:mult,C:white}X1.75{} Mult',
+      Sculio_trap_xchips15 = '{X:chips,C:white}X1.5{} Chips',
+      Sculio_trap_create_tarot = 'Creates a random {C:tarot}Tarot{}',
+      Sculio_trap_create_planet = 'Creates a random {C:planet}Planet{}',
+      Sculio_trap_enhance = 'Applies a random Enhancement to a random card',
+      Sculio_trap_seal = 'Applies a random Seal to a random card',
+      Sculio_trap_buff_others = 'Gives {C:mult}+4 Mult{} to up to 2 other cards in hand',
+      Sculio_trap_reduce_blind = 'Reduces the Blind by {C:attention}5%{}',
+      Sculio_trap_spectral_draw = 'Creates a random {C:spectral}Spectral{} and draws {C:attention}2{} cards',
+      Sculio_trap_protect_xmult = 'Adjacent cards cannot be debuffed, and {X:mult,C:white}X1.75{} Mult',
+      Sculio_trap_seal_buff = 'Applies a random Seal and gives {C:mult}+4 Mult{} to other cards',
+    },
+    labels = {
+      inverted = 'Inverted Tarot',
+    },
+  },
 }

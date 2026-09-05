@@ -17,7 +17,7 @@ SMODS.Joker {
     return { vars = { card.ability.extra.x_mult, card.ability.extra.x_mult_gain } }
   end,
   calculate = function(self, card, context)
-    if context.individual and context.cardarea == G.play and context.other_card.config.center == G.P_CENTERS.m_lucky and not context.blueprint then
+    if context.individual and context.cardarea == G.play and SMODS.has_enhancement(context.other_card, 'm_lucky') and not context.blueprint then
       if not context.other_card.lucky_trigger then
         card.ability.extra.x_mult = card.ability.extra.x_mult + card.ability.extra.x_mult_gain
 

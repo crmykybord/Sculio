@@ -21,7 +21,7 @@ SMODS.Joker {
       local stolen = 0
 
       for k, v in ipairs(G.jokers.cards) do
-        if v.ability.name ~= 'j_Sculio_kfc' and v.set_cost and v.sell_cost > 0 then
+        if v.config.center.key ~= 'j_Sculio_kfc' and v.set_cost and v.sell_cost > 0 then
           local steal
           if v.sell_cost < card.ability.extra.dollar_steal then
             steal = v.sell_cost

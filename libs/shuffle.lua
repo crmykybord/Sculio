@@ -42,7 +42,7 @@ function CardArea:shuffle(_seed)
       for _, card in ipairs(priorities) do
         table.insert(others, card)
       end
-  
+
       self.cards = others
     end
 
@@ -72,6 +72,31 @@ function CardArea:shuffle(_seed)
     end
 
     self:set_ranks()
+  end
+
+  -- ponytail: Lead Cards sink to the bottom only on reshuffles; mid-round
+  -- draw order can still surface them. Per-draw interception if that matters.
+  if self == G.deck then
+    local has_lead = false
+    for _, v in ipairs(self.cards) do
+      if SMODS.has_enhancement(v, 'm_Sculio_lead') then has_lead = true break end
+    end
+    if has_lead then
+      -- Deck draws from the END of self.cards, so leads must sit at the FRONT
+      local arranged = {}
+      for _, v in ipairs(self.cards) do
+        if SMODS.has_enhancement(v, 'm_Sculio_lead') then
+          table.insert(arranged, v)
+        end
+      end
+      for _, v in ipairs(self.cards) do
+        if not SMODS.has_enhancement(v, 'm_Sculio_lead') then
+          table.insert(arranged, v)
+        end
+      end
+      self.cards = arranged
+      self:set_ranks()
+    end
   end
 
   return g

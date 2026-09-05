@@ -19,7 +19,7 @@ SMODS.Joker {
   -- NOTE could look at instances of inc_career_stat('c_shop_dollars_spent', ...)
   -- to accurately determine how much was spent
   calculate = function(self, card, context)
-    local rerolls_were_free = rerolls_are_free or G.GAME.current_round.reroll_cost == 0
+    local rerolls_were_free = G.GAME.current_round.reroll_cost == 0
 
     if (context.buying_card or context.open_booster or context.reroll_shop) and context.card ~= card then
       -- Token identifies this exact purchase; cost is this trigger's spend

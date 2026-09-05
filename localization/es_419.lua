@@ -7,7 +7,7 @@ return {
           'Un Mod Vanilla que busca agregar',
           'contenido nuevo a Balatro que se sienta',
           'como el original',
-          '(¡Tenemos 60 Comodines y una Etiqueta!)',
+          '(¡Tenemos 63 Comodines y una Etiqueta!)',
           ' ',
           '{C:attention}Créditos:{}',
           '{C:money}crmykybord{}: Dibujo y Diseño',
@@ -26,6 +26,13 @@ return {
       }
     },
     Other = {
+      undiscovered_inverted = {
+        name = 'Tarot Invertido sin descubrir',
+        text = {
+          'Encuentra o usa este Tarot Invertido',
+          'para descubrirlo.',
+        },
+      },
       Sculio_refrigerable_jokers = {
         name = 'Comodines de Comida',
         text = {
@@ -101,7 +108,7 @@ return {
         text = {
           'Prob. de {C:green}#1# en #2#{} de otorgar',
           'una {C:attention}mejora al azar{}',
-          'a las {C:attention}cartas amotadas{},',
+          'a las {C:attention}cartas anotadas{},',
         },
       },
       -- 8. Addiction
@@ -137,10 +144,11 @@ return {
       j_Sculio_handheld = {
         name = 'Juego Retro',
         text = {
-          'Todas las cartas se consideran',
-          '{C:attention}Cartas Versátiles{}'
+          'Otorga la última {C:attention}Mejora{} obtenida',
+          'a la {C:attention}primera carta anotada{}',
+          '{C:inactive}(Actualmente: #1#){}',
         },
-      }, 
+      },
       -- 12. Crime Scene
       j_Sculio_crime_scene = {
         name = 'Escena del Crimen',
@@ -216,7 +224,6 @@ return {
         'del {C:attention}extremo derecho{} y debilita',
         'el comodín a su {C:attention}derecha{}',
         "durante la mano jugada",
-        '{C:inactive}(Copiando: {C:attention}#1#{C:inactive} - {C:attention}#2#{C:inactive})'
         }
       },
       -- 20. Frequent Flyer
@@ -328,11 +335,12 @@ return {
       j_Sculio_intuition = {
         name = 'Intuición',
         text = {
-          'Prob. de {C:green}#1# en #2#{} de que las cartas',
-          '{C:attention}en mano{} copien el efecto de una',
-          'carta {C:attention}mejorada{} anotada',
+          'Las cartas anotadas tienen una',
+          'prob. de {C:green}#1# en #2#{} de copiar',
+          'el efecto de las cartas',
+          '{C:attention}mejoradas{} en mano',
         },
-      }, 
+      },
       -- 32. Sensory Overload
       j_Sculio_sensory_overload = {
         name = 'Sobrecarga Sensorial',
@@ -490,12 +498,10 @@ return {
       j_Sculio_joker_metro = {
         name = 'Metro Comodín',
         text = {
-          'Gana {C:mult}+#2#{} Multi por ronda cuando',
-          'la mano jugada contiene {C:attention}#3#{}',
-          '{C:inactive,s:0.8}(La mano cambia en cada ronda){}',
-          'La ganancia aumenta en {C:mult}+#4#{}',
-          'al derrotar una {C:attention}Ciega Jefe{}',
-          '{C:inactive}(Actualmente {C:mult}+#1#{}{C:inactive} Multi)',
+          'Al derrotar una {C:attention}Ciega Jefe{},',
+          'otorga una {C:attention}Mejora{},',
+          '{C:attention}Sello{} o {C:attention}Edición{} al azar',
+          'a {C:attention}#1#{} cartas de tu Baraja',
         },
       },
       -- 49. Gladiator Joker
@@ -559,10 +565,10 @@ return {
       j_Sculio_computer_virus = {
         name = 'Virus Informático',
         text = {
-          'Al derrotar una {C:attention}Ciega Jefe{},',
-          'destruye el {C:attention}Comodín{} más a la derecha',
-          'y crea un {C:common}Comodín Común{}',
-          'con {C:dark_edition}Negativa{} o {C:dark_edition}Polícroma{}'
+          'Al derrotar una {C:attention}Ciega Jefe{}, {C:red}destruye{}',
+          'el {C:attention}Comodín{} del extremo derecho',
+          'y crea un {C:common}Comodín Común{} con',
+          'edición {C:dark_edition}Negativa{} o {C:dark_edition}Polícroma{}'
         },
       },
       -- 56. Manilla Folder
@@ -579,14 +585,17 @@ return {
       j_Sculio_nonogram_joker = {
         name = 'Comodín Nonograma',
         text = {
-          '{C:inactive}WIP, ignorado{}'
+          'Las cartas anotadas alternan',
+          '{C:chips}+#1#{} Fichas y {C:mult}+#2#{} Multi',
         },
       },
       -- 58. Telephone
       j_Sculio_telephone = {
         name = 'Teléfono',
         text = {
-          '{C:inactive}WIP, ignorado{}'
+          'Los {C:attention}#1#{} anotados son',
+          '{C:attention}reactivados{}',
+          '{C:inactive,s:0.8}Cambia cada ronda{}',
         },
       },
       -- 59. Joker of Nothing
@@ -601,7 +610,7 @@ return {
       },
       -- 60. Game Package
       j_Sculio_game_package = {
-        name = 'Juego Retro',
+        name = 'Cartucho de Juego',
         text = {
           'Los {C:attention}2{} y {C:attention}4{} en mano',
           'otorgan {X:mult,C:white}X#1#{} Multi por',
@@ -612,16 +621,98 @@ return {
       j_Sculio_lost_keys = {
         name = 'Llaves Perdidas',
         text = {
-          'Al derrotar una {C:attention}Ciega Jefe{},',
+          'Al principio de cada {C:attention}Apuesta{},',
           'la {C:money}Tienda{} tiene {C:attention}#1#{}',
-          '{C:attention}paquetes potenciadores{} pequeños gratis',
+          '{C:attention}paquetes potenciadores{} gratis',
         },
       },
       -- 62. Gun Target
       j_Sculio_gun_target = {
-        name = 'Objetivo de Practica',
+        name = 'Objetivo de Práctica',
         text = {
-          '{C:inactive}WIP, ignorado{}'
+          'Ganas {C:money}$10{} al derrotar',
+          'una {C:attention}Ciega Pequeña{}',
+        },
+      },
+      -- 63. ECG Joker
+      j_Sculio_ecg = {
+        name = 'Comodín ECG',
+        text = {
+          'Si te quedas sin manos, otorga',
+          '{C:blue}+1{} mano y {C:red}+1{} descarte',
+          '{C:inactive}(Solo 1 vez por ronda){}',
+        },
+      },
+      -- 64. Test Dummy
+      j_Sculio_test_dummy = {
+        name = 'Muñeco de Prueba',
+        text = {
+          'Obtiene {X:chips,C:white}X#1#{} Fichas por',
+          'cada {C:attention}Carta de Vidrio{} destruida',
+          '{C:inactive}(Actualmente {X:chips,C:white}X#2#{}{C:inactive} Fichas)',
+        },
+      },
+      -- 65. The Joker is Watching
+      j_Sculio_joker_watching = {
+        name = 'El Comodín nos Observa',
+        text = {
+          '{C:attention}Reactiva{} las cartas anotadas',
+          'si hay un {C:attention}Rey{} en mano',
+        },
+      },
+      -- 66. LED Joker
+      j_Sculio_led = {
+        name = 'Comodín LED',
+        text = {
+          'Gana {C:mult}+#2#{} Multi por cada',
+          '{C:attention}carta{} comprada en la {C:money}Tienda{}',
+          '{C:inactive}(Actualmente {C:mult}+#1#{}{C:inactive} Multi)',
+        },
+      },
+      -- 67. Blue Comet
+      j_Sculio_blue_comet = {
+        name = 'Cometa Azul',
+        text = {
+          'Al derrotar una {C:attention}Ciega Jefe{},',
+          '{C:planet}sube de nivel{} tu mano',
+          '{C:attention}más jugada{}',
+        },
+      },
+      -- 68. Dong Fang
+      j_Sculio_dong_fang = {
+        name = 'Dong Fang',
+        text = {
+          'Obtiene {C:mult}+#2#{} Multi por cada',
+          '{C:attention}Carta Errante{} descartada',
+          '{C:inactive}(Actualmente {C:mult}+#1#{}{C:inactive} Multi)',
+        },
+      },
+      -- 69. Pipe Dream
+      j_Sculio_pipe_dream = {
+        name = 'Ilusión de Tuberías',
+        text = {
+          'Las cartas anotadas tienen una',
+          'prob. de {C:green}#1# en #2#{} de otorgar',
+          '{C:chips}+#3#{} Fichas',
+        },
+      },
+      -- 70. Autopsy Form
+      j_Sculio_autopsy_form = {
+        name = 'Formulario de Autopsia',
+        text = {
+          'Obtiene {C:mult}+#2#{} Multi por cada',
+          '{C:attention}carta mejorada{} destruida',
+          'Pierde {C:mult}-#3#{} Multi por mano jugada',
+          '{C:inactive}(Actualmente {C:mult}+#1#{}{C:inactive} Multi)',
+        },
+      },
+      -- 71. Cartomancer?
+      j_Sculio_cartomante = {
+        name = '¿Cartomante?',
+        text = {
+          'Crea un {C:inverted}Tarot Invertido{}',
+          'al azar al seleccionar una ciega',
+          '{C:inactive}(Debe haber espacio){}',
         },
       },
       -- 100. Puck
@@ -644,6 +735,262 @@ return {
         },
       }
     },
+    Enhanced = {
+      m_Sculio_experimental = {
+        name = 'Carta Experimental',
+        text = {
+          'Tras anotar {C:attention}#2# veces{} {C:inactive}(#1#/7){},',
+          'crea una {C:attention}Etiqueta{} al azar',
+          'y se convierte en {C:attention}Carta de Plomo{}',
+        },
+      },
+      m_Sculio_lead = {
+        name = 'Carta de Plomo',
+        text = {
+          'Siempre está al fondo',
+          'de la {C:attention}Baraja{}',
+        },
+      },
+      m_Sculio_wandering = {
+        name = 'Carta Errante',
+        text = {
+          'Si está en mano al jugar,',
+          'se autodescarta y gana',
+          '{C:mult}+1 Multi{}',
+        },
+      },
+      m_Sculio_profane = {
+        name = 'Carta Profana',
+        text = {
+          'Drena {C:chips}1 Ficha{} de una carta',
+          'en mano y gana {C:chips}+3 Fichas{}',
+          'al anotar',
+          "{C:inactive,s:0.8}(No puede drenar otras cartas profanas)",
+        },
+      },
+      m_Sculio_pierced = {
+        name = 'Carta Perforada',
+        text = {
+          {
+            "{X:mult,C:white}X2{} Multi antes y",
+            "después de jugar la mano",
+          },
+          {
+            "Si se juegan {C:attention}2 o más{}",
+            "cartas perforadas al mismo tiempo",
+            "se {C:red}destruyen{} antes de jugarse",
+          }
+        },
+      },
+      m_Sculio_phalanx = {
+        name = 'Carta Falange',
+        text = {
+          'Cada Falange anotada añade {X:mult,C:white}X0.2{} Multi',
+          'a un multiplicador compartido',
+          'aplicado al final de la mano',
+        },
+      },
+      m_Sculio_trap = {
+        name = 'Carta Trampa',
+        text = {
+          'Cuando esta carta se {C:attention}#1#{},',
+          'activa:',
+          '#2#',
+        },
+      },
+      m_Sculio_divine = {
+        name = 'Carta Divina',
+        text = {
+          'Mientras está en mano, las cartas que anotan',
+          'obtienen {C:chips}+7 Fichas{} o {C:mult}+3 Multi{}.',
+          'Alterna su modo entre manos',
+        },
+      },
+      m_Sculio_siege = {
+        name = 'Carta Asedio',
+        text = {
+          'Sin categoría ni palo,',
+          'no puede debilitarse',
+          'Gana {C:money}$#1#, $#2# o $#3#{} si forma parte de',
+          'la mano que derrota a la Ciega',
+          '{C:inactive}(Ciega Pequeña, Ciega Grande, Ciega Jefe){}',
+        },
+      },
+    },
+    Inverted = {
+      c_Sculio_sane = {
+        name = 'El Sensato',
+        text = {
+          'Copia el último {C:inverted}Tarot Invertido{} usado',
+          '{C:inactive}(Actualmente: #1#){}',
+          'Si intentara copiarse a sí mismo,',
+          'se convierte en {C:attention}El Loco{}',
+        },
+      },
+      c_Sculio_scientist = {
+        name = 'El Científico',
+        text = {
+          'Mejora {C:attention}#1#{} cartas seleccionadas',
+          'en {C:attention}Cartas Experimentales{}',
+        },
+      },
+      c_Sculio_secularist = {
+        name = 'La Laica',
+        text = {
+          'Sube de nivel entre {C:attention}1{} y',
+          '{C:attention}3{} manos de póker al azar',
+        },
+      },
+      c_Sculio_exiled = {
+        name = 'La Exiliada',
+        text = {
+          'Mejora {C:attention}#1#{} cartas seleccionadas',
+          'en {C:attention}Cartas Errantes{}',
+        },
+      },
+      c_Sculio_regicide = {
+        name = 'Regicidio',
+        text = {
+          'Crea hasta {C:attention}2{} {C:inverted}Tarots Invertidos{} al azar',
+          '{C:inactive}(Debe haber espacio){}',
+        },
+      },
+      c_Sculio_apostate = {
+        name = 'El Apóstata',
+        text = {
+          'Mejora {C:attention}#1#{} cartas seleccionadas',
+          'en {C:attention}Cartas Profanas{}',
+        },
+      },
+      c_Sculio_adversaries = {
+        name = 'Los Adversarios',
+        text = {
+          'Mejora exactamente {C:attention}3{} cartas',
+          'en {C:attention}Cartas Perforadas{}',
+        },
+      },
+      c_Sculio_pikeman = {
+        name = 'El Piquero',
+        text = {
+          'Mejora {C:attention}2{} cartas seleccionadas',
+          'en {C:attention}Carta Falange{}',
+        },
+      },
+      c_Sculio_arbitrariness = {
+        name = 'La Arbitrariedad',
+        text = {
+          'Mejora {C:attention}1{} carta seleccionada en una',
+          '{C:attention}Carta Trampa{} con activador y efecto aleatorios',
+        },
+      },
+      c_Sculio_mundane = {
+        name = 'El Mundano',
+        text = {
+          'Recupera el {C:money}30%{} del dinero gastado',
+          'en la Tienda actual, hasta {C:money}$30{}',
+          '{C:inactive}(Actualmente: $#3#){}',
+        },
+      },
+      c_Sculio_immutable_wheel = {
+        name = 'La Rueda Inmutable',
+        text = {
+          'Durante una Ciega, activa el efecto de un',
+          '{C:tarot}Tarot{} o {C:inverted}Tarot Invertido{} al azar',
+          'Siempre hace algo',
+        },
+      },
+      c_Sculio_weakness = {
+        name = 'La Debilidad',
+        text = {
+          'Reduce la categoría de hasta',
+          '{C:attention}#1#{} cartas seleccionadas en {C:attention}1{}',
+        },
+      },
+      c_Sculio_atoned = {
+        name = 'El Expiado',
+        text = {
+          'Copia un modificador de la última carta',
+          'destruida en {C:attention}2{} cartas seleccionadas',
+          'Puede ser una Mejora, Sello',
+          'o Edición {C:green}(#1#-#2#-#3#){}',
+        },
+      },
+      c_Sculio_reborn = {
+        name = 'El Renacido',
+        text = {
+          'Destruye {C:attention}1{} carta al azar y copia uno de',
+          'sus modificadores en {C:attention}3{} cartas al azar',
+          'Puede ser una Mejora, Sello o Edición',
+        },
+      },
+      c_Sculio_impatient = {
+        name = 'El Impaciente',
+        text = {
+          'Da dinero según el valor de venta de todos',
+          'los Comodines y Consumibles',
+          'Pago máximo de {C:money}$#1#{}. Luego reduce el valor',
+          'de venta de un Comodín al azar en {C:money}$1{}',
+        },
+      },
+      c_Sculio_archangel = {
+        name = 'El Arcángel',
+        text = {
+          'Mejora {C:attention}1{} carta seleccionada',
+          'en {C:attention}Carta Divina{}',
+        },
+      },
+      c_Sculio_siege = {
+        name = 'El Asedio',
+        text = {
+          'Mejora {C:attention}1{} carta seleccionada',
+          'en {C:attention}Carta Asedio{}',
+        },
+      },
+      c_Sculio_collapse = {
+        name = 'El Colapso',
+        text = {
+          'Por cada {C:diamonds}10 Diamantes{} en toda tu Baraja,',
+          'da una {C:dark_edition}Edición{} al azar a una carta al azar',
+          '{C:inactive}(Actualmente: #2#){}',
+        },
+      },
+      c_Sculio_eclipse = {
+        name = 'El Eclipse',
+        text = {
+          'Por cada {C:clubs}10 Tréboles{} en toda tu Baraja,',
+          'las cartas en mano ganan permanentemente',
+          '{C:mult}+1 Multi{}',
+          '{C:inactive}(Actualmente: x#2#){}',
+        },
+      },
+      c_Sculio_twilight = {
+        name = 'El Crepúsculo',
+        text = {
+          'Por cada {C:hearts}10 Corazones{} en toda tu Baraja,',
+          '{C:attention}2{} cartas al azar reciben',
+          'Mejoras al azar',
+          '{C:inactive}(Actualmente: #2# cartas){}',
+        },
+      },
+      c_Sculio_cave = {
+        name = 'La Cueva',
+        text = {
+          'Por cada {C:spades}10 Espadas{} en toda tu Baraja,',
+          'las cartas en mano ganan permanentemente',
+          '{C:chips}+5 Fichas{}',
+          '{C:inactive}(Actualmente: x#2#){}',
+        },
+      },
+      c_Sculio_mercy = {
+        name = 'Piedad',
+        text = {
+          'Crea una copia {C:dark_edition}Negativa{} y Perecedera',
+          'del último Comodín vendido',
+          '{C:inactive}(Actualmente: #1#){}',
+          'La copia tiene valor de venta de {C:money}$0{}',
+        },
+      },
+    },
   },
   misc = {
     dictionary = {
@@ -655,9 +1002,35 @@ return {
       k_Sculio_cloning_vat_active = '¡Clonado!',
       k_Sculio_sticky_keys_changed = '¡Multi cambiado!',
       k_Sculio_bad_trip_randomized = '¡Baraja cambiada!',
-      k_Sculio_compatible = 'Compatible',
-      k_Sculio_incompatible = 'Incompatible',
+      k_Sculio_ecg_discard = '+1 Descarte',
       k_Sculio_none = 'Nada',
-    }
-  }
+      k_inverted = 'Tarot Invertido',
+      b_inverted_cards = 'Tarots Invertidos',
+      Sculio_trap_unknown_trigger = 'al azar',
+      Sculio_trap_unknown_effect = 'Un efecto aleatorio de pools de rareza ponderados',
+      Sculio_trap_played = 'juega',
+      Sculio_trap_scored = 'anota',
+      Sculio_trap_discarded = 'descarta',
+      Sculio_trap_held = 'mantiene en mano',
+      Sculio_trap_destroyed = 'destruye',
+      Sculio_trap_chips75 = '{C:chips}+75 Fichas{}',
+      Sculio_trap_mult20 = '{C:mult}+20 Multi{}',
+      Sculio_trap_dollars5 = '{C:money}$5{}',
+      Sculio_trap_draw2 = 'Saca {C:attention}2{} cartas',
+      Sculio_trap_xmult175 = '{X:mult,C:white}X1.75{} Multi',
+      Sculio_trap_xchips15 = '{X:chips,C:white}X1.5{} Fichas',
+      Sculio_trap_create_tarot = 'Crea un {C:tarot}Tarot{} al azar',
+      Sculio_trap_create_planet = 'Crea un {C:planet}Planeta{} al azar',
+      Sculio_trap_enhance = 'Aplica una Mejora al azar a una carta al azar',
+      Sculio_trap_seal = 'Aplica un Sello al azar a una carta al azar',
+      Sculio_trap_buff_others = 'Da {C:mult}+4 Multi{} a hasta 2 otras cartas en mano',
+      Sculio_trap_reduce_blind = 'Reduce la Ciega un {C:attention}5%{}',
+      Sculio_trap_spectral_draw = 'Crea una carta {C:spectral}Espectral{} al azar y saca {C:attention}2{} cartas',
+      Sculio_trap_protect_xmult = 'Las cartas adyacentes no pueden debilitarse, y {X:mult,C:white}X1.75{} Multi',
+      Sculio_trap_seal_buff = 'Aplica un Sello al azar y da {C:mult}+4 Multi{} a las demás cartas',
+    },
+    labels = {
+      inverted = 'Tarot Invertido',
+    },
+  },
 }

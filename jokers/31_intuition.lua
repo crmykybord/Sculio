@@ -1,4 +1,6 @@
--- Template: what one successful held card copies from a scored enhancement
+-- Template: what one enhancement center grants when scored (shared with held-card caching)
+local ODDS = 4
+
 local function enhancement_template(center)
   local cfg = center.config
   if center.key == 'm_lucky' then return { lucky = true } end
@@ -16,6 +18,25 @@ local function enhancement_template(center)
   if next(t) then return t end
 end
 
+-- Templates of the enhancements held in hand (built lazily so Blueprint copies work too)
+local function held_templates(card)
+  local templates = card.intuition_templates
+  if not templates then
+    templates = {}
+    for _, held in ipairs(G.hand and G.hand.cards or {}) do
+      if not held.debuff then
+        local center = G.P_CENTERS[held.config.center.key]
+        if center and center.key ~= 'c_base' and center.config then
+          local t = enhancement_template(center)
+          if t then templates[#templates + 1] = t end
+        end
+      end
+    end
+    card.intuition_templates = templates
+  end
+  return templates
+end
+
 SMODS.Joker {
   key = 'intuition',
   attributes = { 'chance', 'enhancements' },
@@ -23,43 +44,35 @@ SMODS.Joker {
   blueprint_compat = true,
   perishable_compat = true,
   rental_compat = true,
-  config = { extra = { odds = 4 } },
+  config = {},
   unlocked = true,
   discovered = false,
   rarity = 3,
   atlas = 'Sculio',
   pos = { x = 2, y = 3 },
-  cost = 9,
+  cost = 8,
   loc_vars = function(self, info_queue, card)
-    local n, d = SMODS.get_probability_vars(card, 1, card.ability.extra.odds, 'intuition')
+    local n, d = SMODS.get_probability_vars(card, 1, ODDS, 'intuition')
     return { vars = { n, d } }
   end,
   calculate = function(self, card, context)
-    -- Cache scored enhancement templates before scoring starts
+    -- Cache held enhancement templates before scoring starts
     if context.before then
-      card.intuition_templates = {}
-      for _, scored in ipairs(context.scoring_hand or {}) do
-        if not scored.debuff then
-          local center = G.P_CENTERS[scored.config.center.key]
-          if center and center.key ~= 'c_base' and center.config then
-            local t = enhancement_template(center)
-            if t then card.intuition_templates[#card.intuition_templates + 1] = t end
-          end
-        end
-      end
+      card.intuition_templates = nil
+      held_templates(card)
       return nil
     end
 
-    -- Each held card rolls once per scored enhancement; effect shows on the held card
+    -- Each scored card rolls once per held enhancement; effect shows on the scored card
     if context.end_of_round then return nil end
-    if not (context.individual and context.cardarea == G.hand and context.other_card) then return nil end
+    if not (context.individual and context.cardarea == G.play and context.other_card) then return nil end
     if context.other_card.debuff then return nil end
-    local templates = card.intuition_templates
-    if not templates or #templates == 0 then return nil end
+    local templates = held_templates(card)
+    if #templates == 0 then return nil end
 
     local effect
     for _, t in ipairs(templates) do
-      if SMODS.pseudorandom_probability(card, 'intuition', 1, card.ability.extra.odds, 'intuition') then
+      if SMODS.pseudorandom_probability(card, 'intuition', 1, ODDS, 'intuition') then
         effect = effect or {}
         if t.lucky then
           if SMODS.pseudorandom_probability(card, 'intuition_lucky_mult', 1, 5, 'intuition') then

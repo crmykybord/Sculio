@@ -17,7 +17,7 @@ SMODS.Joker {
     return { vars = { card.ability.extra.chips, card.ability.extra.mult, card.ability.extra.x_mult, card.ability.extra.x_chips, card.ability.extra.bonus_mult * 100 } }
   end,
   calculate = function(self, card, context)
-    if context.cardarea == G.jokers and context.selling_card and context.card ~= card and not context.blueprint then
+    if context.selling_card and context.card ~= card and not context.blueprint then
       local sold = context.card
       if sold.debuff or not sold.edition then return end
       local message = Sculio.absorb_edition(card, sold, card.ability.extra.bonus_mult)

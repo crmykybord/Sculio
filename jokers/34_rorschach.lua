@@ -28,7 +28,7 @@ SMODS.Joker {
         for i = 1, #G.jokers.cards do
           local joker = G.jokers.cards[i]
 
-          if joker and joker.ability.name == 'Trading Card' then
+          if joker and joker.config.center.key == 'j_trading_card' then
             return
           end
         end
