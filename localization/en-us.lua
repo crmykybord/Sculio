@@ -105,9 +105,10 @@ return {
       j_Sculio_pop_star = {
         name = 'Pop Star',
         text = {
-          '{C:green}#1# in #2#{} chance to grant',
-          'a {C:attention}random enhancement{}',
-          'to {C:attention}scored cards{}'
+          '{C:green}#1# in #2#{} chance',
+          'for {C:attention}each scored card{}',
+          'to gain a {C:attention}new{},',
+          '{C:attention}random enhancement{}'
         },
       },
       -- 8. Addiction
@@ -116,8 +117,8 @@ return {
         text = {
           'If you play your most played hand,',
           'each scored {C:attention}card{} permanently gains',
-          '{C:chips}chips{} equal to {C:attention}half the number of times{}',
-          '{C:attention}you played the hand{}'
+          '{C:chips}chips{} equal to {C:attention}half of the number{}',
+          '{C:attention}of times it has been played{}'
         },
       },      
       -- 9. Gumball Machine
@@ -134,9 +135,9 @@ return {
       j_Sculio_anatomy = {
         name = 'Anatomy',
         text = {
-          'Each {C:attention}number card{} has',
-          'a {C:green}chance equal to its rank{}',
-          'to be retriggered'
+          'Scored {C:attention}number cards{} have',
+          '{C:attention}their rank out of #2#{} to',
+          'be retriggered once'
         }
       },  
       -- 11. Handheld
@@ -167,7 +168,6 @@ return {
           '{X:red,C:white}X#1#{} Mult for each',
           '{C:attention}other{} occupied {C:attention}Joker{} slot',
           '{C:inactive}(Currently {X:red,C:white}X#2#{C:inactive} Mult)',
-          '{C:inactive,s:0.7}(Does not count itself)',
         },
       }, 
       -- 14. Figurine
@@ -192,27 +192,29 @@ return {
       j_Sculio_reach = {
         name = 'Reach',
         text = {
-          'Prevents Death and {S:1.1,C:red,E:2}self destructs{}.',
-          'Gains {C:blue}+#1#{} extra hand if your score',
-          'was at least {C:attention}#2#%{} of the requirement'
+          'Prevents Death, {S:1.1,C:red,E:2}self destructs{}, and',
+          'permanently gains {C:blue}+#1#{} hand if chips',
+          'scored are at least {C:attention}#2#%{} of requirement.',
+          'No effect if the Blind is defeated'
         },
       },
       -- 17. Mad Scientist
       j_Sculio_mad_scientist = {
         name = 'Mad Scientist',
         text = {
-          'When a {C:attention}Blind{} is selected,',
-          'converts the Joker to its right',
-          'into another of equal {C:attention}rarity{}'
+          'When {C:attention}Blind{} is selected,',
+          'convert Joker to the right',
+          'into another Joker',
+          'of equal {C:attention}rarity{}'
         }
       },
       -- 18. Chicken Coupon
       j_Sculio_kfc = {
         name = 'Chicken Coupon',
         text = {
-        'Steals {C:money}$#2#{} of {C:attention}sell{} value from',
-        'other {C:attention}Jokers{} at the end of the blind and gains',
-        '{X:mult,C:white}X#3#{} Mult for each {C:money}$#4#{} taken',
+        'Steals {C:money}$#2#{} of {C:attention}sell{} value from every other',
+        '{C:attention}Joker{} if available at the end of a blind',
+        'Gains {X:mult,C:white}X#3#{} Mult for each {C:money}$#4#{} stolen',
         '{C:inactive}(Currently {X:mult,C:white}X#1#{}{C:inactive} Mult)'
         }
       },
@@ -220,10 +222,10 @@ return {
       j_Sculio_dunce = {
         name = 'Dunce',
         text = {
-        'Copies the ability of the',
-        '{C:attention}rightmost{} Joker and {C:attention}debuffs{}',
-        'the Joker to its {C:attention}right{}',
-        'during the played hand',
+        'Copies the ability of the {C:attention}rightmost{} Joker',
+        'and {C:attention}debuffs{} Joker to the right',
+        'during played hand',
+        '{C:inactive}(Copying: {C:attention}#1#{C:inactive} - {C:attention}#2#{C:inactive})'
         }
       },
       -- 20. Frequent Flyer
@@ -268,9 +270,9 @@ return {
       j_Sculio_effigy = {
         name = 'Effigy',
         text = {
-          'Copies the ability of a',
-          'random {C:attention}Joker{}',
-          '{C:inactive}(Copying: {C:attention}#1#{C:inactive})'
+          'Copies ability of a random',
+          '{C:attention}compatible Joker{} during hand',
+          '{C:inactive}(Currently copying: {C:attention}#1#{C:inactive})'
         },
       }, 
       -- 25. Bad Trip
@@ -278,8 +280,8 @@ return {
         name = 'Bad Trip',
         text = {
           'After {C:attention}#1#{} rounds, sell this card to',
-          '{C:red}randomize{} all the cards',
-          'in your deck',
+          '{C:attention}randomize{} the {C:attention}rank and suit{}',
+          'of every card in deck',
           '{C:inactive}(Currently {C:attention}#2#{C:inactive} / #1#)'
         },
       }, 
@@ -288,7 +290,8 @@ return {
           name = 'Receipt',
           text = {
           'Sell this card to',
-          'create a {C:attention}Voucher Tag{}'
+          'create a free',
+          '{C:attention}Voucher Tag{}'
         },
       }, 
       -- 27. Unstoppable Force
@@ -306,8 +309,8 @@ return {
       j_Sculio_refrigerator = {
         name = 'Refrigerator',
         text = {
-          '{C:attention}Food Jokers{} to the right cannot',
-          '{C:attention}decay{}, {C:attention}expire{}, or be {C:red}destroyed{}',
+          '{C:attention}Food Jokers{} to the right',
+          'cannot {C:attention}decay{} or {C:attention}expire{}',
         },
       }, 
       -- 29. Hammer and Chisel
@@ -324,10 +327,11 @@ return {
       j_Sculio_prescription = { 
         name = 'Prescription',
         text = {
-          'After {C:attention}#1#{} rounds, sell this card',
-          'to {C:attention}remove{} all {C:attention}Ailments{} from',
-          'your {C:attention}Jokers{} and {C:attention}restore',
-          '{C:attention}expired Perishables{}',
+          'After {C:attention}#1#{} rounds,',
+          'sell this card to {C:attention}remove{}',
+          'all {C:attention}Ailments{} from all',
+          '{C:attention}owned Jokers{} and',
+          '{C:attention}rebuff perished Jokers{}',
           '{C:inactive}(Currently {C:attention}#2#{C:inactive} / #1#)'
         },
       },
@@ -344,8 +348,9 @@ return {
       j_Sculio_sensory_overload = {
         name = 'Sensory Overload',
         text = {
-          'Earn {C:money}$#1#{} for every {C:attention}#2#{} {C:inactive}[#3#]{}',
-          '{C:attention}activations{} of other Jokers'
+          'Earn {C:money}$#1#{} for every',
+          '{C:attention}#2#{} {C:inactive}[#3#]{} times other',
+          'Jokers are {C:attention}triggered{}'
         },
       }, 
       -- 33. Cloning Vat
@@ -382,10 +387,10 @@ return {
       j_Sculio_pyromaniac = {
         name = 'Pyromaniac',
         text = {
-          'If your {C:attention}first hand{} is your',
-          '{C:attention}most played hand{}, {C:planet}level up{}',
-          'the hand and {C:red}destroy{} the',
-          'scored cards'
+          'If {C:attention}first hand{} of round is',
+          'your {C:attention}most played hand,{}',
+          '{C:attention}level up hand #1# time{} and',
+          '{C:attention}destroy cards in that hand{}'
         },
       }, 
       -- 37. Pharaoh
@@ -412,9 +417,8 @@ return {
         name = 'Treachery',
         text = {
           '{C:blue}-1 Hand{}, {C:red}-1 Discard{}',
-          'After {C:attention}#1#{} rounds, sell this',
-          'card to add a {C:dark_edition}Negative{} edition',
-          'to a random {C:attention}Joker{}',
+          'After {C:attention}#1#{} rounds, sell this card to',
+          'add {C:dark_edition}Negative{} to a random {C:attention}Joker{}',
           '{C:inactive}(Currently {C:attention}#2#{C:inactive} / #1#)'
         },
       }, 
@@ -479,9 +483,8 @@ return {
       j_Sculio_googly_eyes = {
         name = 'Googly Eyes',
         text = {
-          'The first scored card grants',
-          'its {C:attention}base chips{}',
-          'as {C:mult}Mult{}'
+          'First scored card gives',
+          'its {C:attention}base chips{} as {C:mult}Mult{}'
         },
       },
       -- 46. Pocket Money
@@ -530,8 +533,7 @@ return {
         text = {
           '{X:mult,C:white}X#1#{} Mult',
           '{C:green}#2# in #3#{} chance to {C:attention}debuff{}',
-          '2 {C:attention}random Jokers{}',
-          'before each hand'
+          '2 random Jokers before each hand'
         },
       },
       -- 51. Letter Tile
@@ -612,9 +614,8 @@ return {
       j_Sculio_joker_of_nothing = {
         name = 'Joker of Nothing',
         text = {
-          'Scored {C:attention}Kings{} give',
-          '{X:mult,C:white}X#1#{} Mult for each {C:attention}missing rank{}',
-          'in your deck',
+          'Scored {C:attention}Kings{} give {X:mult,C:white}X#1#{} Mult',
+          'for each {C:attention}missing rank{} in deck',
           '{C:inactive}(#2# missing ranks, {}{X:mult,C:white}X#3#{}{C:inactive} Mult)',
         },
       },
@@ -622,9 +623,8 @@ return {
       j_Sculio_game_package = {
         name = 'Game Package',
         text = {
-          'The {C:attention}2s{} and {C:attention}4s{} in hand',
-          'give {X:mult,C:white}X#1#{} Mult per',
-          'played card',
+          '{C:attention}2s{} and {C:attention}4s{} in held hand',
+          'give {X:mult,C:white}X#1#{} Mult per played card',
         },
       },
       -- 61. Lost Keys
@@ -659,9 +659,10 @@ return {
       m_Sculio_experimental = {
         name = 'Experimental Card',
         text = {
-          'After being scored {C:attention}#2# times{} {C:inactive}(#1#/7){},',
+          'After being scored {C:attention}#2# times{},',
           'creates a random {C:attention}Tag{}',
           'and becomes a {C:attention}Lead Card{}',
+          '{C:inactive}(Currently #1#){}',
         },
       },
       m_Sculio_lead = {
@@ -682,24 +683,18 @@ return {
       m_Sculio_profane = {
         name = 'Profane Card',
         text = {
-          'Drains {C:chips}1 Chip{} from a card in',
-          'hand and gains {C:chips}+3 Chips{}',
-          'when scored',
-          '{C:inactive,s:0.8}(Cannot drain other Profane Cards)',
+          'When scored, drains {C:chips}1 Chip{} from a',
+          'random non-Profane card in hand',
+          'and permanently gains {C:chips}+3 Chips{}',
         },
       },
       m_Sculio_pierced = {
         name = 'Pierced Card',
         text = {
-          {
-            '{X:mult,C:white}X2{} Mult before and',
-            'after the hand is played',
-          },
-          {
-            'If {C:attention}2 or more{} Pierced Cards',
-            'are played at the same time,',
-            'they are {C:red}destroyed{} before being played',
-          }
+          'Gives {X:mult,C:white}X2{} Mult before',
+          'and after the hand scores',
+          'If {C:attention}2 or more{} are played together,',
+          'they are destroyed before scoring',
         },
       },
       m_Sculio_phalanx = {
@@ -771,7 +766,8 @@ return {
       c_Sculio_regicide = {
         name = 'Regicide',
         text = {
-          'Creates up to {C:attention}2{} random {C:inverted}Inverted Tarot{} cards',
+          'Creates up to {C:attention}2{} random',
+          '{C:inverted}Inverted Tarot{} cards',
           '{C:inactive}(Must have room){}',
         },
       },
@@ -799,8 +795,9 @@ return {
       c_Sculio_arbitrariness = {
         name = 'Arbitrariness',
         text = {
-          'Enhances {C:attention}1{} selected card into a {C:attention}Trap Card{}',
-          'with a random trigger and random effect',
+          'Enhances {C:attention}1{} selected card',
+          'into an {C:attention}Trap Card{} with a',
+          'random trigger and random effect',
         },
       },
       c_Sculio_mundane = {
@@ -922,6 +919,8 @@ return {
       k_Sculio_cloning_vat_active = 'Cloned!',
       k_Sculio_sticky_keys_changed = 'Mult Changed!',
       k_Sculio_bad_trip_randomized = 'Deck randomized!',
+      k_Sculio_compatible = 'Compatible',
+      k_Sculio_incompatible = 'Incompatible',
       k_Sculio_none = 'None',
       k_inverted = 'Inverted Tarot',
       b_inverted_cards = 'Inverted Tarots',
