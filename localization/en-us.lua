@@ -770,10 +770,14 @@ return {
       m_Sculio_pierced = {
         name = 'Pierced Card',
         text = {
-          'Gives {X:mult,C:white}X2{} Mult before',
-          'and after the hand scores',
-          'If {C:attention}2 or more{} are played together,',
-          'they are destroyed before scoring',
+          {
+            'Gives {X:mult,C:white}X2{} Mult before',
+            'and after the hand scores',
+          },
+          {
+            'If {C:attention}2 or more{} are played together,',
+            'they are destroyed before scoring',
+          },
         },
       },
       m_Sculio_phalanx = {
