@@ -21,7 +21,7 @@ SMODS.Joker {
   rarity = 2, -- Uncommon
   atlas = 'Sculio',
   pos = { x = 9, y = 4 },
-  cost = 10,
+  cost = 8,
   loc_vars = function(self, info_queue, card)
     local current_suit = card.ability.extra.suit
     return { vars = { localize(current_suit, 'suits_plural'), colours = { G.C.SUITS[current_suit] } } }
