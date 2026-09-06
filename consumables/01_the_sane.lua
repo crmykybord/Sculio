@@ -15,6 +15,7 @@ SMODS.Consumable {
     return { vars = { name } }
   end,
   can_use = function(self, card)
+    if not (G.GAME.Sculio_last_inverted or G.GAME.last_tarot_planet) then return false end
     return #G.consumeables.cards < G.consumeables.config.card_limit or card.area == G.consumeables
   end,
   use = function(self, card, area, copier)

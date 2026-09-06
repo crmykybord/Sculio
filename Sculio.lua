@@ -10,7 +10,7 @@ SMODS.current_mod.optional_features = function()
 end
 
 -- Talisman compat
-to_big = to_big or function(...) return ... end
+to_big = to_big or function(x) return x end
 
 assert(SMODS.load_file('libs/utils.lua'))()
 
