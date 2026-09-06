@@ -224,7 +224,6 @@ return {
         'Copies the ability of the {C:attention}rightmost{} Joker',
         'and {C:attention}debuffs{} Joker to the right',
         'during played hand',
-        '{C:inactive}(Copying: {C:attention}#1#{C:inactive} - {C:attention}#2#{C:inactive})'
         }
       },
       -- 20. Frequent Flyer

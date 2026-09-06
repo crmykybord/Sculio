@@ -776,18 +776,17 @@ return {
             "después de jugar la mano",
           },
           {
-            "Si se juegan {C:attention}2 o más{}",
-            "cartas perforadas al mismo tiempo",
-            "se {C:red}destruyen{} antes de jugarse",
+            "Se {C:red}autodestruye{}",
+            "si se juega con otra",
+            "carta perforanda",
           }
         },
       },
       m_Sculio_phalanx = {
         name = 'Carta Falange',
         text = {
-          'Cada Falange anotada añade {X:mult,C:white}X0.2{} Multi',
-          'a un multiplicador compartido',
-          'aplicado al final de la mano',
+          'Otorga {X:mult,C:white}X0.2{} Multi',
+          'acumulable al final de la mano',
         },
       },
       m_Sculio_trap = {
