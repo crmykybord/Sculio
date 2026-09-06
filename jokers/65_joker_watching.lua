@@ -16,11 +16,7 @@ SMODS.Joker {
     if context.repetition and context.cardarea == G.play then
       for _, h in ipairs(G.hand and G.hand.cards or {}) do
         if h.base.id == 14 and not h.debuff then
-          return {
-            message = localize('k_again_ex'),
-            repetitions = 1,
-            card = card
-          }
+          return { message = localize('k_again_ex'), repetitions = 1, card = card }
         end
       end
     end

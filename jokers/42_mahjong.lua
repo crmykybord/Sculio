@@ -17,7 +17,6 @@ SMODS.Joker {
   end,
   calculate = function(self, card, context)
     if context.before then
-      -- Count ranks to find pairs
       local rank_counts = {}
       local has_pair_above_7 = false
       local has_pair_below_7 = false
@@ -26,7 +25,6 @@ SMODS.Joker {
         local this_card = context.full_hand[i]
 
         if SMODS.has_enhancement(this_card, 'm_stone') then
-          -- Stone cards don't count
           goto continue
         end
 
@@ -36,7 +34,6 @@ SMODS.Joker {
         ::continue::
       end
 
-      -- Check for pairs above and below 7
       for rank, count in pairs(rank_counts) do
         if count >= 2 then
           if rank > 7 then

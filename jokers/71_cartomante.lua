@@ -18,10 +18,7 @@ SMODS.Joker {
       if #pool > 0 then
         local key = pseudorandom_element(pool, pseudoseed('cartomante'))
         Sculio.create_center_card(key, G.consumeables, 1, 'sculio_cartomante')
-        return {
-          extra = { message = localize('k_duplicated_ex'), focus = card },
-          card = card
-        }
+        return { extra = { message = localize('k_duplicated_ex'), focus = card }, card = card }
       end
     end
   end

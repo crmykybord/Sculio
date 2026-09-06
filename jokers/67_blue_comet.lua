@@ -20,7 +20,7 @@ SMODS.Joker {
       local eff_card = context.blueprint_card or card
       G.E_MANAGER:add_event(Event({
         func = function()
-          -- Most played hand of the run (visible hands only, first max wins)
+          -- Most played hand of the run
           local best, best_count
           for k, v in pairs(G.GAME.hands) do
             if v.visible and (not best_count or v.played > best_count) then

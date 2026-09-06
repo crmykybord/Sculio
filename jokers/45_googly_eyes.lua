@@ -14,13 +14,11 @@ SMODS.Joker {
   cost = 4,
   calculate = function(self, card, context)
     if context.individual and context.cardarea == G.play then
-      -- Check if this is the first scored card
       local is_first = true
       for i = 1, #context.scoring_hand do
         if context.scoring_hand[i] == context.other_card then
           break
         end
-        -- If we find a non-debuffed card before this one, it's not first
         if not context.scoring_hand[i].debuff then
           is_first = false
           break

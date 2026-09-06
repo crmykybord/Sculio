@@ -25,20 +25,12 @@ SMODS.Joker {
 
       if mult_gained > 0 then
         card.ability.extra.mult = card.ability.extra.mult + mult_gained
-
-        return {
-          message = localize {
-            type = 'variable',
-            key = 'a_mult',
-            vars = { mult_gained }
-          },
-          colour = G.C.MULT
-        }
+        return { message = localize { type = 'variable', key = 'a_mult', vars = { mult_gained } }, colour = G.C.MULT }
       end
     end
 
     if context.joker_main and card.ability.extra.mult > 0 then
-      return { mult = card.ability.extra.mult, message = localize { type = 'variable', key = 'a_mult', vars = { card.ability.extra.mult } } }
+      return { mult = card.ability.extra.mult }
     end
   end
 }

@@ -21,7 +21,6 @@ SMODS.Joker {
         func = function()
           card.ability.current_hand_chips = G.GAME.current_round.current_hand.chips
           card.ability.current_hand_mult = G.GAME.current_round.current_hand.mult
-
           return true
         end
       }))

@@ -37,7 +37,6 @@ SMODS.Joker {
       Sculio.undebuff_list(card.ability.extra.debuffed_jokers)
       card.ability.extra.debuffed_jokers = {}
 
-      -- kill old shake loops before picking new targets
       card.ability.extra.picked_a = nil
       card.ability.extra.picked_b = nil
 
@@ -65,7 +64,6 @@ SMODS.Joker {
       for _, target in ipairs({ a, b }) do
         if target then
           target:juice_up()
-          -- ponytail: guard avoids stacking a second shake loop when the same joker is picked again
           if not target.Sculio_jokes_shaking then
             target.Sculio_jokes_shaking = true
             juice_card_until(target, function(cc)
@@ -79,7 +77,6 @@ SMODS.Joker {
     end
 
     if context.final_scoring_step then
-      -- stop the shake loops once the hand has been played (visual only)
       card.ability.extra.picked_a = nil
       card.ability.extra.picked_b = nil
       G.E_MANAGER:add_event(Event({

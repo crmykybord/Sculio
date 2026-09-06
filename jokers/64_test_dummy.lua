@@ -27,10 +27,7 @@ SMODS.Joker {
       if gained > 0 then
         local gain = card.ability.extra.x_chips_gain * gained
         card.ability.extra.x_chips = card.ability.extra.x_chips + gain
-        return {
-          extra = { message = localize { type = 'variable', key = 'a_xchips', vars = { gain } }, focus = card },
-          card = card
-        }
+        return { extra = { message = localize { type = 'variable', key = 'a_xchips', vars = { gain } }, focus = card }, card = card }
       end
     end
     if context.joker_main and card.ability.extra.x_chips > 1 then

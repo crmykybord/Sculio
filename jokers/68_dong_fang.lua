@@ -22,11 +22,7 @@ SMODS.Joker {
         and SMODS.has_enhancement(context.other_card, 'm_Sculio_wandering') then
       card.ability.extra.mult = card.ability.extra.mult + card.ability.extra.gain
       return {
-        extra = {
-          message = localize { type = 'variable', key = 'a_mult', vars = { card.ability.extra.gain } },
-          colour = G.C.MULT,
-          focus = card
-        },
+        extra = { message = localize { type = 'variable', key = 'a_mult', vars = { card.ability.extra.gain } }, colour = G.C.MULT, focus = card },
         card = card
       }
     end
