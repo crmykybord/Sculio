@@ -11,7 +11,7 @@ SMODS.Enhancement {
     if context.main_scoring and context.cardarea == G.play then
       -- Prefer cards that don't share this enhancement (70-30)
       local different, same = {}, {}
-      for _, c in ipairs(G.hand.cards) do
+      for _, c in ipairs(G.hand and G.hand.cards or {}) do
         if c ~= card and not c.debuff then
           if SMODS.has_enhancement(c, 'm_Sculio_profane') then
             same[#same + 1] = c

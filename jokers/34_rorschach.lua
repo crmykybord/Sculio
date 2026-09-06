@@ -14,7 +14,7 @@ SMODS.Joker {
   cost = 6,
   -- See shuffle.lua for additional implementation code.
   calculate = function(self, card, context)
-    if context.first_hand_drawn and not context.blueprint then
+    if context.hand_drawn and context.first_hand_drawn and not context.blueprint then
       card.ability.extra.card_ids_to_draw_next = {}
 
       local eval = function() return #card.ability.extra.card_ids_to_draw_next == 0 and not G.RESET_JIGGLES end
@@ -22,7 +22,10 @@ SMODS.Joker {
     end
 
     -- If discarding, this is the rightmost Joker, no cards have been marked for the next blind, this is the first card being discarded in the set, and this is not being copied, then:
-    if context.discard and G.jokers.cards[#G.jokers.cards] == card and #card.ability.extra.card_ids_to_draw_next == 0 and context.other_card.ID == context.full_hand[1].ID and not context.blueprint then
+    if context.discard and not context.blueprint and G.jokers and G.jokers.cards
+      and G.jokers.cards[#G.jokers.cards] == card and #card.ability.extra.card_ids_to_draw_next == 0
+      and context.other_card and context.full_hand and context.full_hand[1]
+      and context.other_card.ID == context.full_hand[1].ID then
       -- Skip if Trading Card is also triggered.
       if #context.full_hand == 1 then
         for i = 1, #G.jokers.cards do

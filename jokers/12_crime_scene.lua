@@ -17,7 +17,7 @@ SMODS.Joker {
     return { vars = { card.ability.extra.mult, card.ability.extra.rankless_mult } }
   end,
   calculate = function(self, card, context)
-    if context.first_hand_drawn and not context.blueprint then
+    if context.hand_drawn and context.first_hand_drawn and not context.blueprint then
       local eval = function() return G.GAME.current_round.hands_played == 0 end
       juice_card_until(card, eval, true)
     end

@@ -31,7 +31,7 @@ SMODS.Joker {
     }
   end,
   calculate = function(self, card, context)
-    if context.before then
+    if context.before and not context.blueprint and G.jokers and G.jokers.cards then
       for i = 1, #G.jokers.cards do
         if G.jokers.cards[i] == card then
           local next_i = i + 1
@@ -57,7 +57,21 @@ SMODS.Joker {
       }))
     end
 
-    local last_joker = G.jokers.cards[#G.jokers.cards]
+    -- Fallback: if the hand ends without a final scoring step, release the debuff.
+    if context.after then
+      G.E_MANAGER:add_event(Event({
+        func = function()
+          if card.ability.debuffed_card then
+            card.ability.debuffed_card:set_debuff(false)
+            card.ability.debuffed_card = nil
+          end
+
+          return true
+        end
+      }))
+    end
+
+    local last_joker = G.jokers and G.jokers.cards and G.jokers.cards[#G.jokers.cards]
 
     if last_joker and last_joker ~= card then
       return SMODS.blueprint_effect(card, last_joker, context)

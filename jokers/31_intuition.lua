@@ -18,9 +18,11 @@ local function enhancement_template(center)
   if next(t) then return t end
 end
 
--- Templates of the enhancements held in hand (built lazily so Blueprint copies work too)
+-- Templates of the enhancements held in hand (built lazily so Blueprint copies work too).
+-- Stored in ability.extra so the cache survives save/load (raw card fields do not).
 local function held_templates(card)
-  local templates = card.intuition_templates
+  card.ability.extra = card.ability.extra or {}
+  local templates = card.ability.extra.intuition_templates
   if not templates then
     templates = {}
     for _, held in ipairs(G.hand and G.hand.cards or {}) do
@@ -32,7 +34,7 @@ local function held_templates(card)
         end
       end
     end
-    card.intuition_templates = templates
+    card.ability.extra.intuition_templates = templates
   end
   return templates
 end
@@ -58,7 +60,7 @@ SMODS.Joker {
   calculate = function(self, card, context)
     -- Cache held enhancement templates before scoring starts
     if context.before then
-      card.intuition_templates = nil
+      if card.ability.extra then card.ability.extra.intuition_templates = nil end
       held_templates(card)
       return nil
     end

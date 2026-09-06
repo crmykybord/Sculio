@@ -53,6 +53,7 @@ SMODS.Joker {
 
   select_and_force = function(self, card)
     if not self:is_active_owner(card) then return end
+    if not G.hand or not G.hand.cards then return end
     if G.playing_cards then
       for _, v in ipairs(G.playing_cards) do
         if v.ability.earthbound_forced then
