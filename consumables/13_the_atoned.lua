@@ -16,6 +16,7 @@ SMODS.Consumable {
     return Sculio.hand_selection_state() and #G.hand.highlighted >= card.ability.consumeable.min_highlighted
   end,
   use = function(self, card, area, copier)
+    Sculio.track_inverted_use(card)
     local picked = Sculio.pick_modifier(G.GAME.Sculio_last_destroyed or {}, 'sculio_atoned')
     for i = 1, math.min(#G.hand.highlighted, card.ability.consumeable.max_highlighted) do
       local conv_card = G.hand.highlighted[i]

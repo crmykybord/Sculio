@@ -267,17 +267,24 @@ function Sculio.track_inverted_use(card)
   G.GAME.Sculio_last_inverted = card.config.center_key
 end
 
--- Enhance up to n highlighted cards
-function Sculio.enhance_highlighted(enh_key, n, card)
+-- Apply a function to up to n highlighted cards with the flip animation
+function Sculio.apply_highlighted(apply_fn, n, card)
   local cards = {}
   for i = 1, math.min(#G.hand.highlighted, n or #G.hand.highlighted) do
     cards[#cards + 1] = G.hand.highlighted[i]
   end
   Sculio.flip_highlighted(card, cards, function()
+    if apply_fn then apply_fn(cards) end
+  end)
+end
+
+-- Enhance up to n highlighted cards
+function Sculio.enhance_highlighted(enh_key, n, card)
+  Sculio.apply_highlighted(function(cards)
     for _, c in ipairs(cards) do
       c:set_ability(G.P_CENTERS[enh_key], false)
     end
-  end)
+  end, n, card)
 end
 
 -- Weighted pick of one modifier kind available on a destroyed card
