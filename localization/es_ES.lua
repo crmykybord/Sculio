@@ -176,7 +176,7 @@ return {
         text = {
           'Al vender comodines con {C:attention}edición{}, este',
           'gana las {C:attention}mejoras de la edición{}',
-          '{C:inactive,s:0.8}(Actualmente {C:chips,s:0.8}+#1#{}{C:inactive,s:0.8} Fichas, {C:mult,s:0.8}+#2#{}{C:inactive,s:0.8} Multi, {X:mult,C:white,s:0.8}X#3#{}{C:inactive,s:0.8} Multi y {X:chips,C:white,s:0.8}X#4#{}{C:inactive,s:0.8} Fichas)'
+          '{C:inactive,s:0.8}(Actualmente {C:chips,s:0.8}+#1#{}{C:inactive,s:0.8} Fichas, {C:mult,s:0.8}+#2#{}{C:inactive,s:0.8} Multi, {X:mult,C:white,s:0.8}X#3#{}{C:inactive,s:0.8} Multi)'
         },
       }, 
       -- 15. Crooked Joker
@@ -270,7 +270,6 @@ return {
         text = {
           'Copia la habilidad de un',
           '{C:attention}Comodín{} al azar',
-          '{C:inactive}(Copiando: {C:attention}#1#{C:inactive})'
         },
       }, 
       -- 25. Bad Trip
@@ -721,7 +720,7 @@ return {
         text = {
           'Anotar cartas con {C:dark_edition}edición{} otorga',
           'sus {C:attention}bonificaciones{} a este comodín',
-          '{C:inactive,s:0.8}(Actualmente {C:chips,s:0.8}+#1#{}{C:inactive,s:0.8} Fichas, {C:mult,s:0.8}+#2#{}{C:inactive,s:0.8} Multi, {X:mult,C:white,s:0.8}X#3#{}{C:inactive,s:0.8} Multi y {X:chips,C:white,s:0.8}X#4#{}{C:inactive,s:0.8} Fichas)'
+          '{C:inactive,s:0.8}(Actualmente {C:chips,s:0.8}+#1#{}{C:inactive,s:0.8} Fichas, {C:mult,s:0.8}+#2#{}{C:inactive,s:0.8} Multi, {X:mult,C:white,s:0.8}X#3#{}{C:inactive,s:0.8} Multi)'
         }
       }
     },
