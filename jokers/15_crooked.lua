@@ -29,9 +29,9 @@ SMODS.Joker {
       if to_big(G.GAME.dollars - card.ability.extra.steal) <= to_big(card.ability.extra.money_min) then
         Sculio.destroy_joker(card)
 
-        return { message = 'Stole $' .. card.ability.extra.steal .. ', bailed!', colour = G.C.FILTER }
+        return { message = localize { type = 'variable', key = 'k_Sculio_crooked_bailed', vars = { card.ability.extra.steal } }, colour = G.C.FILTER }
       else
-        return { message = 'Stole $' .. card.ability.extra.steal, colour = G.C.FILTER }
+        return { message = localize { type = 'variable', key = 'k_Sculio_crooked_stole', vars = { card.ability.extra.steal } }, colour = G.C.FILTER }
       end
     end
   end
