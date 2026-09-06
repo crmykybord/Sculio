@@ -6,7 +6,7 @@ return {
         text = {
           'A vanilla-esque mod that aims to add',
           'new and faithful content to Balatro',
-          '(Currently contains 60 Jokers)',
+          '(72 Jokers, 11 Inverted Tarots, 6 Enhancements)',
           ' ',
           '{C:attention}Credits:{}',
           '{C:money}crmykybord{}: Sprite Artist',

@@ -7,7 +7,7 @@ return {
           'Un Mod Vanilla que busca agregar',
           'contenido nuevo a Balatro que se sienta',
           'como el original',
-          '(¡Tenemos 63 Comodines y una Etiqueta!)',
+          '(72 Comodines, 11 Tarots Invertidos, 6 Mejoras)',
           ' ',
           '{C:attention}Créditos:{}',
           '{C:money}crmykybord{}: Dibujo y Diseño',
