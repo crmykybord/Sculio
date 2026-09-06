@@ -5,13 +5,13 @@ SMODS.Joker {
   blueprint_compat = true,
   perishable_compat = true,
   rental_compat = true,
-  config = { extra = { odds = 3, chips = 30 } },
+  config = { extra = { odds = 2, chips = 30 } },
   unlocked = true,
   discovered = false,
   rarity = 1, -- Common
   atlas = 'Sculio',
   pos = { x = 0, y = 7 },
-  cost = 5,
+  cost = 4,
   loc_vars = function(self, info_queue, card)
     local n, d = SMODS.get_probability_vars(card, 1, card.ability.extra.odds, 'pipe_dream')
     return { vars = { n, d, card.ability.extra.chips } }
