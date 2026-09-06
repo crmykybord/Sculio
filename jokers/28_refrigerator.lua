@@ -216,8 +216,8 @@ if not Sculio.refrigerator_dissolve_ref then
 
   Card.start_dissolve = function(self, dissolve_colours, silent, dissolve_time_fac, no_juice)
     -- Block food destroy only; sell sets G.CONTROLLER.locks.selling_card
-    local selling = G.CONTROLLER and G.CONTROLLER.locks and G.CONTROLLER.locks.selling_card
-    if not selling and self.ability.set == 'Joker' and Sculio_refrigerator_is_food(self) and self.config.center.key ~= 'j_diet_cola' then
+    local selling = G and G.CONTROLLER and G.CONTROLLER.locks and G.CONTROLLER.locks.selling_card
+    if not selling and self and self.ability and self.ability.set == 'Joker' and Sculio_refrigerator_is_food(self) and self.config.center.key ~= 'j_diet_cola' then
       local refrigerators = Sculio_refrigerator_get_left(self)
       if next(refrigerators) then
         Sculio_refrigerator_juice(refrigerators, self)
@@ -232,8 +232,11 @@ if not Sculio.refrigerator_calculate_joker_ref then
   Sculio.refrigerator_calculate_joker_ref = Card.calculate_joker
 
   Card.calculate_joker = function(self, context)
+    -- Global wrapper: runs on every joker evaluation, so bail out fast when
+    -- there is nothing to preserve (no food card, no refrigerator to the left,
+    -- or a sell, where destruction is intended).
     local refrigerators = Sculio_refrigerator_is_food(self) and Sculio_refrigerator_get_left(self) or {}
-    local preserve = next(refrigerators) ~= nil and not context.selling_self
+    local preserve = context and next(refrigerators) ~= nil and not context.selling_self
 
     -- Bypass destruction logic for Epic Sauce and Banana Man when refrigerated during context.after
     if preserve and context.after then
