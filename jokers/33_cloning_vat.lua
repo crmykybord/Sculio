@@ -1,14 +1,11 @@
 -- Global state for Cloning Vat
 Sculio = Sculio or {}
 Sculio.vat_state = Sculio.vat_state or {
-  round_analysis = nil,  -- Cached deck analysis
-  round_id = nil,        -- Round identifier for cache invalidation
+  round_analysis = nil,
+  round_id = nil,
   shop_shim_installed = false
 }
 
--- Constants
--- ponytail: rank/suit tables are rebuilt lazily so suits and ranks added by other mods
--- (registered after us) still count; cache invalidates on buffer size change
 local CV_RANK_CACHE = nil
 
 local function cv_get_ranks()
@@ -20,7 +17,7 @@ local function cv_get_ranks()
     ids[#ids + 1] = rank.id
     suffix[rank.id] = rank.card_key
   end
-  table.sort(ids)  -- deterministic order (fixes bug where pairs() order caused inconsistent results)
+  table.sort(ids)
   CV_RANK_CACHE = { n = n, ids = ids, suffix = suffix }
   return CV_RANK_CACHE
 end
@@ -35,9 +32,6 @@ local function cv_get_suit_prefix(rank_suffix)
   return options[pseudorandom('cv_suit', 1, #options)]
 end
 
--- Unified bonus application: Phase 1 (guaranteed), Phase 2 (probabilistic)
--- guaranteed_type: 'seal', 'edition', 'enhancement', or nil (random between seal/edition)
--- enhancement_center: G.P_CENTERS entry or nil
 local function cv_apply_bonuses(card, guaranteed_type, enhancement_center)
   if enhancement_center then card:set_ability(enhancement_center) end
 
@@ -283,6 +277,12 @@ SMODS.Joker {
 
     cv_install_shim()
 
+    if context.starting_shop and G.GAME.shop
+      and not (card.ability and card.ability.Sculio_vat_slot_added) then
+      card.ability.Sculio_vat_slot_added = true
+      change_shop_size(1)
+    end
+
     if context.modify_booster_card and context.booster and context.card then
       local booster_name = context.booster.ability and context.booster.ability.name or ''
       if string.find(booster_name, 'Standard') and context.card.base and context.card.base.id then
@@ -293,16 +293,15 @@ SMODS.Joker {
 
   add_to_deck = function(self, card, from_debuff)
     cv_install_shim()
-    if card.Sculio_vat_slot_added then return end
-    card.Sculio_vat_slot_added = true
-    if G.GAME.shop then
-      change_shop_size(1)
-    end
+    if card.ability and card.ability.Sculio_vat_slot_added then return end
+    if not G.GAME.shop then return end
+    card.ability.Sculio_vat_slot_added = true
+    change_shop_size(1)
   end,
 
   remove_from_deck = function(self, card, from_debuff)
-    if not card.Sculio_vat_slot_added then return end
-    card.Sculio_vat_slot_added = nil
+    if not (card.ability and card.ability.Sculio_vat_slot_added) then return end
+    card.ability.Sculio_vat_slot_added = nil
     if not G.GAME.shop then return end
     if G.shop_jokers and G.shop_jokers.cards then
       for i = #G.shop_jokers.cards, 1, -1 do
