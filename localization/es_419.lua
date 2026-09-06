@@ -778,7 +778,7 @@ return {
           {
             "Se {C:red}autodestruye{}",
             "si se juega con otra",
-            "carta perforanda",
+            "carta perforada",
           }
         },
       },

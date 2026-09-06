@@ -737,16 +737,15 @@ return {
       m_Sculio_experimental = {
         name = 'Experimental Card',
         text = {
-          'After being scored {C:attention}#2# times{},',
+          'After being scored {C:attention}#2# times{} {C:inactive}(#1#/7){},',
           'creates a random {C:attention}Tag{}',
           'and becomes a {C:attention}Lead Card{}',
-          '{C:inactive}(Currently #1#){}',
         },
       },
       m_Sculio_lead = {
         name = 'Lead Card',
         text = {
-          'Is always placed at the',
+          'Always stays at the',
           'bottom of your {C:attention}deck{}',
         },
       },
@@ -761,9 +760,10 @@ return {
       m_Sculio_profane = {
         name = 'Profane Card',
         text = {
-          'When scored, drains {C:chips}1 Chip{} from a',
-          'random non-Profane card in hand',
-          'and permanently gains {C:chips}+3 Chips{}',
+          'Drains {C:chips}1 Chip{} from a card',
+          'in hand and gains {C:chips}+3 Chips{}',
+          'when scored',
+          '{C:inactive,s:0.8}(Cannot drain other Profane cards)',
         },
       },
       m_Sculio_pierced = {
@@ -774,17 +774,17 @@ return {
             'and after the hand scores',
           },
           {
-            'If {C:attention}2 or more{} are played together,',
-            'they are destroyed before scoring',
+            'It {C:red}self-destructs{}',
+            'if played with another',
+            'Pierced Card',
           },
         },
       },
       m_Sculio_phalanx = {
         name = 'Phalanx Card',
         text = {
-          'Each scored Phalanx Card adds',
-          '{X:mult,C:white}X0.2{} Mult to a shared multiplier',
-          'applied at the end of the hand',
+          'Grants {X:mult,C:white}X0.2{} Mult',
+          'accumulating at the end of the hand',
         },
       },
       m_Sculio_trap = {
