@@ -8,10 +8,10 @@ SMODS.Joker {
   config = { extra = { boosters = 2 } },
   unlocked = true,
   discovered = false,
-  rarity = 3,
+  rarity = 2, -- Uncommon
   atlas = 'Sculio',
   pos = { x = 3, y = 6 },
-  cost = 7,
+  cost = 8,
   loc_vars = function(self, info_queue, card)
     return { vars = { card.ability.extra.boosters } }
   end,
