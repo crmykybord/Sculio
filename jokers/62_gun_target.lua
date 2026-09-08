@@ -16,9 +16,9 @@ SMODS.Joker {
     return { vars = {} }
   end,
   calculate = function(self, card, context)
-    if context.end_of_round and context.main_eval and not context.game_over and not context.blueprint then
+    if context.end_of_round and context.main_eval and not context.game_over then
       if G.GAME.blind and G.GAME.blind:get_type() == 'Small' then
-        return { dollars = card.ability.extra.dollars, card = card }
+        return { dollars = card.ability.extra.dollars, card = context.blueprint_card or card }
       end
     end
   end

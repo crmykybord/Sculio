@@ -1,6 +1,4 @@
 local function roll_rank(card)
-  -- ponytail: uniform pick among distinct ranks present in full deck;
-  -- weighted-by-count would bias toward stacked ranks
   local seen, valid_ranks = {}, {}
   for _, v in ipairs(G.playing_cards or {}) do
     if v.base and v.base.value and not SMODS.has_no_rank(v) and not seen[v.base.value] then

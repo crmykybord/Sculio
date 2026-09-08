@@ -93,6 +93,8 @@ end
 
 -- Mod-wide trackers used by the Inverted Tarots
 function Sculio:calculate(context)
+  -- One-time text setup (Figurine/Puck XChips swap); single flag check after
+  Sculio.maybe_apply_xchips_texts()
   -- The Sane: remember the last Inverted Tarot used
   if context.using_consumeable and context.consumeable and context.consumeable.ability
       and context.consumeable.ability.set == 'Inverted' then
@@ -267,17 +269,24 @@ function Sculio.track_inverted_use(card)
   G.GAME.Sculio_last_inverted = card.config.center_key
 end
 
--- Enhance up to n highlighted cards
-function Sculio.enhance_highlighted(enh_key, n, card)
+-- Apply a function to up to n highlighted cards with the flip animation
+function Sculio.apply_highlighted(apply_fn, n, card)
   local cards = {}
   for i = 1, math.min(#G.hand.highlighted, n or #G.hand.highlighted) do
     cards[#cards + 1] = G.hand.highlighted[i]
   end
   Sculio.flip_highlighted(card, cards, function()
+    if apply_fn then apply_fn(cards) end
+  end)
+end
+
+-- Enhance up to n highlighted cards
+function Sculio.enhance_highlighted(enh_key, n, card)
+  Sculio.apply_highlighted(function(cards)
     for _, c in ipairs(cards) do
       c:set_ability(G.P_CENTERS[enh_key], false)
     end
-  end)
+  end, n, card)
 end
 
 -- Weighted pick of one modifier kind available on a destroyed card
@@ -321,4 +330,48 @@ function Sculio.count_suit_deck(suit)
     if c.base.suit == suit then count = count + 1 end
   end
   return count
+end
+
+-- Cached check: does any registered Edition grant XChips? Figurine and Puck
+-- tooltips show the XChips stat only when it can actually be gained.
+Sculio._xchips_edition_cache = nil
+function Sculio.xchips_editions_exist()
+  local n = 0
+  for _ in pairs(G.P_CENTERS or {}) do n = n + 1 end
+  local cache = Sculio._xchips_edition_cache
+  if cache and cache.n == n then return cache.found end
+  local found = false
+  for _, center in pairs(G.P_CENTERS or {}) do
+    if center.set == 'Edition' and center.config then
+      local cfg = center.config
+      if (cfg.x_chips and cfg.x_chips > 1) or (cfg.Xchips and cfg.Xchips > 1)
+        or (cfg.h_x_chips and cfg.h_x_chips > 1) then
+        found = true
+        break
+      end
+    end
+  end
+  Sculio._xchips_edition_cache = { n = n, found = found }
+  return found
+end
+
+-- One-time swap of Figurine/Puck description text (3-stat base -> 4-stat with
+-- XChips) when an XChips-granting edition from any mod is detected. Runs once
+-- per language on the first calculate call (all mods loaded by then), so the
+-- center scan happens a single time instead of on every tooltip render.
+Sculio._stat_text_init_done = Sculio._stat_text_init_done or {}
+function Sculio.maybe_apply_xchips_texts()
+  local lang = (G.SETTINGS and G.SETTINGS.language) or 'en-us'
+  if Sculio._stat_text_init_done[lang] then return end
+  Sculio._stat_text_init_done[lang] = true
+  if not Sculio.xchips_editions_exist() then return end
+  local desc = G.localization and G.localization.descriptions and G.localization.descriptions.Joker
+  if not desc then return end
+  local alts = {
+    j_Sculio_figurine = Sculio.FIGURINE_ALT_TEXT and (Sculio.FIGURINE_ALT_TEXT[lang] or Sculio.FIGURINE_ALT_TEXT['en-us']),
+    j_Sculio_puck = Sculio.PUCK_ALT_TEXT and (Sculio.PUCK_ALT_TEXT[lang] or Sculio.PUCK_ALT_TEXT['en-us']),
+  }
+  for key, alt in pairs(alts) do
+    if desc[key] and alt then desc[key].text = alt end
+  end
 end

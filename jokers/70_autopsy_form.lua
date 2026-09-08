@@ -11,7 +11,7 @@ SMODS.Joker {
   rarity = 2, -- Uncommon
   atlas = 'Sculio',
   pos = { x = 1, y = 7 },
-  cost = 6,
+  cost = 5,
   loc_vars = function(self, info_queue, card)
     return { vars = { card.ability.extra.mult, card.ability.extra.gain, card.ability.extra.drain } }
   end,
@@ -26,11 +26,7 @@ SMODS.Joker {
       if gained > 0 then
         card.ability.extra.mult = card.ability.extra.mult + card.ability.extra.gain * gained
         return {
-          extra = {
-            message = localize { type = 'variable', key = 'a_mult', vars = { card.ability.extra.gain * gained } },
-            colour = G.C.MULT,
-            focus = card
-          },
+          extra = { message = localize { type = 'variable', key = 'a_mult', vars = { card.ability.extra.gain * gained } }, colour = G.C.MULT, focus = card },
           card = card
         }
       end
@@ -38,11 +34,7 @@ SMODS.Joker {
     if context.after and not context.blueprint and card.ability.extra.mult > 0 then
       card.ability.extra.mult = math.max(0, card.ability.extra.mult - card.ability.extra.drain)
       return {
-        extra = {
-          message = localize { type = 'variable', key = 'a_mult_minus', vars = { card.ability.extra.drain } },
-          colour = G.C.MULT,
-          focus = card
-        },
+        extra = { message = localize { type = 'variable', key = 'a_mult_minus', vars = { card.ability.extra.drain } }, colour = G.C.MULT, focus = card },
         card = card
       }
     end

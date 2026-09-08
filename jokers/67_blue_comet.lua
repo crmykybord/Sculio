@@ -16,11 +16,11 @@ SMODS.Joker {
     return { vars = {} }
   end,
   calculate = function(self, card, context)
-    if context.blind_defeated and G.GAME.blind.boss then
+    if context.end_of_round and context.main_eval and not context.game_over and G.GAME.blind.boss then
       local eff_card = context.blueprint_card or card
       G.E_MANAGER:add_event(Event({
         func = function()
-          -- Most played hand of the run (visible hands only, first max wins)
+          -- Most played hand of the run
           local best, best_count
           for k, v in pairs(G.GAME.hands) do
             if v.visible and (not best_count or v.played > best_count) then

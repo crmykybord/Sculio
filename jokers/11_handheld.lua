@@ -21,7 +21,7 @@ SMODS.Joker {
     return { vars = { name } }
   end,
   calculate = function(self, card, context)
-    if context.before and G.GAME.Sculio_last_enhancement then
+    if context.before and not context.blueprint and G.GAME.Sculio_last_enhancement then
       local first = context.scoring_hand and context.scoring_hand[1]
       if first and not first.debuff then
         first:set_ability(G.P_CENTERS[G.GAME.Sculio_last_enhancement], false)

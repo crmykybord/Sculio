@@ -5,12 +5,7 @@ SMODS.Joker {
   blueprint_compat = true,
   perishable_compat = true,
   rental_compat = true,
-  config = {
-    extra = {
-      Xmult_mod = 0.25,
-      x_mult = 1
-    }
-  },
+  config = { extra = { Xmult_mod = 0.25, x_mult = 1 } },
   unlocked = true,
   discovered = false,
   rarity = 2,
@@ -23,12 +18,7 @@ SMODS.Joker {
   calculate = function(self, card, context)
     if context.end_of_round and context.main_eval and not context.blueprint then
       if G.GAME.blind.boss then
-        SMODS.scale_card(card, {
-          ref_table = card.ability.extra,
-          ref_value = 'x_mult',
-          scalar_value = 'Xmult_mod',
-          message_colour = G.C.MULT
-        })
+        SMODS.scale_card(card, { ref_table = card.ability.extra, ref_value = 'x_mult', scalar_value = 'Xmult_mod', message_colour = G.C.MULT })
       end
     end
 

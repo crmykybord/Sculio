@@ -79,17 +79,47 @@ local Sculio_refrigerator_modded_food = {
   j_ExtraCredit_espresso = true,
   j_ExtraCredit_ambrosia = true,
   -- All in Jest
-  j_aij_silly_sausage = true,
-  j_aij_totally_nuts = true,
+  j_aij_atemporal_taco = true,
   j_aij_banana_man = true,
-  j_aij_fortune_cookie = true,
-  j_aij_chips_n_dip = true,
-  j_aij_fish_fingers = true,
+  j_aij_bingsu = true,
+  j_aij_blueberries = true,
   j_aij_candy_floss = true,
-  j_aij_stargazy_pie = true,
+  j_aij_cheerio = true,
   j_aij_cheese_squigglies = true,
+  j_aij_chips_n_dip = true,
+  j_aij_chocolate_coins = true,
+  j_aij_coffee_thermos = true,
   j_aij_corndog = true,
+  j_aij_dog_treat = true,
+  j_aij_double_sundae_1 = true,
+  j_aij_double_sundae_2 = true,
+  j_aij_double_sundae_3 = true,
+  j_aij_egg_cc = true,
+  j_aij_fish_fingers = true,
+  j_aij_fortune_cookie = true,
+  j_aij_gelato = true,
+  j_aij_jawbreaker = true,
+  j_aij_liquorice = true,
+  j_aij_omlette = true,
+  j_aij_parfait = true,
+  j_aij_peanut_brittle = true,
+  j_aij_phoney_baloney = true,
+  j_aij_pretzel_sticks = true,
+  j_aij_saveloy = true,
+  j_aij_scroggin = true,
+  j_aij_silly_sausage = true,
+  j_aij_soft_serve = true,
+  j_aij_stargazy_pie = true,
+  j_aij_stracciatella = true,
+  j_aij_sundae_1 = true,
+  j_aij_sundae_2 = true,
+  j_aij_sundae_3 = true,
+  j_aij_sunny_side = true,
+  j_aij_tortilla_chips = true,
+  j_aij_totally_nuts = true,
+  j_aij_triple_gooberberry_sunrise = true,
   j_aij_triple_sundae = true,
+  j_aij_turrn = true,
   -- Monarchy
   j_monarchy_sushi_rolls = true,
   -- Bundles of Fun
@@ -186,8 +216,8 @@ if not Sculio.refrigerator_dissolve_ref then
 
   Card.start_dissolve = function(self, dissolve_colours, silent, dissolve_time_fac, no_juice)
     -- Block food destroy only; sell sets G.CONTROLLER.locks.selling_card
-    local selling = G.CONTROLLER and G.CONTROLLER.locks and G.CONTROLLER.locks.selling_card
-    if not selling and self.ability.set == 'Joker' and Sculio_refrigerator_is_food(self) and self.config.center.key ~= 'j_diet_cola' then
+    local selling = G and G.CONTROLLER and G.CONTROLLER.locks and G.CONTROLLER.locks.selling_card
+    if not selling and self and self.ability and self.ability.set == 'Joker' and Sculio_refrigerator_is_food(self) and self.config.center and self.config.center.key ~= 'j_diet_cola' then
       local refrigerators = Sculio_refrigerator_get_left(self)
       if next(refrigerators) then
         Sculio_refrigerator_juice(refrigerators, self)
@@ -202,8 +232,25 @@ if not Sculio.refrigerator_calculate_joker_ref then
   Sculio.refrigerator_calculate_joker_ref = Card.calculate_joker
 
   Card.calculate_joker = function(self, context)
+    -- Strict fast path (perf): a single joker scan with early break. Without
+    -- a refrigerator in play, skip all food checks (PB_UTIL call included)
+    -- and go straight to the original evaluation.
+    local joker_cards = G and G.jokers and G.jokers.cards
+    if not joker_cards then
+      return Sculio.refrigerator_calculate_joker_ref(self, context)
+    end
+    local has_fridge = false
+    for _, v in ipairs(joker_cards) do
+      if v.config and v.config.center and v.config.center.key == 'j_Sculio_refrigerator' then
+        has_fridge = true
+        break
+      end
+    end
+    if not has_fridge then
+      return Sculio.refrigerator_calculate_joker_ref(self, context)
+    end
     local refrigerators = Sculio_refrigerator_is_food(self) and Sculio_refrigerator_get_left(self) or {}
-    local preserve = next(refrigerators) ~= nil and not context.selling_self
+    local preserve = context and next(refrigerators) ~= nil and not context.selling_self
 
     -- Bypass destruction logic for Epic Sauce and Banana Man when refrigerated during context.after
     if preserve and context.after then

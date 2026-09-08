@@ -1,4 +1,3 @@
--- Pick a random available center key from a center pool ('Enhanced', 'Seal', 'Edition')
 local function pick_center(_type, seed)
   local pool = get_current_pool(_type)
   local key

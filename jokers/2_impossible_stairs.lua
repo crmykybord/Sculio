@@ -8,7 +8,7 @@ SMODS.Joker {
   rarity = 1, -- Common
   atlas = 'Sculio',
   pos = { x = 1, y = 0 },
-  cost = 3,
+  cost = 2,
   eternal_compat = false,
   perishable_compat = true,
   blueprint_compat = true,

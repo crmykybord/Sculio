@@ -11,19 +11,26 @@ function CardArea:shuffle(_seed)
   local rorschach = nil
   local verified_user = nil
 
-  for i = 1, #G.jokers.cards do
-    local joker = G.jokers.cards[i]
+  -- Guard: CardArea:shuffle also runs on menu/title areas where G.jokers is nil.
+  if G and G.jokers and G.jokers.cards then
+    for i = 1, #G.jokers.cards do
+      local joker = G.jokers.cards[i]
+      local key = joker and joker.config and joker.config.center and joker.config.center.key
 
-    if joker and joker.ability.name == 'j_Sculio_rorschach' and #joker.ability.extra.card_ids_to_draw_next >= 1 then
-      rorschach = joker
-    end
+      if key == 'j_Sculio_rorschach' and joker.ability and joker.ability.extra
+        and joker.ability.extra.card_ids_to_draw_next
+        and #joker.ability.extra.card_ids_to_draw_next >= 1 then
+        rorschach = joker
+      end
 
-    if joker and joker.ability.name == 'j_Sculio_verified' then
-      verified_user = joker
+      if key == 'j_Sculio_verified' then
+        verified_user = joker
+      end
     end
   end
 
-  if self == G.deck and (rorschach or verified_user) then
+  if G and self == G.deck and (rorschach or verified_user) then
+    local rearranged = false
     -- Later prioritizations override earlier ones.
     -- rorschach should take priority over Verified User.
     -- Therefore, we handle the Verified User logic first.
@@ -44,6 +51,7 @@ function CardArea:shuffle(_seed)
       end
 
       self.cards = others
+      rearranged = true
     end
 
     if rorschach then
@@ -69,14 +77,17 @@ function CardArea:shuffle(_seed)
 
       self.cards = others
       rorschach.ability.extra.card_ids_to_draw_next = {}
+      rearranged = true
     end
 
-    self:set_ranks()
+    if rearranged then
+      self:set_ranks()
+    end
   end
 
   -- ponytail: Lead Cards sink to the bottom only on reshuffles; mid-round
   -- draw order can still surface them. Per-draw interception if that matters.
-  if self == G.deck then
+  if G and self == G.deck then
     local has_lead = false
     for _, v in ipairs(self.cards) do
       if SMODS.has_enhancement(v, 'm_Sculio_lead') then has_lead = true break end

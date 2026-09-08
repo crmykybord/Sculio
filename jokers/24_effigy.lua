@@ -14,9 +14,20 @@ SMODS.Joker {
   cost = 8,
   loc_vars = function(self, info_queue, card)
     local key = card.ability.extra.random_joker_key
-    local name = key and G.localization.descriptions.Joker[key] and G.localization.descriptions.Joker[key].name
+    local center = key and G.P_CENTERS[key]
+    local name = center and G.localization.descriptions.Joker[key] and G.localization.descriptions.Joker[key].name
       or localize('k_Sculio_none')
-    return { vars = { name } }
+    card.ability.effigy_copy_ui = name
+    return {
+      vars = { name },
+      main_end = (card.area and card.area == G.jokers) and {
+        {n=G.UIT.C, config={align = "bm", minh = 0.4}, nodes={
+          {n=G.UIT.C, config={align = "m", colour = (center and center.blueprint_compat) and G.C.GREEN or G.C.RED, r = 0.05, padding = 0.06}, nodes={
+            {n=G.UIT.T, config={ref_table = card.ability, ref_value = 'effigy_copy_ui', colour = G.C.UI.TEXT_LIGHT, scale = 0.32*0.8}},
+          }}
+        }}
+      } or nil,
+    }
   end,
   add_to_deck = function(self, card, from_debuff)
     card.ability.extra.random_joker_key = nil
@@ -25,7 +36,8 @@ SMODS.Joker {
     card.ability.extra.random_joker_key = nil
   end,
   calculate = function(self, card, context)
-    if context.after and not context.blueprint and context.cardarea == G.jokers then
+    if context.after and not context.blueprint and context.cardarea == G.jokers
+      and G.jokers and G.jokers.cards then
       local bp_jokers = {}
       local all_jokers = {}
 
@@ -40,8 +52,12 @@ SMODS.Joker {
       end
 
       local pool = #bp_jokers > 0 and bp_jokers or all_jokers
-      local chosen = pool[pseudorandom('scheming_idol', 1, #pool)]
-      card.ability.extra.random_joker_key = chosen and chosen.config.center_key or nil
+      if #pool > 0 then
+        local chosen = pool[pseudorandom('scheming_idol', 1, #pool)]
+        card.ability.extra.random_joker_key = chosen and chosen.config.center_key or nil
+      else
+        card.ability.extra.random_joker_key = nil
+      end
     end
 
     if card.ability.extra.random_joker_key and not context.blueprint then

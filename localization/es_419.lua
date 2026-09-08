@@ -7,7 +7,7 @@ return {
           'Un Mod Vanilla que busca agregar',
           'contenido nuevo a Balatro que se sienta',
           'como el original',
-          '(¡Tenemos 63 Comodines y una Etiqueta!)',
+          '(72 Comodines, 11 Tarots Invertidos, 6 Mejoras)',
           ' ',
           '{C:attention}Créditos:{}',
           '{C:money}crmykybord{}: Dibujo y Diseño',
@@ -176,7 +176,7 @@ return {
         text = {
           'Al vender comodines con {C:attention}edición{}, este',
           'gana las {C:attention}mejoras de la edición{}',
-          '{C:inactive,s:0.8}(Actualmente {C:chips,s:0.8}+#1#{}{C:inactive,s:0.8} Fichas, {C:mult,s:0.8}+#2#{}{C:inactive,s:0.8} Multi, {X:mult,C:white,s:0.8}X#3#{}{C:inactive,s:0.8} Multi y {X:chips,C:white,s:0.8}X#4#{}{C:inactive,s:0.8} Fichas)'
+          '{C:inactive,s:0.8}(Actualmente {C:chips,s:0.8}+#1#{}{C:inactive,s:0.8} Fichas, {C:mult,s:0.8}+#2#{}{C:inactive,s:0.8} Multi, {X:mult,C:white,s:0.8}X#3#{}{C:inactive,s:0.8} Multi)'
         },
       }, 
       -- 15. Crooked Joker
@@ -270,7 +270,6 @@ return {
         text = {
           'Copia la habilidad de un',
           '{C:attention}Comodín{} al azar',
-          '{C:inactive}(Copiando: {C:attention}#1#{C:inactive})'
         },
       }, 
       -- 25. Bad Trip
@@ -621,7 +620,7 @@ return {
       j_Sculio_lost_keys = {
         name = 'Llaves Perdidas',
         text = {
-          'Al principio de cada {C:attention}Apuesta{},',
+          'Tras derrotar cualquier {C:attention}ciega{},',
           'la {C:money}Tienda{} tiene {C:attention}#1#{}',
           '{C:attention}paquetes potenciadores{} gratis',
         },
@@ -721,7 +720,7 @@ return {
         text = {
           'Anotar cartas con {C:dark_edition}edición{} otorga',
           'sus {C:attention}bonificaciones{} a este comodín',
-          '{C:inactive,s:0.8}(Actualmente {C:chips,s:0.8}+#1#{}{C:inactive,s:0.8} Fichas, {C:mult,s:0.8}+#2#{}{C:inactive,s:0.8} Multi, {X:mult,C:white,s:0.8}X#3#{}{C:inactive,s:0.8} Multi y {X:chips,C:white,s:0.8}X#4#{}{C:inactive,s:0.8} Fichas)'
+          '{C:inactive,s:0.8}(Actualmente {C:chips,s:0.8}+#1#{}{C:inactive,s:0.8} Fichas, {C:mult,s:0.8}+#2#{}{C:inactive,s:0.8} Multi, {X:mult,C:white,s:0.8}X#3#{}{C:inactive,s:0.8} Multi)'
         }
       }
     },
@@ -776,18 +775,17 @@ return {
             "después de jugar la mano",
           },
           {
-            "Si se juegan {C:attention}2 o más{}",
-            "cartas perforadas al mismo tiempo",
-            "se {C:red}destruyen{} antes de jugarse",
+            "Se {C:red}autodestruye{}",
+            "si se juega con otra",
+            "carta perforada",
           }
         },
       },
       m_Sculio_phalanx = {
         name = 'Carta Falange',
         text = {
-          'Cada Falange anotada añade {X:mult,C:white}X0.2{} Multi',
-          'a un multiplicador compartido',
-          'aplicado al final de la mano',
+          'Otorga {X:mult,C:white}X0.2{} Multi',
+          'acumulable al final de la mano',
         },
       },
       m_Sculio_trap = {
@@ -997,6 +995,8 @@ return {
       k_Sculio_binary_scale_chips = '01000011',
       k_Sculio_binary_scale_mult = '01001101',
       k_Sculio_crime_scene = '¡+Multi!',
+      k_Sculio_crooked_stole = 'Robó $#1#',
+      k_Sculio_crooked_bailed = 'Robó $#1#, ¡huyó!',
       k_Sculio_mad_scientist_spawn = '¡Ciencia!',
       k_Sculio_beyond_reach_saved = '¡No estaba fuera de alcance!',
       k_Sculio_cloning_vat_active = '¡Clonado!',

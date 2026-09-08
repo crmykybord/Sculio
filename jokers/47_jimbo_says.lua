@@ -1,10 +1,23 @@
+-- Roll a random suit that can make a Flush (5+ suited cards in the full deck).
+-- Crossmod-safe: counts base.suit keys present in the deck instead of a fixed
+-- suit list, so custom suits work. Falls back to any present suit.
 local function roll_suit(card)
-  local valid_cards = {}
+  local counts = {}
   for _, v in ipairs(G.playing_cards or {}) do
-    if not SMODS.has_no_suit(v) then valid_cards[#valid_cards + 1] = v end
+    if v.base and v.base.suit and not SMODS.has_no_suit(v) then
+      counts[v.base.suit] = (counts[v.base.suit] or 0) + 1
+    end
   end
-  if valid_cards[1] then
-    card.ability.extra.suit = pseudorandom_element(valid_cards, pseudoseed('jimbo_says')).base.suit
+  local flushable, any = {}, {}
+  for suit, n in pairs(counts) do
+    any[#any + 1] = suit
+    if n >= 5 then flushable[#flushable + 1] = suit end
+  end
+  table.sort(any)
+  table.sort(flushable)
+  local pool = #flushable > 0 and flushable or any
+  if #pool > 0 then
+    card.ability.extra.suit = pseudorandom_element(pool, pseudoseed('jimbo_says'))
   end
 end
 
@@ -21,10 +34,15 @@ SMODS.Joker {
   rarity = 2, -- Uncommon
   atlas = 'Sculio',
   pos = { x = 9, y = 4 },
-  cost = 10,
+  cost = 8,
   loc_vars = function(self, info_queue, card)
     local current_suit = card.ability.extra.suit
-    return { vars = { localize(current_suit, 'suits_plural'), colours = { G.C.SUITS[current_suit] } } }
+    local suit_obj = SMODS.Suits and SMODS.Suits[current_suit]
+    local name = (suit_obj and suit_obj.loc_txt and suit_obj.loc_txt.plural)
+      or localize(current_suit, 'suits_plural')
+      or current_suit
+    local colour = (G.C.SUITS and G.C.SUITS[current_suit]) or G.C.UI.TEXT_LIGHT
+    return { vars = { name }, colours = { colour } }
   end,
   add_to_deck = function(self, card, from_debuff)
     roll_suit(card)
@@ -41,7 +59,6 @@ SMODS.Joker {
         local is_flush = false
         local hand_name = context.scoring_name or ''
 
-        -- matches every flush-family hand (Flush, Straight Flush, Flush House, Flush Five)
         if hand_name:find('Flush', 1, true) then
           local suit_match = true
           for _, c in ipairs(context.full_hand) do

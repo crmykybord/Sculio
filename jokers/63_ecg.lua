@@ -16,11 +16,8 @@ SMODS.Joker {
     if context.setting_blind and not context.blueprint then
       card.ability.extra.used = false
     end
-    -- The Play Hand decrement already ran (ease_hands_played fires before
-    -- Blind:press_play), so hands_left == 0 means this is the last hand.
-    -- Refilling here lands before evaluate_play's game-over check.
     if context.press_play and not context.blueprint
-        and not card.ability.extra.used and G.GAME.current_round.hands_left == 0 then
+        and not card.ability.extra.used and G.GAME.current_round.hands_left == 1 then
       card.ability.extra.used = true
       G.E_MANAGER:add_event(Event({
         func = function()

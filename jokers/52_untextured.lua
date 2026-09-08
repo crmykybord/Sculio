@@ -31,7 +31,7 @@ SMODS.Joker {
       if SMODS.has_enhancement(context.other_card, 'm_wild') then
         local total_mult = Sculio.count_enhanced('m_wild') * card.ability.extra.mult_per_wild
         if total_mult > 0 then
-          return { mult = total_mult, }
+          return { mult = total_mult}
         end
       end
     end

@@ -6,7 +6,7 @@ return {
         text = {
           'A vanilla-esque mod that aims to add',
           'new and faithful content to Balatro',
-          '(Currently contains 60 Jokers)',
+          '(72 Jokers, 11 Inverted Tarots, 6 Enhancements)',
           ' ',
           '{C:attention}Credits:{}',
           '{C:money}crmykybord{}: Sprite Artist',
@@ -175,7 +175,7 @@ return {
         text = {
           'When a Joker with an {C:attention}edition{} is sold,',
           'this Joker gains the {C:attention}edition\'s bonus{}',
-          '{C:inactive}(Currently {C:chips}+#1#{}{C:inactive} Chips, {C:mult}+#2#{}{C:inactive} Mult, {X:mult,C:white}X#3#{}{C:inactive} Mult, and {X:chips,C:white}X#4#{}{C:inactive} Chips)'
+          '{C:inactive}(Currently {C:chips}+#1#{}{C:inactive} Chips, {C:mult}+#2#{}{C:inactive} Mult, {X:mult,C:white}X#3#{}{C:inactive} Mult)'
         },
       }, 
       -- 15. Crooked Joker
@@ -224,7 +224,6 @@ return {
         'Copies the ability of the {C:attention}rightmost{} Joker',
         'and {C:attention}debuffs{} Joker to the right',
         'during played hand',
-        '{C:inactive}(Copying: {C:attention}#1#{C:inactive} - {C:attention}#2#{C:inactive})'
         }
       },
       -- 20. Frequent Flyer
@@ -271,7 +270,6 @@ return {
         text = {
           'Copies ability of a random',
           '{C:attention}compatible Joker{} during hand',
-          '{C:inactive}(Currently copying: {C:attention}#1#{C:inactive})'
         },
       }, 
       -- 25. Bad Trip
@@ -620,7 +618,7 @@ return {
       j_Sculio_lost_keys = {
         name = 'Lost Keys',
         text = {
-          'At the start of each {C:attention}Ante{},',
+          'After defeating any {C:attention}Blind{},',
           'shop has {C:attention}#1# free{}',
           '{C:attention}booster packs{}',
         },
@@ -720,7 +718,7 @@ return {
         text = {
           'When a card with an {C:attention}edition{} is scored,',
           'this Joker gains the {C:attention}edition\'s bonus{}',
-          '{C:inactive,s:0.8}(Currently {C:chips,s:0.8}+#1#{}{C:inactive,s:0.8} Chips, {C:mult,s:0.8}+#2#{}{C:inactive,s:0.8} Mult, {X:mult,C:white,s:0.8}X#3#{}{C:inactive,s:0.8} Mult, and {X:chips,C:white,s:0.8}X#4#{}{C:inactive,s:0.8} Chips)'
+          '{C:inactive,s:0.8}(Currently {C:chips,s:0.8}+#1#{}{C:inactive,s:0.8} Chips, {C:mult,s:0.8}+#2#{}{C:inactive,s:0.8} Mult, {X:mult,C:white,s:0.8}X#3#{}{C:inactive,s:0.8} Mult)'
         }
       },
     },
@@ -738,16 +736,15 @@ return {
       m_Sculio_experimental = {
         name = 'Experimental Card',
         text = {
-          'After being scored {C:attention}#2# times{},',
+          'After being scored {C:attention}#2# times{} {C:inactive}(#1#/7){},',
           'creates a random {C:attention}Tag{}',
           'and becomes a {C:attention}Lead Card{}',
-          '{C:inactive}(Currently #1#){}',
         },
       },
       m_Sculio_lead = {
         name = 'Lead Card',
         text = {
-          'Is always placed at the',
+          'Always stays at the',
           'bottom of your {C:attention}deck{}',
         },
       },
@@ -762,9 +759,10 @@ return {
       m_Sculio_profane = {
         name = 'Profane Card',
         text = {
-          'When scored, drains {C:chips}1 Chip{} from a',
-          'random non-Profane card in hand',
-          'and permanently gains {C:chips}+3 Chips{}',
+          'Drains {C:chips}1 Chip{} from a card',
+          'in hand and gains {C:chips}+3 Chips{}',
+          'when scored',
+          '{C:inactive,s:0.8}(Cannot drain other Profane cards)',
         },
       },
       m_Sculio_pierced = {
@@ -775,17 +773,17 @@ return {
             'and after the hand scores',
           },
           {
-            'If {C:attention}2 or more{} are played together,',
-            'they are destroyed before scoring',
+            'It {C:red}self-destructs{}',
+            'if played with another',
+            'Pierced Card',
           },
         },
       },
       m_Sculio_phalanx = {
         name = 'Phalanx Card',
         text = {
-          'Each scored Phalanx Card adds',
-          '{X:mult,C:white}X0.2{} Mult to a shared multiplier',
-          'applied at the end of the hand',
+          'Grants {X:mult,C:white}X0.2{} Mult',
+          'accumulating at the end of the hand',
         },
       },
       m_Sculio_trap = {
@@ -997,6 +995,8 @@ return {
       k_Sculio_binary_scale_chips = '01000011',
       k_Sculio_binary_scale_mult = '01001101',
       k_Sculio_crime_scene = '+Mult!',
+      k_Sculio_crooked_stole = 'Stole $#1#',
+      k_Sculio_crooked_bailed = 'Stole $#1#, bailed!',
       k_Sculio_mad_scientist_spawn = 'Science!',
       k_Sculio_beyond_reach_saved = 'It was not beyond reach!',
       k_Sculio_cloning_vat_active = 'Cloned!',

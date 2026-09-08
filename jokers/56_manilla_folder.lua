@@ -1,6 +1,3 @@
--- The 10 standard Balatro poker hands. Anything else (vanilla secret hands like
--- Five of a Kind / Flush Five / Flush House, or modded secret hands registered
--- via SMODS.PokerHand) is treated as a secret hand and triggers Manilla Folder.
 local STANDARD_HANDS = {
   ['High Card'] = true,
   ['Pair'] = true,
@@ -16,7 +13,6 @@ local STANDARD_HANDS = {
 
 local function is_secret_hand(hand_name)
   if not hand_name or STANDARD_HANDS[hand_name] then return false end
-  -- The hand must be registered in G.GAME.hands (covers both vanilla and SMODS-registered hands).
   return G.GAME and G.GAME.hands and G.GAME.hands[hand_name] ~= nil
 end
 
@@ -38,8 +34,6 @@ SMODS.Joker {
     return { vars = {} }
   end,
   calculate = function(self, card, context)
-    -- Trigger BEFORE the hand is played (when the player commits to a Secret Hand).
-    -- This matches the description: "When playing a Secret Hand, fill empty consumable slots".
     if context.before and context.scoring_name and not context.blueprint and is_secret_hand(context.scoring_name) then
       G.E_MANAGER:add_event(Event({
         blockable = true,

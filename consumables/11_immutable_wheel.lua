@@ -24,7 +24,6 @@ SMODS.Consumable {
       local hand_empty = not G.hand or #G.hand.highlighted == 0
       -- Always does something: retry until a rolled Tarot is usable right now
       for i = 1, 15 do
-        if #G.consumeables.cards >= G.consumeables.config.card_limit and card.area ~= G.consumeables then break end
         if #G.consumeables.cards >= G.consumeables.config.card_limit then break end
         local key = pseudorandom_element(pool, pseudoseed('sculio_immutable' .. i))
         local center = key and G.P_CENTERS[key]

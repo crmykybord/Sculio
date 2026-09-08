@@ -11,7 +11,7 @@ SMODS.Joker {
   rarity = 1, -- Common
   atlas = 'Sculio',
   pos = { x = 7, y = 6 },
-  cost = 4,
+  cost = 2,
   loc_vars = function(self, info_queue, card)
     return { vars = { card.ability.extra.mult, card.ability.extra.gain } }
   end,
@@ -22,11 +22,7 @@ SMODS.Joker {
       if set ~= 'Booster' and set ~= 'Voucher' then
         card.ability.extra.mult = card.ability.extra.mult + card.ability.extra.gain
         return {
-          extra = {
-            message = localize { type = 'variable', key = 'a_mult', vars = { card.ability.extra.gain } },
-            colour = G.C.MULT,
-            focus = card
-          },
+          extra = { message = localize { type = 'variable', key = 'a_mult', vars = { card.ability.extra.gain } }, colour = G.C.MULT, focus = card },
           card = card
         }
       end
