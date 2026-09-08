@@ -20,7 +20,7 @@ SMODS.Joker {
     if context.individual and context.cardarea == G.play and context.other_card
         and not context.other_card.debuff
         and SMODS.pseudorandom_probability(card, 'pipe_dream', 1, card.ability.extra.odds, 'pipe_dream') then
-      return { chips = card.ability.extra.chips, card = context.other_card }
+      return { chips = card.ability.extra.chips, card = card }
     end
   end
 }
