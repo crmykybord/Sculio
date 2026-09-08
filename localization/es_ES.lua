@@ -620,7 +620,7 @@ return {
       j_Sculio_lost_keys = {
         name = 'Llaves Perdidas',
         text = {
-          'Al principio de cada {C:attention}Apuesta{},',
+          'Tras derrotar cualquier {C:attention}ciega{},',
           'la {C:money}Tienda{} tiene {C:attention}#1#{}',
           '{C:attention}paquetes potenciadores{} gratis',
         },

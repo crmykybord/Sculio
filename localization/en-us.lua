@@ -618,7 +618,7 @@ return {
       j_Sculio_lost_keys = {
         name = 'Lost Keys',
         text = {
-          'At the start of each {C:attention}Ante{},',
+          'After defeating any {C:attention}Blind{},',
           'shop has {C:attention}#1# free{}',
           '{C:attention}booster packs{}',
         },
