@@ -17,14 +17,12 @@ SMODS.Joker {
     local center = key and G.P_CENTERS[key]
     local name = center and G.localization.descriptions.Joker[key] and G.localization.descriptions.Joker[key].name
       or localize('k_Sculio_none')
-    -- Dunce-style bubble, but showing WHAT is being copied (the joker's name)
-    -- instead of a compatible/incompatible label
     card.ability.effigy_copy_ui = name
     return {
       vars = { name },
       main_end = (card.area and card.area == G.jokers) and {
         {n=G.UIT.C, config={align = "bm", minh = 0.4}, nodes={
-          {n=G.UIT.C, config={align = "m", colour = G.C.RED, r = 0.05, padding = 0.06}, nodes={
+          {n=G.UIT.C, config={align = "m", colour = (center and center.blueprint_compat) and G.C.GREEN or G.C.RED, r = 0.05, padding = 0.06}, nodes={
             {n=G.UIT.T, config={ref_table = card.ability, ref_value = 'effigy_copy_ui', colour = G.C.UI.TEXT_LIGHT, scale = 0.32*0.8}},
           }}
         }}
