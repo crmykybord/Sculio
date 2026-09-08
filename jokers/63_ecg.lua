@@ -17,7 +17,7 @@ SMODS.Joker {
       card.ability.extra.used = false
     end
     if context.press_play and not context.blueprint
-        and not card.ability.extra.used and G.GAME.current_round.hands_left == 0 then
+        and not card.ability.extra.used and G.GAME.current_round.hands_left == 1 then
       card.ability.extra.used = true
       G.E_MANAGER:add_event(Event({
         func = function()
