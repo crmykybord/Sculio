@@ -29,7 +29,7 @@ SMODS.Joker {
     return { vars = {} }
   end,
   calculate = function(self, card, context)
-    if context.blind_defeated and not context.blueprint and not card.ability.eternal and G.GAME.blind:get_type() == 'Boss' and #G.jokers.cards > 1 then
+    if context.end_of_round and context.main_eval and context.beat_boss and not context.game_over and not context.blueprint and not card.ability.eternal and #G.jokers.cards > 1 then
       -- Solo la primera copia (la de mas a la izquierda) destruye; las siguientes solo anaden un Negativo
       local first_copy = true
       for i = 1, #G.jokers.cards do
