@@ -1,7 +1,7 @@
 SMODS.Joker {
   key = 'computer_virus',
   attributes = { 'boss_blind', 'destruction' },
-  eternal_compat = true,
+  eternal_compat = false,
   blueprint_compat = true,
   perishable_compat = true,
   rental_compat = true,
@@ -16,7 +16,7 @@ SMODS.Joker {
     return { vars = {} }
   end,
   calculate = function(self, card, context)
-    if context.blind_defeated and not context.blueprint and G.GAME.blind:get_type() == 'Boss' and #G.jokers.cards > 1 then
+    if context.blind_defeated and not context.blueprint and not card.ability.eternal and G.GAME.blind:get_type() == 'Boss' and #G.jokers.cards > 1 then
       -- Si este Virus es el comodin del extremo derecho, no hace nada (nunca se autodestruye)
       if G.jokers.cards[#G.jokers.cards] == card then return end
       local rightmost = nil
