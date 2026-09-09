@@ -17,10 +17,15 @@ SMODS.Joker {
   end,
   calculate = function(self, card, context)
     if context.blind_defeated and not context.blueprint and G.GAME.blind:get_type() == 'Boss' and #G.jokers.cards > 1 then
+      -- Si este Virus es el comodin del extremo derecho, no hace nada (nunca se autodestruye)
+      if G.jokers.cards[#G.jokers.cards] == card then return end
       local rightmost = nil
       for i = #G.jokers.cards, 1, -1 do
-        if G.jokers.cards[i] ~= card and not G.jokers.cards[i].ability.eternal then
-          rightmost = G.jokers.cards[i]
+        local other = G.jokers.cards[i]
+        if other ~= card
+            and other.config.center.key ~= 'j_Sculio_computer_virus'
+            and not other.ability.eternal then
+          rightmost = other
           break
         end
       end
