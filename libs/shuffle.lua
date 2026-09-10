@@ -1,111 +1,85 @@
--- Install the shuffle hook once, storing the original under the mod table.
 if not Sculio.shuffle_ref then
   Sculio.shuffle_ref = CardArea.shuffle
 end
 local old_shuffle = Sculio.shuffle_ref
 
--- Original implementation for Verified User: Somethingcom515 {SealsOnAll}
-function CardArea:shuffle(_seed)
-  local g = old_shuffle(self, _seed)
+-- Draw-order rules run after every deck shuffle. The deck draws from the END
+-- of self.cards, so "drawn first" = moved to the end of the array and
+-- "sinks to the bottom" = moved to the front.
 
-  local rorschach = nil
-  local verified_user = nil
-
-  -- Guard: CardArea:shuffle also runs on menu/title areas where G.jokers is nil.
+local function find_deck_jokers()
+  local rorschach, verified_user = nil, nil
   if G and G.jokers and G.jokers.cards then
     for i = 1, #G.jokers.cards do
       local joker = G.jokers.cards[i]
       local key = joker and joker.config and joker.config.center and joker.config.center.key
-
       if key == 'j_Sculio_rorschach' and joker.ability and joker.ability.extra
         and joker.ability.extra.card_ids_to_draw_next
         and #joker.ability.extra.card_ids_to_draw_next >= 1 then
         rorschach = joker
       end
-
       if key == 'j_Sculio_verified' then
         verified_user = joker
       end
     end
   end
+  return rorschach, verified_user
+end
 
-  if G and self == G.deck and (rorschach or verified_user) then
-    local rearranged = false
-    -- Later prioritizations override earlier ones.
-    -- rorschach should take priority over Verified User.
-    -- Therefore, we handle the Verified User logic first.
-    if verified_user then
-      local priorities = {}
-      local others = {}
-
-      for _, v in pairs(self.cards) do
-        if v.seal == 'Blue' then
-          table.insert(priorities, v)
-        else
-          table.insert(others, v)
-        end
-      end
-
-      for _, card in ipairs(priorities) do
-        table.insert(others, card)
-      end
-
-      self.cards = others
-      rearranged = true
-    end
-
-    if rorschach then
-      local priorities = {}
-      local others = {}
-      local ids = rorschach.ability.extra.card_ids_to_draw_next or {}
-
-      for _, v in pairs(self.cards) do
-        local found = false
-        for _, id in ipairs(ids) do
-          if id == v.ID then found = true break end
-        end
-        if found then
-          table.insert(priorities, v)
-        else
-          table.insert(others, v)
-        end
-      end
-
-      for _, card in ipairs(priorities) do
-        table.insert(others, card)
-      end
-
-      self.cards = others
-      rorschach.ability.extra.card_ids_to_draw_next = {}
-      rearranged = true
-    end
-
-    if rearranged then
-      self:set_ranks()
-    end
+-- Move cards matching pred to the end of the array (drawn first).
+-- Shared by Verified (Blue Seals first) and Rorschach (priority ids first).
+local function prioritize(cards, pred)
+  local first, rest = {}, {}
+  for _, c in ipairs(cards) do
+    if pred(c) then first[#first + 1] = c else rest[#rest + 1] = c end
   end
+  for _, c in ipairs(first) do rest[#rest + 1] = c end
+  return rest
+end
 
-  -- ponytail: Lead Cards sink to the bottom only on reshuffles; mid-round
-  -- draw order can still surface them. Per-draw interception if that matters.
+-- Lead cards sink to the bottom: moved to the front (drawn last).
+-- Returns nil when the deck holds no Lead cards.
+local function sink_lead(cards)
+  local lead, rest = {}, {}
+  for _, c in ipairs(cards) do
+    if SMODS.has_enhancement(c, 'm_Sculio_lead') then lead[#lead + 1] = c
+    else rest[#rest + 1] = c end
+  end
+  if #lead == 0 then return nil end
+  for _, c in ipairs(rest) do lead[#lead + 1] = c end
+  return lead
+end
+
+function CardArea:shuffle(_seed)
+  local g = old_shuffle(self, _seed)
+
   if G and self == G.deck then
-    local has_lead = false
-    for _, v in ipairs(self.cards) do
-      if SMODS.has_enhancement(v, 'm_Sculio_lead') then has_lead = true break end
+    local rorschach, verified_user = find_deck_jokers()
+    if rorschach or verified_user then
+      local rearranged = false
+      if verified_user then
+        self.cards = prioritize(self.cards, function(c) return c.seal == 'Blue' end)
+        rearranged = true
+      end
+      if rorschach then
+        local ids = rorschach.ability.extra.card_ids_to_draw_next or {}
+        self.cards = prioritize(self.cards, function(c)
+          for _, id in ipairs(ids) do
+            if id == c.ID then return true end
+          end
+          return false
+        end)
+        rorschach.ability.extra.card_ids_to_draw_next = {}
+        rearranged = true
+      end
+      if rearranged then
+        self:set_ranks()
+      end
     end
-    if has_lead then
-      -- Deck draws from the END of self.cards, so leads must sit at the FRONT
-      local arranged = {}
-      for _, v in ipairs(self.cards) do
-        if SMODS.has_enhancement(v, 'm_Sculio_lead') then
-          table.insert(arranged, v)
-        end
-      end
-      for _, v in ipairs(self.cards) do
-        if not SMODS.has_enhancement(v, 'm_Sculio_lead') then
-          table.insert(arranged, v)
-        end
-      end
-      self.cards = arranged
+
+    local sunk = sink_lead(self.cards)
+    if sunk then
+      self.cards = sunk
       self:set_ranks()
     end
   end
