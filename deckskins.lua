@@ -10,6 +10,14 @@ local COLLABS = {
 
 local FACE_RANKS = { 'Jack', 'Queen', 'King' }
 
+-- Artist sheets are laid out King-Queen-Jack (K/J swapped vs vanilla J-Q-K),
+-- so ranks map to explicit sprite positions instead of pos_style 'collab'.
+local RANK_POS = {
+  Jack = { pos = { x = 2, y = 0 } },
+  Queen = { pos = { x = 1, y = 0 } },
+  King = { pos = { x = 0, y = 0 } },
+}
+
 for _, collab in ipairs(COLLABS) do
   local lc = SMODS.Atlas { key = 'Sculio_ds_' .. collab.key .. '_lc', path = 'Deck Skins/Standard/' .. collab.key .. '_lc.png', px = 71, py = 95 }
   local hc = SMODS.Atlas { key = 'Sculio_ds_' .. collab.key .. '_hc', path = 'Deck Skins/High Contrast/' .. collab.key .. '_hc.png', px = 71, py = 95 }
@@ -18,8 +26,8 @@ for _, collab in ipairs(COLLABS) do
     suit = collab.suit,
     loc_txt = collab.name,
     palettes = {
-      { key = 'lc', ranks = FACE_RANKS, display_ranks = FACE_RANKS, atlas = lc.key, pos_style = 'collab' },
-      { key = 'hc', ranks = FACE_RANKS, display_ranks = FACE_RANKS, atlas = hc.key, pos_style = 'collab' },
+      { key = 'lc', ranks = FACE_RANKS, display_ranks = FACE_RANKS, atlas = lc.key, pos_style = RANK_POS },
+      { key = 'hc', ranks = FACE_RANKS, display_ranks = FACE_RANKS, atlas = hc.key, pos_style = RANK_POS },
     },
   }
 end
