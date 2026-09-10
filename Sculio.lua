@@ -16,7 +16,7 @@ assert(SMODS.load_file('libs/utils.lua'))()
 assert(SMODS.load_file('libs/debuff.lua'))()
 assert(SMODS.load_file('libs/trackers.lua'))()
 assert(SMODS.load_file('libs/edition_texts.lua'))()
-assert(SMODS.load_file('deckskins.lua'))()
+assert(SMODS.load_file('libs/deckskins.lua'))()
 
 -- Load cards: https://github.com/neatoqueen/NeatoJokers/blob/main/NeatoJokers.lua#L32
 local function load_dir(subdir, skip_files)

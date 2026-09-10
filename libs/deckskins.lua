@@ -10,8 +10,6 @@ local COLLABS = {
 
 local FACE_RANKS = { 'Jack', 'Queen', 'King' }
 
--- Artist sheets are laid out King-Queen-Jack (K/J swapped vs vanilla J-Q-K),
--- so ranks map to explicit sprite positions instead of pos_style 'collab'.
 local RANK_POS = {
   Jack = { pos = { x = 2, y = 0 } },
   Queen = { pos = { x = 1, y = 0 } },
