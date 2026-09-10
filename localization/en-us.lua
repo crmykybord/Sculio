@@ -736,7 +736,7 @@ return {
       m_Sculio_experimental = {
         name = 'Experimental Card',
         text = {
-          'After being scored {C:attention}#2# times{} {C:inactive}(#1#/7){},',
+          'After scoring {C:attention}#2# times{} {C:inactive}(#1#/7){},',
           'creates a random {C:attention}Tag{}',
           'and becomes a {C:attention}Lead Card{}',
         },
@@ -744,16 +744,16 @@ return {
       m_Sculio_lead = {
         name = 'Lead Card',
         text = {
-          'Always stays at the',
-          'bottom of your {C:attention}deck{}',
+          'Stays at the bottom',
+          'of your {C:attention}deck{}',
         },
       },
       m_Sculio_wandering = {
         name = 'Wandering Card',
         text = {
-          'If left in hand when you',
-          'play a hand, discards itself',
-          'and gains permanent {C:mult}+1 Mult{}',
+          'If in hand when you play,',
+          'discards itself and gains',
+          '{C:mult}+1 Mult{}',
         },
       },
       m_Sculio_profane = {
@@ -769,11 +769,11 @@ return {
         name = 'Pierced Card',
         text = {
           {
-            'Gives {X:mult,C:white}X2{} Mult before',
-            'and after the hand scores',
+            '{X:mult,C:white}X2{} Mult before',
+            'and after the hand is played',
           },
           {
-            'It {C:red}self-destructs{}',
+            '{C:red}Self-destructs{}',
             'if played with another',
             'Pierced Card',
           },
@@ -799,7 +799,7 @@ return {
         text = {
           'While held in hand, scoring cards',
           'get {C:chips}+7 Chips{} or {C:mult}+3 Mult{}.',
-          'Its mode alternates between hands',
+          'Alternates its mode between hands',
         },
       },
       m_Sculio_siege = {
@@ -824,7 +824,7 @@ return {
         },
       },
       c_Sculio_scientist = {
-        name = 'The Scientist',
+        name = 'Scholar',
         text = {
           'Enhances {C:attention}#1#{} selected cards',
           'into {C:attention}Experimental Cards{}',
