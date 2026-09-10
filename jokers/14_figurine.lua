@@ -1,22 +1,3 @@
--- Full 4-stat text used when an XChips edition exists (e.g. Bunco)
-Sculio.FIGURINE_ALT_TEXT = {
-  ['en-us'] = {
-    'When a Joker with an {C:attention}edition{} is sold,',
-    'this Joker gains the {C:attention}edition\'s bonus{}',
-    '{C:inactive}(Currently {C:chips}+#1#{}{C:inactive} Chips, {C:mult}+#2#{}{C:inactive} Mult, {X:mult,C:white}X#3#{}{C:inactive} Mult, and {X:chips,C:white}X#4#{}{C:inactive} Chips)',
-  },
-  ['es_419'] = {
-    'Al vender comodines con {C:attention}edición{}, este',
-    'gana las {C:attention}mejoras de la edición{}',
-    '{C:inactive,s:0.8}(Actualmente {C:chips,s:0.8}+#1#{}{C:inactive,s:0.8} Fichas, {C:mult,s:0.8}+#2#{}{C:inactive,s:0.8} Multi, {X:mult,C:white,s:0.8}X#3#{}{C:inactive,s:0.8} Multi y {X:chips,C:white,s:0.8}X#4#{}{C:inactive,s:0.8} Fichas)',
-  },
-  ['es_ES'] = {
-    'Al vender comodines con {C:attention}edición{}, este',
-    'gana las {C:attention}mejoras de la edición{}',
-    '{C:inactive,s:0.8}(Actualmente {C:chips,s:0.8}+#1#{}{C:inactive,s:0.8} Fichas, {C:mult,s:0.8}+#2#{}{C:inactive,s:0.8} Multi, {X:mult,C:white,s:0.8}X#3#{}{C:inactive,s:0.8} Multi y {X:chips,C:white,s:0.8}X#4#{}{C:inactive,s:0.8} Fichas)',
-  },
-}
-
 SMODS.Joker {
   key = 'figurine',
   attributes = { 'chips', 'mult', 'xmult', 'xchips', 'editions', 'scaling' },

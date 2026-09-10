@@ -178,6 +178,15 @@ return {
           '{C:inactive}(Currently {C:chips}+#1#{}{C:inactive} Chips, {C:mult}+#2#{}{C:inactive} Mult, {X:mult,C:white}X#3#{}{C:inactive} Mult)'
         },
       }, 
+      -- Figurine XChips alt text (applied at runtime when an XChips edition exists)
+      j_Sculio_figurine_xchips = {
+        name = 'Figurine',
+        text = {
+          'When a Joker with an {C:attention}edition{} is sold,',
+          'this Joker gains the {C:attention}edition\'s bonus{}',
+          '{C:inactive}(Currently {C:chips}+#1#{}{C:inactive} Chips, {C:mult}+#2#{}{C:inactive} Mult, {X:mult,C:white}X#3#{}{C:inactive} Mult, and {X:chips,C:white}X#4#{}{C:inactive} Chips)',
+        },
+      }, 
       -- 15. Crooked Joker
       j_Sculio_crooked = {
         name = 'Crooked Joker',
@@ -719,6 +728,15 @@ return {
           'When a card with an {C:attention}edition{} is scored,',
           'this Joker gains the {C:attention}edition\'s bonus{}',
           '{C:inactive,s:0.8}(Currently {C:chips,s:0.8}+#1#{}{C:inactive,s:0.8} Chips, {C:mult,s:0.8}+#2#{}{C:inactive,s:0.8} Mult, {X:mult,C:white,s:0.8}X#3#{}{C:inactive,s:0.8} Mult)'
+        }
+      },
+      -- Puck XChips alt text (applied at runtime when an XChips edition exists)
+      j_Sculio_puck_xchips = {
+        name = 'Puck',
+        text = {
+          'When a card with an {C:attention}edition{} is scored,',
+          'this Joker gains the {C:attention}edition\'s bonus{}',
+          '{C:inactive,s:0.8}(Currently {C:chips,s:0.8}+#1#{}{C:inactive,s:0.8} Chips, {C:mult,s:0.8}+#2#{}{C:inactive,s:0.8} Mult, {X:mult,C:white,s:0.8}X#3#{}{C:inactive,s:0.8} Mult, and {X:chips,C:white,s:0.8}X#4#{}{C:inactive,s:0.8} Chips)',
         }
       },
     },

@@ -179,6 +179,15 @@ return {
           '{C:inactive,s:0.8}(Actualmente {C:chips,s:0.8}+#1#{}{C:inactive,s:0.8} Fichas, {C:mult,s:0.8}+#2#{}{C:inactive,s:0.8} Multi, {X:mult,C:white,s:0.8}X#3#{}{C:inactive,s:0.8} Multi)'
         },
       }, 
+      -- Texto alternativo con Fichas X de Figurita (se aplica si existe una edición con Fichas X)
+      j_Sculio_figurine_xchips = {
+        name = 'Figurita',
+        text = {
+          'Al vender comodines con {C:attention}edición{}, este',
+          'gana las {C:attention}mejoras de la edición{}',
+          '{C:inactive,s:0.8}(Actualmente {C:chips,s:0.8}+#1#{}{C:inactive,s:0.8} Fichas, {C:mult,s:0.8}+#2#{}{C:inactive,s:0.8} Multi, {X:mult,C:white,s:0.8}X#3#{}{C:inactive,s:0.8} Multi y {X:chips,C:white,s:0.8}X#4#{}{C:inactive,s:0.8} Fichas)',
+        },
+      }, 
       -- 15. Crooked Joker
       j_Sculio_crooked = {
         name = 'Comodín Mafioso',
@@ -723,8 +732,16 @@ return {
           'sus {C:attention}bonificaciones{} a este comodín',
           '{C:inactive,s:0.8}(Actualmente {C:chips,s:0.8}+#1#{}{C:inactive,s:0.8} Fichas, {C:mult,s:0.8}+#2#{}{C:inactive,s:0.8} Multi, {X:mult,C:white,s:0.8}X#3#{}{C:inactive,s:0.8} Multi)'
         }
-      }
-    },
+      },
+      -- Texto alternativo con Fichas X de Puck (se aplica si existe una edición con Fichas X)
+      j_Sculio_puck_xchips = {
+        name = 'Puck',
+        text = {
+          'Anotar cartas con {C:dark_edition}edición{} otorga',
+          'sus {C:attention}bonificaciones{} a este comodín',
+          '{C:inactive,s:0.8}(Actualmente {C:chips,s:0.8}+#1#{}{C:inactive,s:0.8} Fichas, {C:mult,s:0.8}+#2#{}{C:inactive,s:0.8} Multi, {X:mult,C:white,s:0.8}X#3#{}{C:inactive,s:0.8} Multi y {X:chips,C:white,s:0.8}X#4#{}{C:inactive,s:0.8} Fichas)',
+        }
+      },
     Tag = {
       tag_Sculio_unstoppable = {
         name = 'Etiqueta Imparable',

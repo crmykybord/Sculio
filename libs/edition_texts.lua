@@ -25,9 +25,11 @@ function Sculio.xchips_editions_exist()
 end
 
 -- One-time swap of Figurine/Puck description text (3-stat base -> 4-stat with
--- XChips) when an XChips-granting edition from any mod is detected. Runs once
--- per language on the first calculate call (all mods loaded by then), so the
--- center scan happens a single time instead of on every tooltip render.
+-- XChips) when an XChips-granting edition from any mod is detected. The alt
+-- texts live in localization (j_Sculio_*_xchips keys), so translators only
+-- touch locale files. Runs once per language on the first calculate call
+-- (all mods loaded by then), so the center scan happens a single time
+-- instead of on every tooltip render.
 Sculio._stat_text_init_done = Sculio._stat_text_init_done or {}
 function Sculio.maybe_apply_xchips_texts()
   local lang = (G.SETTINGS and G.SETTINGS.language) or 'en-us'
@@ -37,10 +39,11 @@ function Sculio.maybe_apply_xchips_texts()
   local desc = G.localization and G.localization.descriptions and G.localization.descriptions.Joker
   if not desc then return end
   local alts = {
-    j_Sculio_figurine = Sculio.FIGURINE_ALT_TEXT and (Sculio.FIGURINE_ALT_TEXT[lang] or Sculio.FIGURINE_ALT_TEXT['en-us']),
-    j_Sculio_puck = Sculio.PUCK_ALT_TEXT and (Sculio.PUCK_ALT_TEXT[lang] or Sculio.PUCK_ALT_TEXT['en-us']),
+    j_Sculio_figurine = 'j_Sculio_figurine_xchips',
+    j_Sculio_puck = 'j_Sculio_puck_xchips',
   }
-  for key, alt in pairs(alts) do
-    if desc[key] and alt then desc[key].text = alt end
+  for key, alt_key in pairs(alts) do
+    local alt = desc[alt_key]
+    if desc[key] and alt and alt.text then desc[key].text = alt.text end
   end
 end
