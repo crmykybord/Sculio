@@ -3,7 +3,7 @@ SMODS.Enhancement {
   atlas = 'Sculio_Enhancements',
   pos = { x = 1, y = 0 },
 
-  config = { extra = { count = 0, max = 7 } },
+  config = { extra = { count = 0, max = 7, tags = 0, max_tags = 3 } },
   loc_vars = function(self, info_queue, card)
     info_queue[#info_queue + 1] = G.P_CENTERS.m_Sculio_lead
     local extra = card and card.ability and card.ability.extra or self.config.extra
@@ -13,16 +13,19 @@ SMODS.Enhancement {
     if context.main_scoring and context.cardarea == G.play then
       if card.ability.extra.done then return end
       card.ability.extra.count = card.ability.extra.count + 1
-      if card.ability.extra.count >= card.ability.extra.max then
-        if sendDebugMessage then sendDebugMessage('Sculio: experimental -> lead (count ' .. card.ability.extra.count .. ')', 'SCULIO') end
-        card.ability.extra.done = true
+      if card.ability.extra.count >= card.ability.extra.max and card.ability.extra.tags < card.ability.extra.max_tags then
+        card.ability.extra.tags = card.ability.extra.tags + 1
+        if card.ability.extra.tags >= card.ability.extra.max_tags then
+          if sendDebugMessage then sendDebugMessage('Sculio: experimental -> lead (tags ' .. card.ability.extra.tags .. ')', 'SCULIO') end
+          card.ability.extra.done = true
+        end
         G.E_MANAGER:add_event(Event({ trigger = 'after', delay = 0.3, func = function()
           local tag_pool = get_current_pool('Tag')
-          local selected_tag = pseudorandom_element(tag_pool, pseudoseed('sculio_experimental'))
+          local selected_tag = pseudorandom_element(tag_pool, pseudoseed('sculio_experimental_' .. card.ability.extra.tags))
           local it = 1
           while selected_tag == 'UNAVAILABLE' do
             it = it + 1
-            selected_tag = pseudorandom_element(tag_pool, pseudoseed('sculio_experimental_resample' .. it))
+            selected_tag = pseudorandom_element(tag_pool, pseudoseed('sculio_experimental_resample_' .. card.ability.extra.tags .. '_' .. it))
           end
           local tag = Tag(selected_tag, false, 'Small')
           add_tag(tag)
