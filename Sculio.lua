@@ -13,6 +13,7 @@ end
 to_big = to_big or function(x) return x end
 
 assert(SMODS.load_file('libs/utils.lua'))()
+assert(SMODS.load_file('libs/debuff.lua'))()
 assert(SMODS.load_file('deckskins.lua'))()
 
 -- Load cards: https://github.com/neatoqueen/NeatoJokers/blob/main/NeatoJokers.lua#L32

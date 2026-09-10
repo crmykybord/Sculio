@@ -33,7 +33,8 @@ SMODS.Joker {
     if context.debuff_card
         and (context.debuff_card.ability.set == 'Default' or context.debuff_card.ability.set == 'Enhanced')
         and not SMODS.has_no_rank(context.debuff_card)
-        and not context.debuff_card:is_face(true) then
+        and not context.debuff_card:is_face(true)
+        and not Sculio.is_debuff_immune(context.debuff_card) then
       return { debuff = true }
     end
 
