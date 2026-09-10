@@ -30,7 +30,9 @@ SMODS.Joker {
       card.ability.extra.cards = card.ability.extra.cards or 5
       local candidates = {}
       for _, c in ipairs(G.playing_cards or {}) do
-        candidates[#candidates + 1] = c
+        if c.config.center == G.P_CENTERS.c_base and not c.seal and not c.edition then
+          candidates[#candidates + 1] = c
+        end
       end
 
       G.E_MANAGER:add_event(Event({
@@ -60,7 +62,7 @@ SMODS.Joker {
         end
       }))
 
-      return { message = localize('k_upgrade_ex'), colour = G.C.FILTER }
+      return #candidates > 0 and { message = localize('k_upgrade_ex'), colour = G.C.FILTER } or nil
     end
   end
 }

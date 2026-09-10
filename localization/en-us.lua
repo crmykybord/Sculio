@@ -501,7 +501,7 @@ return {
           'After defeating a {C:attention}Boss Blind{},',
           'grants a random {C:attention}Enhancement{},',
           '{C:attention}Seal{} or {C:dark_edition}Edition{} to {C:attention}#1#{} cards',
-          'in your deck'
+          'in your deck that have none'
         },
       },
       -- 49. Gladiator Joker

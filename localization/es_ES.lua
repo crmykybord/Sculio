@@ -501,6 +501,7 @@ return {
           'otorga una {C:attention}Mejora{},',
           '{C:attention}Sello{} o {C:attention}Edición{} al azar',
           'a {C:attention}#1#{} cartas de tu Baraja',
+          'que no tengan ninguna',
         },
       },
       -- 49. Gladiator Joker
