@@ -17,10 +17,10 @@ SMODS.Joker {
   config = { extra = { cards = 5 } },
   unlocked = true,
   discovered = false,
-  rarity = 2,
+  rarity = 3,
   atlas = 'Sculio',
   pos = { x = 0, y = 5 },
-  cost = 8,
+  cost = 7,
   loc_vars = function(self, info_queue, card)
     card.ability.extra.cards = card.ability.extra.cards or 5 -- old saves without the rework
     return { vars = { card.ability.extra.cards } }
