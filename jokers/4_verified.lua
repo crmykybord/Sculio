@@ -1,7 +1,6 @@
 SMODS.Joker {
   key = 'verified',
   attributes = { 'passive', 'seals' },
-
   unlocked = true,
   discovered = false,
   eternal_compat = true,

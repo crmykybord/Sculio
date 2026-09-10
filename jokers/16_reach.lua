@@ -1,7 +1,6 @@
 SMODS.Joker {
   key = 'reach',
   attributes = { 'prevents_death', 'hands' },
-
   config = { extra = { hands_gain = 1, required_score_percentage = 85 } },
   unlocked = true,
   discovered = false,

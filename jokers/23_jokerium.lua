@@ -1,7 +1,6 @@
 SMODS.Joker {
   key = 'jokerium',
   attributes = { 'boss_blind', "planet", "passive" },
-
   config = { extra = { levels = 1 } },
   unlocked = true,
   discovered = false,

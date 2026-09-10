@@ -1,6 +1,3 @@
--- Roll a random suit that can make a Flush (5+ suited cards in the full deck).
--- Crossmod-safe: counts base.suit keys present in the deck instead of a fixed
--- suit list, so custom suits work. Falls back to any present suit.
 local function roll_suit(card)
   local counts = {}
   for _, v in ipairs(G.playing_cards or {}) do

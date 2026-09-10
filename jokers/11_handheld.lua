@@ -1,7 +1,6 @@
 SMODS.Joker {
   key = 'handheld',
   attributes = { 'modify_card', 'enhancements' },
-
   unlocked = true,
   discovered = false,
   blueprint_compat = true,

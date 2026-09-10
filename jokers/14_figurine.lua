@@ -1,7 +1,6 @@
 SMODS.Joker {
   key = 'figurine',
   attributes = { 'chips', 'mult', 'xmult', 'xchips', 'editions', 'scaling' },
-
   config = { extra = { chips = 0, mult = 0, x_mult = 1, x_chips = 1, bonus_mult = 1 } },
   unlocked = true,
   discovered = false,
