@@ -630,8 +630,8 @@ return {
       j_Sculio_gun_target = {
         name = 'Objetivo de Práctica',
         text = {
-          'Ganas {C:money}$#1#{} al',
-          'final de cada ronda',
+          'Ganas {C:money}$#1#{} al derrotar',
+          'una {C:attention}Ciega Pequeña{}',
         },
       },
       -- 63. ECG Joker
