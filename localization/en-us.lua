@@ -627,8 +627,8 @@ return {
       j_Sculio_gun_target = {
         name = 'Gun Target',
         text = {
-          'Earn {C:money}$10{} when',
-          'defeating a {C:attention}Small Blind{}',
+          'Earn {C:money}$#1#{} at the',
+          'end of each round',
         },
       },
       -- 63. ECG Joker

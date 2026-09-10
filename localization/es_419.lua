@@ -630,8 +630,8 @@ return {
       j_Sculio_gun_target = {
         name = 'Objetivo de Práctica',
         text = {
-          'Ganas {C:money}$10{} al derrotar',
-          'una {C:attention}Ciega Pequeña{}',
+          'Ganas {C:money}$#1#{} al',
+          'final de cada ronda',
         },
       },
       -- 63. ECG Joker
@@ -827,7 +827,7 @@ return {
         },
       },
       c_Sculio_scientist = {
-        name = 'El Científico',
+        name = 'Erudito',
         text = {
           'Mejora {C:attention}#1#{} cartas seleccionadas',
           'en {C:attention}Cartas Experimentales{}',

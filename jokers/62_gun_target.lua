@@ -5,7 +5,7 @@ SMODS.Joker {
   blueprint_compat = true,
   perishable_compat = true,
   rental_compat = true,
-  config = { extra = { dollars = 10 } },
+  config = { extra = { dollars = 12 } },
   unlocked = true,
   discovered = false,
   rarity = 1, -- Common
@@ -13,7 +13,7 @@ SMODS.Joker {
   pos = { x = 4, y = 6 },
   cost = 4,
   loc_vars = function(self, info_queue, card)
-    return { vars = {} }
+    return { vars = { card.ability.extra.dollars } }
   end,
   calculate = function(self, card, context)
     if context.end_of_round and context.main_eval and not context.game_over then
