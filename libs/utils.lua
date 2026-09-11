@@ -118,7 +118,7 @@ function Sculio:calculate(context)
   -- The Atoned / Reborn: remember modifiers of the last destroyed card
   if context.remove_playing_cards and context.removed then
     for _, c in ipairs(context.removed) do
-      if c.base then
+      if type(c) == 'table' and c.base then
         G.GAME.Sculio_last_destroyed = {
           enhancement = (c.config.center_key ~= 'c_base') and c.config.center_key or nil,
           seal = c.seal,
@@ -137,7 +137,7 @@ function Sculio:calculate(context)
   end
   if context.playing_card_added and context.cards then
     for _, c in ipairs(context.cards) do
-      if c.ability and c.ability.set == 'Enhanced' then
+      if type(c) == 'table' and c.ability and c.ability.set == 'Enhanced' and c.config and c.config.center then
         G.GAME.Sculio_last_enhancement = c.config.center.key
       end
     end
