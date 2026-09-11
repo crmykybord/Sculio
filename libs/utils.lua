@@ -89,7 +89,144 @@ function Sculio.undebuff_list(list)
   end
 end
 
--- Mod-wide context router (trackers + shared round logic) lives in libs/trackers.lua
+function Sculio:calculate(context)
+  -- The Sane: remember the last Inverted Tarot used
+  if context.using_consumeable and context.consumeable and context.consumeable.ability
+      and context.consumeable.ability.set == 'Inverted' then
+    G.GAME.Sculio_last_inverted = context.consumeable.config.center_key
+    if sendDebugMessage then sendDebugMessage('Sculio: recorded last inverted = ' .. tostring(context.consumeable.config.center_key), 'SCULIO') end
+  end
+
+  -- Pierced Cards: 2+ played together destroy each other as the hand starts.
+  -- Must be queued at press_play so the dissolve happens before scoring.
+  if context.press_play and G.hand and G.hand.highlighted then
+    local played = G.hand.highlighted
+    local pierced_cards = {}
+    for _, c in ipairs(played) do
+      if SMODS.has_enhancement(c, 'm_Sculio_pierced') then
+        pierced_cards[#pierced_cards + 1] = c
+      end
+    end
+    if #pierced_cards >= 2 then
+      play_sound('tarot1')
+      for _, boom in ipairs(pierced_cards) do
+        SMODS.destroy_cards(boom)
+      end
+    end
+  end
+
+  -- The Atoned / Reborn: remember modifiers of the last destroyed card
+  if context.remove_playing_cards and context.removed then
+    for _, c in ipairs(context.removed) do
+      if c.base then
+        G.GAME.Sculio_last_destroyed = {
+          enhancement = (c.config.center_key ~= 'c_base') and c.config.center_key or nil,
+          seal = c.seal,
+          edition = c.edition and copy_table(c.edition) or nil,
+        }
+      end
+    end
+  end
+
+  -- Handheld: remember the last enhancement obtained by a deck card
+  if context.setting_ability and context.other_card and context.new ~= context.old then
+    local center = G.P_CENTERS[context.new]
+    if center and center.set == 'Enhanced' then
+      G.GAME.Sculio_last_enhancement = context.new
+    end
+  end
+  if context.playing_card_added and context.cards then
+    for _, c in ipairs(context.cards) do
+      if c.ability and c.ability.set == 'Enhanced' then
+        G.GAME.Sculio_last_enhancement = c.config.center.key
+      end
+    end
+  end
+
+  -- Mercy: remember the last Joker sold
+  if context.selling_card and context.card and context.card.ability.set == 'Joker' then
+    G.GAME.Sculio_last_joker_sold = context.card.config.center_key
+  end
+
+  -- The Mundane: track money spent during the current shop
+  if context.starting_shop then
+    G.GAME.Sculio_shop_spend = 0
+  elseif context.money_altered and context.amount and context.amount < 0 and context.from_shop then
+    G.GAME.Sculio_shop_spend = (G.GAME.Sculio_shop_spend or 0) - context.amount
+  end
+
+  -- Trap Cards can protect adjacent cards from debuffs
+  if context.debuff_card and context.other_card and context.other_card.ability
+      and context.other_card.ability.Sculio_debuff_immune then
+    return { prevent_debuff = true }
+  end
+  if context.end_of_round and context.main_eval and G.playing_cards then
+    for _, c in ipairs(G.playing_cards) do
+      c.ability.Sculio_debuff_immune = nil
+    end
+  end
+end
+
+function Sculio.is_debuff_immune(target)
+  if not target then return false end
+  for _, mod in ipairs(SMODS.mod_list or {}) do
+    if mod.set_debuff and type(mod.set_debuff) == 'function' then
+      local ok, res = pcall(mod.set_debuff, target)
+      if ok and res == 'prevent_debuff' then return true end
+    end
+  end
+  if BUNCOMOD and BUNCOMOD.content and type(BUNCOMOD.content.set_debuff) == 'function' then
+    local ok, res = pcall(BUNCOMOD.content.set_debuff, target)
+    if ok and res == 'prevent_debuff' then return true end
+  end
+  for _, v in pairs(target.ability and target.ability.debuff_sources or {}) do
+    if v == 'prevent_debuff' then return true end
+  end
+  return false
+end
+
+Sculio._xchips_edition_cache = nil
+function Sculio.xchips_editions_exist()
+  local n = 0
+  for _ in pairs(G.P_CENTERS or {}) do n = n + 1 end
+  local cache = Sculio._xchips_edition_cache
+  if cache and cache.n == n then return cache.found end
+  local found = false
+  for _, center in pairs(G.P_CENTERS or {}) do
+    if center.set == 'Edition' and center.config then
+      local cfg = center.config
+      if (cfg.x_chips and cfg.x_chips > 1) or (cfg.Xchips and cfg.Xchips > 1)
+        or (cfg.h_x_chips and cfg.h_x_chips > 1) then
+        found = true
+        break
+      end
+    end
+  end
+  Sculio._xchips_edition_cache = { n = n, found = found }
+  return found
+end
+
+Sculio._stat_text_init_done = Sculio._stat_text_init_done or {}
+function Sculio.maybe_apply_xchips_texts()
+  local lang = (G.SETTINGS and G.SETTINGS.language) or 'en-us'
+  if Sculio._stat_text_init_done[lang] then return end
+  Sculio._stat_text_init_done[lang] = true
+  if not Sculio.xchips_editions_exist() then return end
+  local desc = G.localization and G.localization.descriptions and G.localization.descriptions.Joker
+  if not desc then return end
+  local alts = {
+    j_Sculio_figurine = 'j_Sculio_figurine_xchips',
+    j_Sculio_puck = 'j_Sculio_puck_xchips',
+  }
+  for key, alt_key in pairs(alts) do
+    local alt = desc[alt_key]
+    if desc[key] and alt and alt.text then desc[key].text = alt.text end
+  end
+end
+
+function Sculio.reset_game_globals(run_start)
+  if run_start then Sculio.maybe_apply_xchips_texts() end
+end
 
 -- List of registered Inverted Tarot keys
 function Sculio.inverted_pool()
@@ -250,5 +387,3 @@ function Sculio.count_suit_deck(suit)
   end
   return count
 end
-
--- Figurine/Puck XChips edition-text swap lives in libs/edition_texts.lua
