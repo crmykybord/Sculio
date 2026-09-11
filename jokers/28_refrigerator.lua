@@ -232,9 +232,6 @@ if not Sculio.refrigerator_calculate_joker_ref then
   Sculio.refrigerator_calculate_joker_ref = Card.calculate_joker
 
   Card.calculate_joker = function(self, context)
-    -- Strict fast path (perf): a single joker scan with early break. Without
-    -- a refrigerator in play, skip all food checks (PB_UTIL call included)
-    -- and go straight to the original evaluation.
     local joker_cards = G and G.jokers and G.jokers.cards
     if not joker_cards then
       return Sculio.refrigerator_calculate_joker_ref(self, context)

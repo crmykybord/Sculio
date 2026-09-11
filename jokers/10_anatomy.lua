@@ -1,7 +1,6 @@
 SMODS.Joker {
   key = 'anatomy',
   attributes = { 'retrigger', 'rank', 'chance' },
-
   config = { extra = { odds = 10 } },
   unlocked = true,
   discovered = false,

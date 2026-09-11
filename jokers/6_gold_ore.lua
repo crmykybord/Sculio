@@ -1,7 +1,6 @@
 SMODS.Joker {
   key = 'gold_ore',
   attributes = { 'modify_card', 'seals', 'enhancements' },
-
   unlocked = true,
   discovered = false,
   rarity = 2, -- Uncommon

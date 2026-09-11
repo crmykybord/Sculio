@@ -5,7 +5,7 @@ SMODS.Joker {
   blueprint_compat = true,
   perishable_compat = true,
   rental_compat = true,
-  config = { extra = { x_mult = 1.0, x_mult_gain = 0.03, x_mult_max = 2 } },
+  config = { extra = { x_mult = 1.0, x_mult_gain = 0.04, x_mult_max = 2 } },
   unlocked = true,
   discovered = false,
   rarity = 1, -- Common
@@ -24,7 +24,7 @@ SMODS.Joker {
       end
     end
     if context.joker_main and card.ability.extra.x_mult > 1 then
-      return { xmult = card.ability.extra.x_mult, message = localize { type = 'variable', key = 'a_xmult', vars = { card.ability.extra.x_mult } } }
+      return { xmult = card.ability.extra.x_mult }
     end
   end
 }

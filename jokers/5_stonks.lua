@@ -1,7 +1,6 @@
 SMODS.Joker {
   key = 'stonks',
   attributes = { 'mult', 'boss_blind', 'scaling' },
-
   config = { extra = { mult = 2 } },
   unlocked = true,
   discovered = false,

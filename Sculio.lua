@@ -9,10 +9,8 @@ SMODS.current_mod.optional_features = function()
   return { post_trigger = true }
 end
 
--- Talisman compat
-to_big = to_big or function(x) return x end
-
 assert(SMODS.load_file('libs/utils.lua'))()
+assert(SMODS.load_file('libs/deckskins.lua'))()
 
 -- Load cards: https://github.com/neatoqueen/NeatoJokers/blob/main/NeatoJokers.lua#L32
 local function load_dir(subdir, skip_files)

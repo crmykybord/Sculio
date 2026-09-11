@@ -1,6 +1,5 @@
 -- Template: what one enhancement center grants when scored (shared with held-card caching)
 local ODDS = 4
-
 local function enhancement_template(center)
   local cfg = center.config
   if center.key == 'm_lucky' then return { lucky = true } end

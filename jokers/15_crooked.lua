@@ -1,7 +1,6 @@
 SMODS.Joker {
   key = 'crooked',
   attributes = { 'hand_size', 'economy' },
-
   config = { extra = { hand_size_bonus = 3, steal = 3, money_min = 0 } },
   unlocked = true,
   discovered = false,
@@ -26,7 +25,7 @@ SMODS.Joker {
     if context.end_of_round and context.main_eval and not context.game_over and not context.blueprint then
       ease_dollars(-card.ability.extra.steal)
 
-      if to_big(G.GAME.dollars - card.ability.extra.steal) <= to_big(card.ability.extra.money_min) then
+      if G.GAME.dollars - card.ability.extra.steal <= card.ability.extra.money_min then
         Sculio.destroy_joker(card)
 
         return { message = localize { type = 'variable', key = 'k_Sculio_crooked_bailed', vars = { card.ability.extra.steal } }, colour = G.C.FILTER }

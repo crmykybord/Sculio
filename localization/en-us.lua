@@ -178,6 +178,15 @@ return {
           '{C:inactive}(Currently {C:chips}+#1#{}{C:inactive} Chips, {C:mult}+#2#{}{C:inactive} Mult, {X:mult,C:white}X#3#{}{C:inactive} Mult)'
         },
       }, 
+      -- Figurine XChips alt text (applied at runtime when an XChips edition exists)
+      j_Sculio_figurine_xchips = {
+        name = 'Figurine',
+        text = {
+          'When a Joker with an {C:attention}edition{} is sold,',
+          'this Joker gains the {C:attention}edition\'s bonus{}',
+          '{C:inactive}(Currently {C:chips}+#1#{}{C:inactive} Chips, {C:mult}+#2#{}{C:inactive} Mult, {X:mult,C:white}X#3#{}{C:inactive} Mult, and {X:chips,C:white}X#4#{}{C:inactive} Chips)',
+        },
+      }, 
       -- 15. Crooked Joker
       j_Sculio_crooked = {
         name = 'Crooked Joker',
@@ -501,7 +510,7 @@ return {
           'After defeating a {C:attention}Boss Blind{},',
           'grants a random {C:attention}Enhancement{},',
           '{C:attention}Seal{} or {C:dark_edition}Edition{} to {C:attention}#1#{} cards',
-          'in your deck'
+          'in your deck that have none'
         },
       },
       -- 49. Gladiator Joker
@@ -627,7 +636,7 @@ return {
       j_Sculio_gun_target = {
         name = 'Gun Target',
         text = {
-          'Earn {C:money}$10{} when',
+          'Earn {C:money}$#1#{} when',
           'defeating a {C:attention}Small Blind{}',
         },
       },
@@ -721,6 +730,15 @@ return {
           '{C:inactive,s:0.8}(Currently {C:chips,s:0.8}+#1#{}{C:inactive,s:0.8} Chips, {C:mult,s:0.8}+#2#{}{C:inactive,s:0.8} Mult, {X:mult,C:white,s:0.8}X#3#{}{C:inactive,s:0.8} Mult)'
         }
       },
+      -- Puck XChips alt text (applied at runtime when an XChips edition exists)
+      j_Sculio_puck_xchips = {
+        name = 'Puck',
+        text = {
+          'When a card with an {C:attention}edition{} is scored,',
+          'this Joker gains the {C:attention}edition\'s bonus{}',
+          '{C:inactive,s:0.8}(Currently {C:chips,s:0.8}+#1#{}{C:inactive,s:0.8} Chips, {C:mult,s:0.8}+#2#{}{C:inactive,s:0.8} Mult, {X:mult,C:white,s:0.8}X#3#{}{C:inactive,s:0.8} Mult, and {X:chips,C:white,s:0.8}X#4#{}{C:inactive,s:0.8} Chips)',
+        }
+      },
     },
     Tag = {
       tag_Sculio_unstoppable = {
@@ -736,7 +754,7 @@ return {
       m_Sculio_experimental = {
         name = 'Experimental Card',
         text = {
-          'After being scored {C:attention}#2# times{} {C:inactive}(#1#/7){},',
+          'After scoring {C:attention}#2# times{} {C:inactive}(#1#/7){},',
           'creates a random {C:attention}Tag{}',
           'and becomes a {C:attention}Lead Card{}',
         },
@@ -744,16 +762,16 @@ return {
       m_Sculio_lead = {
         name = 'Lead Card',
         text = {
-          'Always stays at the',
-          'bottom of your {C:attention}deck{}',
+          'Stays at the bottom',
+          'of your {C:attention}deck{}',
         },
       },
       m_Sculio_wandering = {
         name = 'Wandering Card',
         text = {
-          'If left in hand when you',
-          'play a hand, discards itself',
-          'and gains permanent {C:mult}+1 Mult{}',
+          'If in hand when you play,',
+          'discards itself and gains',
+          '{C:mult}+1 Mult{}',
         },
       },
       m_Sculio_profane = {
@@ -769,11 +787,11 @@ return {
         name = 'Pierced Card',
         text = {
           {
-            'Gives {X:mult,C:white}X2{} Mult before',
-            'and after the hand scores',
+            '{X:mult,C:white}X2{} Mult before',
+            'and after the hand is played',
           },
           {
-            'It {C:red}self-destructs{}',
+            '{C:red}Self-destructs{}',
             'if played with another',
             'Pierced Card',
           },
@@ -799,7 +817,7 @@ return {
         text = {
           'While held in hand, scoring cards',
           'get {C:chips}+7 Chips{} or {C:mult}+3 Mult{}.',
-          'Its mode alternates between hands',
+          'Alternates its mode between hands',
         },
       },
       m_Sculio_siege = {

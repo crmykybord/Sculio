@@ -1,5 +1,4 @@
 Sculio = Sculio or {}
-
 -- Destroy a joker card with standard animation and sound (based off Ice Cream)
 function Sculio.destroy_joker(card)
   G.E_MANAGER:add_event(Event({
@@ -24,8 +23,7 @@ function Sculio.destroy_joker(card)
   }))
 end
 
--- Absorb edition bonuses from a sold card (used by Figurine and Puck)
--- Returns a message string if any bonus was applied, nil otherwise
+-- Absorb edition bonuses from a sold joker or scored card (used by Figurine and Puck)
 function Sculio.absorb_edition(target_card, sold_card, bonus_mult)
   local ed = sold_card.edition
   if not ed then return nil end
@@ -91,10 +89,7 @@ function Sculio.undebuff_list(list)
   end
 end
 
--- Mod-wide trackers used by the Inverted Tarots
 function Sculio:calculate(context)
-  -- One-time text setup (Figurine/Puck XChips swap); single flag check after
-  Sculio.maybe_apply_xchips_texts()
   -- The Sane: remember the last Inverted Tarot used
   if context.using_consumeable and context.consumeable and context.consumeable.ability
       and context.consumeable.ability.set == 'Inverted' then
@@ -103,7 +98,7 @@ function Sculio:calculate(context)
   end
 
   -- Pierced Cards: 2+ played together destroy each other as the hand starts.
-  -- Must be queued at press_play so the dissolve happens before scoring resolves.
+  -- Must be queued at press_play so the dissolve happens before scoring.
   if context.press_play and G.hand and G.hand.highlighted then
     local played = G.hand.highlighted
     local pierced_cards = {}
@@ -133,7 +128,7 @@ function Sculio:calculate(context)
     end
   end
 
-  -- Juego Retro: remember the last enhancement obtained by a deck card
+  -- Handheld: remember the last enhancement obtained by a deck card
   if context.setting_ability and context.other_card and context.new ~= context.old then
     local center = G.P_CENTERS[context.new]
     if center and center.set == 'Enhanced' then
@@ -172,6 +167,67 @@ function Sculio:calculate(context)
   end
 end
 
+function Sculio.is_debuff_immune(target)
+  if not target then return false end
+  for _, mod in ipairs(SMODS.mod_list or {}) do
+    if mod.set_debuff and type(mod.set_debuff) == 'function' then
+      local ok, res = pcall(mod.set_debuff, target)
+      if ok and res == 'prevent_debuff' then return true end
+    end
+  end
+  if BUNCOMOD and BUNCOMOD.content and type(BUNCOMOD.content.set_debuff) == 'function' then
+    local ok, res = pcall(BUNCOMOD.content.set_debuff, target)
+    if ok and res == 'prevent_debuff' then return true end
+  end
+  for _, v in pairs(target.ability and target.ability.debuff_sources or {}) do
+    if v == 'prevent_debuff' then return true end
+  end
+  return false
+end
+
+Sculio._xchips_edition_cache = nil
+function Sculio.xchips_editions_exist()
+  local n = 0
+  for _ in pairs(G.P_CENTERS or {}) do n = n + 1 end
+  local cache = Sculio._xchips_edition_cache
+  if cache and cache.n == n then return cache.found end
+  local found = false
+  for _, center in pairs(G.P_CENTERS or {}) do
+    if center.set == 'Edition' and center.config then
+      local cfg = center.config
+      if (cfg.x_chips and cfg.x_chips > 1) or (cfg.Xchips and cfg.Xchips > 1)
+        or (cfg.h_x_chips and cfg.h_x_chips > 1) then
+        found = true
+        break
+      end
+    end
+  end
+  Sculio._xchips_edition_cache = { n = n, found = found }
+  return found
+end
+
+Sculio._stat_text_init_done = Sculio._stat_text_init_done or {}
+function Sculio.maybe_apply_xchips_texts()
+  local lang = (G.SETTINGS and G.SETTINGS.language) or 'en-us'
+  if Sculio._stat_text_init_done[lang] then return end
+  Sculio._stat_text_init_done[lang] = true
+  if not Sculio.xchips_editions_exist() then return end
+  local desc = G.localization and G.localization.descriptions and G.localization.descriptions.Joker
+  if not desc then return end
+  local alts = {
+    j_Sculio_figurine = 'j_Sculio_figurine_xchips',
+    j_Sculio_puck = 'j_Sculio_puck_xchips',
+  }
+  for key, alt_key in pairs(alts) do
+    local alt = desc[alt_key]
+    if desc[key] and alt and alt.text then desc[key].text = alt.text end
+  end
+end
+
+function Sculio.reset_game_globals(run_start)
+  if run_start then Sculio.maybe_apply_xchips_texts() end
+end
+
 -- List of registered Inverted Tarot keys
 function Sculio.inverted_pool()
   local pool = {}
@@ -183,7 +239,7 @@ function Sculio.inverted_pool()
   return pool
 end
 
--- Create up to n copies of a center inside an area (vanilla Emperor style)
+-- Create up to n copies of a center inside an area
 function Sculio.create_center_card(center_key, area, n, seed)
   n = n or 1
   seed = seed or 'sculio_create'
@@ -212,7 +268,7 @@ function Sculio.hand_selection_state()
     or G.STATE == G.STATES.PLANET_PACK
 end
 
--- Flip animation for consumable targets, following PB_UTIL.use_consumable_animation (Paperback)
+-- Flip animation for consumable targets
 function Sculio.flip_highlighted(card, cards, apply_fn)
   if card then
     G.E_MANAGER:add_event(Event({ trigger = 'after', delay = 0.4, func = function()
@@ -330,48 +386,4 @@ function Sculio.count_suit_deck(suit)
     if c.base.suit == suit then count = count + 1 end
   end
   return count
-end
-
--- Cached check: does any registered Edition grant XChips? Figurine and Puck
--- tooltips show the XChips stat only when it can actually be gained.
-Sculio._xchips_edition_cache = nil
-function Sculio.xchips_editions_exist()
-  local n = 0
-  for _ in pairs(G.P_CENTERS or {}) do n = n + 1 end
-  local cache = Sculio._xchips_edition_cache
-  if cache and cache.n == n then return cache.found end
-  local found = false
-  for _, center in pairs(G.P_CENTERS or {}) do
-    if center.set == 'Edition' and center.config then
-      local cfg = center.config
-      if (cfg.x_chips and cfg.x_chips > 1) or (cfg.Xchips and cfg.Xchips > 1)
-        or (cfg.h_x_chips and cfg.h_x_chips > 1) then
-        found = true
-        break
-      end
-    end
-  end
-  Sculio._xchips_edition_cache = { n = n, found = found }
-  return found
-end
-
--- One-time swap of Figurine/Puck description text (3-stat base -> 4-stat with
--- XChips) when an XChips-granting edition from any mod is detected. Runs once
--- per language on the first calculate call (all mods loaded by then), so the
--- center scan happens a single time instead of on every tooltip render.
-Sculio._stat_text_init_done = Sculio._stat_text_init_done or {}
-function Sculio.maybe_apply_xchips_texts()
-  local lang = (G.SETTINGS and G.SETTINGS.language) or 'en-us'
-  if Sculio._stat_text_init_done[lang] then return end
-  Sculio._stat_text_init_done[lang] = true
-  if not Sculio.xchips_editions_exist() then return end
-  local desc = G.localization and G.localization.descriptions and G.localization.descriptions.Joker
-  if not desc then return end
-  local alts = {
-    j_Sculio_figurine = Sculio.FIGURINE_ALT_TEXT and (Sculio.FIGURINE_ALT_TEXT[lang] or Sculio.FIGURINE_ALT_TEXT['en-us']),
-    j_Sculio_puck = Sculio.PUCK_ALT_TEXT and (Sculio.PUCK_ALT_TEXT[lang] or Sculio.PUCK_ALT_TEXT['en-us']),
-  }
-  for key, alt in pairs(alts) do
-    if desc[key] and alt then desc[key].text = alt end
-  end
 end

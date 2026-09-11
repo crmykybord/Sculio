@@ -8,7 +8,7 @@ SMODS.Joker {
   config = { extra = { mult = 8 } },
   unlocked = true,
   discovered = false,
-  rarity = 2,
+  rarity = 1,
   atlas = 'Sculio',
   pos = { x = 3, y = 5 },
   cost = 5,

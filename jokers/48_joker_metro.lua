@@ -17,10 +17,10 @@ SMODS.Joker {
   config = { extra = { cards = 5 } },
   unlocked = true,
   discovered = false,
-  rarity = 2,
+  rarity = 3,
   atlas = 'Sculio',
   pos = { x = 0, y = 5 },
-  cost = 8,
+  cost = 7,
   loc_vars = function(self, info_queue, card)
     card.ability.extra.cards = card.ability.extra.cards or 5 -- old saves without the rework
     return { vars = { card.ability.extra.cards } }
@@ -30,7 +30,9 @@ SMODS.Joker {
       card.ability.extra.cards = card.ability.extra.cards or 5
       local candidates = {}
       for _, c in ipairs(G.playing_cards or {}) do
-        candidates[#candidates + 1] = c
+        if c.config.center == G.P_CENTERS.c_base and not c.seal and not c.edition then
+          candidates[#candidates + 1] = c
+        end
       end
 
       G.E_MANAGER:add_event(Event({
@@ -60,7 +62,7 @@ SMODS.Joker {
         end
       }))
 
-      return { message = localize('k_upgrade_ex'), colour = G.C.FILTER }
+      return #candidates > 0 and { message = localize('k_upgrade_ex'), colour = G.C.FILTER } or nil
     end
   end
 }
