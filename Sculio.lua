@@ -9,9 +9,6 @@ SMODS.current_mod.optional_features = function()
   return { post_trigger = true }
 end
 
--- Talisman compat
-to_big = to_big or function(x) return x end
-
 assert(SMODS.load_file('libs/utils.lua'))()
 assert(SMODS.load_file('libs/deckskins.lua'))()
 
