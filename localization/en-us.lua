@@ -837,12 +837,12 @@ return {
         text = {
           'Copies the last {C:inverted}Inverted Tarot{} used',
           '{C:inactive}(Currently: #1#){}',
-          'If it would copy itself,',
+          'If it were to copy itself,',
           'becomes {C:attention}The Fool{} instead',
         },
       },
-      c_Sculio_scientist = {
-        name = 'Scholar',
+      c_Sculio_scholar = {
+        name = 'The Scholar',
         text = {
           'Enhances {C:attention}#1#{} selected cards',
           'into {C:attention}Experimental Cards{}',

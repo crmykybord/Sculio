@@ -1,5 +1,5 @@
 SMODS.Consumable {
-  key = 'scientist',
+  key = 'scholar',
   set = 'Inverted',
   atlas = 'Sculio_Consumables',
   pos = { x = 1, y = 0 },
