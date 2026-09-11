@@ -22,6 +22,8 @@ SMODS.Joker {
       if not trigger_card or trigger_card == card then return end
       card.ability.extra.triggers_since_gain = card.ability.extra.triggers_since_gain + 1
       if card.ability.extra.triggers_since_gain >= card.ability.extra.triggers_per_gain then
+        local oc = context.other_context
+        if oc and (oc.repetition or oc.repetition_only or oc.retrigger_joker) then return end
         card.ability.extra.triggers_since_gain = card.ability.extra.triggers_since_gain - card.ability.extra.triggers_per_gain
         return { dollars = card.ability.extra.money_gain, card = card, message_card = card }
       end
