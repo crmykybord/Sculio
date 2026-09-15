@@ -7,7 +7,7 @@ local function force_zero_rates()
 end
 
 SMODS.Joker {
-  key = 'bathroom_signage',
+  key = 'signage',
   attributes = { 'passive', 'joker' },
   unlocked = true,
   discovered = false,

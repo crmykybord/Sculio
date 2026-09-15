@@ -2,8 +2,8 @@ local COLLABS = {
   { key = 'dhmis', name = 'DHMIS', suit = 'Hearts' },
   { key = 'daft_punk', name = 'Daft Punk', suit = 'Spades' },
   { key = 'peak', name = 'Peak', suit = 'Clubs' },
-  { key = 'new_vegas', name = 'FallOut New Vegas', suit = 'Spades' },
-  { key = 'new_vegas_2', name = 'FallOut New Vegas', suit = 'Hearts' },
+  { key = 'new_vegas', name = 'Fallout New Vegas', suit = 'Spades' },
+  { key = 'new_vegas_2', name = 'Fallout New Vegas', suit = 'Hearts' },
   { key = 'faith', name = 'FAITH', suit = 'Diamonds' },
   { key = 'endacopia', name = 'Endacopia', suit = 'Hearts' },
 }
