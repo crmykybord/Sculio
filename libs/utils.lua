@@ -266,6 +266,7 @@ function Sculio.hand_selection_state()
     or G.STATE == G.STATES.TAROT_PACK
     or G.STATE == G.STATES.SPECTRAL_PACK
     or G.STATE == G.STATES.PLANET_PACK
+    or G.STATE == G.STATES.SMODS_BOOSTER_OPENED
 end
 
 -- Flip animation for consumable targets

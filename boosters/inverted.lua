@@ -33,7 +33,10 @@ local function register(key, pos, size, weight, cost, order, config)
     attributes = { size },
     loc_vars = pack_loc_vars,
     create_card = inverted_card,
-    ease_background_colour = function(self) ease_background_colour_blind(G.STATES.TAROT_PACK) end,
+    ease_background_colour = function(self)
+      ease_colour(G.C.DYN_UI.MAIN, mix_colours(G.C.SECONDARY_SET.Inverted, G.C.BLACK, 0.9))
+      ease_background_colour{new_colour = G.C.SECONDARY_SET.Inverted, special_colour = darken(G.C.BLACK, 0.2), contrast = 2}
+    end,
   }
 end
 
