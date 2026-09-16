@@ -3,6 +3,7 @@ SMODS.Atlas { key = 'Sculio', path = 'Sculio.png', px = 71, py = 95 }
 SMODS.Atlas { key = 'Sculio_Tags', path = 'Tags.png', px = 34, py = 34 }
 SMODS.Atlas { key = 'Sculio_Consumables', path = 'Consumables.png', px = 71, py = 95 }
 SMODS.Atlas { key = 'Sculio_Enhancements', path = 'Enhancements.png', px = 71, py = 95 }
+SMODS.Atlas { key = 'Sculio_Booster', path = 'Booster Packs.png', px = 71, py = 95 }
 SMODS.ConsumableType { key = 'Inverted', primary_colour = HEX 'B14AB8', secondary_colour = HEX 'A84C45', collection_rows = { 6, 5 }, }
 
 SMODS.current_mod.optional_features = function()
@@ -53,6 +54,7 @@ load_dir('jokers', skip_files)
 load_dir('consumables', skip_files)
 load_dir('enhancements', skip_files)
 load_dir('seals', skip_files)
+load_dir('boosters', skip_files)
 
 assert(SMODS.load_file('libs/shuffle.lua'))()
 

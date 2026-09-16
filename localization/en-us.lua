@@ -53,6 +53,30 @@ return {
           'when this card is discarded',
         },
       },
+      p_Sculio_inverted_normal = {
+        name = 'Inverted Arcana Pack',
+        text = {
+          'Choose {C:attention}#1#{} of up to',
+          '{C:attention}#2# {C:inverted}Inverted Tarot{} cards',
+          'to use immediately',
+        },
+      },
+      p_Sculio_inverted_jumbo = {
+        name = 'Jumbo Inverted Arcana Pack',
+        text = {
+          'Choose {C:attention}#1#{} of up to',
+          '{C:attention}#2# {C:inverted}Inverted Tarot{} cards',
+          'to use immediately',
+        },
+      },
+      p_Sculio_inverted_mega = {
+        name = 'Mega Inverted Arcana Pack',
+        text = {
+          'Choose {C:attention}#1#{} of up to',
+          '{C:attention}#2# {C:inverted}Inverted Tarot{} cards',
+          'to use immediately',
+        },
+      },
     },
     Joker = {
       -- 1. Schrödinger's Joker
@@ -1043,6 +1067,7 @@ return {
       k_Sculio_plus_inverted = '+1 Inverted Tarot',
       k_inverted = 'Inverted Tarot',
       b_inverted_cards = 'Inverted Tarots',
+      k_booster_group_sculio_inverted = 'Inverted Arcana Packs',
       Sculio_trap_unknown_trigger = 'rolled',
       Sculio_trap_unknown_effect = 'A random effect from weighted rarity pools',
       Sculio_trap_played = 'played',

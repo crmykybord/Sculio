@@ -54,6 +54,30 @@ return {
           'al descartar esta carta',
         },
       },
+      p_Sculio_inverted_normal = {
+        name = 'Paquete Arcano Invertido',
+        text = {
+          'Elige {C:attention}#1#{} de hasta',
+          '{C:attention}#2# cartas de {C:inverted}Tarot Invertido{}',
+          'para usar de inmediato',
+        },
+      },
+      p_Sculio_inverted_jumbo = {
+        name = 'Paquete Arcano Invertido jumbo',
+        text = {
+          'Elige {C:attention}#1#{} de hasta',
+          '{C:attention}#2# cartas de {C:inverted}Tarot Invertido{}',
+          'para usar de inmediato',
+        },
+      },
+      p_Sculio_inverted_mega = {
+        name = 'Paquete Arcano Invertido mega',
+        text = {
+          'Elige {C:attention}#1#{} de hasta',
+          '{C:attention}#2# cartas de {C:inverted}Tarot Invertido{}',
+          'para usar de inmediato',
+        },
+      },
     },
     Joker = {
       -- 1. Schrödinger's Joker
@@ -1042,6 +1066,7 @@ return {
       k_Sculio_plus_inverted = '+1 Tarot Invertido',
       k_inverted = 'Tarot Invertido',
       b_inverted_cards = 'Tarots Invertidos',
+      k_booster_group_sculio_inverted = 'Paquetes Arcanos Invertidos',
       Sculio_trap_unknown_trigger = 'al azar',
       Sculio_trap_unknown_effect = 'Un efecto aleatorio de pools de rareza ponderados',
       Sculio_trap_played = 'juega',
