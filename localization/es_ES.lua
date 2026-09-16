@@ -47,6 +47,13 @@ return {
           '{C:attention}Perecedero{} y {C:attention}Alquiler{}'
         }
       },
+      sculio_inverted_seal = {
+        name = 'Sello de Tarot Invertido',
+        text = {
+          'Crea un {C:inverted}Tarot Invertido{}',
+          'al descartar esta carta',
+        },
+      },
     },
     Joker = {
       -- 1. Schrödinger's Joker
@@ -1023,6 +1030,7 @@ return {
       k_Sculio_bad_trip_randomized = '¡Baraja cambiada!',
       k_Sculio_ecg_discard = '+1 Descarte',
       k_Sculio_none = 'Nada',
+      k_Sculio_plus_inverted = '+1 Tarot Invertido',
       k_inverted = 'Tarot Invertido',
       b_inverted_cards = 'Tarots Invertidos',
       Sculio_trap_unknown_trigger = 'al azar',
@@ -1050,6 +1058,7 @@ return {
     },
     labels = {
       inverted = 'Tarot Invertido',
+      sculio_inverted_seal = 'Sello de Tarot Invertido',
     },
   },
 }

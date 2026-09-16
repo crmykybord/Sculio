@@ -46,6 +46,13 @@ return {
           'and {C:attention}Rental{} stickers'
         }
       },
+      sculio_inverted_seal = {
+        name = 'Inverted Tarot Seal',
+        text = {
+          'Creates an {C:inverted}Inverted Tarot{}',
+          'when this card is discarded',
+        },
+      },
     },
     Joker = {
       -- 1. Schrödinger's Joker
@@ -1024,6 +1031,7 @@ return {
       k_Sculio_compatible = 'Compatible',
       k_Sculio_incompatible = 'Incompatible',
       k_Sculio_none = 'None',
+      k_Sculio_plus_inverted = '+1 Inverted Tarot',
       k_inverted = 'Inverted Tarot',
       b_inverted_cards = 'Inverted Tarots',
       Sculio_trap_unknown_trigger = 'rolled',
@@ -1051,6 +1059,7 @@ return {
     },
     labels = {
       inverted = 'Inverted Tarot',
+      sculio_inverted_seal = 'Inverted Tarot Seal',
     },
   },
 }

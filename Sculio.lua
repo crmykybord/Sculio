@@ -52,6 +52,7 @@ local skip_files = {
 load_dir('jokers', skip_files)
 load_dir('consumables', skip_files)
 load_dir('enhancements', skip_files)
+load_dir('seals', skip_files)
 
 assert(SMODS.load_file('libs/shuffle.lua'))()
 
