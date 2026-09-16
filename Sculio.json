@@ -9,5 +9,5 @@
   "icon_path": "modicon.png",
   "icon_width": 32,
   "dependencies": [ "Steamodded (>=26.829.0)" ],
-  "version": "1.3.9"
+  "version": "1.4.0"
 }

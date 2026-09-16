@@ -506,7 +506,7 @@ return {
           '{C:inactive}(Debe haber espacio){}'
         }
       }, 
-      -- 45. Googly Eyes
+      -- 45. Craft Joker
       j_Sculio_craft_joker = {
         name = 'Comodín Artesanal',
         text = {
@@ -963,7 +963,7 @@ return {
         name = 'Los Adversarios',
         text = {
           'Mejora exactamente {C:attention}3{} cartas',
-          'en {C:attention}Cartas Perforadas{}',
+          'en {C:attention}Cartas Melancólicas{}',
         },
       },
       c_Sculio_pikeman = {

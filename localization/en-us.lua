@@ -961,7 +961,7 @@ return {
         name = 'The Adversaries',
         text = {
           'Enhances exactly {C:attention}3{} cards',
-          'into {C:attention}Pierced Cards{}',
+          'into {C:attention}Melancholic Cards{}',
         },
       },
       c_Sculio_pikeman = {
