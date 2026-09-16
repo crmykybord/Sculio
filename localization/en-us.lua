@@ -820,8 +820,8 @@ return {
           '{X:mult,C:white}X#1#{} Mult when scored',
         },
       },
-      m_Sculio_pierced = {
-        name = 'Pierced Card',
+      m_Sculio_melancholic = {
+        name = 'Melancholic Card',
         text = {
           {
             '{X:mult,C:white}X2{} Mult before',
@@ -830,7 +830,7 @@ return {
           {
             '{C:red}Self-destructs{}',
             'if played with another',
-            'Pierced Card',
+            'Melancholic Card',
           },
         },
       },

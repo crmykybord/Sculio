@@ -97,19 +97,19 @@ function Sculio:calculate(context)
     if sendDebugMessage then sendDebugMessage('Sculio: recorded last inverted = ' .. tostring(context.consumeable.config.center_key), 'SCULIO') end
   end
 
-  -- Pierced Cards: 2+ played together destroy each other as the hand starts.
+  -- Melancholic Cards: 2+ played together destroy each other as the hand starts.
   -- Must be queued at press_play so the dissolve happens before scoring.
   if context.press_play and G.hand and G.hand.highlighted then
     local played = G.hand.highlighted
-    local pierced_cards = {}
+    local melancholic_cards = {}
     for _, c in ipairs(played) do
-      if SMODS.has_enhancement(c, 'm_Sculio_pierced') then
-        pierced_cards[#pierced_cards + 1] = c
+      if SMODS.has_enhancement(c, 'm_Sculio_melancholic') then
+        melancholic_cards[#melancholic_cards + 1] = c
       end
     end
-    if #pierced_cards >= 2 then
+    if #melancholic_cards >= 2 then
       play_sound('tarot1')
-      for _, boom in ipairs(pierced_cards) do
+      for _, boom in ipairs(melancholic_cards) do
         SMODS.destroy_cards(boom)
       end
     end

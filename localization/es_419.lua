@@ -823,8 +823,8 @@ return {
           '{X:mult,C:white}X#1#{} Multi al anotar',
         },
       },
-      m_Sculio_pierced = {
-        name = 'Carta Perforada',
+      m_Sculio_melancholic = {
+        name = 'Carta Melancólica',
         text = {
           {
             "{X:mult,C:white}X2{} Multi antes y",
@@ -833,7 +833,7 @@ return {
           {
             "Se {C:red}autodestruye{}",
             "si se juega con otra",
-            "carta perforada",
+            "carta melancólica",
           }
         },
       },
