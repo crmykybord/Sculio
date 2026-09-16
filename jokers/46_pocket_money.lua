@@ -16,13 +16,14 @@ SMODS.Joker {
     return { vars = { card.ability.extra.money_recover } }
   end,
   calculate = function(self, card, context)
-    local source = context.blueprint and context.blueprint_card or card
+    -- Blueprint routes here with card = this Joker (context.blueprint_card = Blueprint,
+    -- whose ability.extra is nil). Always read/write state on card, never on the copier.
     if (context.buying_card or context.buying_voucher or context.open_booster) and context.card ~= card then
-      if not source.ability.extra.used_this_round then
-        source.ability.extra.used_this_round = true
+      if not card.ability.extra.used_this_round then
+        card.ability.extra.used_this_round = true
 
         local cost = context.card and context.card.cost or 0
-        local amount = math.min(cost, source.ability.extra.money_recover)
+        local amount = math.min(cost, card.ability.extra.money_recover)
 
         if amount > 0 then
           G.E_MANAGER:add_event(Event({
@@ -42,7 +43,7 @@ SMODS.Joker {
     end
 
     if context.end_of_round and context.main_eval and not context.game_over then
-      source.ability.extra.used_this_round = false
+      card.ability.extra.used_this_round = false
     end
   end
 }
