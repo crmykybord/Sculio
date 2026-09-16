@@ -48,7 +48,7 @@ return {
         }
       },
       sculio_inverted_seal = {
-        name = 'Sello de Tarot Invertido',
+        name = 'Sello Invertido',
         text = {
           'Crea un {C:inverted}Tarot Invertido{}',
           'al descartar esta carta',
@@ -804,9 +804,9 @@ return {
     },
     Back = {
       b_Sculio_cetonic = {
-        name = 'Baraja Cetónica',
+        name = 'Baraja Ctónica',
         text = {
-          'Los {C:tarot}Paquetes Arcanos{} nunca',
+          'Los {C:tarot}Paquetes Arcanos{} no',
           'aparecerán en la tienda',
         },
       },
@@ -900,14 +900,14 @@ return {
     },
     Spectral = {
       c_Sculio_snuff = {
-        name = 'Snuff',
+        name = 'Sofocar',
         text = {
-          'Agrega un {C:inverted}Sello de Tarot Invertido{}',
+          'Agrega un {C:inverted}Sello Invertido{}',
           'a {C:attention}1{} carta seleccionada',
         },
       },
       c_Sculio_transfix = {
-        name = 'Transfix',
+        name = 'Atravesar',
         text = {
           'Mejora {C:attention}3{} cartas seleccionadas',
           'en {C:attention}Cartas Perforadas{}',
@@ -1132,7 +1132,7 @@ return {
     },
     labels = {
       inverted = 'Tarot Invertido',
-      sculio_inverted_seal = 'Sello de Tarot Invertido',
+      sculio_inverted_seal = 'Sello Invertido',
     },
   },
 }

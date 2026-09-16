@@ -47,7 +47,7 @@ return {
         }
       },
       sculio_inverted_seal = {
-        name = 'Inverted Tarot Seal',
+        name = 'Inverted Seal',
         text = {
           'Creates an {C:inverted}Inverted Tarot{}',
           'when this card is discarded',
@@ -801,10 +801,10 @@ return {
     },
     Back = {
       b_Sculio_cetonic = {
-        name = 'Cetonic Deck',
+        name = 'Cthonic Deck',
         text = {
-          '{C:tarot}Arcana Packs{} will',
-          'never appear in the shop',
+          '{C:tarot}Arcana Packs{} no',
+          'longer appear in the shop',
         },
       },
     },
@@ -899,7 +899,7 @@ return {
       c_Sculio_snuff = {
         name = 'Snuff',
         text = {
-          'Adds an {C:inverted}Inverted Tarot Seal{}',
+          'Adds an {C:inverted}Inverted Seal{}',
           'to {C:attention}1{} selected card',
         },
       },
@@ -1133,7 +1133,7 @@ return {
     },
     labels = {
       inverted = 'Inverted Tarot',
-      sculio_inverted_seal = 'Inverted Tarot Seal',
+      sculio_inverted_seal = 'Inverted Seal',
     },
   },
 }
