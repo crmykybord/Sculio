@@ -55,7 +55,7 @@ return {
         },
       },
       p_Sculio_inverted_normal = {
-        name = 'Reversed Arcana Pack',
+        name = 'Arcana Pack?',
         text = {
           'Choose {C:attention}#1#{} of up to',
           '{C:attention}#2# {C:inverted}Inverted Tarot{} cards',
@@ -63,7 +63,7 @@ return {
         },
       },
       p_Sculio_inverted_jumbo = {
-        name = 'Jumbo Reversed Arcana Pack',
+        name = 'Jumbo Arcana Pack?',
         text = {
           'Choose {C:attention}#1#{} of up to',
           '{C:attention}#2# {C:inverted}Inverted Tarot{} cards',
@@ -71,7 +71,7 @@ return {
         },
       },
       p_Sculio_inverted_mega = {
-        name = 'Mega Reversed Arcana Pack',
+        name = 'Mega Arcana Pack?',
         text = {
           'Choose {C:attention}#1#{} of up to',
           '{C:attention}#2# {C:inverted}Inverted Tarot{} cards',
