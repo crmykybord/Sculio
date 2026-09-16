@@ -6,7 +6,7 @@ return {
         text = {
           'A vanilla-esque mod that aims to add',
           'new and faithful content to Balatro',
-          '(72 Jokers, 11 Inverted Tarots, 6 Enhancements)',
+          '(72 Jokers, 18 Inverted Tarots, 7 Enhancements)',
           ' ',
           '{C:attention}Credits:{}',
           '{C:money}crmykybord{}: Sprite Artist',
@@ -45,6 +45,37 @@ return {
           '{C:attention}Eternal{} and {C:attention}Perishable{},',
           'and {C:attention}Rental{} stickers'
         }
+      },
+      sculio_inverted_seal = {
+        name = 'Inverted Seal',
+        text = {
+          'Creates an {C:inverted}Inverted Tarot{}',
+          'when this card is discarded',
+        },
+      },
+      p_Sculio_inverted_normal = {
+        name = 'Inverted Arcana Pack',
+        text = {
+          'Choose {C:attention}#1#{} of up to',
+          '{C:attention}#2# {C:inverted}Inverted Tarot{} cards',
+          'to use immediately',
+        },
+      },
+      p_Sculio_inverted_jumbo = {
+        name = 'Jumbo Inverted Arcana Pack',
+        text = {
+          'Choose {C:attention}#1#{} of up to',
+          '{C:attention}#2# {C:inverted}Inverted Tarot{} cards',
+          'to use immediately',
+        },
+      },
+      p_Sculio_inverted_mega = {
+        name = 'Mega Inverted Arcana Pack',
+        text = {
+          'Choose {C:attention}#1#{} of up to',
+          '{C:attention}#2# {C:inverted}Inverted Tarot{} cards',
+          'to use immediately',
+        },
       },
     },
     Joker = {
@@ -478,7 +509,7 @@ return {
         }
       }, 
       -- 45. Craft Joker
-      j_Sculio_craft = {
+      j_Sculio_craft_joker = {
         name = 'Craft Joker',
         text = {
           'First scored card gives',
@@ -750,6 +781,33 @@ return {
         },
       }
     },
+    Voucher = {
+      v_Sculio_inverted_merchant = {
+        name = 'Tarot Forger',
+        text = {
+          '{C:inverted}Inverted Tarot{} cards appear',
+          '{C:attention}#1#X{} more often',
+          'in the shop',
+        },
+      },
+      v_Sculio_inverted_tycoon = {
+        name = 'Tarot Smuggler',
+        text = {
+          '{C:inverted}Inverted Tarot{} cards appear',
+          '{C:attention}#1#X{} more often',
+          'in the shop',
+        },
+      },
+    },
+    Back = {
+      b_Sculio_cetonic = {
+        name = 'Cthonic Deck',
+        text = {
+          '{C:tarot}Arcana Packs{} no',
+          'longer appear in the shop',
+        },
+      },
+    },
     Enhanced = {
       m_Sculio_experimental = {
         name = 'Experimental Card',
@@ -783,17 +841,23 @@ return {
           '{C:inactive,s:0.8}(Cannot drain other Profane cards)',
         },
       },
-      m_Sculio_pierced = {
-        name = 'Pierced Card',
+      m_Sculio_punched = {
+        name = 'Punched Card',
+        text = {
+          '{X:mult,C:white}X#1#{} Mult when scored',
+        },
+      },
+      m_Sculio_melancholic = {
+        name = 'Melancholic Card',
         text = {
           {
-            '{X:mult,C:white}X2{} Mult before',
+            '{X:mult,C:white}X1.75{} Mult before',
             'and after the hand is played',
           },
           {
             '{C:red}Self-destructs{}',
             'if played with another',
-            'Pierced Card',
+            'Melancholic Card',
           },
         },
       },
@@ -828,6 +892,22 @@ return {
           'Earns {C:money}$#1#, $#2# or $#3#{} if part of',
           'the hand that defeats the Blind',
           '{C:inactive}(Small, Big, Boss Blind){}',
+        },
+      },
+    },
+    Spectral = {
+      c_Sculio_snuff = {
+        name = 'Snuff',
+        text = {
+          'Adds an {C:inverted}Inverted Seal{}',
+          'to {C:attention}1{} selected card',
+        },
+      },
+      c_Sculio_transfix = {
+        name = 'Transfix',
+        text = {
+          'Enhances {C:attention}3{} selected cards',
+          'into {C:attention}Punched Cards{}',
         },
       },
     },
@@ -881,7 +961,7 @@ return {
         name = 'The Adversaries',
         text = {
           'Enhances exactly {C:attention}3{} cards',
-          'into {C:attention}Pierced Cards{}',
+          'into {C:attention}Melancholic Cards{}',
         },
       },
       c_Sculio_pikeman = {
@@ -903,7 +983,7 @@ return {
         name = 'The Mundane',
         text = {
           'Recovers {C:money}30%{} of the money spent',
-          'in the current shop, up to {C:money}$30{}',
+          'in the current Ante, up to {C:money}$30{}',
           '{C:inactive}(Currently: $#3#){}',
         },
       },
@@ -1024,8 +1104,10 @@ return {
       k_Sculio_compatible = 'Compatible',
       k_Sculio_incompatible = 'Incompatible',
       k_Sculio_none = 'None',
+      k_Sculio_plus_inverted = '+1 Inverted Tarot',
       k_inverted = 'Inverted Tarot',
       b_inverted_cards = 'Inverted Tarots',
+      k_booster_group_sculio_inverted = 'Inverted Arcana Packs',
       Sculio_trap_unknown_trigger = 'rolled',
       Sculio_trap_unknown_effect = 'A random effect from weighted rarity pools',
       Sculio_trap_played = 'played',
@@ -1051,6 +1133,7 @@ return {
     },
     labels = {
       inverted = 'Inverted Tarot',
+      sculio_inverted_seal = 'Inverted Seal',
     },
   },
 }

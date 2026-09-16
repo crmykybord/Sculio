@@ -21,6 +21,7 @@ SMODS.Consumable {
       edition = victim.edition and copy_table(victim.edition) or nil,
     }
     local picked = Sculio.pick_modifier(mods, 'sculio_reborn_m', 100 / 3)
+    if not picked then return end
     local targets = {}
     for _, c in ipairs(G.playing_cards) do
       if c ~= victim then targets[#targets + 1] = c end

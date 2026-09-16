@@ -11,9 +11,9 @@ SMODS.Consumable {
   end,
   can_use = function(self, card)
     return Sculio.hand_selection_state()
-      and (#G.consumeables.cards < G.consumeables.config.card_limit or card.area == G.consumeables)
   end,
   use = function(self, card, area, copier)
+    Sculio.track_inverted_use(card)
     G.E_MANAGER:add_event(Event({ trigger = 'after', delay = 0.4, func = function()
       local pool = {}
       for key, center in pairs(G.P_CENTERS) do
@@ -21,27 +21,25 @@ SMODS.Consumable {
           pool[#pool + 1] = key
         end
       end
+      table.sort(pool)
+
       local hand_empty = not G.hand or #G.hand.highlighted == 0
-      -- Always does something: retry until a rolled Tarot is usable right now
       for i = 1, 15 do
-        if #G.consumeables.cards >= G.consumeables.config.card_limit then break end
         local key = pseudorandom_element(pool, pseudoseed('sculio_immutable' .. i))
         local center = key and G.P_CENTERS[key]
         if not center then break end
-        -- Vanilla tarots have no can_use; skip target-dependent ones with an empty hand
-        if not center.can_use and center.config and center.config.max_highlighted and hand_empty then
-          -- unusable right now, retry
-        else
-          local new_card = create_card(center.set, G.consumeables, nil, nil, nil, nil, key, 'sculio_immutable_c' .. i)
-          if center.can_use and not center:can_use(new_card) then
-            new_card:remove()
-          else
-            play_sound('timpani')
-            new_card:add_to_deck()
-            G.consumeables:emplace(new_card)
-            new_card:use_consumeable(G.consumeables)
-            break
-          end
+        local needs_target = center.config and center.config.max_highlighted and hand_empty and not center.can_use
+        if not needs_target then
+          local new_card = Card(
+            G.play.T.x + G.play.T.w / 2 - G.CARD_W * 1.27 / 2,
+            G.play.T.y + G.play.T.h / 2 - G.CARD_H * 1.27 / 2,
+            G.CARD_W * 1.27, G.CARD_H * 1.27, G.P_CARDS.empty, center,
+            { bypass_discovery_center = true, bypass_discovery_ui = true }
+          )
+          new_card.cost = 0
+          G.FUNCS.use_card({ config = { ref_table = new_card } })
+          new_card:start_materialize()
+          break
         end
       end
       return true

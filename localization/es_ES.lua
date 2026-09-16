@@ -7,7 +7,7 @@ return {
           'Un Mod Vanilla que busca agregar',
           'contenido nuevo a Balatro que se sienta',
           'como el original',
-          '(72 Comodines, 11 Tarots Invertidos, 6 Mejoras)',
+          '(72 Comodines, 18 Tarots Invertidos, 7 Mejoras)',
           ' ',
           '{C:attention}Créditos:{}',
           '{C:money}crmykybord{}: Dibujo y Diseño',
@@ -46,6 +46,37 @@ return {
           'Los Stickers {C:attention}Eterno{},',
           '{C:attention}Perecedero{} y {C:attention}Alquiler{}'
         }
+      },
+      sculio_inverted_seal = {
+        name = 'Sello Invertido',
+        text = {
+          'Crea un {C:inverted}Tarot Invertido{}',
+          'al descartar esta carta',
+        },
+      },
+      p_Sculio_inverted_normal = {
+        name = 'Paquete Arcano Invertido',
+        text = {
+          'Elige {C:attention}#1#{} de hasta',
+          '{C:attention}#2# cartas de {C:inverted}Tarot Invertido{}',
+          'para usar de inmediato',
+        },
+      },
+      p_Sculio_inverted_jumbo = {
+        name = 'Paquete Arcano Invertido jumbo',
+        text = {
+          'Elige {C:attention}#1#{} de hasta',
+          '{C:attention}#2# cartas de {C:inverted}Tarot Invertido{}',
+          'para usar de inmediato',
+        },
+      },
+      p_Sculio_inverted_mega = {
+        name = 'Paquete Arcano Invertido mega',
+        text = {
+          'Elige {C:attention}#1#{} de hasta',
+          '{C:attention}#2# cartas de {C:inverted}Tarot Invertido{}',
+          'para usar de inmediato',
+        },
       },
     },
     Joker = {
@@ -257,7 +288,7 @@ return {
         }
       }, 
       -- 22. Signage
-      j_Sculio_bathroom_signage = {
+      j_Sculio_signage = {
         name = 'Baño Público',
         text = {
           'Solo aparecerán',
@@ -475,13 +506,12 @@ return {
           '{C:inactive}(Debe haber espacio){}'
         }
       }, 
-      -- 45. Googly Eyes
-      j_Sculio_googly_eyes = {
-        name = 'Ojos Saltones',
+      -- 45. Craft Joker
+      j_Sculio_craft_joker = {
+        name = 'Comodín Artesanal',
         text = {
           'La primera carta anotada otorga',
-          'sus {C:attention}fichas base{}',
-          "como {C:mult}Multi{}",
+          'sus {C:chips}fichas base{} como {C:mult}Multi{}',
         },
       },
       -- 46. Pocket Money
@@ -753,6 +783,33 @@ return {
         },
       }
     },
+    Voucher = {
+      v_Sculio_inverted_merchant = {
+        name = 'Falsificador de Tarots',
+        text = {
+          'Las cartas de {C:inverted}Tarot Invertido{} aparecen',
+          '{C:attention}#1#X{} veces más seguido',
+          'en la tienda',
+        },
+      },
+      v_Sculio_inverted_tycoon = {
+        name = 'Contrabandista de Tarots',
+        text = {
+          'Las cartas de {C:inverted}Tarot Invertido{} aparecen',
+          '{C:attention}#1#X{} veces más seguido',
+          'en la tienda',
+        },
+      },
+    },
+    Back = {
+      b_Sculio_cetonic = {
+        name = 'Baraja Ctónica',
+        text = {
+          'Los {C:tarot}Paquetes Arcanos{} no',
+          'aparecerán en la tienda',
+        },
+      },
+    },
     Enhanced = {
       m_Sculio_experimental = {
         name = 'Carta Experimental',
@@ -786,17 +843,23 @@ return {
           "{C:inactive,s:0.8}(No puede drenar otras cartas profanas)",
         },
       },
-      m_Sculio_pierced = {
+      m_Sculio_punched = {
         name = 'Carta Perforada',
         text = {
+          '{X:mult,C:white}X#1#{} Multi al anotar',
+        },
+      },
+      m_Sculio_melancholic = {
+        name = 'Carta Melancólica',
+        text = {
           {
-            "{X:mult,C:white}X2{} Multi antes y",
+            "{X:mult,C:white}X1.75{} Multi antes y",
             "después de jugar la mano",
           },
           {
             "Se {C:red}autodestruye{}",
             "si se juega con otra",
-            "carta perforada",
+            "carta melancólica",
           }
         },
       },
@@ -834,6 +897,22 @@ return {
         },
       },
     },
+    Spectral = {
+      c_Sculio_snuff = {
+        name = 'Sofocar',
+        text = {
+          'Agrega un {C:inverted}Sello Invertido{}',
+          'a {C:attention}1{} carta seleccionada',
+        },
+      },
+      c_Sculio_transfix = {
+        name = 'Atravesar',
+        text = {
+          'Mejora {C:attention}3{} cartas seleccionadas',
+          'en {C:attention}Cartas Perforadas{}',
+        },
+      },
+    },
     Inverted = {
       c_Sculio_sane = {
         name = 'El Sensato',
@@ -845,7 +924,7 @@ return {
         },
       },
       c_Sculio_scientist = {
-        name = 'Erudito',
+        name = 'El Erudito',
         text = {
           'Mejora {C:attention}#1#{} cartas seleccionadas',
           'en {C:attention}Cartas Experimentales{}',
@@ -883,7 +962,7 @@ return {
         name = 'Los Adversarios',
         text = {
           'Mejora exactamente {C:attention}3{} cartas',
-          'en {C:attention}Cartas Perforadas{}',
+          'en {C:attention}Cartas Melancólicas{}',
         },
       },
       c_Sculio_pikeman = {
@@ -904,7 +983,7 @@ return {
         name = 'El Mundano',
         text = {
           'Recupera el {C:money}30%{} del dinero gastado',
-          'en la Tienda actual, hasta {C:money}$30{}',
+          'en el Ante actual, hasta {C:money}$30{}',
           '{C:inactive}(Actualmente: $#3#){}',
         },
       },
@@ -1023,8 +1102,10 @@ return {
       k_Sculio_bad_trip_randomized = '¡Baraja cambiada!',
       k_Sculio_ecg_discard = '+1 Descarte',
       k_Sculio_none = 'Nada',
+      k_Sculio_plus_inverted = '+1 Tarot Invertido',
       k_inverted = 'Tarot Invertido',
       b_inverted_cards = 'Tarots Invertidos',
+      k_booster_group_sculio_inverted = 'Paquetes Arcanos Invertidos',
       Sculio_trap_unknown_trigger = 'al azar',
       Sculio_trap_unknown_effect = 'Un efecto aleatorio de pools de rareza ponderados',
       Sculio_trap_played = 'juega',
@@ -1050,6 +1131,7 @@ return {
     },
     labels = {
       inverted = 'Tarot Invertido',
+      sculio_inverted_seal = 'Sello Invertido',
     },
   },
 }
