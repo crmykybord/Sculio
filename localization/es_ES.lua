@@ -511,8 +511,7 @@ return {
         name = 'Comodín Artesanal',
         text = {
           'La primera carta anotada otorga',
-          'sus {C:attention}fichas base{}',
-          "como {C:mult}Multi{}",
+          'sus {C:chips}fichas base{} como {C:mult}Multi{}',
         },
       },
       -- 46. Pocket Money

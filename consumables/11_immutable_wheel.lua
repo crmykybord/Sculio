@@ -24,17 +24,12 @@ SMODS.Consumable {
       table.sort(pool)
 
       local hand_empty = not G.hand or #G.hand.highlighted == 0
-      -- Always does something: retry until a rolled Tarot can resolve right now.
-      -- Target-dependent Tarots are skipped with an empty hand so the effect
-      -- doesn't open card selection.
       for i = 1, 15 do
         local key = pseudorandom_element(pool, pseudoseed('sculio_immutable' .. i))
         local center = key and G.P_CENTERS[key]
         if not center then break end
         local needs_target = center.config and center.config.max_highlighted and hand_empty and not center.can_use
         if not needs_target then
-          -- Same pattern as gnasher (All in Jest) / grab_bag (Lucky Rabbit):
-          -- a detached Card + G.FUNCS.use_card gives the vanilla use animation.
           local new_card = Card(
             G.play.T.x + G.play.T.w / 2 - G.CARD_W * 1.27 / 2,
             G.play.T.y + G.play.T.h / 2 - G.CARD_H * 1.27 / 2,
