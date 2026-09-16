@@ -784,6 +784,24 @@ return {
         },
       }
     },
+    Voucher = {
+      v_Sculio_inverted_merchant = {
+        name = 'Falsificador de Tarots',
+        text = {
+          'Las cartas de {C:inverted}Tarot Invertido{} aparecen',
+          '{C:attention}#1#X{} veces más seguido',
+          'en la tienda',
+        },
+      },
+      v_Sculio_inverted_tycoon = {
+        name = 'Contrabandista de Tarots',
+        text = {
+          'Las cartas de {C:inverted}Tarot Invertido{} aparecen',
+          '{C:attention}#1#X{} veces más seguido',
+          'en la tienda',
+        },
+      },
+    },
     Enhanced = {
       m_Sculio_experimental = {
         name = 'Carta Experimental',
