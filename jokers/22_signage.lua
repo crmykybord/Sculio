@@ -1,4 +1,4 @@
-local RATES = { 'tarot_rate', 'planet_rate', 'spectral_rate', 'playing_card_rate' }
+local RATES = { 'tarot_rate', 'planet_rate', 'spectral_rate', 'playing_card_rate', 'inverted_rate' }
 
 local function force_zero_rates()
   for _, rate in ipairs(RATES) do
@@ -7,7 +7,7 @@ local function force_zero_rates()
 end
 
 SMODS.Joker {
-  key = 'bathroom_signage',
+  key = 'signage',
   attributes = { 'passive', 'joker' },
   unlocked = true,
   discovered = false,
@@ -26,6 +26,7 @@ SMODS.Joker {
       planet_rate       = G.GAME.planet_rate       or 0,
       spectral_rate     = G.GAME.spectral_rate     or 0,
       playing_card_rate = G.GAME.playing_card_rate or 0,
+      inverted_rate     = G.GAME.inverted_rate     or 0,
     }
     force_zero_rates()
   end,
@@ -35,5 +36,6 @@ remove_from_deck = function(self, card, from_debuff)
     G.GAME.planet_rate       = s.planet_rate       or 0
     G.GAME.spectral_rate     = s.spectral_rate     or 0
     G.GAME.playing_card_rate = s.playing_card_rate or 0
+    G.GAME.inverted_rate     = s.inverted_rate     or 0
   end,
 }

@@ -288,7 +288,7 @@ return {
         }
       }, 
       -- 22. Signage
-      j_Sculio_bathroom_signage = {
+      j_Sculio_signage = {
         name = 'Baño Público',
         text = {
           'Solo aparecerán',
@@ -507,8 +507,8 @@ return {
         }
       }, 
       -- 45. Googly Eyes
-      j_Sculio_googly_eyes = {
-        name = 'Ojos Saltones',
+      j_Sculio_craft_joker = {
+        name = 'Comodín Artesanal',
         text = {
           'La primera carta anotada otorga',
           'sus {C:attention}fichas base{}',

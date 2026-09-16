@@ -287,9 +287,9 @@ return {
           '{C:inactive}(Currently {C:mult}+#1#{}{C:inactive} Mult)',
         }
       }, 
-      -- 22. Bathroom Signage
-      j_Sculio_bathroom_signage = {
-        name = 'Bathroom Signage',
+      -- 22. Restroom Sign
+      j_Sculio_signage = {
+        name = 'Restroom Sign',
         text = {
           'Only {C:attention}Jokers{} will',
           'appear in the shop',
@@ -508,9 +508,9 @@ return {
           '{C:inactive}(Must have room){}'
         }
       }, 
-      -- 45. Googly Eyes
-      j_Sculio_googly_eyes = {
-        name = 'Googly Eyes',
+      -- 45. Craft Joker
+      j_Sculio_craft_joker = {
+        name = 'Craft Joker',
         text = {
           'First scored card gives',
           'its {C:attention}base chips{} as {C:mult}Mult{}'

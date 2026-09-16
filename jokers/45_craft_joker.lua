@@ -1,5 +1,5 @@
 SMODS.Joker {
-  key = 'googly_eyes',
+  key = 'craft_joker',
   attributes = { 'mult', 'rank' },
   eternal_compat = true,
   blueprint_compat = true,
