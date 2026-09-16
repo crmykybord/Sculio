@@ -827,7 +827,7 @@ return {
         name = 'Carta Melancólica',
         text = {
           {
-            "{X:mult,C:white}X2{} Multi antes y",
+            "{X:mult,C:white}X1.75{} Multi antes y",
             "después de jugar la mano",
           },
           {

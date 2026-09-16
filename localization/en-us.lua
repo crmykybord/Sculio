@@ -824,7 +824,7 @@ return {
         name = 'Melancholic Card',
         text = {
           {
-            '{X:mult,C:white}X2{} Mult before',
+            '{X:mult,C:white}X1.75{} Mult before',
             'and after the hand is played',
           },
           {

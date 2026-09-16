@@ -5,15 +5,15 @@ SMODS.Enhancement {
 
   config = {},
   loc_vars = function(self, info_queue, card)
-    return { vars = { 2 } }
+    return { vars = { 1.75 } }
   end,
   calculate = function(self, card, context)
-    -- X2 Mult before and after the hand scores
+    -- X1.75 Mult before and after the hand scores
     if context.initial_scoring_step and context.cardarea == G.play then
-      return { x_mult = 2 }
+      return { x_mult = 1.75 }
     end
     if context.final_scoring_step and context.cardarea == G.play then
-      return { x_mult = 2 }
+      return { x_mult = 1.75 }
     end
   end,
 }
