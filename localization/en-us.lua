@@ -814,6 +814,12 @@ return {
           '{C:inactive,s:0.8}(Cannot drain other Profane cards)',
         },
       },
+      m_Sculio_punched = {
+        name = 'Punched Card',
+        text = {
+          '{X:mult,C:white}X#1#{} Mult when scored',
+        },
+      },
       m_Sculio_pierced = {
         name = 'Pierced Card',
         text = {
@@ -868,6 +874,13 @@ return {
         text = {
           'Adds an {C:inverted}Inverted Tarot Seal{}',
           'to {C:attention}1{} selected card',
+        },
+      },
+      c_Sculio_transfix = {
+        name = 'Transfix',
+        text = {
+          'Enhances {C:attention}3{} selected cards',
+          'into {C:attention}Punched Cards{}',
         },
       },
     },

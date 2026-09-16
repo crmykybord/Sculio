@@ -817,6 +817,12 @@ return {
           "{C:inactive,s:0.8}(No puede drenar otras cartas profanas)",
         },
       },
+      m_Sculio_punched = {
+        name = 'Carta Perforada',
+        text = {
+          '{X:mult,C:white}X#1#{} Multi al anotar',
+        },
+      },
       m_Sculio_pierced = {
         name = 'Carta Perforada',
         text = {
@@ -871,6 +877,13 @@ return {
         text = {
           'Agrega un {C:inverted}Sello de Tarot Invertido{}',
           'a {C:attention}1{} carta seleccionada',
+        },
+      },
+      c_Sculio_transfix = {
+        name = 'Transfix',
+        text = {
+          'Mejora {C:attention}3{} cartas seleccionadas',
+          'en {C:attention}Cartas Perforadas{}',
         },
       },
     },
