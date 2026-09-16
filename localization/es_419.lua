@@ -7,7 +7,7 @@ return {
           'Un Mod Vanilla que busca agregar',
           'contenido nuevo a Balatro que se sienta',
           'como el original',
-          '(72 Comodines, 11 Tarots Invertidos, 6 Mejoras)',
+          '(72 Comodines, 18 Tarots Invertidos, 7 Mejoras)',
           ' ',
           '{C:attention}Créditos:{}',
           '{C:money}crmykybord{}: Dibujo y Diseño',
@@ -925,7 +925,7 @@ return {
         },
       },
       c_Sculio_scientist = {
-        name = 'Erudito',
+        name = 'El Erudito',
         text = {
           'Mejora {C:attention}#1#{} cartas seleccionadas',
           'en {C:attention}Cartas Experimentales{}',
