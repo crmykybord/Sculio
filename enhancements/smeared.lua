@@ -1,5 +1,5 @@
 SMODS.Enhancement {
-  key = 'melancholic',
+  key = 'smeared',
   atlas = 'Sculio_Enhancements',
   pos = { x = 6, y = 0 },
 

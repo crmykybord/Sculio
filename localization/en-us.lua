@@ -49,12 +49,13 @@ return {
       sculio_inverted_seal = {
         name = 'Inverted Seal',
         text = {
-          'Creates an {C:inverted}Inverted Tarot{}',
-          'when this card is discarded',
+          'Creates a {C:inverted}Inverted Tarot{}',
+          'when {C:attention}discarded',
+          '{C:inactive}(Must Have Room)',
         },
       },
       p_Sculio_inverted_normal = {
-        name = 'Inverted Arcana Pack',
+        name = 'Reversed Arcana Pack',
         text = {
           'Choose {C:attention}#1#{} of up to',
           '{C:attention}#2# {C:inverted}Inverted Tarot{} cards',
@@ -62,7 +63,7 @@ return {
         },
       },
       p_Sculio_inverted_jumbo = {
-        name = 'Jumbo Inverted Arcana Pack',
+        name = 'Jumbo Reversed Arcana Pack',
         text = {
           'Choose {C:attention}#1#{} of up to',
           '{C:attention}#2# {C:inverted}Inverted Tarot{} cards',
@@ -70,7 +71,7 @@ return {
         },
       },
       p_Sculio_inverted_mega = {
-        name = 'Mega Inverted Arcana Pack',
+        name = 'Mega Reversed Arcana Pack',
         text = {
           'Choose {C:attention}#1#{} of up to',
           '{C:attention}#2# {C:inverted}Inverted Tarot{} cards',
@@ -786,7 +787,7 @@ return {
         name = 'Tarot Forger',
         text = {
           '{C:inverted}Inverted Tarot{} cards appear',
-          '{C:attention}#1#X{} more often',
+          '{C:attention}#1#X{} more frequently',
           'in the shop',
         },
       },
@@ -794,7 +795,7 @@ return {
         name = 'Tarot Smuggler',
         text = {
           '{C:inverted}Inverted Tarot{} cards appear',
-          '{C:attention}#1#X{} more often',
+          '{C:attention}#1#X{} more frequently',
           'in the shop',
         },
       },
@@ -827,7 +828,7 @@ return {
       m_Sculio_wandering = {
         name = 'Wandering Card',
         text = {
-          'If in hand when you play,',
+          'If in played hand,',
           'discards itself and gains',
           '{C:mult}+1 Mult{}',
         },
@@ -847,8 +848,8 @@ return {
           '{X:mult,C:white}X#1#{} Mult when scored',
         },
       },
-      m_Sculio_melancholic = {
-        name = 'Melancholic Card',
+      m_Sculio_smeared = {
+        name = 'Smeared Card',
         text = {
           {
             '{X:mult,C:white}X1.75{} Mult before',
@@ -857,7 +858,7 @@ return {
           {
             '{C:red}Self-destructs{}',
             'if played with another',
-            'Melancholic Card',
+            'Smeared Card',
           },
         },
       },
@@ -899,14 +900,15 @@ return {
       c_Sculio_snuff = {
         name = 'Snuff',
         text = {
-          'Adds an {C:inverted}Inverted Seal{}',
-          'to {C:attention}1{} selected card',
+          'Add a {C:inverted}Inverted Seal{}',
+          'to {C:attention}1{} selected',
+          'card in your hand',
         },
       },
       c_Sculio_transfix = {
         name = 'Transfix',
         text = {
-          'Enhances {C:attention}3{} selected cards',
+          'Enhance {C:attention}3{} selected cards',
           'into {C:attention}Punched Cards{}',
         },
       },
@@ -918,7 +920,7 @@ return {
           'Copies the last {C:inverted}Inverted Tarot{} used',
           '{C:inactive}(Currently: #1#){}',
           'If it were to copy itself,',
-          'becomes {C:attention}The Fool{} instead',
+          'it becomes {C:attention}The Fool{} instead',
         },
       },
       c_Sculio_scholar = {
@@ -960,8 +962,8 @@ return {
       c_Sculio_adversaries = {
         name = 'The Adversaries',
         text = {
-          'Enhances exactly {C:attention}3{} cards',
-          'into {C:attention}Melancholic Cards{}',
+          'Enhances {C:attention}3{} cards',
+          'into {C:attention}Smeared Cards{}',
         },
       },
       c_Sculio_pikeman = {
@@ -982,8 +984,8 @@ return {
       c_Sculio_mundane = {
         name = 'The Mundane',
         text = {
-          'Recovers {C:money}30%{} of the money spent',
-          'in the current Ante, up to {C:money}$30{}',
+          'Recovers {C:money}30%{} of money spent',
+          'in current Ante, up to {C:money}$30{}',
           '{C:inactive}(Currently: $#3#){}',
         },
       },
@@ -992,7 +994,6 @@ return {
         text = {
           'During a Blind, activates the effect',
           'of a random {C:tarot}Tarot{} or {C:inverted}Inverted Tarot{}',
-          'It always does something',
         },
       },
       c_Sculio_weakness = {
