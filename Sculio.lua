@@ -57,6 +57,7 @@ load_dir('enhancements', skip_files)
 load_dir('seals', skip_files)
 load_dir('boosters', skip_files)
 load_dir('vouchers', skip_files)
+load_dir('decks', skip_files)
 
 assert(SMODS.load_file('libs/shuffle.lua'))()
 

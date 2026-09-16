@@ -802,6 +802,15 @@ return {
         },
       },
     },
+    Back = {
+      b_Sculio_cetonic = {
+        name = 'Baraja Cetónica',
+        text = {
+          'Los {C:tarot}Paquetes Arcanos{} nunca',
+          'aparecerán en la tienda',
+        },
+      },
+    },
     Enhanced = {
       m_Sculio_experimental = {
         name = 'Carta Experimental',

@@ -799,6 +799,15 @@ return {
         },
       },
     },
+    Back = {
+      b_Sculio_cetonic = {
+        name = 'Cetonic Deck',
+        text = {
+          '{C:tarot}Arcana Packs{} will',
+          'never appear in the shop',
+        },
+      },
+    },
     Enhanced = {
       m_Sculio_experimental = {
         name = 'Experimental Card',
