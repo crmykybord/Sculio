@@ -39,16 +39,9 @@ local skip_files = {
   ['trap.lua'] = true,
   -- Disable until my brain works properly
   ['09_arbitrariness.lua'] = true,
-  ['11_immutable_wheel.lua'] = true,
-  ['13_the_atoned.lua'] = true,
-  ['14_reborn.lua'] = true,
   ['15_the_impatient.lua'] = true,
   ['16_the_archangel.lua'] = true,
   ['17_the_siege.lua'] = true,
-  ['18_the_collapse.lua'] = true,
-  ['19_the_eclipse.lua'] = true,
-  ['20_the_twilight.lua'] = true,
-  ['21_the_cave.lua'] = true,
 }
 
 load_dir('jokers', skip_files)

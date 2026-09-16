@@ -18,13 +18,11 @@ SMODS.Consumable {
   use = function(self, card, area, copier)
     Sculio.track_inverted_use(card)
     local picked = Sculio.pick_modifier(G.GAME.Sculio_last_destroyed or {}, 'sculio_atoned')
-    for i = 1, math.min(#G.hand.highlighted, card.ability.consumeable.max_highlighted) do
-      local conv_card = G.hand.highlighted[i]
-      G.E_MANAGER:add_event(Event({ trigger = 'after', delay = 0.4, func = function()
+    if not picked then return end
+    Sculio.apply_highlighted(function(cards)
+      for _, conv_card in ipairs(cards) do
         Sculio.apply_modifier(conv_card, picked)
-        return true
-      end }))
-    end
-    delay(0.8)
+      end
+    end, card.ability.consumeable.max_highlighted, card)
   end,
 }
