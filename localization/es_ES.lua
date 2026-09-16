@@ -841,6 +841,15 @@ return {
         },
       },
     },
+    Spectral = {
+      c_Sculio_snuff = {
+        name = 'Snuff',
+        text = {
+          'Agrega un {C:inverted}Sello de Tarot Invertido{}',
+          'a {C:attention}1{} carta seleccionada',
+        },
+      },
+    },
     Inverted = {
       c_Sculio_sane = {
         name = 'El Sensato',

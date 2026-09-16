@@ -838,6 +838,15 @@ return {
         },
       },
     },
+    Spectral = {
+      c_Sculio_snuff = {
+        name = 'Snuff',
+        text = {
+          'Adds an {C:inverted}Inverted Tarot Seal{}',
+          'to {C:attention}1{} selected card',
+        },
+      },
+    },
     Inverted = {
       c_Sculio_sane = {
         name = 'The Sane',
