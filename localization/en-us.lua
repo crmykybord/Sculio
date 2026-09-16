@@ -983,7 +983,7 @@ return {
         name = 'The Mundane',
         text = {
           'Recovers {C:money}30%{} of the money spent',
-          'in the current shop, up to {C:money}$30{}',
+          'in the current Ante, up to {C:money}$30{}',
           '{C:inactive}(Currently: $#3#){}',
         },
       },

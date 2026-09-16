@@ -148,11 +148,11 @@ function Sculio:calculate(context)
     G.GAME.Sculio_last_joker_sold = context.card.config.center_key
   end
 
-  -- The Mundane: track money spent during the current shop
-  if context.starting_shop then
-    G.GAME.Sculio_shop_spend = 0
-  elseif context.money_altered and context.amount and context.amount < 0 and context.from_shop then
-    G.GAME.Sculio_shop_spend = (G.GAME.Sculio_shop_spend or 0) - context.amount
+  -- The Mundane: track all money spent during the current Ante
+  if context.ante_change and context.ante_change ~= 0 then
+    G.GAME.Sculio_ante_spend = 0
+  elseif context.money_altered and context.amount and context.amount < 0 then
+    G.GAME.Sculio_ante_spend = (G.GAME.Sculio_ante_spend or 0) - context.amount
   end
 
   -- Trap Cards can protect adjacent cards from debuffs

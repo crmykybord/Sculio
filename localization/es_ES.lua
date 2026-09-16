@@ -984,7 +984,7 @@ return {
         name = 'El Mundano',
         text = {
           'Recupera el {C:money}30%{} del dinero gastado',
-          'en la Tienda actual, hasta {C:money}$30{}',
+          'en el Ante actual, hasta {C:money}$30{}',
           '{C:inactive}(Actualmente: $#3#){}',
         },
       },
