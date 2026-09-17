@@ -860,7 +860,7 @@ return {
       m_Sculio_profane = {
         name = 'Carta Profana',
         text = {
-          'Drena {C:chips}1 Ficha{} de una carta',
+          'Drena {C:chips}3 Fichas{} de una carta',
           'en mano y gana {C:chips}+3 Fichas{}',
           'al anotar',
           "{C:inactive,s:0.8}(No puede drenar otras cartas profanas)",

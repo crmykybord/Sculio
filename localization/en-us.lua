@@ -795,9 +795,8 @@ return {
       v_Sculio_inverted_merchant = {
         name = 'Tarot Forger',
         text = {
-          '{C:inverted}Inverted Tarot{} cards now',
-          'appear in the shop,',
-          '{C:attention}#1#X{} more frequently',
+          '{C:inverted}Inverted Tarot{} cards',
+          'appear in the shop',
         },
       },
       v_Sculio_inverted_tycoon = {
@@ -861,7 +860,7 @@ return {
       m_Sculio_profane = {
         name = 'Profane Card',
         text = {
-          'Drains {C:chips}1 Chip{} from a card',
+          'Drains {C:chips}3 Chips{} from a card',
           'in hand and gains {C:chips}+3 Chips{}',
           'when scored',
           '{C:inactive,s:0.8}(Cannot drain other Profane cards)',

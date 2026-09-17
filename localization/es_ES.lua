@@ -796,16 +796,15 @@ return {
       v_Sculio_inverted_merchant = {
         name = 'Falsificador de Tarots',
         text = {
-          'Las cartas de {C:inverted}Tarot Invertido{}',
-          'ahora aparecen en la tienda,',
-          '{C:attention}#1#X{} más seguido',
+          'Los {C:inverted}Tarots Invertidos{}',
+          'aparecen en la tienda',
         },
       },
       v_Sculio_inverted_tycoon = {
         name = 'Contrabandista de Tarots',
         text = {
-          'Las cartas de {C:inverted}Tarot Invertido{}',
-          'ahora aparecen en la tienda,',
+          'Los {C:inverted}Tarots Invertidos{}',
+          'aparecen en la tienda,',
           '{C:attention}#1#X{} más seguido',
         },
       },
@@ -862,7 +861,7 @@ return {
       m_Sculio_profane = {
         name = 'Carta Profana',
         text = {
-          'Drena {C:chips}1 Ficha{} de una carta',
+          'Drena {C:chips}3 Fichas{} de una carta',
           'en mano y gana {C:chips}+3 Fichas{}',
           'al anotar',
           "{C:inactive,s:0.8}(No puede drenar otras cartas profanas)",
