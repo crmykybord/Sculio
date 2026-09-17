@@ -829,8 +829,9 @@ return {
       b_Sculio_cetonic = {
         name = 'Cthonic Deck',
         text = {
-          '{C:tarot}Arcana Packs{} no',
-          'longer appear in the shop',
+          '{C:tarot}Arcana Packs{} no longer',
+          'appear in the shop',
+          'Start with {C:attention}Tarot Forger{}',
         },
       },
     },

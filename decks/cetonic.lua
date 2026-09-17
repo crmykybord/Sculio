@@ -16,5 +16,8 @@ SMODS.Back {
     for _, key in ipairs(ARCANA_KEYS) do
       G.GAME.banned_keys[key] = true
     end
+    -- Start with the Tarot Forger already redeemed (mirrors its redeem effect)
+    G.GAME.used_vouchers['v_Sculio_inverted_merchant'] = true
+    G.GAME.inverted_rate = 4 * G.P_CENTERS.v_Sculio_inverted_merchant.config.extra
   end,
 }

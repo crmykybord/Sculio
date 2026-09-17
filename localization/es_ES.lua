@@ -832,6 +832,7 @@ return {
         text = {
           'Los {C:tarot}Paquetes Arcanos{} no',
           'aparecerán en la tienda',
+          'Comienzas con {C:attention}Falsificador de Tarots{}',
         },
       },
     },
