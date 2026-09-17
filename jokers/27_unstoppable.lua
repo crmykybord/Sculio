@@ -13,7 +13,8 @@ SMODS.Joker {
   pos = { x = 8, y = 2 },
   cost = 6,
   loc_vars = function(self, info_queue, card)
-    return { vars = { card.ability.extra.x_mult, card.ability.extra.x_mult_gain, card.ability.extra.sell_cost } }
+    local extra = card.ability.extra or {}
+    return { vars = { extra.x_mult or 1, extra.x_mult_gain or 0.1, extra.sell_cost or 0 } }
   end,
   add_to_deck = function(self, card, from_debuff)
     -- Set sell cost to $0.
