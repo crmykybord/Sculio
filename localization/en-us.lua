@@ -1071,36 +1071,36 @@ return {
       c_Sculio_collapse = {
         name = 'The Collapse',
         text = {
-          'For every {C:diamonds}#1# Diamonds{} in your full deck,',
-          'give a random card a random {C:edition}Edition{}',
-          '{C:inactive}(Currently: #2#){}',
+          'For every {C:diamonds}#1# Diamonds{} in your deck,',
+          'give a random card a random {C:dark_edition}Edition{}',
+          '{C:inactive}(Currently: {C:dark_edition}+#2#{C:inactive} Editions){}',
         },
       },
       c_Sculio_eclipse = {
         name = 'The Eclipse',
         text = {
-          'For every {C:clubs}10 Clubs{} in your full deck,',
-          'cards currently held in hand permanently',
-          'gain {C:mult}+#3# Mult{}',
-          '{C:inactive}(Currently: x#2#){}',
+          'For every {C:clubs}10 Clubs{} in your deck,',
+          'cards held in hand permanently gain',
+          '{C:mult}+#3# Mult{}',
+          '{C:inactive}(Currently: {C:red}+#2#{C:inactive} Mult){}',
         },
       },
       c_Sculio_twilight = {
         name = 'The Twilight',
         text = {
-          'For every {C:hearts}10 Hearts{} in your full deck,',
+          'For every {C:hearts}10 Hearts{} in your deck,',
           '{C:attention}#3#{} random cards receive',
           'random Enhancements',
-          '{C:inactive}(Currently: #2# cards){}',
+          '{C:inactive}(Currently: {C:attention}#2#{C:inactive} Enhancements){}',
         },
       },
       c_Sculio_cave = {
         name = 'The Cave',
         text = {
-          'For every {C:spades}10 Spades{} in your full deck,',
-          'cards currently held in hand permanently',
-          'gain {C:chips}+#3# Chips{}',
-          '{C:inactive}(Currently: x#2#){}',
+          'For every {C:spades}10 Spades{} in your deck,',
+          'cards held in hand permanently gain',
+          '{C:chips}+#3# Chips{}',
+          '{C:inactive}(Currently: {C:blue}+#2#{C:inactive} Chips){}',
         },
       },
       c_Sculio_mercy = {
