@@ -869,7 +869,8 @@ return {
       m_Sculio_punched = {
         name = 'Punched Card',
         text = {
-          '{X:mult,C:white}X#1#{} Mult when scored',
+          '{X:mult,C:white}X#1#{} Mult when scored,',
+          'destroyed when discarded',
         },
       },
       m_Sculio_smeared = {

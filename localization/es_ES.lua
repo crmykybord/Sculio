@@ -870,7 +870,8 @@ return {
       m_Sculio_punched = {
         name = 'Carta Perforada',
         text = {
-          '{X:mult,C:white}X#1#{} Multi al anotar',
+          '{X:mult,C:white}X#1#{} Multi al anotar,',
+          'se destruye al descartarse',
         },
       },
       m_Sculio_smeared = {
