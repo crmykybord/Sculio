@@ -8,7 +8,7 @@ SMODS.Consumable {
   cost = 3,
   config = { max_highlighted = 2 },
   loc_vars = function(self, info_queue, card)
-    return { vars = { card.ability.consumeable.max_highlighted } }
+    return { vars = { Sculio.max_highlighted(card) } }
   end,
   can_use = function(self, card)
     return Sculio.can_select(card)
@@ -19,6 +19,6 @@ SMODS.Consumable {
       for _, c in ipairs(cards) do
         SMODS.modify_rank(c, -1)
       end
-    end, card.ability.consumeable.max_highlighted, card)
+    end, Sculio.max_highlighted(card), card)
   end,
 }

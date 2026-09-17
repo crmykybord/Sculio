@@ -7,14 +7,32 @@ SMODS.Consumable {
   discovered = false,
   cost = 3,
   loc_vars = function(self, info_queue, card)
+    if Sculio.distorted() then
+      return { vars = { 4 }, key = Sculio.distorted_key(self) }
+    end
     return { vars = { 1, 3 } }
   end,
   can_use = function(self, card)
-    return G.playing_cards and #G.playing_cards >= 4
+    return G.hand and #G.hand.cards >= 1 + (Sculio.distorted() and 4 or 3)
   end,
   use = function(self, card, area, copier)
-    local victim = pseudorandom_element(G.playing_cards, pseudoseed('sculio_reborn_v'))
+    Sculio.track_inverted_use(card)
+    local distorted = Sculio.distorted()
+    local hand = {}
+    for _, c in ipairs(G.hand.cards) do hand[#hand + 1] = c end
+    if #hand < 2 then return end
+
+    -- Prefer destroying a modified hand card; only fall back to unmodified ones if none exist.
+    local pool = {}
+    for _, c in ipairs(hand) do
+      if c.config.center_key ~= 'c_base' or c.seal or c.edition then
+        pool[#pool + 1] = c
+      end
+    end
+    if #pool == 0 then pool = hand end
+    local victim = pseudorandom_element(pool, pseudoseed('sculio_reborn_v'))
     if not victim then return end
+
     local mods = {
       enhancement = (victim.config.center_key ~= 'c_base') and victim.config.center_key or nil,
       seal = victim.seal,
@@ -22,22 +40,27 @@ SMODS.Consumable {
     }
     local picked = Sculio.pick_modifier(mods, 'sculio_reborn_m', 100 / 3)
     if not picked then return end
+
     local targets = {}
-    for _, c in ipairs(G.playing_cards) do
+    for _, c in ipairs(hand) do
       if c ~= victim then targets[#targets + 1] = c end
     end
     pseudoshuffle(targets, pseudoseed('sculio_reborn_t'))
-    for i = 1, math.min(3, #targets) do
-      local target_card = targets[i]
-      G.E_MANAGER:add_event(Event({ trigger = 'after', delay = 0.3, func = function()
-        Sculio.apply_modifier(target_card, picked)
-        return true
-      end }))
+    local chosen = {}
+    for i = 1, math.min(distorted and 4 or 3, #targets) do
+      chosen[#chosen + 1] = targets[i]
     end
-    G.E_MANAGER:add_event(Event({ trigger = 'after', delay = 0.4, func = function()
+
+    -- Destroy the victim in hand, then flip the remaining hand cards onto which the modifier is copied.
+    -- Distorted Flow keeps the victim alive.
+    if not distorted then
       SMODS.destroy_cards(victim)
-      return true
-    end }))
-    delay(1.0)
+      delay(0.4)
+    end
+    Sculio.flip_highlighted(card, chosen, function()
+      for _, tc in ipairs(chosen) do
+        Sculio.apply_modifier(tc, picked)
+      end
+    end)
   end,
 }

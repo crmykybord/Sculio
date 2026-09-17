@@ -13,7 +13,8 @@ SMODS.Joker {
   pos = { x = 8, y = 2 },
   cost = 6,
   loc_vars = function(self, info_queue, card)
-    return { vars = { card.ability.extra.x_mult, card.ability.extra.x_mult_gain, card.ability.extra.sell_cost } }
+    local extra = card.ability.extra or {}
+    return { vars = { extra.x_mult or 1, extra.x_mult_gain or 0.1, extra.sell_cost or 0 } }
   end,
   add_to_deck = function(self, card, from_debuff)
     -- Set sell cost to $0.
@@ -69,6 +70,19 @@ SMODS.Tag {
   end,
   apply = function(self, tag, context)
     if context.type == 'store_joker_create' then
+      -- Merge: a second copy of the tag stacks onto the waiting Unstoppable
+      -- instead of opening a duplicate (accumulated mult, single card)
+      for _, c in ipairs(context.area.cards) do
+        if c.config.center_key == 'j_Sculio_unstoppable' then
+          c.ability.extra.x_mult = c.ability.extra.x_mult + ((tag.ability and tag.ability.x_mult) or 1) - 1
+          tag:yep('+', G.C.RED, function()
+            c:start_materialize()
+            return true
+          end)
+          tag.triggered = true
+          return nil
+        end
+      end
       local card = SMODS.create_card({ set = 'Joker', area = context.area, key = 'j_Sculio_unstoppable', key_append = 'uta' })
       card.ability.extra.x_mult = tag.ability.x_mult
       create_shop_card_ui(card, 'Joker', context.area)

@@ -10,10 +10,12 @@ local COLLABS = {
 
 local FACE_RANKS = { 'Jack', 'Queen', 'King' }
 
+local DISPLAY_RANKS = { 'King', 'Queen', 'Jack' } -- THAT WAS ALL XD
+
 local RANK_POS = {
-  Jack = { pos = { x = 2, y = 0 } },
+  Jack = { pos = { x = 0, y = 0 } },
   Queen = { pos = { x = 1, y = 0 } },
-  King = { pos = { x = 0, y = 0 } },
+  King = { pos = { x = 2, y = 0 } },
 }
 
 for _, collab in ipairs(COLLABS) do
@@ -23,9 +25,6 @@ for _, collab in ipairs(COLLABS) do
     key = collab.key,
     suit = collab.suit,
     loc_txt = collab.name,
-    palettes = {
-      { key = 'lc', ranks = FACE_RANKS, display_ranks = FACE_RANKS, atlas = lc.key, pos_style = RANK_POS },
-      { key = 'hc', ranks = FACE_RANKS, display_ranks = FACE_RANKS, atlas = hc.key, pos_style = RANK_POS },
-    },
+    palettes = { { key = 'lc', ranks = FACE_RANKS, display_ranks = DISPLAY_RANKS, atlas = lc.key, pos_style = RANK_POS }, { key = 'hc', ranks = FACE_RANKS, display_ranks = DISPLAY_RANKS, atlas = hc.key, pos_style = RANK_POS }, },
   }
 end

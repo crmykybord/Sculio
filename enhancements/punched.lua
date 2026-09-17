@@ -8,6 +8,9 @@ SMODS.Enhancement {
     return { vars = { 1.5 } }
   end,
   calculate = function(self, card, context)
+    if context.discard and context.other_card == card then
+      return { remove = true }
+    end
     if context.main_scoring and context.cardarea == G.play then
       return {
         x_mult = 1.5,

@@ -7,43 +7,29 @@ SMODS.Consumable {
   discovered = false,
   cost = 3,
   loc_vars = function(self, info_queue, card)
-    return { vars = {} }
+    return { vars = { Sculio.distorted() and 2 or 1 }, key = Sculio.distorted_key(self) }
   end,
   can_use = function(self, card)
-    return Sculio.hand_selection_state()
+    return Sculio.hand_selection_state() or G.STATE == G.STATES.SHOP
   end,
   use = function(self, card, area, copier)
     Sculio.track_inverted_use(card)
-    G.E_MANAGER:add_event(Event({ trigger = 'after', delay = 0.4, func = function()
-      local pool = {}
-      for key, center in pairs(G.P_CENTERS) do
-        if (center.set == 'Tarot' or center.set == 'Inverted') and key ~= 'c_Sculio_immutable_wheel' then
-          pool[#pool + 1] = key
-        end
-      end
-      table.sort(pool)
-
-      local hand_empty = not G.hand or #G.hand.highlighted == 0
-      for i = 1, 15 do
-        local key = pseudorandom_element(pool, pseudoseed('sculio_immutable' .. i))
-        local center = key and G.P_CENTERS[key]
-        if not center then break end
-        local needs_target = center.config and center.config.max_highlighted and hand_empty and not center.can_use
-        if not needs_target then
-          local new_card = Card(
-            G.play.T.x + G.play.T.w / 2 - G.CARD_W * 1.27 / 2,
-            G.play.T.y + G.play.T.h / 2 - G.CARD_H * 1.27 / 2,
-            G.CARD_W * 1.27, G.CARD_H * 1.27, G.P_CARDS.empty, center,
-            { bypass_discovery_center = true, bypass_discovery_ui = true }
-          )
-          new_card.cost = 0
-          G.FUNCS.use_card({ config = { ref_table = new_card } })
-          new_card:start_materialize()
-          break
-        end
-      end
-      return true
-    end }))
-    delay(0.6)
+    -- Wait for the Wheel itself to finish dissolving before revealing the chosen Tarot
+    if Sculio.distorted() then
+      -- Distorted Flow: one vanilla Tarot and one Inverted Tarot
+      G.E_MANAGER:add_event(Event({ trigger = 'after', delay = 1.2, func = function()
+        Sculio.invoke_random_tarot(1, 'Tarot')
+        return true
+      end }))
+      G.E_MANAGER:add_event(Event({ trigger = 'after', delay = 2.4, func = function()
+        Sculio.invoke_random_tarot(2, 'Inverted')
+        return true
+      end }))
+    else
+      G.E_MANAGER:add_event(Event({ trigger = 'after', delay = 1.2, func = function()
+        Sculio.invoke_random_tarot(1)
+        return true
+      end }))
+    end
   end,
 }

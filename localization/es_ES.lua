@@ -55,7 +55,7 @@ return {
         },
       },
       p_Sculio_inverted_normal = {
-        name = 'Paquete Arcano Invertido',
+        name = '¿Paquete Arcano?',
         text = {
           'Elige {C:attention}#1#{} de hasta',
           '{C:attention}#2# cartas de {C:inverted}Tarot Invertido{}',
@@ -63,7 +63,7 @@ return {
         },
       },
       p_Sculio_inverted_jumbo = {
-        name = 'Paquete Arcano Invertido jumbo',
+        name = '¿Paquete Arcano jumbo?',
         text = {
           'Elige {C:attention}#1#{} de hasta',
           '{C:attention}#2# cartas de {C:inverted}Tarot Invertido{}',
@@ -71,7 +71,7 @@ return {
         },
       },
       p_Sculio_inverted_mega = {
-        name = 'Paquete Arcano Invertido mega',
+        name = '¿Mega Paquete Arcano?',
         text = {
           'Elige {C:attention}#1#{} de hasta',
           '{C:attention}#2# cartas de {C:inverted}Tarot Invertido{}',
@@ -745,7 +745,16 @@ return {
           '{C:inactive}(Actualmente {C:mult}+#1#{}{C:inactive} Multi)',
         },
       },
-      -- 71. Cartomancer?
+      -- 71. Manuscript
+      j_Sculio_manuscript = {
+        name = 'Manuscrito',
+        text = {
+          'Obtiene {C:chips}+#2#{} Fichas cada vez que',
+          'una {C:attention}Carta Profana{} anota',
+          '{C:inactive}(Actualmente {C:chips}+#1#{}{C:inactive} Fichas)',
+        },
+      },
+      -- 72. Cartomancer?
       j_Sculio_cartomante = {
         name = '¿Cartomante?',
         text = {
@@ -787,17 +796,31 @@ return {
       v_Sculio_inverted_merchant = {
         name = 'Falsificador de Tarots',
         text = {
-          'Las cartas de {C:inverted}Tarot Invertido{} aparecen',
-          '{C:attention}#1#X{} veces más seguido',
-          'en la tienda',
+          'Los {C:inverted}Tarots Invertidos{}',
+          'aparecen en la tienda',
         },
       },
       v_Sculio_inverted_tycoon = {
         name = 'Contrabandista de Tarots',
         text = {
-          'Las cartas de {C:inverted}Tarot Invertido{} aparecen',
-          '{C:attention}#1#X{} veces más seguido',
-          'en la tienda',
+          'Los {C:inverted}Tarots Invertidos{}',
+          'aparecen en la tienda,',
+          '{C:attention}#1#X{} más seguido',
+        },
+      },
+      v_Sculio_droste_effect = {
+        name = 'Efecto Droste',
+        text = {
+          'Los {C:inverted}Paquetes Arcanos Invertidos{}',
+          'contienen {C:attention}1{} carta y {C:attention}1{}',
+          'elección extra',
+        },
+      },
+      v_Sculio_distorted_flow = {
+        name = 'Flujo Distorsionado',
+        text = {
+          "Potencia los efectos de los",
+          "{C:inverted}Tarots Invertidos{}."
         },
       },
     },
@@ -807,6 +830,7 @@ return {
         text = {
           'Los {C:tarot}Paquetes Arcanos{} no',
           'aparecerán en la tienda',
+          'Comienzas con {C:attention}Falsificador de Tarots{}',
         },
       },
     },
@@ -814,9 +838,18 @@ return {
       m_Sculio_experimental = {
         name = 'Carta Experimental',
         text = {
-          'Tras anotar {C:attention}#2# veces{} {C:inactive}(#1#/7){},',
+          'Tras anotar {C:attention}#2# veces{} {C:inactive}(#1#/#2#){},',
           'crea una {C:attention}Etiqueta{} al azar',
           'y se convierte en {C:attention}Carta de Plomo{}',
+        },
+      },
+      m_Sculio_experimental_distorted_flow = {
+        name = 'Carta Experimental',
+        text = {
+          'Tras anotar {C:attention}#2# veces{} {C:inactive}(#1#/#2#){},',
+          'crea una {C:attention}Etiqueta{} al azar,',
+          'se convierte en {C:attention}Carta de Plomo{}',
+          'y paga {C:money}$15{}',
         },
       },
       m_Sculio_lead = {
@@ -829,28 +862,35 @@ return {
       m_Sculio_wandering = {
         name = 'Carta Errante',
         text = {
-          'Si está en mano al jugar,',
-          'se autodescarta y gana',
-          '{C:mult}+1 Multi{}',
+          "{C:mult}+#1# Multi{} al descartarse.",
+          "Se auto descarta al jugar una mano",
         },
       },
       m_Sculio_profane = {
         name = 'Carta Profana',
         text = {
-          'Drena {C:chips}1 Ficha{} de una carta',
+          'Drena {C:chips}3 Fichas{} de una carta',
           'en mano y gana {C:chips}+3 Fichas{}',
           'al anotar',
           "{C:inactive,s:0.8}(No puede drenar otras cartas profanas)",
         },
       },
+      m_Sculio_profane_distorted_flow = {
+        name = 'Carta Profana',
+        text = {
+          'Gana {C:chips}+7 Fichas{} al anotar',
+          'sin drenar ninguna carta',
+        },
+      },
       m_Sculio_punched = {
         name = 'Carta Perforada',
         text = {
-          '{X:mult,C:white}X#1#{} Multi al anotar',
+          '{X:mult,C:white}X#1#{} Multi al anotar,',
+          'se destruye al descartarse',
         },
       },
-      m_Sculio_melancholic = {
-        name = 'Carta Melancólica',
+      m_Sculio_smeared = {
+        name = 'Carta Difuminada',
         text = {
           {
             "{X:mult,C:white}X1.75{} Multi antes y",
@@ -859,14 +899,14 @@ return {
           {
             "Se {C:red}autodestruye{}",
             "si se juega con otra",
-            "carta melancólica",
+            "carta difuminada",
           }
         },
       },
       m_Sculio_phalanx = {
         name = 'Carta Falange',
         text = {
-          'Otorga {X:mult,C:white}X0.2{} Multi',
+          'Otorga {X:mult,C:white}X#1#{} Multi',
           'acumulable al final de la mano',
         },
       },
@@ -919,22 +959,39 @@ return {
         text = {
           'Copia el último {C:inverted}Tarot Invertido{} usado',
           '{C:inactive}(Actualmente: #1#){}',
-          'Si intentara copiarse a sí mismo,',
-          'se convierte en {C:attention}El Loco{}',
+          'Lo copia {C:attention}x#2#{}; si intentara copiarse',
+          'a sí mismo, se convierte en {C:attention}El Loco{}',
         },
       },
-      c_Sculio_scientist = {
+      c_Sculio_sane_distorted_flow = {
+        name = 'El Sensato',
+        text = {
+          'Copia el último {C:inverted}Tarot Invertido{} usado',
+          '{C:inactive}(Actualmente: #1#){}',
+          'Lo copia {C:attention}x#2#{} y también crea',
+          'una copia de su contraparte {C:attention}#3#{}',
+        },
+      },
+      c_Sculio_scholar = {
         name = 'El Erudito',
         text = {
           'Mejora {C:attention}#1#{} cartas seleccionadas',
           'en {C:attention}Cartas Experimentales{}',
         },
       },
+      c_Sculio_scholar_distorted_flow = {
+        name = 'El Erudito',
+        text = {
+          'Mejora {C:attention}#1#{} cartas seleccionadas en',
+          '{C:attention}Cartas Experimentales{} que se activan a',
+          '{C:attention}5{} y pagan {C:money}$15{}',
+        },
+      },
       c_Sculio_secularist = {
         name = 'La Laica',
         text = {
-          'Sube de nivel entre {C:attention}1{} y',
-          '{C:attention}3{} manos de póker al azar',
+          'Sube de nivel entre {C:attention}#1#{} y',
+          '{C:attention}#2#{} manos de póker al azar',
         },
       },
       c_Sculio_exiled = {
@@ -947,8 +1004,17 @@ return {
       c_Sculio_regicide = {
         name = 'Regicidio',
         text = {
-          'Crea hasta {C:attention}2{} {C:inverted}Tarots Invertidos{} al azar',
+          'Crea hasta {C:attention}#1#{} {C:inverted}Tarots{}',
+          "{C:inverted}Invertidos{} al azar",
           '{C:inactive}(Debe haber espacio){}',
+        },
+      },
+      c_Sculio_regicide_distorted_flow = {
+        name = 'Regicidio',
+        text = {
+          'Crea hasta {C:attention}#1#{} {C:inverted}Tarots{}',
+          "{C:inverted}Invertidos{} al azar",
+          '{C:inactive}(Ignora las ranuras de Consumibles){}',
         },
       },
       c_Sculio_apostate = {
@@ -958,17 +1024,25 @@ return {
           'en {C:attention}Cartas Profanas{}',
         },
       },
+      c_Sculio_apostate_distorted_flow = {
+        name = 'El Apóstata',
+        text = {
+          'Mejora {C:attention}#1#{} cartas seleccionadas',
+          'en {C:attention}Cartas Profanas{} que ganan',
+          '{C:chips}+7 Fichas{} sin drenar',
+        },
+      },
       c_Sculio_adversaries = {
         name = 'Los Adversarios',
         text = {
-          'Mejora exactamente {C:attention}3{} cartas',
-          'en {C:attention}Cartas Melancólicas{}',
+          'Mejora {C:attention}#1#{} cartas',
+          'en {C:attention}Cartas Difuminadas{}',
         },
       },
       c_Sculio_pikeman = {
         name = 'El Piquero',
         text = {
-          'Mejora {C:attention}2{} cartas seleccionadas',
+          'Mejora {C:attention}#1#{} cartas seleccionadas',
           'en {C:attention}Carta Falange{}',
         },
       },
@@ -982,16 +1056,24 @@ return {
       c_Sculio_mundane = {
         name = 'El Mundano',
         text = {
-          'Recupera el {C:money}30%{} del dinero gastado',
-          'en el Ante actual, hasta {C:money}$30{}',
+          'Recupera el {C:money}#1#%{} del dinero gastado',
+          'en el Ante actual, hasta {C:money}$#2#{}',
           '{C:inactive}(Actualmente: $#3#){}',
         },
       },
       c_Sculio_immutable_wheel = {
         name = 'La Rueda Inmutable',
         text = {
-          'Durante una Ciega, activa el efecto de un',
-          '{C:tarot}Tarot{} o {C:inverted}Tarot Invertido{} al azar',
+          'Activa el efecto de',
+          '{C:attention}#1#{} {C:tarot}Tarot{} o {C:inverted}Tarot Invertido{} al azar',
+          'Siempre hace algo',
+        },
+      },
+      c_Sculio_immutable_wheel_distorted_flow = {
+        name = 'La Rueda Inmutable',
+        text = {
+          'Activa el efecto de {C:attention}1{} {C:tarot}Tarot{}',
+          'y {C:attention}1{} {C:inverted}Tarot Invertido{} al azar',
           'Siempre hace algo',
         },
       },
@@ -1006,16 +1088,24 @@ return {
         name = 'El Expiado',
         text = {
           'Copia un modificador de la última carta',
-          'destruida en {C:attention}2{} cartas seleccionadas',
-          'Puede ser una Mejora, Sello',
-          'o Edición {C:green}(#1#-#2#-#3#){}',
+          'destruida en {C:attention}#2#{} cartas seleccionadas',
+          '{C:inactive}(#1#){}',
         },
       },
       c_Sculio_reborn = {
         name = 'El Renacido',
         text = {
-          'Destruye {C:attention}1{} carta al azar y copia uno de',
-          'sus modificadores en {C:attention}3{} cartas al azar',
+          'Destruye {C:attention}1{} carta al azar de tu mano y copia',
+          'uno de sus modificadores en {C:attention}#2#{} cartas al azar',
+          'de tu mano. Puede ser una Mejora, Sello o Edición',
+        },
+      },
+      c_Sculio_reborn_distorted_flow = {
+        name = 'El Renacido',
+        text = {
+          'Copia un modificador de una carta al azar de tu mano',
+          'en {C:attention}#1#{} cartas al azar de tu mano,',
+          'sin destruirla.',
           'Puede ser una Mejora, Sello o Edición',
         },
       },
@@ -1045,45 +1135,71 @@ return {
       c_Sculio_collapse = {
         name = 'El Colapso',
         text = {
-          'Por cada {C:diamonds}10 Diamantes{} en toda tu Baraja,',
-          'da una {C:dark_edition}Edición{} al azar a una carta al azar',
-          '{C:inactive}(Actualmente: #2#){}',
+          'Por cada {C:diamonds}#1# Diamantes{} en tu Baraja,',
+          'otorga una {C:dark_edition}Edición{} al azar a una carta',
+          '{C:inactive}(Actualmente: {C:dark_edition}+#2#{C:inactive} Ediciones){}',
+        },
+      },
+      c_Sculio_collapse_distorted_flow = {
+        name = 'El Colapso',
+        text = {
+          'Por cada {C:diamonds}#1# Diamantes{} en tu Baraja,',
+          'otorga una {C:dark_edition}Edición{} al azar a una carta',
+          '{C:inactive}(Actualmente: {C:dark_edition}+#2#{C:inactive} Ediciones){},',
+          'las cartas afectadas pagan {C:money}$1{} al anotar',
         },
       },
       c_Sculio_eclipse = {
         name = 'El Eclipse',
         text = {
-          'Por cada {C:clubs}10 Tréboles{} en toda tu Baraja,',
-          'las cartas en mano ganan permanentemente',
-          '{C:mult}+1 Multi{}',
-          '{C:inactive}(Actualmente: x#2#){}',
+          'Por cada {C:clubs}10 Tréboles{} en tu Baraja,',
+          'las cartas en mano obtienen {C:mult}+#3# Multi{}',
+          '{C:inactive}(Actualmente: {C:red}+#2#{C:inactive} Multi){}',
         },
       },
       c_Sculio_twilight = {
         name = 'El Crepúsculo',
         text = {
-          'Por cada {C:hearts}10 Corazones{} en toda tu Baraja,',
-          '{C:attention}2{} cartas al azar reciben',
-          'Mejoras al azar',
-          '{C:inactive}(Actualmente: #2# cartas){}',
+          'Por cada {C:hearts}10 Corazones{} en tu Baraja,',
+          '{C:attention}#3#{} cartas al azar reciben Mejoras',
+          '{C:inactive}(Actualmente: {C:attention}#2#{C:inactive} Mejoras){}',
+        },
+      },
+      c_Sculio_twilight_distorted_flow = {
+        name = 'El Crepúsculo',
+        text = {
+          'Por cada {C:hearts}10 Corazones{} en tu Baraja,',
+          '{C:attention}#3#{} cartas al azar reciben Mejoras,',
+          'cada una con una prob. de {C:attention}1 en 6{}',
+          'de obtener un Sello',
+          '{C:inactive}(Actualmente: {C:attention}#2#{C:inactive} Mejoras){}',
         },
       },
       c_Sculio_cave = {
         name = 'La Cueva',
         text = {
-          'Por cada {C:spades}10 Espadas{} en toda tu Baraja,',
-          'las cartas en mano ganan permanentemente',
-          '{C:chips}+5 Fichas{}',
-          '{C:inactive}(Actualmente: x#2#){}',
+          'Por cada {C:spades}10 Espadas{} en tu Baraja,',
+          'las cartas en mano obtienen {C:chips}+#3# Fichas{}',
+          '{C:inactive}(Actualmente: {C:blue}+#2#{C:inactive} Fichas){}',
         },
       },
       c_Sculio_mercy = {
         name = 'Piedad',
         text = {
-          'Crea una copia {C:dark_edition}Negativa{} y Perecedera',
+          'Crea una copia {C:dark_edition}Negativa{}#2#',
           'del último Comodín vendido',
           '{C:inactive}(Actualmente: #1#){}',
-          'La copia tiene valor de venta de {C:money}$0{}',
+          '{C:inactive,s:0.8}(La copia no tiene valor de venta){}',
+        },
+      },
+      c_Sculio_mercy_distorted_flow = {
+        name = 'Piedad',
+        text = {
+          'Crea una copia {C:dark_edition}Negativa{} del último',
+          'Comodín vendido, y además un Comodín',
+          '{C:dark_edition}Negativo{} {C:attention}Perecedero{} al azar',
+          '{C:inactive}(Actualmente: #1#){}',
+          'Ambas copias no tienen valor de venta',
         },
       },
     },
@@ -1104,6 +1220,7 @@ return {
       k_Sculio_none = 'Nada',
       k_Sculio_plus_inverted = '+1 Tarot Invertido',
       k_inverted = 'Tarot Invertido',
+      Sculio_perishable_suffix = ' y Perecedera',
       b_inverted_cards = 'Tarots Invertidos',
       k_booster_group_sculio_inverted = 'Paquetes Arcanos Invertidos',
       Sculio_trap_unknown_trigger = 'al azar',
