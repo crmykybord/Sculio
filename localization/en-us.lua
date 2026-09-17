@@ -744,7 +744,16 @@ return {
           '{C:inactive}(Currently {C:mult}+#1#{}{C:inactive} Mult)',
         },
       },
-      -- 71. Cartomancer?
+      -- 71. Manuscript
+      j_Sculio_manuscript = {
+        name = 'Manuscript',
+        text = {
+          'Gains {C:chips}+#2#{} Chips each time',
+          'a {C:attention}Profane Card{} scores',
+          '{C:inactive}(Currently {C:chips}+#1#{}{C:inactive} Chips)',
+        },
+      },
+      -- 72. Cartomancer?
       j_Sculio_cartomante = {
         name = 'Cartomancer?',
         text = {
@@ -786,17 +795,33 @@ return {
       v_Sculio_inverted_merchant = {
         name = 'Tarot Forger',
         text = {
-          '{C:inverted}Inverted Tarot{} cards appear',
+          '{C:inverted}Inverted Tarot{} cards now',
+          'appear in the shop,',
           '{C:attention}#1#X{} more frequently',
-          'in the shop',
         },
       },
       v_Sculio_inverted_tycoon = {
         name = 'Tarot Smuggler',
         text = {
-          '{C:inverted}Inverted Tarot{} cards appear',
+          '{C:inverted}Inverted Tarot{} cards now',
+          'appear in the shop,',
           '{C:attention}#1#X{} more frequently',
-          'in the shop',
+        },
+      },
+      v_Sculio_droste_effect = {
+        name = 'Droste Effect',
+        text = {
+          '{C:inverted}Inverted Arcana Packs{} have',
+          '{C:attention}1{} extra card and {C:attention}1{}',
+          'extra choice',
+        },
+      },
+      v_Sculio_distorted_flow = {
+        name = 'Distorted Flow',
+        text = {
+          'Boosts the effects of',
+          '{C:inverted}Inverted Tarots{}. Check each',
+          'one for its specific upgrade',
         },
       },
     },
@@ -828,9 +853,8 @@ return {
       m_Sculio_wandering = {
         name = 'Wandering Card',
         text = {
-          'If in played hand,',
-          'discards itself and gains',
-          '{C:mult}+1 Mult{}',
+          'Gains {C:mult}+#1# Mult{} when discarded,',
+          'discards itself when a hand is played',
         },
       },
       m_Sculio_profane = {
@@ -919,7 +943,7 @@ return {
         text = {
           'Copies the last {C:inverted}Inverted Tarot{} used',
           '{C:inactive}(Currently: #1#){}',
-          'If it were to copy itself,',
+          'Copies it {C:attention}x#2#{}; if it were to copy itself,',
           'it becomes {C:attention}The Fool{} instead',
         },
       },
@@ -933,8 +957,8 @@ return {
       c_Sculio_secularist = {
         name = 'The Secularist',
         text = {
-          'Levels up between {C:attention}1{} and',
-          '{C:attention}3{} random Poker Hands',
+          'Levels up between {C:attention}#1#{} and',
+          '{C:attention}#2#{} random Poker Hands',
         },
       },
       c_Sculio_exiled = {
@@ -947,7 +971,7 @@ return {
       c_Sculio_regicide = {
         name = 'Regicide',
         text = {
-          'Creates up to {C:attention}2{} random',
+          'Creates up to {C:attention}#1#{} random',
           '{C:inverted}Inverted Tarot{} cards',
           '{C:inactive}(Must have room){}',
         },
@@ -962,14 +986,14 @@ return {
       c_Sculio_adversaries = {
         name = 'The Adversaries',
         text = {
-          'Enhances {C:attention}3{} cards',
+          'Enhances {C:attention}#1#{} cards',
           'into {C:attention}Smeared Cards{}',
         },
       },
       c_Sculio_pikeman = {
         name = 'The Pikeman',
         text = {
-          'Enhances {C:attention}2{} selected cards',
+          'Enhances {C:attention}#1#{} selected cards',
           'into a {C:attention}Phalanx Card{}',
         },
       },
@@ -984,16 +1008,17 @@ return {
       c_Sculio_mundane = {
         name = 'The Mundane',
         text = {
-          'Recovers {C:money}30%{} of money spent',
-          'in current Ante, up to {C:money}$30{}',
+          'Recovers {C:money}#1#%{} of money spent',
+          'in current Ante, up to {C:money}$#2#{}',
           '{C:inactive}(Currently: $#3#){}',
         },
       },
       c_Sculio_immutable_wheel = {
         name = 'The Immutable Wheel',
         text = {
-          'During a Blind, activates the effect',
-          'of a random {C:tarot}Tarot{} or {C:inverted}Inverted Tarot{}',
+          'Activates the effect of',
+          '{C:attention}#1#{} random {C:tarot}Tarot{} or {C:inverted}Inverted Tarot{}',
+          'Always does something',
         },
       },
       c_Sculio_weakness = {
@@ -1007,17 +1032,16 @@ return {
         name = 'The Atoned',
         text = {
           'Copies one modifier from the last',
-          'destroyed card onto {C:attention}2{} selected cards',
-          'Can be an Enhancement, Seal',
-          'or Edition {C:green}(#1#-#2#-#3#){}',
+          'destroyed card onto {C:attention}#2#{} selected cards',
+          '{C:inactive}(#1#){}',
         },
       },
       c_Sculio_reborn = {
         name = 'Reborn',
         text = {
-          'Destroys {C:attention}1{} random card and copies',
-          'one of its modifiers onto {C:attention}3{} random cards',
-          'Can be an Enhancement, Seal or Edition',
+          'Destroys {C:attention}1{} random card in your hand and copies',
+          'one of its modifiers onto {C:attention}#2#{} random cards',
+          'in your hand. Can be an Enhancement, Seal or Edition',
         },
       },
       c_Sculio_impatient = {
@@ -1046,7 +1070,7 @@ return {
       c_Sculio_collapse = {
         name = 'The Collapse',
         text = {
-          'For every {C:diamonds}10 Diamonds{} in your full deck,',
+          'For every {C:diamonds}#1# Diamonds{} in your full deck,',
           'give a random card a random {C:edition}Edition{}',
           '{C:inactive}(Currently: #2#){}',
         },
@@ -1056,7 +1080,7 @@ return {
         text = {
           'For every {C:clubs}10 Clubs{} in your full deck,',
           'cards currently held in hand permanently',
-          'gain {C:mult}+1 Mult{}',
+          'gain {C:mult}+#3# Mult{}',
           '{C:inactive}(Currently: x#2#){}',
         },
       },
@@ -1064,7 +1088,7 @@ return {
         name = 'The Twilight',
         text = {
           'For every {C:hearts}10 Hearts{} in your full deck,',
-          '{C:attention}2{} random cards receive',
+          '{C:attention}#3#{} random cards receive',
           'random Enhancements',
           '{C:inactive}(Currently: #2# cards){}',
         },
@@ -1074,14 +1098,14 @@ return {
         text = {
           'For every {C:spades}10 Spades{} in your full deck,',
           'cards currently held in hand permanently',
-          'gain {C:chips}+5 Chips{}',
+          'gain {C:chips}+#3# Chips{}',
           '{C:inactive}(Currently: x#2#){}',
         },
       },
       c_Sculio_mercy = {
         name = 'Mercy',
         text = {
-          'Creates a {C:dark_edition}Negative{}, Perishable copy',
+          'Creates a {C:dark_edition}Negative{}#2# copy',
           'of the last Joker sold',
           '{C:inactive}(Currently: #1#){}',
           'The copy has {C:money}$0{} sell value',
@@ -1107,6 +1131,7 @@ return {
       k_Sculio_none = 'None',
       k_Sculio_plus_inverted = '+1 Inverted Tarot',
       k_inverted = 'Inverted Tarot',
+      Sculio_perishable_suffix = ', Perishable',
       b_inverted_cards = 'Inverted Tarots',
       k_booster_group_sculio_inverted = 'Inverted Arcana Packs',
       Sculio_trap_unknown_trigger = 'rolled',
