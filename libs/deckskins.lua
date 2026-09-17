@@ -10,7 +10,7 @@ local COLLABS = {
 
 local FACE_RANKS = { 'Jack', 'Queen', 'King' }
 
-local DISPLAY_RANKS = { 'King', 'Queen', 'Jack' } -THAT WAS ALL XD
+local DISPLAY_RANKS = { 'King', 'Queen', 'Jack' } -- THAT WAS ALL XD
 
 local RANK_POS = {
   Jack = { pos = { x = 0, y = 0 } },
