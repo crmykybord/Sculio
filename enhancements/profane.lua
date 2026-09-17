@@ -27,6 +27,7 @@ SMODS.Enhancement {
         G.E_MANAGER:add_event(Event({ trigger = 'after', delay = 0.2, func = function()
           victim.base.nominal = math.max(0, (victim.base.nominal or 0) - 1)
           victim:juice_up(0.3, 0.4)
+          if victim.base.nominal <= 0 then SMODS.modify_rank(victim, -1) end
           return true
         end }))
       end
