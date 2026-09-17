@@ -812,16 +812,15 @@ return {
         name = 'Efecto Droste',
         text = {
           'Los {C:inverted}Paquetes Arcanos Invertidos{}',
-          'tienen {C:attention}1{} carta y {C:attention}1{}',
+          'contienen {C:attention}1{} carta y {C:attention}1{}',
           'elección extra',
         },
       },
       v_Sculio_distorted_flow = {
         name = 'Flujo Distorsionado',
         text = {
-          'Potencia los efectos de los',
-          '{C:inverted}Tarots Invertidos{}. Revisa cada',
-          'uno para ver su mejora específica',
+          "Potencia los efectos de los",
+          "{C:inverted}Tarots Invertidos{}."
         },
       },
     },
@@ -1070,36 +1069,33 @@ return {
       c_Sculio_collapse = {
         name = 'El Colapso',
         text = {
-          'Por cada {C:diamonds}#1# Diamantes{} en toda tu Baraja,',
-          'da una {C:dark_edition}Edición{} al azar a una carta al azar',
-          '{C:inactive}(Actualmente: #2#){}',
+          'Por cada {C:diamonds}#1# Diamantes{} en tu Baraja,',
+          'otorga una {C:dark_edition}Edición{} al azar a una carta',
+          '{C:inactive}(Actualmente: {C:dark_edition}+#2#{C:inactive} Ediciones){}',
         },
       },
       c_Sculio_eclipse = {
         name = 'El Eclipse',
         text = {
-          'Por cada {C:clubs}10 Tréboles{} en toda tu Baraja,',
-          'las cartas en mano ganan permanentemente',
-          '{C:mult}+#3# Multi{}',
-          '{C:inactive}(Actualmente: x#2#){}',
+          'Por cada {C:clubs}10 Tréboles{} en tu Baraja,',
+          'las cartas en mano obtienen {C:mult}+#3# Multi{}',
+          '{C:inactive}(Actualmente: {C:red}+#2#{C:inactive} Multi){}',
         },
       },
       c_Sculio_twilight = {
         name = 'El Crepúsculo',
         text = {
-          'Por cada {C:hearts}10 Corazones{} en toda tu Baraja,',
-          '{C:attention}#3#{} cartas al azar reciben',
-          'Mejoras al azar',
-          '{C:inactive}(Actualmente: #2# cartas){}',
+          'Por cada {C:hearts}10 Corazones{} en tu Baraja,',
+          '{C:attention}#3#{} cartas al azar reciben Mejoras',
+          '{C:inactive}(Actualmente: {C:attention}#2#{C:inactive} Mejoras){}',
         },
       },
       c_Sculio_cave = {
         name = 'La Cueva',
         text = {
-          'Por cada {C:spades}10 Espadas{} en toda tu Baraja,',
-          'las cartas en mano ganan permanentemente',
-          '{C:chips}+#3# Fichas{}',
-          '{C:inactive}(Actualmente: x#2#){}',
+          'Por cada {C:spades}10 Espadas{} en tu Baraja,',
+          'las cartas en mano obtienen {C:chips}+#3# Fichas{}',
+          '{C:inactive}(Actualmente: {C:blue}+#2#{C:inactive} Fichas){}',
         },
       },
       c_Sculio_mercy = {
