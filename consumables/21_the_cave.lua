@@ -23,6 +23,7 @@ SMODS.Consumable {
       held.ability.perma_bonus = (held.ability.perma_bonus or 0) + stacks * per
       G.E_MANAGER:add_event(Event({ trigger = 'after', delay = 0.3, func = function()
         held:juice_up(0.3, 0.5)
+        play_sound('gold_seal', 1.2, 0.4)
         return true
       end }))
     end

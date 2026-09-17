@@ -29,6 +29,7 @@ SMODS.Consumable {
       for _, c in ipairs(held) do
         if not c.REMOVED then c:juice_up(0.3, 0.5) end
       end
+      play_sound('gold_seal', 1.2, 0.4)
       return true
     end }))
     delay(0.4)
