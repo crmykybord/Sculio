@@ -7,7 +7,7 @@ SMODS.Consumable {
   discovered = false,
   cost = 3,
   loc_vars = function(self, info_queue, card)
-    return { vars = { Sculio.distorted() and 2 or 1, Sculio.distorted() and 4 or 3 } }
+    return { vars = { Sculio.distorted() and 2 or 1, Sculio.distorted() and 7 or 3 } }
   end,
   can_use = function(self, card)
     return true
@@ -15,7 +15,7 @@ SMODS.Consumable {
   use = function(self, card, area, copier)
     Sculio.track_inverted_use(card)
     local lo = Sculio.distorted() and 2 or 1
-    local hi = Sculio.distorted() and 4 or 3
+    local hi = Sculio.distorted() and 7 or 3
     local visible_hands = {}
     for k, v in pairs(G.GAME.hands) do
       if v.visible then visible_hands[#visible_hands + 1] = k end

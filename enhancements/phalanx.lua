@@ -5,12 +5,13 @@ SMODS.Enhancement {
 
   config = {},
   loc_vars = function(self, info_queue, card)
-    return { vars = { 0.2 } }
+    return { vars = { Sculio.distorted() and 0.4 or 0.2 } }
   end,
   calculate = function(self, card, context)
+    local per = Sculio.distorted() and 0.4 or 0.2
     -- Every scored Phalanx feeds one shared end-of-hand multiplier
     if context.main_scoring and context.cardarea == G.play then
-      G.GAME.Sculio_phalanx_tally = (G.GAME.Sculio_phalanx_tally or 0) + 0.2
+      G.GAME.Sculio_phalanx_tally = (G.GAME.Sculio_phalanx_tally or 0) + per
     end
     if context.final_scoring_step and (G.GAME.Sculio_phalanx_tally or 0) > 0 then
       local xmult = 1 + G.GAME.Sculio_phalanx_tally

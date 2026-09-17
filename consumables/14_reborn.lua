@@ -7,13 +7,17 @@ SMODS.Consumable {
   discovered = false,
   cost = 3,
   loc_vars = function(self, info_queue, card)
-    return { vars = { 1, Sculio.distorted() and 4 or 3 } }
+    if Sculio.distorted() then
+      return { vars = { 4 }, key = Sculio.distorted_key(self) }
+    end
+    return { vars = { 1, 3 } }
   end,
   can_use = function(self, card)
     return G.hand and #G.hand.cards >= 1 + (Sculio.distorted() and 4 or 3)
   end,
   use = function(self, card, area, copier)
     Sculio.track_inverted_use(card)
+    local distorted = Sculio.distorted()
     local hand = {}
     for _, c in ipairs(G.hand.cards) do hand[#hand + 1] = c end
     if #hand < 2 then return end
@@ -43,13 +47,16 @@ SMODS.Consumable {
     end
     pseudoshuffle(targets, pseudoseed('sculio_reborn_t'))
     local chosen = {}
-    for i = 1, math.min(Sculio.distorted() and 4 or 3, #targets) do
+    for i = 1, math.min(distorted and 4 or 3, #targets) do
       chosen[#chosen + 1] = targets[i]
     end
 
-    -- Destroy the victim in hand, then flip the remaining hand cards onto which the modifier is copied
-    SMODS.destroy_cards(victim)
-    delay(0.4)
+    -- Destroy the victim in hand, then flip the remaining hand cards onto which the modifier is copied.
+    -- Distorted Flow keeps the victim alive.
+    if not distorted then
+      SMODS.destroy_cards(victim)
+      delay(0.4)
+    end
     Sculio.flip_highlighted(card, chosen, function()
       for _, tc in ipairs(chosen) do
         Sculio.apply_modifier(tc, picked)

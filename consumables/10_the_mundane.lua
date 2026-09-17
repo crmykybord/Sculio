@@ -8,7 +8,7 @@ SMODS.Consumable {
   cost = 3,
   loc_vars = function(self, info_queue, card)
     local pct = Sculio.distorted() and 0.5 or 0.3
-    local cap = Sculio.distorted() and 50 or 30
+    local cap = Sculio.distorted() and 60 or 30
     local refund = math.min(math.ceil((G.GAME.Sculio_ante_spend or 0) * pct), cap)
     return { vars = { math.floor(pct * 100), cap, refund } }
   end,
@@ -18,7 +18,7 @@ SMODS.Consumable {
   use = function(self, card, area, copier)
     Sculio.track_inverted_use(card)
     local pct = Sculio.distorted() and 0.5 or 0.3
-    local cap = Sculio.distorted() and 50 or 30
+    local cap = Sculio.distorted() and 60 or 30
     local refund = math.min(math.ceil((G.GAME.Sculio_ante_spend or 0) * pct), cap)
     if refund > 0 then
       ease_dollars(refund)

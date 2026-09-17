@@ -32,7 +32,9 @@ SMODS.Enhancement {
   loc_vars = function(self, info_queue, card)
     info_queue[#info_queue + 1] = G.P_CENTERS.m_Sculio_lead
     local extra = card and card.ability and card.ability.extra or self.config.extra
-    return { vars = { extra.count, extra.max } }
+    -- Alt description only on cards Scholar created while Distorted Flow was active
+    local key = extra.reward and (self.key .. '_distorted_flow') or self.key
+    return { vars = { extra.count, extra.max }, key = key }
   end,
   calculate = function(self, card, context)
     if context.main_scoring and context.cardarea == G.play and not context.retrigger_joker then
@@ -58,6 +60,11 @@ SMODS.Enhancement {
           add_tag(tag)
           play_sound('generic1', 0.9 + math.random() * 0.1, 0.8)
           play_sound('holo1', 1.2 + math.random() * 0.1, 0.4)
+          if card.ability.extra.reward then
+            ease_dollars(card.ability.extra.reward)
+            card_eval_status_text(card, 'extra', nil, nil, nil,
+              { message = localize('$') .. card.ability.extra.reward, colour = G.C.MONEY })
+          end
           return true
         end }))
         return { message = localize('k_upgrade_ex'), colour = G.C.FILTER }

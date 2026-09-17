@@ -9,7 +9,7 @@ SMODS.Consumable {
   loc_vars = function(self, info_queue, card)
     local per = Sculio.distorted() and 4 or 2
     local stacks = math.floor(Sculio.count_suit_deck('Hearts') / 10)
-    return { vars = { 10, stacks * per, per } }
+    return { vars = { 10, stacks * per, per }, key = Sculio.distorted_key(self) }
   end,
   can_use = function(self, card)
     return G.playing_cards and #G.playing_cards > 0
@@ -23,6 +23,13 @@ SMODS.Consumable {
     for _, center in pairs(G.P_CENTERS) do
       if center.set == 'Enhanced' and not center.no_rank and Sculio.in_pool(center) then
         options[#options + 1] = center.key
+      end
+    end
+    local distorted = Sculio.distorted()
+    local seals = {}
+    if distorted then
+      for _, key in ipairs(get_current_pool('Seal')) do
+        if key ~= 'UNAVAILABLE' then seals[#seals + 1] = key end
       end
     end
     -- Shallow copy: copy_table() deep-copies Cards and recurses forever on card.area cycles
@@ -45,6 +52,10 @@ SMODS.Consumable {
         local enh_key = SMODS.poll_enhancement({ key = 'sculio_twilight' .. i, guaranteed = true, options = options })
         if enh_key then
           target_card:set_ability(G.P_CENTERS[enh_key], false)
+          if #seals > 0 and SMODS.pseudorandom_probability(target_card, 'sculio_twilight_seal' .. i, 1, 6) then
+            local seal_key = pseudorandom_element(seals, pseudoseed('sculio_twilight_seal_pick' .. i))
+            if seal_key then target_card:set_seal(seal_key, true) end
+          end
           target_card:juice_up(0.3, 0.5)
         end
         return true

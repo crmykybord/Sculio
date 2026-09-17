@@ -291,10 +291,11 @@ end
 -- blind   (ciega, sin paquete): prioriza efectos que modifican cartas en mano.
 -- shop    (tienda): prioriza economía y generadores de consumibles (no hay mano).
 -- booster (paquete abierto): mezcla de ambos.
-function Sculio.wheel_candidates()
+function Sculio.wheel_candidates(only_set)
   local base = {}
   for key, center in pairs(G.P_CENTERS) do
     if (center.set == 'Tarot' or center.set == 'Inverted')
+        and (not only_set or center.set == only_set)
         and not center.hidden
         and not Sculio.wheel_blacklist[key] then
       base[#base + 1] = key
@@ -343,8 +344,8 @@ end
 -- Create and activate a random Tarot / Inverted Tarot for the Immutable Wheel.
 -- Runs the effect directly instead of G.FUNCS.use_card so the game never enters
 -- PLAY_TAROT (which hides the HUD and leaves the play/discard buttons locked).
-function Sculio.invoke_random_tarot(slot)
-  local pool = Sculio.wheel_candidates()
+function Sculio.invoke_random_tarot(slot, only_set)
+  local pool = Sculio.wheel_candidates(only_set)
   if #pool == 0 then return nil end
   -- Start from a clean selection so leftover highlights don't break the target count
   if G.hand then G.hand:unhighlight_all() end
@@ -401,7 +402,7 @@ function Sculio.invoke_random_tarot(slot)
 end
 
 -- Create up to n copies of a center inside an area
-function Sculio.create_center_card(center_key, area, n, seed)
+function Sculio.create_center_card(center_key, area, n, seed, no_delay)
   n = n or 1
   seed = seed or 'sculio_create'
   local set = (G.P_CENTERS[center_key] and G.P_CENTERS[center_key].set) or 'Tarot'
@@ -418,7 +419,7 @@ function Sculio.create_center_card(center_key, area, n, seed)
       return true
     end }))
   end
-  delay(0.45 * n)
+  if not no_delay then delay(0.45 * n) end
 end
 
 -- True in states where selecting hand cards is allowed (vanilla consumable states)
@@ -482,11 +483,57 @@ function Sculio.can_select(card)
     and #G.hand.highlighted <= (Sculio.max_highlighted(card) or 5)
 end
 
--- Effective max highlighted cards: Distorted Flow adds +1 to targeting Inverted Tarots
+-- Distorted Flow target caps per Inverted Tarot (keys not listed keep their base cap)
+Sculio.distorted_max = {
+  c_Sculio_scholar = 3,
+  c_Sculio_exiled = 3,
+  c_Sculio_apostate = 3,
+  c_Sculio_pikeman = 3,
+  c_Sculio_weakness = 5,
+  c_Sculio_atoned = 5,
+}
+
+-- Effective max highlighted cards: Distorted Flow overrides targeting Inverted Tarots
 function Sculio.max_highlighted(card)
   local base = card.ability.consumeable.max_highlighted or 0
-  if base > 0 and card.ability.set == 'Inverted' and Sculio.distorted() then return base + 1 end
+  local override = Sculio.distorted() and Sculio.distorted_max[card.config.center_key]
+  if base > 0 and override then return override end
   return base
+end
+
+-- Vanilla Tarot each Inverted Tarot mirrors (cell order = Major Arcana order)
+Sculio.inverted_counterparts = {
+  c_Sculio_sane = 'c_fool',
+  c_Sculio_scholar = 'c_magician',
+  c_Sculio_secularist = 'c_high_priestess',
+  c_Sculio_exiled = 'c_empress',
+  c_Sculio_regicide = 'c_emperor',
+  c_Sculio_apostate = 'c_hierophant',
+  c_Sculio_adversaries = 'c_lovers',
+  c_Sculio_pikeman = 'c_chariot',
+  c_Sculio_arbitrariness = 'c_justice',
+  c_Sculio_mundane = 'c_hermit',
+  c_Sculio_immutable_wheel = 'c_wheel_of_fortune',
+  c_Sculio_weakness = 'c_strength',
+  c_Sculio_atoned = 'c_hanged_man',
+  c_Sculio_reborn = 'c_death',
+  c_Sculio_impatient = 'c_temperance',
+  c_Sculio_archangel = 'c_devil',
+  c_Sculio_siege = 'c_tower',
+  c_Sculio_collapse = 'c_star',
+  c_Sculio_eclipse = 'c_moon',
+  c_Sculio_twilight = 'c_sun',
+  c_Sculio_mercy = 'c_judgement',
+  c_Sculio_cave = 'c_world',
+}
+
+function Sculio.counterpart(center_key)
+  return Sculio.inverted_counterparts[center_key]
+end
+
+-- Alternate description key while Distorted Flow is redeemed
+function Sculio.distorted_key(self)
+  return Sculio.distorted() and (self.key .. '_distorted_flow') or self.key
 end
 
 -- Record the last Inverted Tarot used (Ortalab track_usage pattern)

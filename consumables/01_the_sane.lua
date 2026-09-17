@@ -12,7 +12,15 @@ SMODS.Consumable {
     if last and G.P_CENTERS[last] then
       name = localize { type = 'name_text', key = G.P_CENTERS[last].key, set = G.P_CENTERS[last].set }
     end
-    return { vars = { name, Sculio.distorted() and 2 or 1 } }
+    local cp = last and Sculio.counterpart(last)
+    local cp_name = localize('k_none')
+    if cp and G.P_CENTERS[cp] then
+      cp_name = localize { type = 'name_text', key = cp, set = 'Tarot' }
+    end
+    return {
+      vars = { name, Sculio.distorted() and 2 or 1, cp_name },
+      key = Sculio.distorted_key(self),
+    }
   end,
   can_use = function(self, card)
     if not (G.GAME.Sculio_last_inverted or G.GAME.last_tarot_planet) then return false end
@@ -24,6 +32,10 @@ SMODS.Consumable {
     local copies = Sculio.distorted() and 2 or 1
     if last then
       Sculio.create_center_card(last, G.consumeables, copies, 'sculio_sane')
+      if Sculio.distorted() then
+        local cp = Sculio.counterpart(last)
+        if cp then Sculio.create_center_card(cp, G.consumeables, 1, 'sculio_sane_cp', true) end
+      end
     else
       -- Becomes The Fool
       if G.GAME.last_tarot_planet and G.GAME.last_tarot_planet ~= 'c_fool' then

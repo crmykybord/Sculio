@@ -838,9 +838,18 @@ return {
       m_Sculio_experimental = {
         name = 'Experimental Card',
         text = {
-          'After scoring {C:attention}#2# times{} {C:inactive}(#1#/7){},',
+          'After scoring {C:attention}#2# times{} {C:inactive}(#1#/#2#){},',
           'creates a random {C:attention}Tag{}',
           'and becomes a {C:attention}Lead Card{}',
+        },
+      },
+      m_Sculio_experimental_distorted_flow = {
+        name = 'Experimental Card',
+        text = {
+          'After scoring {C:attention}#2# times{} {C:inactive}(#1#/#2#){},',
+          'creates a random {C:attention}Tag{},',
+          'becomes a {C:attention}Lead Card{}',
+          'and pays {C:money}$15{}',
         },
       },
       m_Sculio_lead = {
@@ -864,6 +873,13 @@ return {
           'in hand and gains {C:chips}+3 Chips{}',
           'when scored',
           '{C:inactive,s:0.8}(Cannot drain other Profane cards)',
+        },
+      },
+      m_Sculio_profane_distorted_flow = {
+        name = 'Profane Card',
+        text = {
+          'Gains {C:chips}+7 Chips{} when scored',
+          'without draining any card',
         },
       },
       m_Sculio_punched = {
@@ -890,7 +906,7 @@ return {
       m_Sculio_phalanx = {
         name = 'Phalanx Card',
         text = {
-          'Grants {X:mult,C:white}X0.2{} Mult',
+          'Grants {X:mult,C:white}X#1#{} Mult',
           'accumulating at the end of the hand',
         },
       },
@@ -948,11 +964,28 @@ return {
           'it becomes {C:attention}The Fool{} instead',
         },
       },
+      c_Sculio_sane_distorted_flow = {
+        name = 'The Sane',
+        text = {
+          'Copies the last {C:inverted}Inverted Tarot{} used',
+          '{C:inactive}(Currently: #1#){}',
+          'Copies it {C:attention}x#2#{} and also creates',
+          'a copy of its counterpart {C:attention}#3#{}',
+        },
+      },
       c_Sculio_scholar = {
         name = 'The Scholar',
         text = {
           'Enhances {C:attention}#1#{} selected cards',
           'into {C:attention}Experimental Cards{}',
+        },
+      },
+      c_Sculio_scholar_distorted_flow = {
+        name = 'The Scholar',
+        text = {
+          'Enhances {C:attention}#1#{} selected cards into',
+          '{C:attention}Experimental Cards{} that activate at',
+          '{C:attention}5{} and pay {C:money}$15{}',
         },
       },
       c_Sculio_secularist = {
@@ -977,11 +1010,27 @@ return {
           '{C:inactive}(Must have room){}',
         },
       },
+      c_Sculio_regicide_distorted_flow = {
+        name = 'Regicide',
+        text = {
+          'Creates up to {C:attention}#1#{} random',
+          '{C:inverted}Inverted Tarot{} cards',
+          '{C:inactive}(Ignores Consumable slots){}',
+        },
+      },
       c_Sculio_apostate = {
         name = 'The Apostate',
         text = {
           'Enhances {C:attention}#1#{} selected cards',
           'into {C:attention}Profane Cards{}',
+        },
+      },
+      c_Sculio_apostate_distorted_flow = {
+        name = 'The Apostate',
+        text = {
+          'Enhances {C:attention}#1#{} selected cards',
+          'into {C:attention}Profane Cards{} that gain',
+          '{C:chips}+7 Chips{} without draining',
         },
       },
       c_Sculio_adversaries = {
@@ -1022,6 +1071,15 @@ return {
           'Always does something',
         },
       },
+      c_Sculio_immutable_wheel_distorted_flow = {
+        name = 'The Immutable Wheel',
+        text = {
+          'Activates the effect of {C:attention}1{} random',
+          '{C:tarot}Tarot{} and {C:attention}1{} random',
+          '{C:inverted}Inverted Tarot{}',
+          'Always does something',
+        },
+      },
       c_Sculio_weakness = {
         name = 'Weakness',
         text = {
@@ -1043,6 +1101,15 @@ return {
           'Destroys {C:attention}1{} random card in your hand and copies',
           'one of its modifiers onto {C:attention}#2#{} random cards',
           'in your hand. Can be an Enhancement, Seal or Edition',
+        },
+      },
+      c_Sculio_reborn_distorted_flow = {
+        name = 'Reborn',
+        text = {
+          'Copies one modifier from a random card in your',
+          'hand onto {C:attention}#1#{} random cards in your hand,',
+          'without destroying it.',
+          'Can be an Enhancement, Seal or Edition',
         },
       },
       c_Sculio_impatient = {
@@ -1076,6 +1143,15 @@ return {
           '{C:inactive}(Currently: {C:dark_edition}+#2#{C:inactive} Editions){}',
         },
       },
+      c_Sculio_collapse_distorted_flow = {
+        name = 'The Collapse',
+        text = {
+          'For every {C:diamonds}#1# Diamonds{} in your deck,',
+          'give a random card a random {C:dark_edition}Edition{}',
+          '{C:inactive}(Currently: {C:dark_edition}+#2#{C:inactive} Editions){},',
+          'affected cards pay {C:money}$1{} when scored',
+        },
+      },
       c_Sculio_eclipse = {
         name = 'The Eclipse',
         text = {
@@ -1091,6 +1167,16 @@ return {
           'For every {C:hearts}10 Hearts{} in your deck,',
           '{C:attention}#3#{} random cards receive',
           'random Enhancements',
+          '{C:inactive}(Currently: {C:attention}#2#{C:inactive} Enhancements){}',
+        },
+      },
+      c_Sculio_twilight_distorted_flow = {
+        name = 'The Twilight',
+        text = {
+          'For every {C:hearts}10 Hearts{} in your deck,',
+          '{C:attention}#3#{} random cards receive',
+          'random Enhancements, each with a',
+          '{C:attention}1 in 6{} chance to gain a Seal',
           '{C:inactive}(Currently: {C:attention}#2#{C:inactive} Enhancements){}',
         },
       },
@@ -1110,6 +1196,16 @@ return {
           'of the last Joker sold',
           '{C:inactive}(Currently: #1#){}',
           'The copy has {C:money}$0{} sell value',
+        },
+      },
+      c_Sculio_mercy_distorted_flow = {
+        name = 'Mercy',
+        text = {
+          'Creates a {C:dark_edition}Negative{} copy of the last',
+          'Joker sold, and also a random {C:dark_edition}Negative{}',
+          '{C:attention}Perishable{} Joker',
+          '{C:inactive}(Currently: #1#){}',
+          'Both copies have {C:money}$0{} sell value',
         },
       },
     },
