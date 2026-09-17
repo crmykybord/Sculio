@@ -141,7 +141,7 @@ end
 local function cv_pick_guaranteed_bonus()
   local enhs = {}
   for k, v in pairs(G.P_CENTERS) do
-    if v.set == 'Enhanced' then enhs[#enhs + 1] = k end
+    if v.set == 'Enhanced' and Sculio.in_pool(v) then enhs[#enhs + 1] = k end
   end
 
   if #enhs > 0 then

@@ -9,13 +9,13 @@ SMODS.Consumable {
   config = { max_highlighted = 2 },
   loc_vars = function(self, info_queue, card)
     info_queue[#info_queue + 1] = G.P_CENTERS.m_Sculio_phalanx
-    return { vars = {} }
+    return { vars = { Sculio.max_highlighted(card) } }
   end,
   can_use = function(self, card)
     return Sculio.can_select(card)
   end,
   use = function(self, card, area, copier)
     Sculio.track_inverted_use(card)
-    Sculio.enhance_highlighted('m_Sculio_phalanx', card.ability.consumeable.max_highlighted, card)
+    Sculio.enhance_highlighted('m_Sculio_phalanx', Sculio.max_highlighted(card), card)
   end,
 }

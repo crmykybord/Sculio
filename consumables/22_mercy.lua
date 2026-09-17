@@ -12,7 +12,7 @@ SMODS.Consumable {
     if last and G.P_CENTERS[last] then
       name = localize { type = 'name_text', key = G.P_CENTERS[last].key, set = G.P_CENTERS[last].set }
     end
-    return { vars = { name } }
+    return { vars = { name, Sculio.distorted() and '' or localize('Sculio_perishable_suffix') } }
   end,
   can_use = function(self, card)
     return G.GAME.Sculio_last_joker_sold
@@ -26,7 +26,7 @@ SMODS.Consumable {
       new_card:add_to_deck()
       G.jokers:emplace(new_card)
       new_card:set_edition({ negative = true }, true)
-      if SMODS.Stickers.perishable and SMODS.Stickers.perishable.apply then
+      if not Sculio.distorted() and SMODS.Stickers.perishable and SMODS.Stickers.perishable.apply then
         SMODS.Stickers.perishable:apply(new_card, true)
       end
       -- ponytail: sell_cost recalculates on cost changes; permanent $0 needs a hook if this matters later

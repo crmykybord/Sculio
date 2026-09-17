@@ -7,14 +7,15 @@ SMODS.Consumable {
   discovered = false,
   cost = 3,
   loc_vars = function(self, info_queue, card)
-    return { vars = { 2 } }
+    return { vars = { Sculio.distorted() and 3 or 2 } }
   end,
   can_use = function(self, card)
     return #G.consumeables.cards < G.consumeables.config.card_limit or card.area == G.consumeables
   end,
   use = function(self, card, area, copier)
     Sculio.track_inverted_use(card)
-    for i = 1, 2 do
+    local count = Sculio.distorted() and 3 or 2
+    for i = 1, count do
       G.E_MANAGER:add_event(Event({ trigger = 'after', delay = 0.4, func = function()
         if G.consumeables.config.card_limit > #G.consumeables.cards then
           play_sound('timpani')

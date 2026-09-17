@@ -7,24 +7,29 @@ SMODS.Consumable {
   discovered = false,
   cost = 3,
   loc_vars = function(self, info_queue, card)
+    local per = Sculio.distorted() and 4 or 2
     local stacks = math.floor(Sculio.count_suit_deck('Hearts') / 10)
-    return { vars = { 10, stacks * 2 } }
+    return { vars = { 10, stacks * per, per } }
   end,
   can_use = function(self, card)
     return G.playing_cards and #G.playing_cards > 0
       and math.floor(Sculio.count_suit_deck('Hearts') / 10) >= 1
   end,
   use = function(self, card, area, copier)
+    Sculio.track_inverted_use(card)
+    local per = Sculio.distorted() and 4 or 2
     local stacks = math.floor(Sculio.count_suit_deck('Hearts') / 10)
     local options = {}
     for _, center in pairs(G.P_CENTERS) do
-      if center.set == 'Enhanced' and not center.no_rank then
+      if center.set == 'Enhanced' and not center.no_rank and Sculio.in_pool(center) then
         options[#options + 1] = center.key
       end
     end
-    local targets = copy_table(G.playing_cards)
+    -- Shallow copy: copy_table() deep-copies Cards and recurses forever on card.area cycles
+    local targets = {}
+    for _, c in ipairs(G.playing_cards) do targets[#targets + 1] = c end
     pseudoshuffle(targets, pseudoseed('sculio_twilight'))
-    for i = 1, math.min(stacks * 2, #targets) do
+    for i = 1, math.min(stacks * per, #targets) do
       local target_card = targets[i]
       G.E_MANAGER:add_event(Event({ trigger = 'after', delay = 0.4, func = function()
         local enh_key = SMODS.poll_enhancement({ key = 'sculio_twilight' .. i, guaranteed = true, options = options })
@@ -35,6 +40,6 @@ SMODS.Consumable {
         return true
       end }))
     end
-    delay(0.45 * math.min(stacks * 2, #targets))
+    delay(0.45 * math.min(stacks * per, #targets))
   end,
 }

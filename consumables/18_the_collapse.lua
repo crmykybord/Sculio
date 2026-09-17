@@ -7,16 +7,22 @@ SMODS.Consumable {
   discovered = false,
   cost = 3,
   loc_vars = function(self, info_queue, card)
-    local stacks = math.floor(Sculio.count_suit_deck('Diamonds') / 10)
-    return { vars = { 10, stacks } }
+    local step = Sculio.distorted() and 5 or 10
+    local stacks = math.floor(Sculio.count_suit_deck('Diamonds') / step)
+    return { vars = { step, stacks } }
   end,
   can_use = function(self, card)
+    local step = Sculio.distorted() and 5 or 10
     return G.playing_cards and #G.playing_cards > 0
-      and math.floor(Sculio.count_suit_deck('Diamonds') / 10) >= 1
+      and math.floor(Sculio.count_suit_deck('Diamonds') / step) >= 1
   end,
   use = function(self, card, area, copier)
-    local stacks = math.floor(Sculio.count_suit_deck('Diamonds') / 10)
-    local targets = copy_table(G.playing_cards)
+    Sculio.track_inverted_use(card)
+    local step = Sculio.distorted() and 5 or 10
+    local stacks = math.floor(Sculio.count_suit_deck('Diamonds') / step)
+    -- Shallow copy: copy_table() deep-copies Cards and recurses forever on card.area cycles
+    local targets = {}
+    for _, c in ipairs(G.playing_cards) do targets[#targets + 1] = c end
     pseudoshuffle(targets, pseudoseed('sculio_collapse'))
     for i = 1, math.min(stacks, #targets) do
       local target_card = targets[i]

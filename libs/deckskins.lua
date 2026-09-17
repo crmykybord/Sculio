@@ -8,12 +8,14 @@ local COLLABS = {
   { key = 'endacopia', name = 'Endacopia', suit = 'Hearts' },
 }
 
-local FACE_RANKS = { 'King', 'Queen', 'Jack' }
+local FACE_RANKS = { 'Jack', 'Queen', 'King' }
+
+local DISPLAY_RANKS = { 'King', 'Queen', 'Jack' } -THAT WAS ALL XD
 
 local RANK_POS = {
-  Jack = { pos = { x = 2, y = 0 } },
+  Jack = { pos = { x = 0, y = 0 } },
   Queen = { pos = { x = 1, y = 0 } },
-  King = { pos = { x = 0, y = 0 } },
+  King = { pos = { x = 2, y = 0 } },
 }
 
 for _, collab in ipairs(COLLABS) do
