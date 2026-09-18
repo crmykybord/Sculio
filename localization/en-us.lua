@@ -969,8 +969,8 @@ return {
         text = {
           'Copies the last {C:inverted}Inverted Tarot{} used',
           '{C:inactive}(Currently: #1#){}',
-          'Copies it {C:attention}x#2#{} and also creates',
-          'a copy of its counterpart {C:attention}#3#{}',
+          'also creates its',
+          '{C:tarot}Tarot{} counterpart',
         },
       },
       c_Sculio_scholar = {
@@ -1015,7 +1015,6 @@ return {
         text = {
           'Creates up to {C:attention}#1#{} random',
           '{C:inverted}Inverted Tarot{} cards',
-          '{C:inactive}(Ignores Consumable slots){}',
         },
       },
       c_Sculio_apostate = {
@@ -1058,18 +1057,17 @@ return {
       c_Sculio_immutable_wheel = {
         name = 'The Immutable Wheel',
         text = {
-          'Activates the effect of',
-          '{C:attention}#1#{} random {C:tarot}Tarot{} or {C:inverted}Inverted Tarot{}',
-          'Always does something',
+          'Activates the effect of a',
+          '{C:tarot}Tarot{} or {C:inverted}Inverted Tarot{} card at random',
+          '{C:inactive,s:0.7}Always does something{}',
         },
       },
       c_Sculio_immutable_wheel_distorted_flow = {
         name = 'The Immutable Wheel',
         text = {
-          'Activates the effect of {C:attention}1{} random',
-          '{C:tarot}Tarot{} and {C:attention}1{} random',
-          '{C:inverted}Inverted Tarot{}',
-          'Always does something',
+          'Activates the effect of a {C:tarot}Tarot{}',
+          'and {C:inverted}Inverted Tarot{} card at random',
+          '{C:inactive,s:0.7}Always does something{}',
         },
       },
       c_Sculio_weakness = {
@@ -1140,7 +1138,7 @@ return {
           'For every {C:diamonds}#1# Diamonds{} in your deck,',
           'give a random card in your hand a random {C:dark_edition}Edition{}',
           '{C:inactive}(Currently: {C:dark_edition}+#2#{C:inactive} Editions){},',
-          'affected cards pay {C:money}$1{} when scored',
+          'affected cards grant {C:money}+$1{} when scored',
         },
       },
       c_Sculio_eclipse = {
@@ -1166,8 +1164,9 @@ return {
         text = {
           'For every {C:hearts}10 Hearts{} in your deck,',
           '{C:attention}#3#{} random cards in your hand receive',
-          'random Enhancements, each with a',
-           '{C:attention}#4# in #5#{} chance to gain a Seal',
+          'random Enhancements, and have a',
+          '{C:attention}#4# in #5#{} chance',
+          'to gain a Seal',
           '{C:inactive}(Currently: {C:attention}#2#{C:inactive} Enhancements){}',
         },
       },
@@ -1196,7 +1195,7 @@ return {
           'Joker sold, and also a random {C:dark_edition}Negative{}',
           '{C:attention}Perishable{} Joker',
           '{C:inactive}(Currently: #1#){}',
-          'Both copies have {C:money}$0{} sell value',
+          '{C:inactive,s:0.8}(Copies have no sell value){}',
         },
       },
     },
