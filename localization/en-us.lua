@@ -1090,7 +1090,7 @@ return {
       c_Sculio_atoned = {
         name = 'The Atoned',
         text = {
-          'Copies one modifier from the last',
+          'Copies the Enhancement from the last',
           'destroyed card onto {C:attention}#2#{} selected cards',
           '{C:inactive}(#1#){}',
         },

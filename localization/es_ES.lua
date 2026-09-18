@@ -1087,7 +1087,7 @@ return {
       c_Sculio_atoned = {
         name = 'El Expiado',
         text = {
-          'Copia un modificador de la última carta',
+          'Copia la Mejora de la última carta',
           'destruida en {C:attention}#2#{} cartas seleccionadas',
           '{C:inactive}(#1#){}',
         },
