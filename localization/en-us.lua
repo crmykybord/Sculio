@@ -1139,7 +1139,7 @@ return {
         name = 'The Collapse',
         text = {
           'For every {C:diamonds}#1# Diamonds{} in your deck,',
-          'give a random card a random {C:dark_edition}Edition{}',
+          'give a random card in your hand a random {C:dark_edition}Edition{}',
           '{C:inactive}(Currently: {C:dark_edition}+#2#{C:inactive} Editions){}',
         },
       },
@@ -1147,7 +1147,7 @@ return {
         name = 'The Collapse',
         text = {
           'For every {C:diamonds}#1# Diamonds{} in your deck,',
-          'give a random card a random {C:dark_edition}Edition{}',
+          'give a random card in your hand a random {C:dark_edition}Edition{}',
           '{C:inactive}(Currently: {C:dark_edition}+#2#{C:inactive} Editions){},',
           'affected cards pay {C:money}$1{} when scored',
         },
@@ -1165,7 +1165,7 @@ return {
         name = 'The Twilight',
         text = {
           'For every {C:hearts}10 Hearts{} in your deck,',
-          '{C:attention}#3#{} random cards receive',
+          '{C:attention}#3#{} random cards in your hand receive',
           'random Enhancements',
           '{C:inactive}(Currently: {C:attention}#2#{C:inactive} Enhancements){}',
         },
@@ -1174,7 +1174,7 @@ return {
         name = 'The Twilight',
         text = {
           'For every {C:hearts}10 Hearts{} in your deck,',
-          '{C:attention}#3#{} random cards receive',
+          '{C:attention}#3#{} random cards in your hand receive',
           'random Enhancements, each with a',
           '{C:attention}1 in 6{} chance to gain a Seal',
           '{C:inactive}(Currently: {C:attention}#2#{C:inactive} Enhancements){}',

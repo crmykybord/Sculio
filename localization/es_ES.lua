@@ -1136,7 +1136,7 @@ return {
         name = 'El Colapso',
         text = {
           'Por cada {C:diamonds}#1# Diamantes{} en tu Baraja,',
-          'otorga una {C:dark_edition}Edición{} al azar a una carta',
+          'otorga una {C:dark_edition}Edición{} al azar a una carta en mano',
           '{C:inactive}(Actualmente: {C:dark_edition}+#2#{C:inactive} Ediciones){}',
         },
       },
@@ -1144,7 +1144,7 @@ return {
         name = 'El Colapso',
         text = {
           'Por cada {C:diamonds}#1# Diamantes{} en tu Baraja,',
-          'otorga una {C:dark_edition}Edición{} al azar a una carta',
+          'otorga una {C:dark_edition}Edición{} al azar a una carta en mano',
           '{C:inactive}(Actualmente: {C:dark_edition}+#2#{C:inactive} Ediciones){},',
           'las cartas afectadas pagan {C:money}$1{} al anotar',
         },
@@ -1161,7 +1161,7 @@ return {
         name = 'El Crepúsculo',
         text = {
           'Por cada {C:hearts}10 Corazones{} en tu Baraja,',
-          '{C:attention}#3#{} cartas al azar reciben Mejoras',
+          '{C:attention}#3#{} cartas al azar en mano reciben Mejoras',
           '{C:inactive}(Actualmente: {C:attention}#2#{C:inactive} Mejoras){}',
         },
       },
@@ -1169,7 +1169,7 @@ return {
         name = 'El Crepúsculo',
         text = {
           'Por cada {C:hearts}10 Corazones{} en tu Baraja,',
-          '{C:attention}#3#{} cartas al azar reciben Mejoras,',
+          '{C:attention}#3#{} cartas al azar en mano reciben Mejoras,',
           'cada una con una prob. de {C:attention}1 en 6{}',
           'de obtener un Sello',
           '{C:inactive}(Actualmente: {C:attention}#2#{C:inactive} Mejoras){}',

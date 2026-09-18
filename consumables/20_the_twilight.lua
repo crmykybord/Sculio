@@ -12,7 +12,7 @@ SMODS.Consumable {
     return { vars = { 10, stacks * per, per }, key = Sculio.distorted_key(self) }
   end,
   can_use = function(self, card)
-    return G.playing_cards and #G.playing_cards > 0
+    return G.hand and #G.hand.cards > 0
       and math.floor(Sculio.count_suit_deck('Hearts') / 10) >= 1
   end,
   use = function(self, card, area, copier)
@@ -34,20 +34,17 @@ SMODS.Consumable {
     end
     -- Shallow copy: copy_table() deep-copies Cards and recurses forever on card.area cycles
     local targets = {}
-    for _, c in ipairs(G.playing_cards) do targets[#targets + 1] = c end
+    for _, c in ipairs(G.hand.cards) do targets[#targets + 1] = c end
     pseudoshuffle(targets, pseudoseed('sculio_twilight'))
     for i = 1, math.min(stacks * per, #targets) do
       local target_card = targets[i]
-      local in_hand = target_card.area == G.hand
-      if in_hand then
-        G.E_MANAGER:add_event(Event({ trigger = 'after', delay = 0.4, func = function()
-          if not target_card.REMOVED then
-            target_card:flip()
-            play_sound('card1', 1, 0.6)
-          end
-          return true
-        end }))
-      end
+      G.E_MANAGER:add_event(Event({ trigger = 'after', delay = 0.4, func = function()
+        if not target_card.REMOVED then
+          target_card:flip()
+          play_sound('card1', 1, 0.6)
+        end
+        return true
+      end }))
       G.E_MANAGER:add_event(Event({ trigger = 'after', delay = 0.15, func = function()
         local enh_key = SMODS.poll_enhancement({ key = 'sculio_twilight' .. i, guaranteed = true, options = options })
         if enh_key then
@@ -60,15 +57,13 @@ SMODS.Consumable {
         end
         return true
       end }))
-      if in_hand then
-        G.E_MANAGER:add_event(Event({ trigger = 'after', delay = 0.15, func = function()
-          if not target_card.REMOVED then
-            target_card:flip()
-            play_sound('tarot2', 1, 0.6)
-          end
-          return true
-        end }))
-      end
+      G.E_MANAGER:add_event(Event({ trigger = 'after', delay = 0.15, func = function()
+        if not target_card.REMOVED then
+          target_card:flip()
+          play_sound('tarot2', 1, 0.6)
+        end
+        return true
+      end }))
     end
     delay(0.45 * math.min(stacks * per, #targets))
   end,
