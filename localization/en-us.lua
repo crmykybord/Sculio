@@ -1098,17 +1098,17 @@ return {
       c_Sculio_reborn = {
         name = 'Reborn',
         text = {
-          'Select up to {C:attention}#1#{} cards. Copies a random modifier',
-          'from another card in your hand onto them.',
-          'Can be an Enhancement, Seal or Edition',
+          'Select {C:attention}#1#{} cards. Destroys them and copies',
+          'their random modifiers onto {C:attention}#2#{} other cards',
+          'in your hand.',
         },
       },
       c_Sculio_reborn_distorted_flow = {
         name = 'Reborn',
         text = {
-          'Select up to {C:attention}#1#{} cards. Copies a random modifier',
-          'from another card in your hand without destroying it.',
-          'Can be an Enhancement, Seal or Edition',
+          'Select {C:attention}#1#{} cards. Copies their random modifiers',
+          'onto {C:attention}#2#{} other cards in your hand',
+          'without destroying them.',
         },
       },
       c_Sculio_impatient = {

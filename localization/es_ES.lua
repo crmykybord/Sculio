@@ -1095,17 +1095,17 @@ return {
       c_Sculio_reborn = {
         name = 'El Renacido',
         text = {
-          'Selecciona hasta {C:attention}#1#{} cartas. Copia un modificador',
-          'al azar de otra carta de tu mano en ellas.',
-          'Puede ser una Mejora, Sello o Edición',
+          'Selecciona {C:attention}#1#{} cartas. Las destruye y copia',
+          'sus modificadores al azar en otras {C:attention}#2#{} cartas',
+          'de tu mano.',
         },
       },
       c_Sculio_reborn_distorted_flow = {
         name = 'El Renacido',
         text = {
-          'Selecciona hasta {C:attention}#1#{} cartas. Copia un modificador',
-          'al azar de otra carta de tu mano sin destruirla.',
-          'Puede ser una Mejora, Sello o Edición',
+          'Selecciona {C:attention}#1#{} cartas. Copia sus modificadores',
+          'al azar en otras {C:attention}#2#{} cartas de tu mano',
+          'sin destruirlas.',
         },
       },
       c_Sculio_impatient = {
