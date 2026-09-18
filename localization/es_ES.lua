@@ -830,7 +830,7 @@ return {
         text = {
           'Los {C:tarot}Paquetes Arcanos{} no',
           'aparecerán en la tienda',
-          'Comienzas con {C:attention}Falsificador de Tarots{}',
+          'Comienzas con {T:v_Sculio_inverted_merchant,C:attention}Falsificador de Tarots{}',
         },
       },
     },

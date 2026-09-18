@@ -830,7 +830,7 @@ return {
         text = {
           '{C:tarot}Arcana Packs{} no longer',
           'appear in the shop',
-          'Start with {C:attention}Tarot Forger{}',
+          'Start with {T:v_Sculio_inverted_merchant,C:attention}Tarot Forger{}',
         },
       },
     },
