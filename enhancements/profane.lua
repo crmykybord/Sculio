@@ -29,7 +29,7 @@ SMODS.Enhancement {
         if victim then
           G.E_MANAGER:add_event(Event({ trigger = 'after', delay = 0.2, func = function()
             -- ponytail: scaling drain, never touches base so deck order is stable
-            victim.ability.perma_bonus = (victim.ability.perma_bonus or 0) - 3
+            victim.ability.perma_bonus = (victim.ability.perma_bonus or 0) - 1
             victim:juice_up(0.3, 0.4)
             local total = (victim.base.nominal or 0) + (victim.ability.bonus or 0) + (victim.ability.perma_bonus or 0)
             if total <= 0 then SMODS.modify_rank(victim, -1) end
