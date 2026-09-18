@@ -34,7 +34,9 @@ SMODS.Enhancement {
     local extra = card and card.ability and card.ability.extra or self.config.extra
     -- Alt description only on cards Scholar created while Distorted Flow was active
     local key = extra.reward and (self.key .. '_distorted_flow') or self.key
-    return { vars = { extra.count, extra.max }, key = key }
+    local vars = { extra.count, extra.max }
+    if extra.reward then vars[3] = extra.reward end
+    return { vars = vars, key = key }
   end,
   calculate = function(self, card, context)
     if context.main_scoring and context.cardarea == G.play and not context.retrigger_joker then

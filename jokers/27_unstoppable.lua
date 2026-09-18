@@ -32,6 +32,7 @@ SMODS.Joker {
     if context.selling_self then
       local tag = Tag('tag_Sculio_unstoppable')
       tag.ability.x_mult = card.ability.extra.x_mult + card.ability.extra.x_mult_gain
+      tag.ability.x_mult_gain = card.ability.extra.x_mult_gain
 
       G.E_MANAGER:add_event(Event({
         func = (function()
@@ -74,7 +75,7 @@ SMODS.Tag {
       -- instead of opening a duplicate (accumulated mult, single card)
       for _, c in ipairs(context.area.cards) do
         if c.config.center_key == 'j_Sculio_unstoppable' then
-          c.ability.extra.x_mult = c.ability.extra.x_mult + ((tag.ability and tag.ability.x_mult) or 1) - 1
+          c.ability.extra.x_mult = c.ability.extra.x_mult + ((tag.ability and tag.ability.x_mult_gain) or 0.1)
           tag:yep('+', G.C.RED, function()
             c:start_materialize()
             return true

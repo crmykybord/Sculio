@@ -234,6 +234,7 @@ function Sculio.reset_game_globals(run_start)
     Sculio.maybe_apply_xchips_texts()
     -- The Sane starts with itself in its own pool, so the first copy works
     G.GAME.Sculio_last_inverted = 'c_Sculio_sane'
+    G.GAME.Sculio_last_joker_sold = 'j_joker'
   end
   Sculio.apply_droste_bonus()
 end

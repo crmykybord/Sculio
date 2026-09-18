@@ -830,7 +830,7 @@ return {
         text = {
           '{C:tarot}Arcana Packs{} no longer',
           'appear in the shop',
-          'Start with {C:attention}Tarot Forger{}',
+          'Start with {T:v_Sculio_inverted_merchant,C:attention}Tarot Forger{}',
         },
       },
     },
@@ -849,7 +849,7 @@ return {
           'After scoring {C:attention}#2# times{} {C:inactive}(#1#/#2#){},',
           'creates a random {C:attention}Tag{},',
           'becomes a {C:attention}Lead Card{}',
-          'and pays {C:money}$15{}',
+          'and pays {C:money}$#3#{}',
         },
       },
       m_Sculio_lead = {
@@ -869,8 +869,8 @@ return {
       m_Sculio_profane = {
         name = 'Profane Card',
         text = {
-          'Drains {C:chips}3 Chips{} from a card',
-          'in hand and gains {C:chips}+3 Chips{}',
+          'Drains {C:chips}#1# Chips{} from a card',
+          'in hand and gains {C:chips}+#2# Chips{}',
           'when scored',
           '{C:inactive,s:0.8}(Cannot drain other Profane cards)',
         },
@@ -878,7 +878,7 @@ return {
       m_Sculio_profane_distorted_flow = {
         name = 'Profane Card',
         text = {
-          'Gains {C:chips}+7 Chips{} when scored',
+          'Gains {C:chips}+#1# Chips{} when scored',
           'without draining any card',
         },
       },
@@ -969,8 +969,8 @@ return {
         text = {
           'Copies the last {C:inverted}Inverted Tarot{} used',
           '{C:inactive}(Currently: #1#){}',
-          'Copies it {C:attention}x#2#{} and also creates',
-          'a copy of its counterpart {C:attention}#3#{}',
+          'also creates its',
+          '{C:tarot}Tarot{} counterpart',
         },
       },
       c_Sculio_scholar = {
@@ -1015,7 +1015,6 @@ return {
         text = {
           'Creates up to {C:attention}#1#{} random',
           '{C:inverted}Inverted Tarot{} cards',
-          '{C:inactive}(Ignores Consumable slots){}',
         },
       },
       c_Sculio_apostate = {
@@ -1023,14 +1022,6 @@ return {
         text = {
           'Enhances {C:attention}#1#{} selected cards',
           'into {C:attention}Profane Cards{}',
-        },
-      },
-      c_Sculio_apostate_distorted_flow = {
-        name = 'The Apostate',
-        text = {
-          'Enhances {C:attention}#1#{} selected cards',
-          'into {C:attention}Profane Cards{} that gain',
-          '{C:chips}+7 Chips{} without draining',
         },
       },
       c_Sculio_adversaries = {
@@ -1066,18 +1057,17 @@ return {
       c_Sculio_immutable_wheel = {
         name = 'The Immutable Wheel',
         text = {
-          'Activates the effect of',
-          '{C:attention}#1#{} random {C:tarot}Tarot{} or {C:inverted}Inverted Tarot{}',
-          'Always does something',
+          'Activates the effect of a',
+          '{C:tarot}Tarot{} or {C:inverted}Inverted Tarot{} card at random',
+          '{C:inactive,s:0.7}Always does something{}',
         },
       },
       c_Sculio_immutable_wheel_distorted_flow = {
         name = 'The Immutable Wheel',
         text = {
-          'Activates the effect of {C:attention}1{} random',
-          '{C:tarot}Tarot{} and {C:attention}1{} random',
-          '{C:inverted}Inverted Tarot{}',
-          'Always does something',
+          'Activates the effect of a {C:tarot}Tarot{}',
+          'and {C:inverted}Inverted Tarot{} card at random',
+          '{C:inactive,s:0.7}Always does something{}',
         },
       },
       c_Sculio_weakness = {
@@ -1090,7 +1080,7 @@ return {
       c_Sculio_atoned = {
         name = 'The Atoned',
         text = {
-          'Copies one modifier from the last',
+          'Copies the Enhancement from the last',
           'destroyed card onto {C:attention}#2#{} selected cards',
           '{C:inactive}(#1#){}',
         },
@@ -1098,18 +1088,17 @@ return {
       c_Sculio_reborn = {
         name = 'Reborn',
         text = {
-          'Destroys {C:attention}1{} random card in your hand and copies',
-          'one of its modifiers onto {C:attention}#2#{} random cards',
-          'in your hand. Can be an Enhancement, Seal or Edition',
+          'Select {C:attention}#1#{} cards. Destroys them and copies',
+          'their random modifiers onto {C:attention}#2#{} other cards',
+          'in your hand.',
         },
       },
       c_Sculio_reborn_distorted_flow = {
         name = 'Reborn',
         text = {
-          'Copies one modifier from a random card in your',
-          'hand onto {C:attention}#1#{} random cards in your hand,',
-          'without destroying it.',
-          'Can be an Enhancement, Seal or Edition',
+          'Select {C:attention}#1#{} cards. Copies their random modifiers',
+          'onto {C:attention}#2#{} other cards in your hand',
+          'without destroying them.',
         },
       },
       c_Sculio_impatient = {
@@ -1139,7 +1128,7 @@ return {
         name = 'The Collapse',
         text = {
           'For every {C:diamonds}#1# Diamonds{} in your deck,',
-          'give a random card a random {C:dark_edition}Edition{}',
+          'give a random card in your hand a random {C:dark_edition}Edition{}',
           '{C:inactive}(Currently: {C:dark_edition}+#2#{C:inactive} Editions){}',
         },
       },
@@ -1147,9 +1136,9 @@ return {
         name = 'The Collapse',
         text = {
           'For every {C:diamonds}#1# Diamonds{} in your deck,',
-          'give a random card a random {C:dark_edition}Edition{}',
+          'give a random card in your hand a random {C:dark_edition}Edition{}',
           '{C:inactive}(Currently: {C:dark_edition}+#2#{C:inactive} Editions){},',
-          'affected cards pay {C:money}$1{} when scored',
+          'affected cards grant {C:money}+$1{} when scored',
         },
       },
       c_Sculio_eclipse = {
@@ -1165,7 +1154,7 @@ return {
         name = 'The Twilight',
         text = {
           'For every {C:hearts}10 Hearts{} in your deck,',
-          '{C:attention}#3#{} random cards receive',
+          '{C:attention}#3#{} random cards in your hand receive',
           'random Enhancements',
           '{C:inactive}(Currently: {C:attention}#2#{C:inactive} Enhancements){}',
         },
@@ -1174,9 +1163,10 @@ return {
         name = 'The Twilight',
         text = {
           'For every {C:hearts}10 Hearts{} in your deck,',
-          '{C:attention}#3#{} random cards receive',
-          'random Enhancements, each with a',
-          '{C:attention}1 in 6{} chance to gain a Seal',
+          '{C:attention}#3#{} random cards in your hand receive',
+          'random Enhancements, and have a',
+          '{C:attention}#4# in #5#{} chance',
+          'to gain a Seal',
           '{C:inactive}(Currently: {C:attention}#2#{C:inactive} Enhancements){}',
         },
       },
@@ -1205,7 +1195,7 @@ return {
           'Joker sold, and also a random {C:dark_edition}Negative{}',
           '{C:attention}Perishable{} Joker',
           '{C:inactive}(Currently: #1#){}',
-          'Both copies have {C:money}$0{} sell value',
+          '{C:inactive,s:0.8}(Copies have no sell value){}',
         },
       },
     },

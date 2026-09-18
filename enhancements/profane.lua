@@ -3,13 +3,18 @@ SMODS.Enhancement {
   atlas = 'Sculio_Enhancements',
   pos = { x = 5, y = 0 },
 
-  config = { bonus = 0 },
+  config = { bonus = 0, extra = { drain = 3, gain = 3, distorted_gain = 7 } },
   loc_vars = function(self, info_queue, card)
-    return { vars = { Sculio.distorted() and 7 or 3 }, key = Sculio.distorted_key(self) }
+    local extra = card and card.ability and card.ability.extra or self.config.extra
+    if Sculio.distorted() then
+      return { vars = { extra.distorted_gain }, key = Sculio.distorted_key(self) }
+    end
+    return { vars = { extra.drain, extra.gain }, key = Sculio.distorted_key(self) }
   end,
   calculate = function(self, card, context)
     if context.main_scoring and context.cardarea == G.play then
-      local gain = Sculio.distorted() and 7 or 3
+      local extra = card.ability.extra or self.config.extra
+      local gain = Sculio.distorted() and extra.distorted_gain or extra.gain
       -- Distorted Flow: no drain, just a stronger bonus
       if not Sculio.distorted() then
         -- Prefer cards that don't share this enhancement (70-30)
@@ -29,7 +34,7 @@ SMODS.Enhancement {
         if victim then
           G.E_MANAGER:add_event(Event({ trigger = 'after', delay = 0.2, func = function()
             -- ponytail: scaling drain, never touches base so deck order is stable
-            victim.ability.perma_bonus = (victim.ability.perma_bonus or 0) - 3
+            victim.ability.perma_bonus = (victim.ability.perma_bonus or 0) - extra.drain
             victim:juice_up(0.3, 0.4)
             local total = (victim.base.nominal or 0) + (victim.ability.bonus or 0) + (victim.ability.perma_bonus or 0)
             if total <= 0 then SMODS.modify_rank(victim, -1) end

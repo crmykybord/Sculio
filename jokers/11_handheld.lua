@@ -22,8 +22,12 @@ SMODS.Joker {
   calculate = function(self, card, context)
     if context.before and not context.blueprint and G.GAME.Sculio_last_enhancement then
       local first = context.scoring_hand and context.scoring_hand[1]
-      if first and not first.debuff then
-        first:set_ability(G.P_CENTERS[G.GAME.Sculio_last_enhancement], false)
+      if first and not first.debuff and first.config.center_key == 'c_base' then
+        Sculio.flip_highlighted(card, { first }, function()
+          if not first.REMOVED then
+            first:set_ability(G.P_CENTERS[G.GAME.Sculio_last_enhancement], false)
+          end
+        end)
       end
     end
   end
