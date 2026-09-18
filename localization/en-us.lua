@@ -869,8 +869,8 @@ return {
       m_Sculio_profane = {
         name = 'Profane Card',
         text = {
-          'Drains {C:chips}3 Chips{} from a card',
-          'in hand and gains {C:chips}+3 Chips{}',
+          'Drains {C:chips}#1# Chips{} from a card',
+          'in hand and gains {C:chips}+#2# Chips{}',
           'when scored',
           '{C:inactive,s:0.8}(Cannot drain other Profane cards)',
         },
@@ -878,7 +878,7 @@ return {
       m_Sculio_profane_distorted_flow = {
         name = 'Profane Card',
         text = {
-          'Gains {C:chips}+7 Chips{} when scored',
+          'Gains {C:chips}+#1# Chips{} when scored',
           'without draining any card',
         },
       },

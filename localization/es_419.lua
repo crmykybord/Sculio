@@ -869,8 +869,8 @@ return {
       m_Sculio_profane = {
         name = 'Carta Profana',
         text = {
-          'Drena {C:chips}3 Fichas{} de una carta',
-          'en mano y gana {C:chips}+3 Fichas{}',
+          'Drena {C:chips}#1# Fichas{} de una carta',
+          'en mano y gana {C:chips}+#2# Fichas{}',
           'al anotar',
           "{C:inactive,s:0.8}(No puede drenar otras cartas profanas)",
         },
@@ -878,7 +878,7 @@ return {
       m_Sculio_profane_distorted_flow = {
         name = 'Carta Profana',
         text = {
-          'Gana {C:chips}+7 Fichas{} al anotar',
+          'Gana {C:chips}+#1# Fichas{} al anotar',
           'sin drenar ninguna carta',
         },
       },
