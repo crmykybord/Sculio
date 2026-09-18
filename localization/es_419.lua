@@ -849,7 +849,7 @@ return {
           'Tras anotar {C:attention}#2# veces{} {C:inactive}(#1#/#2#){},',
           'crea una {C:attention}Etiqueta{} al azar,',
           'se convierte en {C:attention}Carta de Plomo{}',
-          'y paga {C:money}$15{}',
+          'y paga {C:money}$#3#{}',
         },
       },
       m_Sculio_lead = {
@@ -1023,14 +1023,6 @@ return {
           'en {C:attention}Cartas Profanas{}',
         },
       },
-      c_Sculio_apostate_distorted_flow = {
-        name = 'El Apóstata',
-        text = {
-          'Mejora {C:attention}#1#{} cartas seleccionadas',
-          'en {C:attention}Cartas Profanas{} que ganan',
-          '{C:chips}+7 Fichas{} sin drenar',
-        },
-      },
       c_Sculio_adversaries = {
         name = 'Los Adversarios',
         text = {
@@ -1168,7 +1160,7 @@ return {
         text = {
           'Por cada {C:hearts}10 Corazones{} en tu Baraja,',
           '{C:attention}#3#{} cartas al azar en mano reciben Mejoras,',
-          'cada una con una prob. de {C:attention}1 en 6{}',
+           'cada una con una prob. de {C:attention}#4# en #5#{}',
           'de obtener un Sello',
           '{C:inactive}(Actualmente: {C:attention}#2#{C:inactive} Mejoras){}',
         },

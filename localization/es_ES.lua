@@ -849,7 +849,7 @@ return {
           'Tras anotar {C:attention}#2# veces{} {C:inactive}(#1#/#2#){},',
           'crea una {C:attention}Etiqueta{} al azar,',
           'se convierte en {C:attention}Carta de Plomo{}',
-          'y paga {C:money}$15{}',
+          'y paga {C:money}$#3#{}',
         },
       },
       m_Sculio_lead = {
@@ -967,8 +967,8 @@ return {
         text = {
           'Copia el último {C:inverted}Tarot Invertido{} usado',
           '{C:inactive}(Actualmente: #1#){}',
-          'Lo copia {C:attention}x#2#{} y también crea',
-          'una copia de su contraparte {C:attention}#3#{}',
+          'también crea su contraparte',
+          'del {C:tarot}tarot{}',
         },
       },
       c_Sculio_scholar = {
@@ -1013,7 +1013,6 @@ return {
         text = {
           'Crea hasta {C:attention}#1#{} {C:inverted}Tarots{}',
           "{C:inverted}Invertidos{} al azar",
-          '{C:inactive}(Ignora las ranuras de Consumibles){}',
         },
       },
       c_Sculio_apostate = {
@@ -1021,14 +1020,6 @@ return {
         text = {
           'Mejora {C:attention}#1#{} cartas seleccionadas',
           'en {C:attention}Cartas Profanas{}',
-        },
-      },
-      c_Sculio_apostate_distorted_flow = {
-        name = 'El Apóstata',
-        text = {
-          'Mejora {C:attention}#1#{} cartas seleccionadas',
-          'en {C:attention}Cartas Profanas{} que ganan',
-          '{C:chips}+7 Fichas{} sin drenar',
         },
       },
       c_Sculio_adversaries = {
@@ -1063,17 +1054,17 @@ return {
       c_Sculio_immutable_wheel = {
         name = 'La Rueda Inmutable',
         text = {
-          'Activa el efecto de',
-          '{C:attention}#1#{} {C:tarot}Tarot{} o {C:inverted}Tarot Invertido{} al azar',
-          'Siempre hace algo',
+          'Activa el efecto de una carta del',
+          '{C:tarot}Tarot{} o {C:inverted}Tarot Invertido{} al azar',
+          '{C:inactive,s:0.7}Siempre hace algo{}',
         },
       },
       c_Sculio_immutable_wheel_distorted_flow = {
         name = 'La Rueda Inmutable',
         text = {
-          'Activa el efecto de {C:attention}1{} {C:tarot}Tarot{}',
-          'y {C:attention}1{} {C:inverted}Tarot Invertido{} al azar',
-          'Siempre hace algo',
+          'Activa el efecto de una carta del {C:tarot}Tarot{}',
+          'y {C:inverted}Tarot Invertido{} al azar',
+          '{C:inactive,s:0.7}Siempre hace algo{}',
         },
       },
       c_Sculio_weakness = {
@@ -1144,7 +1135,7 @@ return {
           'Por cada {C:diamonds}#1# Diamantes{} en tu Baraja,',
           'otorga una {C:dark_edition}Edición{} al azar a una carta en mano',
           '{C:inactive}(Actualmente: {C:dark_edition}+#2#{C:inactive} Ediciones){},',
-          'las cartas afectadas pagan {C:money}$1{} al anotar',
+          'las cartas afectadas orotgan {C:money}+$1{} al anotar',
         },
       },
       c_Sculio_eclipse = {
@@ -1168,7 +1159,7 @@ return {
         text = {
           'Por cada {C:hearts}10 Corazones{} en tu Baraja,',
           '{C:attention}#3#{} cartas al azar en mano reciben Mejoras,',
-          'cada una con una prob. de {C:attention}1 en 6{}',
+           'y tienen una prob. de {C:attention}#4# en #5#{}',
           'de obtener un Sello',
           '{C:inactive}(Actualmente: {C:attention}#2#{C:inactive} Mejoras){}',
         },
@@ -1197,7 +1188,7 @@ return {
           'Comodín vendido, y además un Comodín',
           '{C:dark_edition}Negativo{} {C:attention}Perecedero{} al azar',
           '{C:inactive}(Actualmente: #1#){}',
-          'Ambas copias no tienen valor de venta',
+          '{C:inactive,s:0.8}(Las copias no tienen valor de venta){}',
         },
       },
     },

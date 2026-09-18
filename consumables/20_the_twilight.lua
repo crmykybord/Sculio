@@ -9,7 +9,8 @@ SMODS.Consumable {
   loc_vars = function(self, info_queue, card)
     local per = Sculio.distorted() and 4 or 2
     local stacks = math.floor(Sculio.count_suit_deck('Hearts') / 10)
-    return { vars = { 10, stacks * per, per }, key = Sculio.distorted_key(self) }
+    local seal_num, seal_den = SMODS.get_probability_vars(card, 1, 6)
+    return { vars = { 10, stacks * per, per, seal_num, seal_den }, key = Sculio.distorted_key(self) }
   end,
   can_use = function(self, card)
     return G.hand and #G.hand.cards > 0

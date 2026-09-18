@@ -849,7 +849,7 @@ return {
           'After scoring {C:attention}#2# times{} {C:inactive}(#1#/#2#){},',
           'creates a random {C:attention}Tag{},',
           'becomes a {C:attention}Lead Card{}',
-          'and pays {C:money}$15{}',
+          'and pays {C:money}$#3#{}',
         },
       },
       m_Sculio_lead = {
@@ -1025,14 +1025,6 @@ return {
           'into {C:attention}Profane Cards{}',
         },
       },
-      c_Sculio_apostate_distorted_flow = {
-        name = 'The Apostate',
-        text = {
-          'Enhances {C:attention}#1#{} selected cards',
-          'into {C:attention}Profane Cards{} that gain',
-          '{C:chips}+7 Chips{} without draining',
-        },
-      },
       c_Sculio_adversaries = {
         name = 'The Adversaries',
         text = {
@@ -1175,7 +1167,7 @@ return {
           'For every {C:hearts}10 Hearts{} in your deck,',
           '{C:attention}#3#{} random cards in your hand receive',
           'random Enhancements, each with a',
-          '{C:attention}1 in 6{} chance to gain a Seal',
+           '{C:attention}#4# in #5#{} chance to gain a Seal',
           '{C:inactive}(Currently: {C:attention}#2#{C:inactive} Enhancements){}',
         },
       },
