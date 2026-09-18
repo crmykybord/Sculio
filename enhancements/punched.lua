@@ -12,10 +12,7 @@ SMODS.Enhancement {
       return { remove = true }
     end
     if context.main_scoring and context.cardarea == G.play then
-      return {
-        x_mult = 1.5,
-        message = localize { type = 'variable', key = 'a_xmult', vars = { 1.5 } },
-      }
+      return { x_mult = 1.5, }
     end
   end,
 }
