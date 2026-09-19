@@ -170,7 +170,7 @@ local function Sculio_refrigerator_get_left(card)
     end
   end
 
-  return {}
+  return refrigerators
 end
 
 local function Sculio_refrigerator_restore_ability(card, ability)
@@ -249,9 +249,11 @@ if not Sculio.refrigerator_calculate_joker_ref then
     local refrigerators = Sculio_refrigerator_is_food(self) and Sculio_refrigerator_get_left(self) or {}
     local preserve = context and next(refrigerators) ~= nil and not context.selling_self
 
-    -- Bypass destruction logic for Epic Sauce and Banana Man when refrigerated during context.after
+    -- Bypass destruction logic for food Jokers that remove themselves directly.
     if preserve and context.after then
-      if self.config.center.key == 'j_paperback_epic_sauce' or self.config.center.key == 'j_aij_banana_man' then
+      local key = self.config.center.key
+      if key == 'j_paperback_epic_sauce' or key == 'j_aij_banana_man'
+          or key == 'j_gros_michel' or key == 'j_cavendish' then
         Sculio_refrigerator_juice(refrigerators, self)
         return nil
       end
