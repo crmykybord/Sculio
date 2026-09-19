@@ -115,6 +115,11 @@ local function cv_analyze_deck_internal()
   return best_id, rankless_dominant, best_enh
 end
 
+local function cv_invalidate_analysis()
+  Sculio.vat_state.round_analysis = nil
+  Sculio.vat_state.round_id = nil
+end
+
 -- Cached analysis - computes once per round
 local function cv_get_analysis()
   local current_round = G.GAME and G.GAME.round or 0
@@ -289,6 +294,13 @@ SMODS.Joker {
     if card.debuff then return end  -- Does not work when debuffed
 
     cv_install_shim()
+
+    local buying_card = context.buying_card and not context.buying_self and context.card
+      and context.card.ability and context.card.ability.set ~= 'Voucher'
+      and context.card.ability.set ~= 'Booster'
+    if context.reroll_shop or buying_card then
+      cv_invalidate_analysis()
+    end
 
     if context.starting_shop and G.GAME.shop
       and not (card.ability and card.ability.Sculio_vat_slot_added) then
