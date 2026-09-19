@@ -57,24 +57,24 @@ return {
       p_Sculio_inverted_normal = {
         name = '¿Paquete Arcano?',
         text = {
-          'Elige {C:attention}#1#{} de hasta',
-          '{C:attention}#2# cartas de {C:inverted}Tarot Invertido{}',
+          'Elige {C:attention}#1#{} de hasta {C:attention}#2#{} cartas',
+          'del {C:inverted}Tarot Invertido{}',
           'para usar de inmediato',
         },
       },
       p_Sculio_inverted_jumbo = {
         name = '¿Paquete Arcano jumbo?',
         text = {
-          'Elige {C:attention}#1#{} de hasta',
-          '{C:attention}#2# cartas de {C:inverted}Tarot Invertido{}',
+          'Elige {C:attention}#1#{} de hasta {C:attention}#2#{} cartas',
+          'del {C:inverted}Tarot Invertido{}',
           'para usar de inmediato',
         },
       },
       p_Sculio_inverted_mega = {
         name = '¿Mega Paquete Arcano?',
         text = {
-          'Elige {C:attention}#1#{} de hasta',
-          '{C:attention}#2# cartas de {C:inverted}Tarot Invertido{}',
+          'Elige {C:attention}#1#{} de hasta {C:attention}#2#{} cartas',
+          'del {C:inverted}Tarot Invertido{}',
           'para usar de inmediato',
         },
       },
@@ -958,8 +958,7 @@ return {
         text = {
           'Copia el último {C:inverted}Tarot Invertido{} usado',
           '{C:inactive}(Actualmente: #1#){}',
-          'Lo copia {C:attention}x#2#{}; si intentara copiarse',
-          'a sí mismo, se convierte en {C:attention}El Loco{}',
+          '{C:inactive,s:0.8}Si intenta a sí mismo, se convierte en {C:tarot,s:0.8}El Loco{}',
         },
       },
       c_Sculio_sane_distorted_flow = {
