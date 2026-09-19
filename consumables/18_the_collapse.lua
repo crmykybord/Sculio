@@ -26,29 +26,15 @@ SMODS.Consumable {
     pseudoshuffle(targets, pseudoseed('sculio_collapse'))
     for i = 1, math.min(stacks, #targets) do
       local target_card = targets[i]
-      G.E_MANAGER:add_event(Event({ trigger = 'after', delay = 0.4, func = function()
-        if not target_card.REMOVED then
-          target_card:flip()
-          play_sound('card1', 1, 0.6)
-        end
-        return true
-      end }))
       G.E_MANAGER:add_event(Event({ trigger = 'after', delay = 0.15, func = function()
         local edition = SMODS.poll_edition({ key = 'sculio_collapse' .. i, no_negative = true, guaranteed = true })
-        if edition then
+        if edition and not target_card.REMOVED then
           target_card:set_edition(edition, true)
           if Sculio.distorted() then
             -- Distorted Flow: affected cards pay $1 when scored (SMODS perma bonus, Aperol-style)
             target_card.ability.perma_p_dollars = (target_card.ability.perma_p_dollars or 0) + 1
           end
           target_card:juice_up(0.3, 0.5)
-        end
-        return true
-      end }))
-      G.E_MANAGER:add_event(Event({ trigger = 'after', delay = 0.15, func = function()
-        if not target_card.REMOVED then
-          target_card:flip()
-          play_sound('tarot2', 1, 0.6)
         end
         return true
       end }))
