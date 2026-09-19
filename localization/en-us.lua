@@ -396,9 +396,11 @@ return {
       j_Sculio_cloning_vat = {
         name = 'Cloning Vat',
         text = {
-          'Your {C:attention}most common rank{} appears in the',
-          'shop and {C:attention}Standard Packs{} and always',
-          'has at least one {C:attention}Enhancement{},',
+          'Your {C:attention}most common rank{} appears in',
+          'the shop and {C:attention}Standard Packs{}.',
+          'If all ranks are equally common, a random',
+          'rank is chosen until you buy a card.',
+          'It always has at least one {C:attention}Enhancement{},',
           '{C:dark_edition}Edition{} or {C:attention}Seal{}'
         },
       }, 

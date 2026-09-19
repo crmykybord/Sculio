@@ -393,9 +393,11 @@ return {
         name = 'Tanque de Clonación',
         text = {
           'Tu {C:attention}Categoría más común{} aparece en',
-          "la tienda y {C:attention}Paquetes Estándar{} y",
-          'siempre tiene al menos una {C:attention}Mejora{},',
-          "{C:dark_edition}Edición{} o {C:attention}Sello{}",
+          'la tienda y {C:attention}Paquetes Estándar{}.',
+          'Si todas las categorías son igual de comunes,',
+          'se elige una al azar hasta comprar una carta.',
+          'Siempre tiene al menos una {C:attention}Mejora{},',
+          '{C:dark_edition}Edición{} o {C:attention}Sello{}',
         },
       },
       -- 34. Rorschach
