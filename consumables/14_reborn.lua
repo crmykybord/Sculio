@@ -15,12 +15,15 @@ SMODS.Consumable {
     if not Sculio.can_select(card) then return false end
     local target_count = Sculio.distorted() and 4 or 3
     if #G.hand.cards - #G.hand.highlighted < target_count then return false end
-    for _, source in ipairs(G.hand.highlighted) do
-      if source.config.center_key ~= 'c_base' or source.seal or source.edition then
-        return true
+    if Sculio.distorted() then
+      for _, source in ipairs(G.hand.highlighted) do
+        if source.config.center_key ~= 'c_base' or source.seal or source.edition then
+          return true
+        end
       end
+      return false
     end
-    return false
+    return true
   end,
   use = function(self, card, area, copier)
     Sculio.track_inverted_use(card)
@@ -41,8 +44,6 @@ SMODS.Consumable {
       }, 'sculio_reborn_m' .. i, 100 / 3)
       if picked then modifiers[#modifiers + 1] = picked end
     end
-    if #modifiers == 0 then return end
-
     local targets = {}
     for _, c in ipairs(hand) do
       local selected = false
@@ -61,6 +62,7 @@ SMODS.Consumable {
       for _, source in ipairs(sources) do SMODS.destroy_cards(source) end
       delay(0.4)
     end
+    if #modifiers == 0 then return end
     Sculio.flip_highlighted(card, chosen, function()
       for i, target in ipairs(chosen) do
         local picked = pseudorandom_element(modifiers, pseudoseed('sculio_reborn_target' .. i))
