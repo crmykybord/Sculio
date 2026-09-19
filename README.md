@@ -1,5 +1,5 @@
 <p align="center">
-<img width="2327" height="1559" alt="logo test" src="https://github.com/user-attachments/assets/1ad97c50-4aa4-4c66-8be6-cbaccc468134" />
+<img width="2288" height="1526" alt="logo test" src="https://github.com/user-attachments/assets/aeceb9d0-d7cf-4bd5-b068-0a109a9d949e" />
 <p align="center">
 <img width="600" height="65" alt="Vanilla@1x-1 0s-703px-81px" src="https://github.com/user-attachments/assets/e2c5ecfc-f894-49c8-9157-32e77ac8ada7" />
 <br>
@@ -26,7 +26,7 @@ Want early access to playtest or contribute your own ideas to the mod? Join our 
 Want a more in-depth overview of the mods content? Go to the wiki: <img alt="Static Badge" src="https://img.shields.io/badge/SCULIO%2C%20Wiki-black?style=flat&logo=miraheze&logoColor=yellow&link=https%3A%2F%2Fbalatromods.miraheze.org%2Fwiki%2FSculio">
 <br>
 <br>
-The mod requires the most recent version of [Steammodded](https://github.com/Steamodded/smods) and [Lovely](https://github.com/ethangreen-dev/lovely-injector). Sculio is intended to be a standalone modded experience, however still features compatibility with some other projects.
+The mod requires the most recent version of [Steammodded](https://github.com/Steamodded/smods). Sculio is intended to be a standalone modded experience, however still features compatibility with some other projects.
 <br>
 <br>
 
