@@ -79,13 +79,26 @@ local function cv_analyze_deck_internal()
     end
   end
 
-  -- Find best rank using DETERMINISTIC order (fixes bug where pairs() order caused inconsistent results)
+  -- Find the most common rank, randomizing only when every rank is equally common.
   local best_id, best_count = nil, 0
   for _, id in ipairs(cv_get_ranks().ids) do
     local count = rank_count[id] or 0
     if count > best_count then
       best_id, best_count = id, count
     end
+  end
+
+  local equal_ranks = best_count > 0
+  for _, id in ipairs(cv_get_ranks().ids) do
+    if (rank_count[id] or 0) ~= best_count then
+      equal_ranks = false
+      break
+    end
+  end
+  if equal_ranks then
+    local candidates = {}
+    for _, id in ipairs(cv_get_ranks().ids) do candidates[#candidates + 1] = id end
+    best_id = candidates[pseudorandom('cv_rank', 1, #candidates)]
   end
 
   -- Rankless is dominant when their count ties or beats the best ranked
@@ -100,6 +113,11 @@ local function cv_analyze_deck_internal()
   end
 
   return best_id, rankless_dominant, best_enh
+end
+
+local function cv_invalidate_analysis()
+  Sculio.vat_state.round_analysis = nil
+  Sculio.vat_state.round_id = nil
 end
 
 -- Cached analysis - computes once per round
@@ -276,6 +294,13 @@ SMODS.Joker {
     if card.debuff then return end  -- Does not work when debuffed
 
     cv_install_shim()
+
+    local buying_card = context.buying_card and not context.buying_self and context.card
+      and context.card.ability and context.card.ability.set ~= 'Voucher'
+      and context.card.ability.set ~= 'Booster'
+    if context.reroll_shop or buying_card then
+      cv_invalidate_analysis()
+    end
 
     if context.starting_shop and G.GAME.shop
       and not (card.ability and card.ability.Sculio_vat_slot_added) then

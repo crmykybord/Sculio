@@ -396,9 +396,11 @@ return {
       j_Sculio_cloning_vat = {
         name = 'Cloning Vat',
         text = {
-          'Your {C:attention}most common rank{} appears in the',
-          'shop and {C:attention}Standard Packs{} and always',
-          'has at least one {C:attention}Enhancement{},',
+          'Your {C:attention}most common rank{} appears in',
+          'the shop and {C:attention}Standard Packs{}.',
+          'If all ranks are equally common, a random',
+          'rank is chosen until you buy a card.',
+          'It always has at least one {C:attention}Enhancement{},',
           '{C:dark_edition}Edition{} or {C:attention}Seal{}'
         },
       }, 
@@ -1035,7 +1037,7 @@ return {
         name = 'The Pikeman',
         text = {
           'Enhances {C:attention}#1#{} selected cards',
-          'into a {C:attention}Phalanx Card{}',
+          'into {C:attention}Phalanx Cards{}',
         },
       },
       c_Sculio_arbitrariness = {
@@ -1220,7 +1222,7 @@ return {
       k_inverted = 'Inverted Tarot',
       Sculio_perishable_suffix = ', Perishable',
       b_inverted_cards = 'Inverted Tarots',
-      k_booster_group_sculio_inverted = 'Inverted Arcana Packs',
+      k_booster_group_sculio_inverted = 'Inverted Arcana Pack',
       Sculio_trap_unknown_trigger = 'rolled',
       Sculio_trap_unknown_effect = 'A random effect from weighted rarity pools',
       Sculio_trap_played = 'played',

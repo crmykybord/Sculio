@@ -57,24 +57,24 @@ return {
       p_Sculio_inverted_normal = {
         name = '¿Paquete Arcano?',
         text = {
-          'Elige {C:attention}#1#{} de hasta',
-          '{C:attention}#2# cartas de {C:inverted}Tarot Invertido{}',
+          'Elige {C:attention}#1#{} de hasta {C:attention}#2#{} cartas',
+          'del {C:inverted}Tarot Invertido{}',
           'para usar de inmediato',
         },
       },
       p_Sculio_inverted_jumbo = {
         name = '¿Paquete Arcano jumbo?',
         text = {
-          'Elige {C:attention}#1#{} de hasta',
-          '{C:attention}#2# cartas de {C:inverted}Tarot Invertido{}',
+          'Elige {C:attention}#1#{} de hasta {C:attention}#2#{} cartas',
+          'del {C:inverted}Tarot Invertido{}',
           'para usar de inmediato',
         },
       },
       p_Sculio_inverted_mega = {
         name = '¿Mega Paquete Arcano?',
         text = {
-          'Elige {C:attention}#1#{} de hasta',
-          '{C:attention}#2# cartas de {C:inverted}Tarot Invertido{}',
+          'Elige {C:attention}#1#{} de hasta {C:attention}#2#{} cartas',
+          'del {C:inverted}Tarot Invertido{}',
           'para usar de inmediato',
         },
       },
@@ -345,8 +345,9 @@ return {
       j_Sculio_refrigerator = {
         name = 'Nevera',
         text = {
-          'Los {C:attention}Comodines de comida{} a la derecha',
-          'no pueden {C:attention}decaer{}, {C:attention}expirar{}, ni ser {C:red}destruidos{}',
+          'Los {C:attention}Comodines de comida{}',
+          'su a derecha no pueden',
+          "{C:attention}decaer{}, {C:attention}expirar{}",
         },
       }, 
       -- 29. Hammer and Chisel
@@ -393,9 +394,11 @@ return {
         name = 'Tanque de Clonación',
         text = {
           'Tu {C:attention}Categoría más común{} aparece en',
-          "la tienda y {C:attention}Paquetes Estándar{} y",
-          'siempre tiene al menos una {C:attention}Mejora{},',
-          "{C:dark_edition}Edición{} o {C:attention}Sello{}",
+          'la tienda y {C:attention}Paquetes Estándar{}.',
+          'Si todas las categorías son igual de comunes,',
+          'se elige una al azar hasta comprar una carta.',
+          'Siempre tiene al menos una {C:attention}Mejora{},',
+          '{C:dark_edition}Edición{} o {C:attention}Sello{}',
         },
       },
       -- 34. Rorschach
@@ -597,7 +600,7 @@ return {
         text = {
           '{X:mult,C:white}X#1#{} Multi por cada',
           '{C:attention}Ciega Jefe{} derrotada',
-          '{C:inactive}Actualmente ({X:mult,C:white}X#2#{}{C:inactive} Multi)'
+          '{C:inactive}(Actualmente ({X:mult,C:white}X#2#{}{C:inactive} Multi)'
         },
       },
       -- 55. Computer Virus
@@ -958,8 +961,7 @@ return {
         text = {
           'Copia el último {C:inverted}Tarot Invertido{} usado',
           '{C:inactive}(Actualmente: #1#){}',
-          'Lo copia {C:attention}x#2#{}; si intentara copiarse',
-          'a sí mismo, se convierte en {C:attention}El Loco{}',
+          '{C:inactive,s:0.8}Si intenta a sí mismo, se convierte en {C:tarot,s:0.8}El Loco{}',
         },
       },
       c_Sculio_sane_distorted_flow = {
@@ -1033,7 +1035,7 @@ return {
         name = 'El Piquero',
         text = {
           'Mejora {C:attention}#1#{} cartas seleccionadas',
-          'en {C:attention}Carta Falange{}',
+          'en {C:attention}Cartas Falange{}',
         },
       },
       c_Sculio_arbitrariness = {

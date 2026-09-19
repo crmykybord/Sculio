@@ -16,9 +16,15 @@ SMODS.Enhancement {
     if context.final_scoring_step and (G.GAME.Sculio_phalanx_tally or 0) > 0 then
       local xmult = 1 + G.GAME.Sculio_phalanx_tally
       G.GAME.Sculio_phalanx_tally = nil
-      local last_card = context.scoring_hand and context.scoring_hand[#context.scoring_hand]
-      if last_card then
-        return { x_mult = xmult, message_card = last_card }
+      local last_phalanx
+      for i = #(context.scoring_hand or {}), 1, -1 do
+        if SMODS.has_enhancement(context.scoring_hand[i], 'm_Sculio_phalanx') then
+          last_phalanx = context.scoring_hand[i]
+          break
+        end
+      end
+      if last_phalanx then
+        return { x_mult = xmult, message_card = last_phalanx }
       end
       return { x_mult = xmult }
     end
