@@ -597,7 +597,7 @@ return {
         text = {
           '{X:mult,C:white}X#1#{} Multi por cada',
           '{C:attention}Ciega Jefe{} derrotada',
-          '{C:inactive}Actualmente ({X:mult,C:white}X#2#{}{C:inactive} Multi)'
+          '{C:inactive}(Actualmente ({X:mult,C:white}X#2#{}{C:inactive} Multi)'
         },
       },
       -- 55. Computer Virus
