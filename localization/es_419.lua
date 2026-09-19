@@ -1032,7 +1032,7 @@ return {
         name = 'El Piquero',
         text = {
           'Mejora {C:attention}#1#{} cartas seleccionadas',
-          'en {C:attention}Carta Falange{}',
+          'en {C:attention}Cartas Falange{}',
         },
       },
       c_Sculio_arbitrariness = {

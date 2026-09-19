@@ -1035,7 +1035,7 @@ return {
         name = 'The Pikeman',
         text = {
           'Enhances {C:attention}#1#{} selected cards',
-          'into a {C:attention}Phalanx Card{}',
+          'into {C:attention}Phalanx Cards{}',
         },
       },
       c_Sculio_arbitrariness = {
