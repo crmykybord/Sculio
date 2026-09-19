@@ -18,15 +18,24 @@ SMODS.Consumable {
     return { vars = { name, localize('Sculio_perishable_suffix') } }
   end,
   can_use = function(self, card)
-    return G.GAME.Sculio_last_joker_sold
+    local last = G.GAME.Sculio_last_joker_sold
+    return last and G.P_CENTERS[last]
       and (#G.jokers.cards < G.jokers.config.card_limit or card.area == G.jokers)
   end,
   use = function(self, card, area, copier)
     Sculio.track_inverted_use(card)
+    local last_joker = G.GAME.Sculio_last_joker_sold
+    if not last_joker or not G.P_CENTERS[last_joker] then return end
     local distorted = Sculio.distorted()
     G.E_MANAGER:add_event(Event({ trigger = 'after', delay = 0.4, func = function()
       play_sound('timpani')
-      local new_card = create_card('Joker', G.jokers, nil, nil, nil, nil, G.GAME.Sculio_last_joker_sold, 'sculio_mercy')
+      local new_card = SMODS.create_card({
+        set = 'Joker',
+        area = G.jokers,
+        key = last_joker,
+        key_append = 'sculio_mercy',
+        no_edition = true,
+      })
       new_card:add_to_deck()
       G.jokers:emplace(new_card)
       new_card:set_edition({ negative = true }, true)
