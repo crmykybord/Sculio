@@ -1213,7 +1213,7 @@ return {
       k_inverted = 'Tarot Invertido',
       Sculio_perishable_suffix = ' y Perecedera',
       b_inverted_cards = 'Tarots Invertidos',
-      k_booster_group_sculio_inverted = 'Paquetes Arcanos Invertidos',
+      k_booster_group_sculio_inverted = 'Paquete arcano Invertido',
       Sculio_trap_unknown_trigger = 'al azar',
       Sculio_trap_unknown_effect = 'Un efecto aleatorio de pools de rareza ponderados',
       Sculio_trap_played = 'juega',
