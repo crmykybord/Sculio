@@ -2,7 +2,7 @@ SMODS.Seal {
   key = 'inverted',
   atlas = 'Sculio_Enhancements',
   pos = { x = 2, y = 0 },
-  badge_colour = HEX 'B14AB8',
+  badge_colour = HEX 'A84C45',
   config = {},
   calculate = function(self, card, context)
     -- Mirror of the vanilla Purple Seal, but for Inverted Tarots (a single one)
