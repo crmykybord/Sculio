@@ -12,6 +12,16 @@ SMODS.Joker {
   atlas = 'Sculio',
   pos = { x = 6, y = 3 },
   cost = 8,
+  in_pool = function(self)
+    if G.playing_cards then
+      for _, c in ipairs(G.playing_cards) do
+        if SMODS.has_enhancement(c, 'm_lucky') then
+          return true
+        end
+      end
+    end
+    return false
+  end,
   loc_vars = function(self, info_queue, card)
     info_queue[#info_queue+1] = G.P_CENTERS.m_lucky
     return { vars = { card.ability.extra.x_mult, card.ability.extra.x_mult_gain } }
