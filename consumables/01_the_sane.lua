@@ -30,6 +30,7 @@ SMODS.Consumable {
     local last = G.GAME.Sculio_last_inverted
     Sculio.track_inverted_use(card)
     local copies = Sculio.distorted() and 2 or 1
+    if last == card.config.center_key then last = nil end
     if last then
       Sculio.create_center_card(last, G.consumeables, copies, 'sculio_sane')
       if Sculio.distorted() then
