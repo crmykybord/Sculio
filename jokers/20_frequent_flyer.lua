@@ -15,13 +15,10 @@ SMODS.Joker {
   loc_vars = function(self, info_queue, card)
     return { vars = { card.ability.extra.money_gain, card.ability.extra.mult, card.ability.extra.mult_gain, card.ability.extra.spend_per_gain, card.ability.extra.spent_since_gain } }
   end,
-  -- NOTE could look at instances of inc_career_stat('c_shop_dollars_spent', ...)
-  -- to accurately determine how much was spent
   calculate = function(self, card, context)
     local rerolls_were_free = G.GAME.current_round.reroll_cost == 0
 
     if (context.buying_card or context.open_booster or context.reroll_shop) and context.card ~= card then
-      -- Token identifies this exact purchase; cost is this trigger's spend
       local token = context.card and tostring(context.card)
           or ('reroll_' .. G.GAME.round .. '_' .. (G.GAME.current_round.reroll_cost or 0))
       local cost = 0
@@ -32,10 +29,6 @@ SMODS.Joker {
       end
 
       if context.blueprint then
-        -- Copiers copy only the money, never the scaling. Blueprint sits left of
-        -- its target so it runs first: predict the payout from current spent.
-        -- If this card already paid this exact trigger (Brainstorm/chains),
-        -- match its token instead.
         if card.ability.extra.spent_since_gain + cost >= card.ability.extra.spend_per_gain
             or card.ability.extra.last_money_token == token then
           return { dollars = card.ability.extra.money_gain }

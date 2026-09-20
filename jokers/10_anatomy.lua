@@ -24,10 +24,7 @@ SMODS.Joker {
         local n, d = SMODS.get_probability_vars(card, 1, card.ability.extra.odds, 'anatomy')
         -- careful: multiply the numerator `n` by card_id after any modifications to `n`.
         if SMODS.pseudorandom_probability(card, 'anatomy', n * card_id, d, nil, true) then
-          return {
-            message = localize('k_again_ex'),
-            repetitions = 1
-          }
+          return { message = localize('k_again_ex'), repetitions = 1 }
         end
       end
     end

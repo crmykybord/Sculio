@@ -153,6 +153,11 @@ function Sculio:calculate(context)
     G.GAME.Sculio_last_joker_sold = context.card.config.center_key
   end
 
+  -- Sheriff: count every boss blind defeated this run, even before owning it
+  if context.end_of_round and context.main_eval and not context.game_over and context.beat_boss then
+    G.GAME.Sculio_bosses_beaten = (G.GAME.Sculio_bosses_beaten or 0) + 1
+  end
+
   -- The Mundane: track all money spent during the current Ante
   if context.ante_change and context.ante_change ~= 0 then
     G.GAME.Sculio_ante_spend = 0
@@ -235,6 +240,7 @@ function Sculio.reset_game_globals(run_start)
     -- The Sane starts with itself in its own pool, so the first copy works
     G.GAME.Sculio_last_inverted = 'c_Sculio_sane'
     G.GAME.Sculio_last_joker_sold = 'j_joker'
+    G.GAME.Sculio_bosses_beaten = 0
   end
   Sculio.apply_droste_bonus()
 end

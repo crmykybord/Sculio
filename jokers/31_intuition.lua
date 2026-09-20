@@ -17,8 +17,6 @@ local function enhancement_template(center)
   if next(t) then return t end
 end
 
--- Templates of the enhancements held in hand (built lazily so Blueprint copies work too).
--- Stored in ability.extra so the cache survives save/load (raw card fields do not).
 local function held_templates(card)
   card.ability.extra = card.ability.extra or {}
   local templates = card.ability.extra.intuition_templates
@@ -57,14 +55,12 @@ SMODS.Joker {
     return { vars = { n, d } }
   end,
   calculate = function(self, card, context)
-    -- Cache held enhancement templates before scoring starts
     if context.before then
       if card.ability.extra then card.ability.extra.intuition_templates = nil end
       held_templates(card)
       return nil
     end
 
-    -- Each scored card rolls once per held enhancement; effect shows on the scored card
     if context.end_of_round then return nil end
     if not (context.individual and context.cardarea == G.play and context.other_card) then return nil end
     if context.other_card.debuff then return nil end
