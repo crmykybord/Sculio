@@ -42,7 +42,7 @@ The mod requires the most recent version of [Steammodded](https://github.com/Ste
  - 7 Enhancements
  - 1 Seal
  - Reverse Tarot Booster Packs
- - 1 Tag
+ - 2 Tags
  - 8 Deck Skins
 
 **Sculio** is being actively developed, meaning there will be more content introduced in the foreseeable future. How exciting!
