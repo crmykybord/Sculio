@@ -436,7 +436,7 @@ return {
         name = 'Faraón',
         text = {
           '{C:red}Debilita{} todas las {C:attention}cartas de{}',
-          '{C:attention}números{} y las {C:attention}cartas de figura{}',
+          '{C:attention}enumeradas{} y las {C:attention}cartas de figura{}',
           'otorgan {X:mult,C:white}X#1#{} al anotar'
         },
       }, 
@@ -792,6 +792,13 @@ return {
           'La tienda tiene a',
           '{C:attention}Fuerza Imparable{}',
           'con {X:mult,C:white}X#1#{} Multi'
+        },
+      },
+      tag_Sculio_visionary = {
+        name = 'Etiqueta Visionaria',
+        text = {
+          'Otorga un {C:inverted}Mega Paquete{}',
+          '{C:inverted}Arcano Invertido{} gratis',
         },
       }
     },
