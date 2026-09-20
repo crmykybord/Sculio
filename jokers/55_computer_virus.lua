@@ -30,7 +30,6 @@ SMODS.Joker {
   end,
   calculate = function(self, card, context)
     if context.end_of_round and context.main_eval and context.beat_boss and not context.game_over and not context.blueprint and not card.ability.eternal and #G.jokers.cards > 1 then
-      -- Solo la primera copia (la de mas a la izquierda) destruye; las siguientes solo anaden un Negativo
       local first_copy = true
       for i = 1, #G.jokers.cards do
         if G.jokers.cards[i].config.center.key == 'j_Sculio_computer_virus' then
@@ -42,7 +41,6 @@ SMODS.Joker {
         spawn_common_virus_joker('e_negative')
         return
       end
-      -- Si este Virus es el comodin del extremo derecho, no hace nada (nunca se autodestruye)
       if G.jokers.cards[#G.jokers.cards] == card then return end
       local rightmost = nil
       for i = #G.jokers.cards, 1, -1 do

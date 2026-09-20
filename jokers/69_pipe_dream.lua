@@ -11,7 +11,7 @@ SMODS.Joker {
   rarity = 1, -- Common
   atlas = 'Sculio',
   pos = { x = 0, y = 7 },
-  cost = 4,
+  cost = 3,
   loc_vars = function(self, info_queue, card)
     local n, d = SMODS.get_probability_vars(card, 1, card.ability.extra.odds, 'pipe_dream')
     return { vars = { n, d, card.ability.extra.chips } }

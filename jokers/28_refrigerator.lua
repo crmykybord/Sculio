@@ -210,12 +210,10 @@ local function Sculio_refrigerator_juice(refrigerators, food)
   }))
 end
 
--- Prevent probabilistic destruction (e.g., Gros Michel explosion)
 if not Sculio.refrigerator_dissolve_ref then
   Sculio.refrigerator_dissolve_ref = Card.start_dissolve
 
   Card.start_dissolve = function(self, dissolve_colours, silent, dissolve_time_fac, no_juice)
-    -- Block food destroy only; sell sets G.CONTROLLER.locks.selling_card
     local selling = G and G.CONTROLLER and G.CONTROLLER.locks and G.CONTROLLER.locks.selling_card
     if not selling and self and self.ability and self.ability.set == 'Joker' and Sculio_refrigerator_is_food(self) and self.config.center and self.config.center.key ~= 'j_diet_cola' then
       local refrigerators = Sculio_refrigerator_get_left(self)
@@ -249,7 +247,6 @@ if not Sculio.refrigerator_calculate_joker_ref then
     local refrigerators = Sculio_refrigerator_is_food(self) and Sculio_refrigerator_get_left(self) or {}
     local preserve = context and next(refrigerators) ~= nil and not context.selling_self
 
-    -- Bypass destruction logic for food Jokers that remove themselves directly.
     if preserve and context.after then
       local key = self.config.center.key
       if key == 'j_paperback_epic_sauce' or key == 'j_aij_banana_man'

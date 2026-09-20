@@ -16,8 +16,6 @@ SMODS.Joker {
     return { vars = { card.ability.extra.money_recover } }
   end,
   calculate = function(self, card, context)
-    -- Blueprint routes here with card = this Joker (context.blueprint_card = Blueprint,
-    -- whose ability.extra is nil). Always read/write state on card, never on the copier.
     if (context.buying_card or context.buying_voucher or context.open_booster) and context.card ~= card then
       if not card.ability.extra.used_this_round then
         card.ability.extra.used_this_round = true

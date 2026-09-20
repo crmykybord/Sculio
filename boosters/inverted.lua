@@ -1,7 +1,3 @@
--- Inverted Arcana booster packs. Pool is exclusively Inverted Tarots, with the
--- same 0.3% chance of The Soul as vanilla Arcana packs. Booster sizes mirror
--- vanilla: 4 normal variants, 2 jumbo, 2 mega.
-
 local function inverted_card(self, card, i)
   if not G.GAME.banned_keys['c_soul']
       and not (G.GAME.used_jokers['c_soul'] and not next(find_joker('Showman')))
@@ -11,8 +7,6 @@ local function inverted_card(self, card, i)
   return { set = 'Inverted', area = G.pack_cards, skip_materialize = true, key_append = 'inv' }
 end
 
--- Share one localization entry per size: p_Sculio_inverted_normal_1 -> p_Sculio_inverted_normal
--- Read from the center config so the Droste Effect bonus shows up (card.ability.choose may be nil)
 local function pack_loc_vars(self, info_queue, card)
   local cfg = self.config
   local size = math.max(1, (cfg.extra or 0) + ((G.GAME and G.GAME.modifiers and G.GAME.modifiers.booster_size_mod) or 0))
