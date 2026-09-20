@@ -1,3 +1,12 @@
+-- Last Joker sold, falling back to the default Joker when the stored key is
+-- stale (save from another mod, or a mod that is no longer loaded). The copy
+-- this Tarot makes is Negative, so it never needs a free Joker slot.
+local function last_sold_joker()
+  local last = G.GAME and G.GAME.Sculio_last_joker_sold
+  if last and G.P_CENTERS[last] then return last end
+  return 'j_joker'
+end
+
 SMODS.Consumable {
   key = 'mercy',
   set = 'Inverted',
@@ -7,25 +16,19 @@ SMODS.Consumable {
   discovered = false,
   cost = 3,
   loc_vars = function(self, info_queue, card)
-    local last = G.GAME.Sculio_last_joker_sold
-    local name = localize('k_none')
-    if last and G.P_CENTERS[last] then
-      name = localize { type = 'name_text', key = G.P_CENTERS[last].key, set = G.P_CENTERS[last].set }
-    end
+    local center = G.P_CENTERS[last_sold_joker()]
+    local name = localize { type = 'name_text', key = center.key, set = center.set }
     if Sculio.distorted() then
       return { vars = { name }, key = Sculio.distorted_key(self) }
     end
     return { vars = { name, localize('Sculio_perishable_suffix') } }
   end,
   can_use = function(self, card)
-    local last = G.GAME.Sculio_last_joker_sold
-    return last and G.P_CENTERS[last]
-      and (#G.jokers.cards < G.jokers.config.card_limit or card.area == G.jokers)
+    return G.P_CENTERS[last_sold_joker()] ~= nil
   end,
   use = function(self, card, area, copier)
     Sculio.track_inverted_use(card)
-    local last_joker = G.GAME.Sculio_last_joker_sold
-    if not last_joker or not G.P_CENTERS[last_joker] then return end
+    local last_joker = last_sold_joker()
     local distorted = Sculio.distorted()
     G.E_MANAGER:add_event(Event({ trigger = 'after', delay = 0.4, func = function()
       play_sound('timpani')

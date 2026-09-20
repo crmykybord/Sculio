@@ -436,7 +436,7 @@ return {
         name = 'Faraón',
         text = {
           '{C:red}Debilita{} todas las {C:attention}cartas de{}',
-          '{C:attention}números{} y las {C:attention}cartas de figura{}',
+          '{C:attention}enumeradas{} y las {C:attention}cartas de figura{}',
           'otorgan {X:mult,C:white}X#1#{} al anotar'
         },
       }, 
@@ -792,6 +792,13 @@ return {
           'La tienda tiene a',
           '{C:attention}Fuerza Imparable{}',
           'con {X:mult,C:white}X#1#{} Multi'
+        },
+      },
+      tag_Sculio_visionary = {
+        name = 'Etiqueta Visionaria',
+        text = {
+          'Otorga un {C:inverted}Mega Paquete{}',
+          '{C:inverted}Arcano Invertido{} gratis',
         },
       }
     },
@@ -1213,7 +1220,7 @@ return {
       k_inverted = 'Tarot Invertido',
       Sculio_perishable_suffix = ' y Perecedera',
       b_inverted_cards = 'Tarots Invertidos',
-      k_booster_group_sculio_inverted = 'Paquetes Arcanos Invertidos',
+      k_booster_group_sculio_inverted = 'Paquete arcano Invertido',
       Sculio_trap_unknown_trigger = 'al azar',
       Sculio_trap_unknown_effect = 'Un efecto aleatorio de pools de rareza ponderados',
       Sculio_trap_played = 'juega',

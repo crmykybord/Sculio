@@ -791,6 +791,13 @@ return {
           '{C:attention}Unstoppable Force{}',
           'with {X:mult,C:white} X#1# {} Mult'
         },
+      },
+      tag_Sculio_visionary = {
+        name = 'Visionary Tag',
+        text = {
+          'Gives a free {C:inverted}Inverted{}',
+          '{C:inverted}Mega Arcana Pack{}',
+        },
       }
     },
     Voucher = {
