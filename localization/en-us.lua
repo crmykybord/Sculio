@@ -787,7 +787,7 @@ return {
           'No effect'
         },
       },
-      -- 72. Cartomancer?
+      -- 76. Cartomancer?
       j_Sculio_cartomante = {
         name = 'Cartomancer?',
         text = {
