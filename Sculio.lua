@@ -45,6 +45,7 @@ local skip_files = {
   ['17_the_siege.lua'] = true,
   -- Disabled until they have an effect
   ['72_hazmat.lua'] = true,
+  ['74_being_recorded.lua'] = true,
 }
 
 load_dir('jokers', skip_files)

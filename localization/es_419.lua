@@ -775,6 +775,13 @@ return {
           '{C:inactive}(Debe haber espacio){}',
         },
       },
+      -- 74. Estás Siendo Grabado
+      j_Sculio_being_recorded = {
+        name = 'Estás Siendo Grabado',
+        text = {
+          'Sin efecto'
+        },
+      },
       -- 72. Cartomancer?
       j_Sculio_cartomante = {
         name = '¿Cartomante?',

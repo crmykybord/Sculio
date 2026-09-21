@@ -773,6 +773,13 @@ return {
           '{C:inactive}(Must have room){}',
         },
       },
+      -- 74. You're Being Recorded
+      j_Sculio_being_recorded = {
+        name = "You're Being Recorded",
+        text = {
+          'No effect'
+        },
+      },
       -- 72. Cartomancer?
       j_Sculio_cartomante = {
         name = 'Cartomancer?',
