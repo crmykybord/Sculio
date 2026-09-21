@@ -755,6 +755,13 @@ return {
           '{C:inactive}(Currently {C:chips}+#1#{}{C:inactive} Chips)',
         },
       },
+      -- 72. Hazmat
+      j_Sculio_hazmat = {
+        name = 'Hazmat',
+        text = {
+          'No effect'
+        },
+      },
       -- 72. Cartomancer?
       j_Sculio_cartomante = {
         name = 'Cartomancer?',
