@@ -3,7 +3,7 @@ SMODS.Enhancement {
   atlas = 'Sculio_Enhancements',
   pos = { x = 5, y = 0 },
 
-  config = { bonus = 0, extra = { drain = 1, gain = 5, distorted_gain = 7 } },
+  config = { bonus = 0, extra = { drain = 1, gain = 5, distorted_gain = 8 } },
   loc_vars = function(self, info_queue, card)
     local extra = card and card.ability and card.ability.extra or self.config.extra
     if Sculio.distorted() then
@@ -40,6 +40,17 @@ SMODS.Enhancement {
             if total <= 0 then SMODS.modify_rank(victim, -1) end
             return true
           end }))
+        end
+      else
+        -- Distorted Flow: no drain, and heals the negative bonus left on drained cards
+        for _, c in ipairs(G.hand and G.hand.cards or {}) do
+          if c ~= card and (c.ability.perma_bonus or 0) < 0 then
+            c.ability.perma_bonus = 0
+            G.E_MANAGER:add_event(Event({ trigger = 'after', delay = 0.2, func = function()
+              c:juice_up(0.3, 0.4)
+              return true
+            end }))
+          end
         end
       end
       card.ability.bonus = (card.ability.bonus or 0) + gain

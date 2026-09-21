@@ -881,14 +881,13 @@ return {
           'Drains {C:chips}#1# Chips{} from a card',
           'in hand and gains {C:chips}+#2# Chips{}',
           'when scored',
-          '{C:inactive,s:0.8}(Cannot drain other Profane cards)',
+          '{C:inactive,s:0.7}(Cannot drain other Profane cards)',
         },
       },
       m_Sculio_profane_distorted_flow = {
         name = 'Profane Card',
         text = {
           'Gains {C:chips}+#1# Chips{} when scored',
-          'without draining any card',
         },
       },
       m_Sculio_punched = {
@@ -902,7 +901,7 @@ return {
         name = 'Smeared Card',
         text = {
           {
-            '{X:mult,C:white}X1.75{} Mult before',
+            '{X:mult,C:white}X#1#{} Mult before',
             'and after the hand is played',
           },
           {

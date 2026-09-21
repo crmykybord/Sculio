@@ -351,7 +351,7 @@ end
 -- Create and activate a random Tarot / Inverted Tarot for the Immutable Wheel.
 -- Runs the effect directly instead of G.FUNCS.use_card so the game never enters
 -- PLAY_TAROT (which hides the HUD and leaves the play/discard buttons locked).
-function Sculio.invoke_random_tarot(slot, only_set)
+function Sculio.invoke_random_tarot(slot, only_set, x_off, dissolve_delay)
   local pool = Sculio.wheel_candidates(only_set)
   if #pool == 0 then return nil end
   -- Start from a clean selection so leftover highlights don't break the target count
@@ -361,7 +361,7 @@ function Sculio.invoke_random_tarot(slot, only_set)
     local center = key and G.P_CENTERS[key]
     if center then
       local new_card = Card(
-        G.play.T.x + G.play.T.w / 2 - G.CARD_W / 2,
+        G.play.T.x + G.play.T.w / 2 - G.CARD_W / 2 + (x_off or 0),
         G.play.T.y + G.play.T.h / 2 - G.CARD_H / 2,
         G.CARD_W, G.CARD_H, G.P_CARDS.empty, center,
         { bypass_discovery_center = true, bypass_discovery_ui = true }
@@ -392,7 +392,7 @@ function Sculio.invoke_random_tarot(slot, only_set)
           end
           -- Do NOT unhighlight here: use_consumeable queues flips on G.hand.highlighted[i]
           -- that run ~0.15s later; clearing first would index nil (The World/Star/Moon/Sun...)
-          G.E_MANAGER:add_event(Event({ trigger = 'after', delay = 0.5, func = function()
+          G.E_MANAGER:add_event(Event({ trigger = 'after', delay = dissolve_delay or 0.5, func = function()
             new_card:start_dissolve()
             return true
           end }))
