@@ -1,5 +1,5 @@
 SMODS.Consumable {
-  key = 'reborn',
+  key = 'rebirth',
   set = 'Inverted',
   atlas = 'Sculio_Consumables',
   pos = { x = 3, y = 1 },
