@@ -1123,7 +1123,7 @@ return {
           '{C:inactive}(#1#){}',
         },
       },
-      c_Sculio_reborn = {
+      c_Sculio_rebirth = {
         name = 'El Renacido',
         text = {
           'Selecciona {C:attention}#1#{} cartas. Las destruye y copia',
@@ -1131,7 +1131,7 @@ return {
           'de tu mano.',
         },
       },
-      c_Sculio_reborn_distorted_flow = {
+      c_Sculio_rebirth_distorted_flow = {
         name = 'El Renacido',
         text = {
           'Selecciona {C:attention}#1#{} cartas. Copia sus modificadores',

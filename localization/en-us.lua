@@ -1133,7 +1133,7 @@ return {
           'in your hand.',
         },
       },
-      c_Sculio_reborn_distorted_flow = {
+      c_Sculio_rebirth_distorted_flow = {
         name = 'Reborn',
         text = {
           'Select {C:attention}#1#{} cards. Copies their random modifiers',
