@@ -1088,15 +1088,15 @@ return {
       c_Sculio_atoned = {
         name = 'The Atoned',
         text = {
-          'Copies the Enhancement from the last',
+          'Copies an Enhancement from last',
           'destroyed card onto {C:attention}#2#{} selected cards',
           '{C:inactive}(#1#){}',
         },
       },
-      c_Sculio_reborn = {
-        name = 'Reborn',
+      c_Sculio_rebirth = {
+        name = 'Rebirth',
         text = {
-          'Select {C:attention}#1#{} cards. Destroys them and copies',
+          'Destroys {C:attention}#1#{} selected cards and copies',
           'their random modifiers onto {C:attention}#2#{} other cards',
           'in your hand.',
         },

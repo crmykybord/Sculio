@@ -1,7 +1,7 @@
 {
   "id": "Sculio",
   "name": "Sculio",
-  "author": ["crmykybord", "BrandonE", "chily", "Marffe"],
+  "author": ["Seb", "Marffe", "BrandonE"],
   "description": "Vanilla-esque mod for Balatro.",
   "prefix": "Sculio",
   "main_file": "Sculio.lua",
