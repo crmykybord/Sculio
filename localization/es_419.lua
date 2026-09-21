@@ -902,7 +902,7 @@ return {
         name = 'Carta Difuminada',
         text = {
           {
-            "{X:mult,C:white}X1.75{} Multi antes y",
+            "{X:mult,C:white}X#1#{} Multi antes y",
             "después de jugar la mano",
           },
           {

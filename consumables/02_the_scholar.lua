@@ -8,7 +8,9 @@ SMODS.Consumable {
   cost = 3,
   config = { max_highlighted = 2 },
   loc_vars = function(self, info_queue, card)
-    info_queue[#info_queue + 1] = G.P_CENTERS.m_Sculio_experimental
+    if not Sculio.distorted() then
+      info_queue[#info_queue + 1] = G.P_CENTERS.m_Sculio_experimental
+    end
     return { vars = { Sculio.max_highlighted(card) }, key = Sculio.distorted_key(self) }
   end,
   can_use = function(self, card)

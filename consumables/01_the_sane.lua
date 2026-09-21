@@ -18,7 +18,7 @@ SMODS.Consumable {
       cp_name = localize { type = 'name_text', key = cp, set = 'Tarot' }
     end
     return {
-      vars = { name, Sculio.distorted() and 2 or 1, cp_name },
+      vars = { name, 1, cp_name },
       key = Sculio.distorted_key(self),
     }
   end,
@@ -29,7 +29,7 @@ SMODS.Consumable {
   use = function(self, card, area, copier)
     local last = G.GAME.Sculio_last_inverted
     Sculio.track_inverted_use(card)
-    local copies = Sculio.distorted() and 2 or 1
+    local copies = 1
     if last == card.config.center_key then last = nil end
     if last then
       Sculio.create_center_card(last, G.consumeables, copies, 'sculio_sane')

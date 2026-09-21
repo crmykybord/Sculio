@@ -16,13 +16,13 @@ SMODS.Consumable {
     Sculio.track_inverted_use(card)
     -- Wait for the Wheel itself to finish dissolving before revealing the chosen Tarot
     if Sculio.distorted() then
-      -- Distorted Flow: one vanilla Tarot and one Inverted Tarot
+      -- Distorted Flow: one vanilla Tarot and one Inverted Tarot, side by side
       G.E_MANAGER:add_event(Event({ trigger = 'after', delay = 1.2, func = function()
-        Sculio.invoke_random_tarot(1, 'Tarot')
+        Sculio.invoke_random_tarot(1, 'Tarot', -G.CARD_W * 0.6, 1.5)
         return true
       end }))
-      G.E_MANAGER:add_event(Event({ trigger = 'after', delay = 2.4, func = function()
-        Sculio.invoke_random_tarot(2, 'Inverted')
+      G.E_MANAGER:add_event(Event({ trigger = 'after', delay = 1.8, func = function()
+        Sculio.invoke_random_tarot(2, 'Inverted', G.CARD_W * 0.6, 0.5)
         return true
       end }))
     else
