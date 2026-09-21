@@ -538,6 +538,13 @@ function Sculio.counterpart(center_key)
   return Sculio.inverted_counterparts[center_key]
 end
 
+-- Vanilla Tarot -> the Inverted Tarot that mirrors it
+function Sculio.inverted_counterpart(vanilla_key)
+  for inverted, vanilla in pairs(Sculio.inverted_counterparts) do
+    if vanilla == vanilla_key then return inverted end
+  end
+end
+
 -- Alternate description key while Distorted Flow is redeemed
 function Sculio.distorted_key(self)
   return Sculio.distorted() and (self.key .. '_distorted_flow') or self.key

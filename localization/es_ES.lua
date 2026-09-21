@@ -764,6 +764,17 @@ return {
           'Sin efecto'
         },
       },
+      -- 73. Estatua Inquietante
+      j_Sculio_eerie_statue = {
+        name = 'Estatua Inquietante',
+        text = {
+          'Al usar una carta de {C:tarot}Tarot{},',
+          'hay una {C:green}prob. de #1# en #2#{}',
+          'de obtener su contraparte',
+          '{C:inverted}invertida{}',
+          '{C:inactive}(Debe haber espacio){}',
+        },
+      },
       -- 72. Cartomancer?
       j_Sculio_cartomante = {
         name = '¿Cartomante?',

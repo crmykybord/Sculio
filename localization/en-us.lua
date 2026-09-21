@@ -762,6 +762,17 @@ return {
           'No effect'
         },
       },
+      -- 73. Eerie Statue
+      j_Sculio_eerie_statue = {
+        name = 'Eerie Statue',
+        text = {
+          'When a {C:tarot}Tarot{} card is used,',
+          'there is a {C:green}#1# in #2#{} chance',
+          'to create its {C:inverted}Inverted{}',
+          'counterpart',
+          '{C:inactive}(Must have room){}',
+        },
+      },
       -- 72. Cartomancer?
       j_Sculio_cartomante = {
         name = 'Cartomancer?',
