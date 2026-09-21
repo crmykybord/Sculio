@@ -782,6 +782,13 @@ return {
           'Sin efecto'
         },
       },
+      -- 75. Claqueta de Director
+      j_Sculio_director_clapperboard = {
+        name = 'Claqueta de Director',
+        text = {
+          'Sin efecto'
+        },
+      },
       -- 72. Cartomancer?
       j_Sculio_cartomante = {
         name = '¿Cartomante?',

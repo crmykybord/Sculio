@@ -780,6 +780,13 @@ return {
           'No effect'
         },
       },
+      -- 75. Director's Clapperboard
+      j_Sculio_director_clapperboard = {
+        name = "Director's Clapperboard",
+        text = {
+          'No effect'
+        },
+      },
       -- 72. Cartomancer?
       j_Sculio_cartomante = {
         name = 'Cartomancer?',
