@@ -264,8 +264,6 @@ function Sculio.inverted_pool()
 end
 
 -- Immutable Wheel: one exceptions table. `false` = never invoke; otherwise the
--- value is the effect class ('card' | 'consumable' | 'econ') for the few Tarots
--- that can't be classified from their config alone.
 Sculio.wheel_overrides = {
   ['c_Sculio_immutable_wheel'] = false,
   ['c_aij_osiris'] = false,
@@ -320,7 +318,6 @@ function Sculio.wheel_candidates(only_set)
 end
 
 -- True if a center can actually be activated in the current context
--- (uses the vanilla gate so modded/vanilla special cases are respected)
 function Sculio.tarot_usable(center, card)
   local ok, res = pcall(function() return card:can_use_consumeable(true, true) end)
   if not ok then return false end
@@ -338,11 +335,6 @@ local function highlight_random_hand(count, seed)
   end
 end
 
--- Create and activate a random Tarot / Inverted Tarot for the Immutable Wheel.
--- Runs the effect directly instead of G.FUNCS.use_card so the game never enters
--- PLAY_TAROT (which hides the HUD and leaves the play/discard buttons locked).
--- `on_done` runs after the invoked card finishes (highlights already cleared),
--- so Distorted Flow can chain a second invocation with a clean highlight state.
 function Sculio.invoke_random_tarot(slot, only_set, x_off, on_done)
   local pool = Sculio.wheel_candidates(only_set)
   if #pool == 0 then return nil end
@@ -382,10 +374,6 @@ function Sculio.invoke_random_tarot(slot, only_set, x_off, on_done)
           if not ok then
             if sendDebugMessage then sendDebugMessage('Sculio wheel: ' .. tostring(err), 'SCULIO') end
           end
-          -- Do NOT unhighlight here: use_consumeable queues flips on G.hand.highlighted[i]
-          -- that run ~0.15s later; clearing first would index nil (The World/Star/Moon/Sun...)
-          -- Wait for those flips (and any Inverted Tarot's own cleanup) to finish before
-          -- clearing highlights, dissolving, and starting anything that follows.
           G.E_MANAGER:add_event(Event({ trigger = 'after', delay = 1.8, func = function()
             if G.hand then G.hand:unhighlight_all() end
             new_card:start_dissolve()
@@ -490,14 +478,7 @@ function Sculio.can_select(card)
 end
 
 -- Distorted Flow target caps per Inverted Tarot (keys not listed keep their base cap)
-Sculio.distorted_max = {
-  c_Sculio_scholar = 3,
-  c_Sculio_exiled = 3,
-  c_Sculio_apostate = 3,
-  c_Sculio_pikeman = 3,
-  c_Sculio_weakness = 5,
-  c_Sculio_atoned = 5,
-}
+Sculio.distorted_max = { c_Sculio_scholar = 3, c_Sculio_exiled = 3, c_Sculio_apostate = 3, c_Sculio_pikeman = 3, c_Sculio_weakness = 5, c_Sculio_atoned = 5, }
 
 -- Effective max highlighted cards: Distorted Flow overrides targeting Inverted Tarots
 function Sculio.max_highlighted(card)
@@ -507,7 +488,7 @@ function Sculio.max_highlighted(card)
   return base
 end
 
--- Vanilla Tarot each Inverted Tarot mirrors (cell order = Major Arcana order)
+-- Vanilla Tarot each Inverted Tarot mirrors
 Sculio.inverted_counterparts = {
   c_Sculio_sane = 'c_fool',
   c_Sculio_scholar = 'c_magician',
@@ -549,7 +530,7 @@ function Sculio.distorted_key(self)
   return Sculio.distorted() and (self.key .. '_distorted_flow') or self.key
 end
 
--- Record the last Inverted Tarot used (Ortalab track_usage pattern)
+-- Record the last Inverted Tarot used
 function Sculio.track_inverted_use(card)
   G.GAME.Sculio_last_inverted = card.config.center_key
 end
@@ -608,12 +589,12 @@ function Sculio.apply_modifier(target, picked)
   return true
 end
 
--- True once the Distorted Flow voucher has been redeemed
+-- Distorted Flow voucher has been redeemed
 function Sculio.distorted()
   return (G.GAME and G.GAME.used_vouchers and G.GAME.used_vouchers['v_Sculio_distorted_flow']) and true or false
 end
 
--- Apply/remove the Droste Effect voucher's bonus on Inverted Arcana packs
+-- Droste Effect voucher's bonus on Inverted Arcana packs
 function Sculio.apply_droste_bonus()
   local wanted = (G.GAME and G.GAME.used_vouchers and G.GAME.used_vouchers['v_Sculio_droste_effect']) and 1 or 0
   for _, center in pairs(G.P_CENTERS or {}) do
@@ -649,7 +630,7 @@ function Sculio.modifier_label(mods, kind)
   end
 end
 
--- Comma-separated list of the specific modifiers available on a destroyed card
+-- List of the specific modifiers available on a destroyed card
 function Sculio.describe_modifiers(mods)
   local parts = {}
   for _, kind in ipairs({ 'enhancement', 'seal', 'edition' }) do
