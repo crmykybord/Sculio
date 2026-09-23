@@ -603,6 +603,14 @@ function Sculio.apply_droste_bonus()
       center.config.choose = center.Sculio_base_choose + wanted
     end
   end
+  -- Shop boosters created before the voucher keep their own copy of the config
+  for _, card in ipairs((G.shop_booster and G.shop_booster.cards) or {}) do
+    local center = card.config and card.config.center
+    if center and center.Sculio_base_extra and card.ability then
+      card.ability.extra = center.Sculio_base_extra + wanted
+      card.ability.choose = center.Sculio_base_choose + wanted
+    end
+  end
 end
 
 local function edition_center_key(edition)
