@@ -22,8 +22,9 @@ SMODS.Joker {
     if context.joker_main and card.ability.extra.x_mult > 1 then
       return { xmult = card.ability.extra.x_mult }
     end
-    if context.end_of_round and context.main_eval and not context.blueprint then
+    if context.end_of_round and context.main_eval and not context.blueprint and card.ability.extra.x_mult > 1 then
       card.ability.extra.x_mult = 1
+      return { message = localize('k_reset'), colour = G.C.MULT, card = card }
     end
   end,
 }
