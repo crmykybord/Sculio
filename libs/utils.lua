@@ -263,48 +263,36 @@ function Sculio.inverted_pool()
   return pool
 end
 
--- Tarots the Immutable Wheel must never invoke (self, joker-destroying, secret)
-Sculio.wheel_blacklist = {
-  ['c_Sculio_immutable_wheel'] = true,
-  ['c_aij_osiris'] = true,
-  ['c_aij_osiris_controller'] = true,
+-- Immutable Wheel: one exceptions table. `false` = never invoke; otherwise the
+Sculio.wheel_overrides = {
+  ['c_Sculio_immutable_wheel'] = false,
+  ['c_aij_osiris'] = false,
+  ['c_aij_osiris_controller'] = false,
+  c_fool = 'consumable', c_judgement = 'consumable',
+  c_Sculio_sane = 'consumable', c_Sculio_regicide = 'consumable', c_Sculio_mercy = 'consumable',
+  c_Sculio_eclipse = 'card', c_Sculio_cave = 'card',
+  c_Sculio_twilight = 'card', c_Sculio_collapse = 'card',
 }
 
--- Functional class of a Tarot, used to bias the Immutable Wheel by context
-Sculio.wheel_consumable_makers = {
-  c_fool = true, c_emperor = true, c_high_priestess = true, c_judgement = true, c_soul = true,
-  c_Sculio_sane = true, c_Sculio_regicide = true, c_Sculio_mercy = true,
-}
-Sculio.wheel_economy = {
-  c_hermit = true, c_temperance = true, c_wheel_of_fortune = true,
-  c_Sculio_mundane = true, c_Sculio_secularist = true,
-}
--- Inverted Tarots that affect hand/deck cards without a max_highlighted target
-Sculio.wheel_card_effects = {
-  c_Sculio_eclipse = true, c_Sculio_cave = true,
-  c_Sculio_twilight = true, c_Sculio_collapse = true,
-}
-
+-- Functional class of a Tarot, used to bias the Immutable Wheel by context.
+-- Auto-derived from config; wheel_overrides wins for special cases.
 function Sculio.wheel_class(center)
-  local key, cfg = center.key, center.config or {}
-  if Sculio.wheel_card_effects[key] then return 'card' end
-  if Sculio.wheel_consumable_makers[key] or cfg.tarots or cfg.planets then return 'consumable' end
-  if Sculio.wheel_economy[key] then return 'econ' end
-  if cfg.mod_conv or cfg.suit_conv or cfg.max_highlighted then return 'card' end
+  local forced = Sculio.wheel_overrides[center.key]
+  if forced then return forced end
+  local cfg = center.config or {}
+  if cfg.tarots or cfg.planets then return 'consumable' end
+  if cfg.mod_conv or cfg.suit_conv or cfg.rank_conv or cfg.max_highlighted then return 'card' end
   return 'econ'
 end
 
 -- Context-biased candidate pool for the Immutable Wheel.
--- blind   (ciega, sin paquete): prioriza efectos que modifican cartas en mano.
--- shop    (tienda): prioriza economía y generadores de consumibles (no hay mano).
--- booster (paquete abierto): mezcla de ambos.
 function Sculio.wheel_candidates(only_set)
   local base = {}
   for key, center in pairs(G.P_CENTERS) do
     if (center.set == 'Tarot' or center.set == 'Inverted')
         and (not only_set or center.set == only_set)
         and not center.hidden
-        and not Sculio.wheel_blacklist[key] then
+        and Sculio.wheel_overrides[key] ~= false then
       base[#base + 1] = key
     end
   end
@@ -330,7 +318,6 @@ function Sculio.wheel_candidates(only_set)
 end
 
 -- True if a center can actually be activated in the current context
--- (uses the vanilla gate so modded/vanilla special cases are respected)
 function Sculio.tarot_usable(center, card)
   local ok, res = pcall(function() return card:can_use_consumeable(true, true) end)
   if not ok then return false end
@@ -348,10 +335,7 @@ local function highlight_random_hand(count, seed)
   end
 end
 
--- Create and activate a random Tarot / Inverted Tarot for the Immutable Wheel.
--- Runs the effect directly instead of G.FUNCS.use_card so the game never enters
--- PLAY_TAROT (which hides the HUD and leaves the play/discard buttons locked).
-function Sculio.invoke_random_tarot(slot, only_set, x_off, dissolve_delay)
+function Sculio.invoke_random_tarot(slot, only_set, x_off, on_done)
   local pool = Sculio.wheel_candidates(only_set)
   if #pool == 0 then return nil end
   -- Start from a clean selection so leftover highlights don't break the target count
@@ -390,10 +374,10 @@ function Sculio.invoke_random_tarot(slot, only_set, x_off, dissolve_delay)
           if not ok then
             if sendDebugMessage then sendDebugMessage('Sculio wheel: ' .. tostring(err), 'SCULIO') end
           end
-          -- Do NOT unhighlight here: use_consumeable queues flips on G.hand.highlighted[i]
-          -- that run ~0.15s later; clearing first would index nil (The World/Star/Moon/Sun...)
-          G.E_MANAGER:add_event(Event({ trigger = 'after', delay = dissolve_delay or 0.5, func = function()
+          G.E_MANAGER:add_event(Event({ trigger = 'after', delay = 1.8, func = function()
+            if G.hand then G.hand:unhighlight_all() end
             new_card:start_dissolve()
+            if on_done then on_done() end
             return true
           end }))
           return true
@@ -412,7 +396,10 @@ end
 function Sculio.create_center_card(center_key, area, n, seed, no_delay)
   n = n or 1
   seed = seed or 'sculio_create'
-  local set = (G.P_CENTERS[center_key] and G.P_CENTERS[center_key].set) or 'Tarot'
+  local center = G.P_CENTERS[center_key]
+  -- Guard: a disabled/not-yet-loaded center would crash create_card (nil center)
+  if not center then return end
+  local set = center.set or 'Tarot'
   for i = 1, n do
     G.E_MANAGER:add_event(Event({ trigger = 'after', delay = 0.4, func = function()
       if area.config.card_limit > #area.cards then
@@ -491,14 +478,7 @@ function Sculio.can_select(card)
 end
 
 -- Distorted Flow target caps per Inverted Tarot (keys not listed keep their base cap)
-Sculio.distorted_max = {
-  c_Sculio_scholar = 3,
-  c_Sculio_exiled = 3,
-  c_Sculio_apostate = 3,
-  c_Sculio_pikeman = 3,
-  c_Sculio_weakness = 5,
-  c_Sculio_atoned = 5,
-}
+Sculio.distorted_max = { c_Sculio_scholar = 3, c_Sculio_exiled = 3, c_Sculio_apostate = 3, c_Sculio_pikeman = 3, c_Sculio_weakness = 5, c_Sculio_atoned = 5, }
 
 -- Effective max highlighted cards: Distorted Flow overrides targeting Inverted Tarots
 function Sculio.max_highlighted(card)
@@ -508,7 +488,7 @@ function Sculio.max_highlighted(card)
   return base
 end
 
--- Vanilla Tarot each Inverted Tarot mirrors (cell order = Major Arcana order)
+-- Vanilla Tarot each Inverted Tarot mirrors
 Sculio.inverted_counterparts = {
   c_Sculio_sane = 'c_fool',
   c_Sculio_scholar = 'c_magician',
@@ -523,7 +503,7 @@ Sculio.inverted_counterparts = {
   c_Sculio_immutable_wheel = 'c_wheel_of_fortune',
   c_Sculio_weakness = 'c_strength',
   c_Sculio_atoned = 'c_hanged_man',
-  c_Sculio_reborn = 'c_death',
+  c_Sculio_rebirth = 'c_death',
   c_Sculio_impatient = 'c_temperance',
   c_Sculio_archangel = 'c_devil',
   c_Sculio_siege = 'c_tower',
@@ -538,12 +518,19 @@ function Sculio.counterpart(center_key)
   return Sculio.inverted_counterparts[center_key]
 end
 
+-- Vanilla Tarot -> the Inverted Tarot that mirrors it
+function Sculio.inverted_counterpart(vanilla_key)
+  for inverted, vanilla in pairs(Sculio.inverted_counterparts) do
+    if vanilla == vanilla_key then return inverted end
+  end
+end
+
 -- Alternate description key while Distorted Flow is redeemed
 function Sculio.distorted_key(self)
   return Sculio.distorted() and (self.key .. '_distorted_flow') or self.key
 end
 
--- Record the last Inverted Tarot used (Ortalab track_usage pattern)
+-- Record the last Inverted Tarot used
 function Sculio.track_inverted_use(card)
   G.GAME.Sculio_last_inverted = card.config.center_key
 end
@@ -602,18 +589,26 @@ function Sculio.apply_modifier(target, picked)
   return true
 end
 
--- True once the Distorted Flow voucher has been redeemed
+-- Distorted Flow voucher has been redeemed
 function Sculio.distorted()
   return (G.GAME and G.GAME.used_vouchers and G.GAME.used_vouchers['v_Sculio_distorted_flow']) and true or false
 end
 
--- Apply/remove the Droste Effect voucher's bonus on Inverted Arcana packs
+-- Droste Effect voucher's bonus on Inverted Arcana packs
 function Sculio.apply_droste_bonus()
   local wanted = (G.GAME and G.GAME.used_vouchers and G.GAME.used_vouchers['v_Sculio_droste_effect']) and 1 or 0
   for _, center in pairs(G.P_CENTERS or {}) do
     if center.Sculio_base_extra then
       center.config.extra = center.Sculio_base_extra + wanted
       center.config.choose = center.Sculio_base_choose + wanted
+    end
+  end
+  -- Shop boosters created before the voucher keep their own copy of the config
+  for _, card in ipairs((G.shop_booster and G.shop_booster.cards) or {}) do
+    local center = card.config and card.config.center
+    if center and center.Sculio_base_extra and card.ability then
+      card.ability.extra = center.Sculio_base_extra + wanted
+      card.ability.choose = center.Sculio_base_choose + wanted
     end
   end
 end
@@ -643,7 +638,7 @@ function Sculio.modifier_label(mods, kind)
   end
 end
 
--- Comma-separated list of the specific modifiers available on a destroyed card
+-- List of the specific modifiers available on a destroyed card
 function Sculio.describe_modifiers(mods)
   local parts = {}
   for _, kind in ipairs({ 'enhancement', 'seal', 'edition' }) do

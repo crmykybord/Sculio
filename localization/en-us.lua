@@ -755,7 +755,47 @@ return {
           '{C:inactive}(Currently {C:chips}+#1#{}{C:inactive} Chips)',
         },
       },
-      -- 72. Cartomancer?
+      -- 72. Hazmat
+      j_Sculio_hazmat = {
+        name = 'Hazmat Joker',
+        text = {
+          'Gains {X:mult,C:white}X#1#{} Mult for each',
+          '{C:attention}unique Enhancement{} in your deck',
+          '{C:inactive}(Currently {X:mult,C:white}X#3#{}{C:inactive} Mult)',
+        },
+      },
+      -- 73. Eerie Statue
+      j_Sculio_eerie_statue = {
+        name = 'Eerie Statue',
+        text = {
+          'When a {C:tarot}Tarot{} card is used,',
+          'there is a {C:green}#1# in #2#{} chance',
+          'to create its {C:inverted}Inverted{}',
+          'counterpart',
+          '{C:inactive}(Must have room){}',
+        },
+      },
+      -- 74. You're Being Recorded
+      j_Sculio_being_recorded = {
+        name = "You're Being Recorded",
+        text = {
+          'Gains {C:mult}+#1#{} Mult for each',
+          '{C:attention}face card{} drawn',
+          'at the start of a round',
+          '{C:inactive}(Currently {C:mult}+#2#{}{C:inactive} Mult)',
+        },
+      },
+      -- 75. Director's Clapperboard
+      j_Sculio_director_clapperboard = {
+        name = "Director's Clapperboard",
+        text = {
+          'Gains {X:mult,C:white}X#1#{} Mult for each',
+          '{C:attention}scored card{}, resets at',
+          'the end of the round',
+          '{C:inactive}(Currently {X:mult,C:white}X#2#{}{C:inactive} Mult)',
+        },
+      },
+      -- 76. Cartomancer?
       j_Sculio_cartomante = {
         name = 'Cartomancer?',
         text = {
@@ -1101,7 +1141,7 @@ return {
           'in your hand.',
         },
       },
-      c_Sculio_reborn_distorted_flow = {
+      c_Sculio_rebirth_distorted_flow = {
         name = 'Reborn',
         text = {
           'Select {C:attention}#1#{} cards. Copies their random modifiers',

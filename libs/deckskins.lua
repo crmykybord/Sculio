@@ -6,6 +6,7 @@ local COLLABS = {
   { key = 'new_vegas_2', name = 'Fallout New Vegas', suit = 'Hearts' },
   { key = 'faith', name = 'FAITH', suit = 'Diamonds' },
   { key = 'endacopia', name = 'Endacopia', suit = 'Hearts' },
+  { key = 'helldivers', name = 'Helldivers', suit = 'Spades' },
 }
 
 local FACE_RANKS = { 'Jack', 'Queen', 'King' }

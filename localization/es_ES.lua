@@ -757,7 +757,47 @@ return {
           '{C:inactive}(Actualmente {C:chips}+#1#{}{C:inactive} Fichas)',
         },
       },
-      -- 72. Cartomancer?
+      -- 72. Hazmat
+      j_Sculio_hazmat = {
+        name = 'Comodín Hazmat',
+        text = {
+          'Obtiene {X:mult,C:white}X#1#{} Multi por cada',
+          '{C:attention}Mejora única{} en tu baraja',
+          '{C:inactive}(Actualmente {X:mult,C:white}X#3#{}{C:inactive} Multi)',
+        },
+      },
+      -- 73. Eerie Statue
+      j_Sculio_eerie_statue = {
+        name = 'Estatua Inquietante',
+        text = {
+          'Al usar una carta de {C:tarot}Tarot{},',
+          'hay una prob. de {C:green}#1# en #2#{}',
+          'de obtener su contraparte',
+          '{C:inverted}invertida{}',
+          '{C:inactive}(Debe haber espacio){}',
+        },
+      },
+      -- 74. You're Being Recorded
+      j_Sculio_being_recorded = {
+        name = 'Estás Siendo Grabado',
+        text = {
+          'Obtiene {C:mult}+#1#{} Multi por cada',
+          '{C:attention}carta de figura{} sacada',
+          'al iniciar una ronda',
+          '{C:inactive}(Actualmente {C:mult}+#2#{}{C:inactive} Multi)',
+        },
+      },
+      -- 75. Director's Clapperboard
+      j_Sculio_director_clapperboard = {
+        name = 'Claqueta de Director',
+        text = {
+          'Obtiene {X:mult,C:white}X#1#{} Multi por cada',
+          '{C:attention}carta anotada{}, se reinicia',
+          'al final de la ronda',
+          '{C:inactive}(Actualmente {X:mult,C:white}X#2#{}{C:inactive} Multi)',
+        },
+      },
+      -- 76. Cartomancer?
       j_Sculio_cartomante = {
         name = '¿Cartomante?',
         text = {
@@ -1091,7 +1131,7 @@ return {
           '{C:inactive}(#1#){}',
         },
       },
-      c_Sculio_reborn = {
+      c_Sculio_rebirth = {
         name = 'El Renacido',
         text = {
           'Selecciona {C:attention}#1#{} cartas. Las destruye y copia',
@@ -1099,7 +1139,7 @@ return {
           'de tu mano.',
         },
       },
-      c_Sculio_reborn_distorted_flow = {
+      c_Sculio_rebirth_distorted_flow = {
         name = 'El Renacido',
         text = {
           'Selecciona {C:attention}#1#{} cartas. Copia sus modificadores',
