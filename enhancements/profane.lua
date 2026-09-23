@@ -53,7 +53,7 @@ SMODS.Enhancement {
           end
         end
       end
-      card.ability.bonus = (card.ability.bonus or 0) + gain
+      card.ability.perma_bonus = (card.ability.perma_bonus or 0) + gain
       return {
         chips = gain,
         message = localize { type = 'variable', key = 'a_chips', vars = { gain } },
