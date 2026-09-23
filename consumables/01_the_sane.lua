@@ -38,10 +38,8 @@ SMODS.Consumable {
         if cp then Sculio.create_center_card(cp, G.consumeables, 1, 'sculio_sane_cp', true) end
       end
     else
-      -- Becomes The Fool
-      if G.GAME.last_tarot_planet and G.GAME.last_tarot_planet ~= 'c_fool' then
-        Sculio.create_center_card(G.GAME.last_tarot_planet, G.consumeables, copies, 'sculio_sane')
-      end
+      -- Copies itself -> becomes The Fool
+      Sculio.create_center_card('c_fool', G.consumeables, copies, 'sculio_sane')
     end
   end,
 }
