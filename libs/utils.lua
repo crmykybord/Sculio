@@ -263,48 +263,38 @@ function Sculio.inverted_pool()
   return pool
 end
 
--- Tarots the Immutable Wheel must never invoke (self, joker-destroying, secret)
-Sculio.wheel_blacklist = {
-  ['c_Sculio_immutable_wheel'] = true,
-  ['c_aij_osiris'] = true,
-  ['c_aij_osiris_controller'] = true,
+-- Immutable Wheel: one exceptions table. `false` = never invoke; otherwise the
+-- value is the effect class ('card' | 'consumable' | 'econ') for the few Tarots
+-- that can't be classified from their config alone.
+Sculio.wheel_overrides = {
+  ['c_Sculio_immutable_wheel'] = false,
+  ['c_aij_osiris'] = false,
+  ['c_aij_osiris_controller'] = false,
+  c_fool = 'consumable', c_judgement = 'consumable',
+  c_Sculio_sane = 'consumable', c_Sculio_regicide = 'consumable', c_Sculio_mercy = 'consumable',
+  c_Sculio_eclipse = 'card', c_Sculio_cave = 'card',
+  c_Sculio_twilight = 'card', c_Sculio_collapse = 'card',
 }
 
--- Functional class of a Tarot, used to bias the Immutable Wheel by context
-Sculio.wheel_consumable_makers = {
-  c_fool = true, c_emperor = true, c_high_priestess = true, c_judgement = true, c_soul = true,
-  c_Sculio_sane = true, c_Sculio_regicide = true, c_Sculio_mercy = true,
-}
-Sculio.wheel_economy = {
-  c_hermit = true, c_temperance = true, c_wheel_of_fortune = true,
-  c_Sculio_mundane = true, c_Sculio_secularist = true,
-}
--- Inverted Tarots that affect hand/deck cards without a max_highlighted target
-Sculio.wheel_card_effects = {
-  c_Sculio_eclipse = true, c_Sculio_cave = true,
-  c_Sculio_twilight = true, c_Sculio_collapse = true,
-}
-
+-- Functional class of a Tarot, used to bias the Immutable Wheel by context.
+-- Auto-derived from config; wheel_overrides wins for special cases.
 function Sculio.wheel_class(center)
-  local key, cfg = center.key, center.config or {}
-  if Sculio.wheel_card_effects[key] then return 'card' end
-  if Sculio.wheel_consumable_makers[key] or cfg.tarots or cfg.planets then return 'consumable' end
-  if Sculio.wheel_economy[key] then return 'econ' end
-  if cfg.mod_conv or cfg.suit_conv or cfg.max_highlighted then return 'card' end
+  local forced = Sculio.wheel_overrides[center.key]
+  if forced then return forced end
+  local cfg = center.config or {}
+  if cfg.tarots or cfg.planets then return 'consumable' end
+  if cfg.mod_conv or cfg.suit_conv or cfg.rank_conv or cfg.max_highlighted then return 'card' end
   return 'econ'
 end
 
 -- Context-biased candidate pool for the Immutable Wheel.
--- blind   (ciega, sin paquete): prioriza efectos que modifican cartas en mano.
--- shop    (tienda): prioriza economía y generadores de consumibles (no hay mano).
--- booster (paquete abierto): mezcla de ambos.
 function Sculio.wheel_candidates(only_set)
   local base = {}
   for key, center in pairs(G.P_CENTERS) do
     if (center.set == 'Tarot' or center.set == 'Inverted')
         and (not only_set or center.set == only_set)
         and not center.hidden
-        and not Sculio.wheel_blacklist[key] then
+        and Sculio.wheel_overrides[key] ~= false then
       base[#base + 1] = key
     end
   end
@@ -351,7 +341,9 @@ end
 -- Create and activate a random Tarot / Inverted Tarot for the Immutable Wheel.
 -- Runs the effect directly instead of G.FUNCS.use_card so the game never enters
 -- PLAY_TAROT (which hides the HUD and leaves the play/discard buttons locked).
-function Sculio.invoke_random_tarot(slot, only_set, x_off, dissolve_delay)
+-- `on_done` runs after the invoked card finishes (highlights already cleared),
+-- so Distorted Flow can chain a second invocation with a clean highlight state.
+function Sculio.invoke_random_tarot(slot, only_set, x_off, on_done)
   local pool = Sculio.wheel_candidates(only_set)
   if #pool == 0 then return nil end
   -- Start from a clean selection so leftover highlights don't break the target count
@@ -392,8 +384,12 @@ function Sculio.invoke_random_tarot(slot, only_set, x_off, dissolve_delay)
           end
           -- Do NOT unhighlight here: use_consumeable queues flips on G.hand.highlighted[i]
           -- that run ~0.15s later; clearing first would index nil (The World/Star/Moon/Sun...)
-          G.E_MANAGER:add_event(Event({ trigger = 'after', delay = dissolve_delay or 0.5, func = function()
+          -- Wait for those flips (and any Inverted Tarot's own cleanup) to finish before
+          -- clearing highlights, dissolving, and starting anything that follows.
+          G.E_MANAGER:add_event(Event({ trigger = 'after', delay = 1.8, func = function()
+            if G.hand then G.hand:unhighlight_all() end
             new_card:start_dissolve()
+            if on_done then on_done() end
             return true
           end }))
           return true
@@ -412,7 +408,10 @@ end
 function Sculio.create_center_card(center_key, area, n, seed, no_delay)
   n = n or 1
   seed = seed or 'sculio_create'
-  local set = (G.P_CENTERS[center_key] and G.P_CENTERS[center_key].set) or 'Tarot'
+  local center = G.P_CENTERS[center_key]
+  -- Guard: a disabled/not-yet-loaded center would crash create_card (nil center)
+  if not center then return end
+  local set = center.set or 'Tarot'
   for i = 1, n do
     G.E_MANAGER:add_event(Event({ trigger = 'after', delay = 0.4, func = function()
       if area.config.card_limit > #area.cards then
