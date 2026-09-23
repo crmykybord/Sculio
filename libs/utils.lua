@@ -653,7 +653,7 @@ end
 function Sculio.count_suit_deck(suit)
   local count = 0
   for _, c in ipairs(G.playing_cards or {}) do
-    if c.base.suit == suit then count = count + 1 end
+    if c.base.suit == suit or SMODS.has_any_suit(c) then count = count + 1 end
   end
   return count
 end
