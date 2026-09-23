@@ -757,7 +757,7 @@ return {
       },
       -- 72. Hazmat
       j_Sculio_hazmat = {
-        name = 'Hazmat',
+        name = 'Hazmat Joker',
         text = {
           'No effect'
         },
@@ -777,7 +777,10 @@ return {
       j_Sculio_being_recorded = {
         name = "You're Being Recorded",
         text = {
-          'No effect'
+          'Gains {C:mult}+#1#{} Mult for each',
+          '{C:attention}face card{} drawn',
+          'at the start of a round',
+          '{C:inactive}(Currently {C:mult}+#2#{}{C:inactive} Mult)',
         },
       },
       -- 75. Director's Clapperboard

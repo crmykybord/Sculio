@@ -759,30 +759,33 @@ return {
       },
       -- 72. Hazmat
       j_Sculio_hazmat = {
-        name = 'Hazmat',
+        name = 'Comodín Hazmat',
         text = {
           'Sin efecto'
         },
       },
-      -- 73. Estatua Inquietante
+      -- 73. Eerie Statue
       j_Sculio_eerie_statue = {
         name = 'Estatua Inquietante',
         text = {
           'Al usar una carta de {C:tarot}Tarot{},',
-          'hay una {C:green}prob. de #1# en #2#{}',
+          'hay una prob. de {C:green}#1# en #2#{}',
           'de obtener su contraparte',
           '{C:inverted}invertida{}',
           '{C:inactive}(Debe haber espacio){}',
         },
       },
-      -- 74. Estás Siendo Grabado
+      -- 74. You're Being Recorded
       j_Sculio_being_recorded = {
         name = 'Estás Siendo Grabado',
         text = {
-          'Sin efecto'
+          'Obtiene {C:mult}+#1#{} Multi por cada',
+          '{C:attention}carta de figura{} sacada',
+          'al iniciar una ronda',
+          '{C:inactive}(Actualmente {C:mult}+#2#{}{C:inactive} Multi)',
         },
       },
-      -- 75. Claqueta de Director
+      -- 75. Director's Clapperboard
       j_Sculio_director_clapperboard = {
         name = 'Claqueta de Director',
         text = {
