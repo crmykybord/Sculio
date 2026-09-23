@@ -3,7 +3,7 @@ SMODS.Enhancement {
   atlas = 'Sculio_Enhancements',
   pos = { x = 5, y = 0 },
 
-  config = { bonus = 0, extra = { drain = 1, gain = 5, distorted_gain = 8 } },
+  config = { bonus = 0, extra = { drain = 1, gain = 5, distorted_gain = 12 } },
   loc_vars = function(self, info_queue, card)
     local extra = card and card.ability and card.ability.extra or self.config.extra
     if Sculio.distorted() then
@@ -53,7 +53,7 @@ SMODS.Enhancement {
           end
         end
       end
-      card.ability.bonus = (card.ability.bonus or 0) + gain
+      card.ability.perma_bonus = (card.ability.perma_bonus or 0) + gain
       return {
         chips = gain,
         message = localize { type = 'variable', key = 'a_chips', vars = { gain } },
