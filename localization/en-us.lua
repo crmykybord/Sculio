@@ -759,7 +759,9 @@ return {
       j_Sculio_hazmat = {
         name = 'Hazmat Joker',
         text = {
-          'No effect'
+          'Gains {X:mult,C:white}X#1#{} Mult for each',
+          '{C:attention}unique Enhancement{} in your deck',
+          '{C:inactive}(Currently {X:mult,C:white}X#3#{}{C:inactive} Mult)',
         },
       },
       -- 73. Eerie Statue
@@ -787,7 +789,10 @@ return {
       j_Sculio_director_clapperboard = {
         name = "Director's Clapperboard",
         text = {
-          'No effect'
+          'Gains {X:mult,C:white}X#1#{} Mult for each',
+          '{C:attention}scored card{}, resets at',
+          'the end of the hand',
+          '{C:inactive}(Currently {X:mult,C:white}X#2#{}{C:inactive} Mult)',
         },
       },
       -- 76. Cartomancer?

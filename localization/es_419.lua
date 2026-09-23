@@ -761,7 +761,9 @@ return {
       j_Sculio_hazmat = {
         name = 'Comodín Hazmat',
         text = {
-          'Sin efecto'
+          'Obtiene {X:mult,C:white}X#1#{} Multi por cada',
+          '{C:attention}Mejora única{} en tu baraja',
+          '{C:inactive}(Actualmente {X:mult,C:white}X#3#{}{C:inactive} Multi)',
         },
       },
       -- 73. Eerie Statue
@@ -789,7 +791,10 @@ return {
       j_Sculio_director_clapperboard = {
         name = 'Claqueta de Director',
         text = {
-          'Sin efecto'
+          'Obtiene {X:mult,C:white}X#1#{} Multi por cada',
+          '{C:attention}carta anotada{}, se reinicia',
+          'al final de la mano',
+          '{C:inactive}(Actualmente {X:mult,C:white}X#2#{}{C:inactive} Multi)',
         },
       },
       -- 76. Cartomancer?
