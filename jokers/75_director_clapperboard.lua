@@ -1,15 +1,29 @@
 SMODS.Joker {
   key = 'director_clapperboard',
-  attributes = {},
+  attributes = { 'xmult', 'reset' },
   eternal_compat = true,
   blueprint_compat = true,
   perishable_compat = true,
   rental_compat = true,
-  config = {},
+  config = { extra = { x_mult = 1, x_mult_gain = 0.1 } },
   unlocked = true,
   discovered = false,
   rarity = 1, -- Common
   atlas = 'Sculio',
   pos = { x = 7, y = 7 },
   cost = 4,
+  loc_vars = function(self, info_queue, card)
+    return { vars = { card.ability.extra.x_mult_gain, card.ability.extra.x_mult } }
+  end,
+  calculate = function(self, card, context)
+    if context.individual and context.cardarea == G.play and context.other_card and not context.blueprint then
+      card.ability.extra.x_mult = card.ability.extra.x_mult + card.ability.extra.x_mult_gain
+    end
+    if context.joker_main and card.ability.extra.x_mult > 1 then
+      return { xmult = card.ability.extra.x_mult }
+    end
+    if context.after and not context.blueprint then
+      card.ability.extra.x_mult = 1
+    end
+  end,
 }
