@@ -8,10 +8,10 @@ SMODS.Joker {
   config = { extra = { x_mult = 1, x_mult_gain = 0.1 } },
   unlocked = true,
   discovered = false,
-  rarity = 1, -- Common
+  rarity = 3, -- Rare
   atlas = 'Sculio',
   pos = { x = 7, y = 7 },
-  cost = 4,
+  cost = 7,
   loc_vars = function(self, info_queue, card)
     return { vars = { card.ability.extra.x_mult_gain, card.ability.extra.x_mult } }
   end,
@@ -22,7 +22,7 @@ SMODS.Joker {
     if context.joker_main and card.ability.extra.x_mult > 1 then
       return { xmult = card.ability.extra.x_mult }
     end
-    if context.after and not context.blueprint then
+    if context.end_of_round and context.main_eval and not context.blueprint then
       card.ability.extra.x_mult = 1
     end
   end,

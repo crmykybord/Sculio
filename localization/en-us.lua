@@ -791,7 +791,7 @@ return {
         text = {
           'Gains {X:mult,C:white}X#1#{} Mult for each',
           '{C:attention}scored card{}, resets at',
-          'the end of the hand',
+          'the end of the round',
           '{C:inactive}(Currently {X:mult,C:white}X#2#{}{C:inactive} Mult)',
         },
       },

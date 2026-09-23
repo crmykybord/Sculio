@@ -21,10 +21,10 @@ SMODS.Joker {
   config = { extra = { x_mult_gain = 0.25 } },
   unlocked = true,
   discovered = false,
-  rarity = 1, -- Common
+  rarity = 2, -- Uncommon
   atlas = 'Sculio',
   pos = { x = 4, y = 7 },
-  cost = 4,
+  cost = 6,
   loc_vars = function(self, info_queue, card)
     local n = unique_enhancements()
     return { vars = { card.ability.extra.x_mult_gain, n, 1 + card.ability.extra.x_mult_gain * n } }

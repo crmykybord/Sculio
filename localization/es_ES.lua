@@ -793,7 +793,7 @@ return {
         text = {
           'Obtiene {X:mult,C:white}X#1#{} Multi por cada',
           '{C:attention}carta anotada{}, se reinicia',
-          'al final de la mano',
+          'al final de la ronda',
           '{C:inactive}(Actualmente {X:mult,C:white}X#2#{}{C:inactive} Multi)',
         },
       },
