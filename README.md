@@ -34,7 +34,7 @@ The mod requires the most recent version of [Steammodded](https://github.com/Ste
 <img width="400" height="51" alt="Vanilla@1x-1 0s-610px-81px-moshed-09-18-22-10-49-612" src="https://github.com/user-attachments/assets/bffe60ea-684d-4198-b4f2-7e6bcf1093a9" />
 </p>
 
- - 73 Jokers
+ - 76 Jokers
  - 1 Deck
  - 4 Vouchers
  - 2 Spectral Cards
