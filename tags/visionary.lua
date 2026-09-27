@@ -1,7 +1,7 @@
 SMODS.Tag {
   key = 'visionary',
   atlas = 'Sculio_Tags',
-  pos = { x = 2, y = 0 },
+  pos = { x = 1, y = 0 },
   apply = function(self, tag, context)
     if context.type ~= 'new_blind_choice' then return end
     local lock = tag.ID

@@ -392,6 +392,82 @@ function Sculio.invoke_random_tarot(slot, only_set, x_off, on_done)
   return nil
 end
 
+-- Pick one random usable Tarot/Inverted Tarot center, respecting targeting limits
+function Sculio.pick_wheel_tarot(slot, only_set)
+  local pool = Sculio.wheel_candidates(only_set)
+  if #pool == 0 then return nil end
+  if G.hand then G.hand:unhighlight_all() end
+  for i = 1, 15 do
+    local key = pseudorandom_element(pool, pseudoseed('sculio_immutable' .. tostring(slot or '') .. i))
+    local center = key and G.P_CENTERS[key]
+    if center then
+      -- Probe card only to validate that the Tarot can actually activate here
+      local probe = Card(
+        G.play.T.x + G.play.T.w / 2 - G.CARD_W / 2,
+        G.play.T.y + G.play.T.h / 2 - G.CARD_H / 2,
+        G.CARD_W, G.CARD_H, G.P_CARDS.empty, center,
+        { bypass_discovery_center = true, bypass_discovery_ui = true }
+      )
+      probe.cost = 0
+      local cfg = probe.ability.consumeable or {}
+      -- vanilla can_use_consumeable reads mod_num (normally set by Card:update)
+      if cfg.max_highlighted then cfg.mod_num = math.min(5, cfg.max_highlighted) end
+      local available = G.hand and #G.hand.cards or 0
+      local enough = (not cfg.max_highlighted) or available >= (cfg.min_highlighted or 1)
+      -- Targeting Tarots need a temporary selection for their can_use check
+      if enough and cfg.max_highlighted then
+        highlight_random_hand(math.min(Sculio.max_highlighted(probe), available), 'sculio_wheel_pick' .. tostring(slot or '') .. i)
+      end
+      local usable = enough and Sculio.tarot_usable(center, probe)
+      probe:remove()
+      if G.hand then G.hand:unhighlight_all() end
+      if usable then return center end
+    end
+  end
+  return nil
+end
+
+-- The Immutable Wheel flips and *becomes* the chosen Tarot, then activates it
+-- on the same card (no extra floating copies overlapping the dissolve)
+function Sculio.morph_wheel_into_tarot(card, slot, only_set)
+  local center = Sculio.pick_wheel_tarot(slot, only_set)
+  if not center then return nil end
+
+  -- Flip to the back; the face swaps while it is hidden
+  card:flip()
+  play_sound('card1')
+  card:juice_up(0.3, 0.3)
+  G.E_MANAGER:add_event(Event({ trigger = 'after', delay = 0.3, func = function() return true end }))
+  card:set_ability(center, false, true)
+
+  -- The card now *is* the chosen Tarot: prepare targets before activating
+  if G.hand then
+    G.hand:unhighlight_all()
+    local cfg = card.ability.consumeable or {}
+    if cfg.max_highlighted then
+      local available = #G.hand.cards
+      if available >= (cfg.min_highlighted or 1) then
+        highlight_random_hand(math.min(Sculio.max_highlighted(card), available), 'sculio_wheel_hl' .. tostring(slot or ''))
+      end
+    end
+  end
+
+  -- Flip back to reveal the chosen Tarot, then fire its effect on this card
+  local name = localize { type = 'name_text', key = center.key, set = center.set }
+  local colour = G.C.SET[center.set] or G.C.SECONDARY_SET[center.set]
+  G.E_MANAGER:add_event(Event({ trigger = 'after', delay = 0.05, func = function()
+    card:flip()
+    play_sound('tarot2')
+    card:juice_up(0.3, 0.3)
+    card_eval_status_text(card, 'extra', nil, nil, nil, { message = name, colour = colour })
+    return true
+  end }))
+
+  local ok, err = pcall(function() card:use_consumeable(G.consumeables) end)
+  if not ok and sendDebugMessage then sendDebugMessage('Sculio wheel: ' .. tostring(err), 'SCULIO') end
+  return center
+end
+
 -- Create up to n copies of a center inside an area
 function Sculio.create_center_card(center_key, area, n, seed, no_delay)
   n = n or 1

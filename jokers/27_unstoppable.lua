@@ -5,34 +5,39 @@ SMODS.Joker {
   blueprint_compat = true,
   perishable_compat = false,
   rental_compat = true,
-  config = { extra = { x_mult = 1, x_mult_gain = 0.1, sell_cost = 0 } },
+  config = { extra = { x_mult = 1, x_mult_gain = 0.1, sell_cost = 1 } },
   unlocked = true,
   discovered = false,
   rarity = 2, -- Uncommon
   atlas = 'Sculio',
   pos = { x = 8, y = 2 },
-  cost = 6,
+  cost = 5,
   loc_vars = function(self, info_queue, card)
     local extra = card.ability.extra or {}
     return { vars = { extra.x_mult or 1, extra.x_mult_gain or 0.1, extra.sell_cost or 0 } }
   end,
   add_to_deck = function(self, card, from_debuff)
     -- Set sell cost to $0.
-    card.ability.extra_value = (card.ability.extra_value or 0) - card.sell_cost + card.ability.extra.sell_cost
+    local extra = card.ability.extra or {}
+    card.ability.extra_value = (card.ability.extra_value or 0) - card.sell_cost + (extra.sell_cost or 0)
     card:set_cost()
   end,
   calculate = function(self, card, context)
-    if context.joker_main and card.ability.extra.x_mult > 1 then
+    local extra = card.ability.extra or {}
+    local x_mult = extra.x_mult or 1
+
+    if context.joker_main and x_mult > 1 then
       return {
-        xmult = card.ability.extra.x_mult,
-        message = localize { type = 'variable', key = 'a_xmult', vars = { card.ability.extra.x_mult } }
+        xmult = x_mult,
+        message = localize { type = 'variable', key = 'a_xmult', vars = { x_mult } }
       }
     end
 
     if context.selling_self then
+      local x_mult_gain = extra.x_mult_gain or 0.1
       local tag = Tag('tag_Sculio_unstoppable')
-      tag.ability.x_mult = card.ability.extra.x_mult + card.ability.extra.x_mult_gain
-      tag.ability.x_mult_gain = card.ability.extra.x_mult_gain
+      tag.ability.x_mult = x_mult + x_mult_gain
+      tag.ability.x_mult_gain = x_mult_gain
 
       G.E_MANAGER:add_event(Event({
         func = (function()

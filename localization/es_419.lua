@@ -7,13 +7,13 @@ return {
           'Un Mod Vanilla que busca agregar',
           'contenido nuevo a Balatro que se sienta',
           'como el original',
-          '(72 Comodines, 18 Tarots Invertidos, 7 Mejoras)',
+          '(79 Comodines, 18 Tarots Invertidos, 7 Mejoras)',
           ' ',
           '{C:attention}Créditos:{}',
           '{C:money}crmykybord{}: Dibujo y Diseño',
           '{C:money}BrandonE{}: Desarrollador',
           '{C:money}chily{}: Ideas & Balance',
-          '{C:money}Marffe{}: Ideas y Archivos de Traducción',
+          '{C:money}Marffe{}: Desarrollador, Ideas y Traducción al Español',
           ' ',
           '{C:attention}Agradecimientos especiales (Ideas):{}',
           '{C:inactive}u/Spicy_burritos (Dunce Artwork + Concept), u/The_Math_Hatter,',
@@ -518,7 +518,7 @@ return {
         },
       },
       -- 46. Pocket Money
-      j_Sculio_pocket_money = {
+      j_Sculio_cash = {
         name = 'Sencillo',
         text = {
           'Recupera {C:money}$#1#{} en la',
@@ -761,9 +761,9 @@ return {
       j_Sculio_hazmat = {
         name = 'Comodín Hazmat',
         text = {
-          'Obtiene {X:mult,C:white}X#1#{} Multi por cada',
-          '{C:attention}Mejora única{} en tu baraja',
-          '{C:inactive}(Actualmente {X:mult,C:white}X#3#{}{C:inactive} Multi)',
+          'Remueve las {C:attention}Mejoras{} de las',
+          'cartas jugadas y otorga {C:money}$#1#{} por',
+          'cada {C:attention}Mejora removida{}',
         },
       },
       -- 73. Eerie Statue
@@ -778,7 +778,7 @@ return {
         },
       },
       -- 74. You're Being Recorded
-      j_Sculio_being_recorded = {
+      j_Sculio_surveillance = {
         name = 'Estás Siendo Grabado',
         text = {
           'Obtiene {C:mult}+#1#{} Multi por cada',
@@ -797,7 +797,23 @@ return {
           '{C:inactive}(Actualmente {X:mult,C:white}X#2#{}{C:inactive} Multi)',
         },
       },
-      -- 76. Cartomancer?
+      -- 76. Getaway Card
+      j_Sculio_getaway_card = {
+        name = 'Carta de Escape',
+        text = {
+          'Vende esta carta para {C:attention}ganar{}',
+          'la {C:attention}Ciega{} inmediatamente',
+        },
+      },
+      -- 77. Vintage Comic
+      j_Sculio_vintage_comic = {
+        name = 'Cómic Vintage',
+        text = {
+          'Las {C:attention}Cartas de Acero{} anotadas',
+          'son {C:attention}reactivadas{} {C:attention}#1#{} veces',
+        },
+      },
+      -- 78. Cartomancer?
       j_Sculio_cartomante = {
         name = '¿Cartomante?',
         text = {
@@ -815,7 +831,7 @@ return {
           '{C:inactive,s:0.8}(Actualmente {C:chips,s:0.8}+#1#{}{C:inactive,s:0.8} Fichas, {C:mult,s:0.8}+#2#{}{C:inactive,s:0.8} Multi, {X:mult,C:white,s:0.8}X#3#{}{C:inactive,s:0.8} Multi)'
         }
       },
-      -- Texto alternativo con Fichas X de Puck (se aplica si existe una edición con Fichas X)
+      -- Puck XChips
       j_Sculio_puck_xchips = {
         name = 'Puck',
         text = {
@@ -837,8 +853,25 @@ return {
       tag_Sculio_visionary = {
         name = 'Etiqueta Visionaria',
         text = {
-          'Otorga un {C:inverted}Mega Paquete{}',
-          '{C:inverted}Arcano Invertido{} gratis',
+          'Otorga un {C:inverted}¿Mega{}',
+          '{C:inverted}Paquete Arcano?{} gratis',
+        },
+      },
+      -- All in Jest gold tag (Cross mod stuff)
+      tag_Sculio_unstoppable_gold = {
+        name = 'Etiqueta MUY Imparable',
+        text = {
+          'La tienda tiene a',
+          '{C:attention}Fuerza Imparable{} {C:money}gratis{}',
+          'y agrega {X:mult,C:white}X#1#{} Multi'
+        },
+      },
+      tag_Sculio_visionary_gold = {
+        name = 'Etiqueta Nostradámica',
+        text = {
+          'Crea {C:attention}5{} copias {C:dark_edition}Negativas{}',
+          'de un {C:inverted}Tarot Invertido{}',
+          'a tu elección'
         },
       }
     },
@@ -1254,6 +1287,7 @@ return {
       k_Sculio_cloning_vat_active = '¡Clonado!',
       k_Sculio_sticky_keys_changed = '¡Multi cambiado!',
       k_Sculio_bad_trip_randomized = '¡Baraja cambiada!',
+      k_Sculio_getaway_win = '¡Fuga!',
       k_Sculio_ecg_discard = '+1 Descarte',
       k_Sculio_none = 'Nada',
       k_Sculio_plus_inverted = '+1 Tarot Invertido',
