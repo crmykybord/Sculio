@@ -519,9 +519,9 @@ return {
           'its {C:attention}base chips{} as {C:mult}Mult{}'
         },
       },
-      -- 46. Pocket Money
-      j_Sculio_pocket_money = {
-        name = 'Pocket Money',
+      -- 46. Spare Cash
+      j_Sculio_cash = {
+        name = 'Spare Cash',
         text = {
           'Recover {C:money}$#1#{} on the',
           'first purchase each round'
@@ -775,9 +775,9 @@ return {
           '{C:inactive}(Must have room){}',
         },
       },
-      -- 74. You're Being Recorded
-      j_Sculio_being_recorded = {
-        name = "You're Being Recorded",
+      -- 74. Surveillance Warning
+      j_Sculio_surveillance = {
+        name = "Surveillance Warning",
         text = {
           'Gains {C:mult}+#1#{} Mult for each',
           '{C:attention}face card{} drawn',
@@ -835,8 +835,8 @@ return {
       tag_Sculio_visionary = {
         name = 'Visionary Tag',
         text = {
-          'Gives a free {C:inverted}Inverted{}',
-          '{C:inverted}Mega Arcana Pack{}',
+          'Gives a free',
+          '{C:inverted}Mega Arcana Pack?{}',
         },
       }
     },

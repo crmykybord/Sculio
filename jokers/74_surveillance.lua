@@ -1,5 +1,5 @@
 SMODS.Joker {
-  key = 'being_recorded',
+  key = 'surveillance',
   attributes = { 'mult', 'face', 'scaling' },
   eternal_compat = true,
   blueprint_compat = true,
