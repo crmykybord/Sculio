@@ -6,7 +6,7 @@ return {
         text = {
           'A vanilla-esque mod that aims to add',
           'new and faithful content to Balatro',
-          '(77 Jokers, 18 Inverted Tarots, 7 Enhancements)',
+          '(79 Jokers, 18 Inverted Tarots, 7 Enhancements)',
           ' ',
           '{C:attention}Credits:{}',
           '{C:money}crmykybord{}: Sprite Artist',
@@ -759,9 +759,9 @@ return {
       j_Sculio_hazmat = {
         name = 'Hazmat Joker',
         text = {
-          'Gains {X:mult,C:white}X#1#{} Mult for each',
-          '{C:attention}unique Enhancement{} in your deck',
-          '{C:inactive}(Currently {X:mult,C:white}X#3#{}{C:inactive} Mult)',
+          'Removes {C:attention}Enhancements{} from played',
+          'cards and gives {C:money}$#1#{} per',
+          '{C:attention}Enhancement removed{}',
         },
       },
       -- 73. Eerie Statue
@@ -795,7 +795,23 @@ return {
           '{C:inactive}(Currently {X:mult,C:white}X#2#{}{C:inactive} Mult)',
         },
       },
-      -- 76. Cartomancer?
+      -- 76. Getaway Card
+      j_Sculio_getaway_card = {
+        name = 'Getaway Card',
+        text = {
+          'Sell this card to {C:attention}win{}',
+          'the {C:attention}Blind{} immediately',
+        },
+      },
+      -- 77. Vintage Comic
+      j_Sculio_vintage_comic = {
+        name = 'Vintage Comic',
+        text = {
+          'Scored {C:attention}Steel Cards{} trigger',
+          '{C:attention}#1#{} additional times',
+        },
+      },
+      -- 78. Cartomancer?
       j_Sculio_cartomante = {
         name = 'Cartomancer?',
         text = {
@@ -813,7 +829,7 @@ return {
           '{C:inactive,s:0.8}(Currently {C:chips,s:0.8}+#1#{}{C:inactive,s:0.8} Chips, {C:mult,s:0.8}+#2#{}{C:inactive,s:0.8} Mult, {X:mult,C:white,s:0.8}X#3#{}{C:inactive,s:0.8} Mult)'
         }
       },
-      -- Puck XChips alt text (applied at runtime when an XChips edition exists)
+      -- Puck XChips
       j_Sculio_puck_xchips = {
         name = 'Puck',
         text = {
@@ -1260,6 +1276,7 @@ return {
       k_Sculio_cloning_vat_active = 'Cloned!',
       k_Sculio_sticky_keys_changed = 'Mult Changed!',
       k_Sculio_bad_trip_randomized = 'Deck randomized!',
+      k_Sculio_getaway_win = 'Getaway!',
       k_Sculio_ecg_discard = '+1 Discard',
       k_Sculio_compatible = 'Compatible',
       k_Sculio_incompatible = 'Incompatible',
