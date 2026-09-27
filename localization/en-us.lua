@@ -854,6 +854,23 @@ return {
           'Gives a free',
           '{C:inverted}Mega Arcana Pack?{}',
         },
+      },
+      -- All in Jest gold tag (Cross mod stuff)
+      tag_Sculio_unstoppable_gold = {
+        name = 'REALLY Unstoppable Tag',
+        text = {
+          'Shop has a {C:money}free{}',
+          '{C:attention}Unstoppable Force{}',
+          'with {X:mult,C:white} X#1# {} Mult'
+        },
+      },
+      tag_Sculio_visionary_gold = {
+        name = 'Nostradamic Tag',
+        text = {
+          'Creates {C:attention}5{} {C:dark_edition}Negative{}',
+          'copies of an {C:inverted}Inverted Tarot{}',
+          'of your choice'
+        },
       }
     },
     Voucher = {

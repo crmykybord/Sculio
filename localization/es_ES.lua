@@ -856,6 +856,23 @@ return {
           'Otorga un {C:inverted}¿Mega{}',
           '{C:inverted}Paquete Arcano?{} gratis',
         },
+      },
+      -- All in Jest gold tag (Cross mod stuff)
+      tag_Sculio_unstoppable_gold = {
+        name = 'Etiqueta MUY Imparable',
+        text = {
+          'La tienda tiene un {C:attention}Comodín{}',
+          '{C:attention}Fuerza Imparable{} {C:money}gratis{}',
+          'con {X:mult,C:white}X#1#{} Multi'
+        },
+      },
+      tag_Sculio_visionary_gold = {
+        name = 'Etiqueta Nostradámica',
+        text = {
+          'Crea {C:attention}5{} copias {C:dark_edition}Negativas{}',
+          'de un {C:inverted}Tarot Invertido{}',
+          'a tu elección'
+        },
       }
     },
     Voucher = {
