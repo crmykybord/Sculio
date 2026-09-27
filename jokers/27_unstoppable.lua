@@ -5,7 +5,7 @@ SMODS.Joker {
   blueprint_compat = true,
   perishable_compat = false,
   rental_compat = true,
-  config = { extra = { x_mult = 1, x_mult_gain = 0.1, sell_cost = 0 } },
+  config = { extra = { x_mult = 1, x_mult_gain = 0.1, sell_cost = 1 } },
   unlocked = true,
   discovered = false,
   rarity = 2, -- Uncommon
