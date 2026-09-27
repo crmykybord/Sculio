@@ -1,5 +1,5 @@
 SMODS.Joker {
-  key = 'pocket_money',
+  key = 'cash',
   attributes = { 'economy' },
   eternal_compat = true,
   blueprint_compat = true,
