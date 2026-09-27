@@ -1,7 +1,7 @@
 SMODS.Tag {
   key = 'unstoppable',
   atlas = 'Sculio_Tags',
-  pos = { x = 1, y = 0 },
+  pos = { x = 0, y = 0 },
   in_pool = function(self, args)
     return false
   end,
@@ -10,8 +10,6 @@ SMODS.Tag {
   end,
   apply = function(self, tag, context)
     if context.type == 'store_joker_create' then
-      -- Merge: a second copy of the tag stacks onto the waiting Unstoppable
-      -- instead of opening a duplicate (accumulated mult, single card)
       for _, c in ipairs(context.area.cards) do
         if c.config.center_key == 'j_Sculio_unstoppable' then
           c.ability.extra.x_mult = c.ability.extra.x_mult + ((tag.ability and tag.ability.x_mult_gain) or 0.1)
