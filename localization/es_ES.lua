@@ -778,7 +778,7 @@ return {
         },
       },
       -- 74. You're Being Recorded
-      j_Sculio_being_recorded = {
+      j_Sculio_surveillance = {
         name = 'Estás Siendo Grabado',
         text = {
           'Obtiene {C:mult}+#1#{} Multi por cada',
