@@ -837,8 +837,8 @@ return {
       tag_Sculio_visionary = {
         name = 'Etiqueta Visionaria',
         text = {
-          'Otorga un {C:inverted}Mega Paquete{}',
-          '{C:inverted}Arcano Invertido{} gratis',
+          'Otorga un {C:inverted}¿Mega{}',
+          '{C:inverted}Paquete Arcano?{} gratis',
         },
       }
     },
