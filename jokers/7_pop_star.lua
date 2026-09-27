@@ -29,7 +29,10 @@ SMODS.Joker {
         for _, e in ipairs(to_enhance) do cards_to_flip[#cards_to_flip + 1] = e.card end
         Sculio.flip_highlighted(card, cards_to_flip, function()
           for _, e in ipairs(to_enhance) do
-            if not e.card.REMOVED then e.card:set_ability(e.enhancement, nil, true) end
+            local center = G.P_CENTERS[e.enhancement]
+            -- Apply immediately (no delay_sprites) so the new sprite is already
+            -- visible the moment the card flips back face-up
+            if center and not e.card.REMOVED then e.card:set_ability(center, false) end
           end
         end)
       end
