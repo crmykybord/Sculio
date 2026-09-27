@@ -861,9 +861,9 @@ return {
       tag_Sculio_unstoppable_gold = {
         name = 'Etiqueta MUY Imparable',
         text = {
-          'La tienda tiene un {C:attention}Comodín{}',
+          'La tienda tiene a',
           '{C:attention}Fuerza Imparable{} {C:money}gratis{}',
-          'con {X:mult,C:white}X#1#{} Multi'
+          'y agrega {X:mult,C:white}X#1#{} Multi'
         },
       },
       tag_Sculio_visionary_gold = {

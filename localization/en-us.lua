@@ -860,8 +860,8 @@ return {
         name = 'REALLY Unstoppable Tag',
         text = {
           'Shop has a {C:money}free{}',
-          '{C:attention}Unstoppable Force{}',
-          'with {X:mult,C:white} X#1# {} Mult'
+          '{C:attention}Unstoppable Force{} that',
+          'gains {X:mult,C:white} X#1# {} Mult'
         },
       },
       tag_Sculio_visionary_gold = {

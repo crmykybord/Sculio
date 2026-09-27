@@ -1,6 +1,42 @@
--- Golden version of the Unstoppable Force tag.
+-- Golden version of the Visionary tag.
 -- Cross-mod with All in Jest
 local GOLD_COPIES = 5
+
+-- All in Jest's default select handler creates every copy in a single frame
+-- (they all pop in at once). This variant staggers them so each card animates
+-- on its own, then resumes the blind-choice tag chain.
+G.FUNCS.Sculio_nostradamic_select = function(e)
+  local c1 = e.config.ref_table
+  if not (c1 and c1:is(Card)) then return end
+  local area = e.config.data[1]
+  local extra = e.config.data[2] or {}
+  local copies = extra.copies or GOLD_COPIES
+  local key = c1.config.center_key
+  local negative = c1.edition and c1.edition.negative
+
+  G.SETTINGS.paused = false
+  if G.OVERLAY_MENU ~= nil then
+    G.OVERLAY_MENU:remove()
+    G.OVERLAY_MENU = nil
+  end
+
+  for _ = 1, copies do
+    G.E_MANAGER:add_event(Event({
+      trigger = 'after',
+      delay = 0.35,
+      func = function()
+        local card = SMODS.add_card { key = key, area = area }
+        if card then
+          card = copy_card(c1, card)
+          card:add_to_deck()
+          if negative then card:set_edition({ negative = true }, true) end
+          card:juice_up(0.3, 0.3)
+        end
+        return true
+      end
+    }))
+  end
+end
 
 SMODS.Tag {
   key = 'visionary_gold',
@@ -40,7 +76,7 @@ SMODS.Tag {
                       card.debuff = true
                     else
                       card:set_edition({ negative = true }, true, true)
-                      jest_create_select_card_ui(card, G.consumeables, { copies = GOLD_COPIES })
+                      jest_create_select_card_ui(card, G.consumeables, { copies = GOLD_COPIES }, 'Sculio_nostradamic_select')
                     end
                   end
                 end,
