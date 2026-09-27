@@ -11,7 +11,7 @@ SMODS.Joker {
   rarity = 2, -- Uncommon
   atlas = 'Sculio',
   pos = { x = 8, y = 2 },
-  cost = 6,
+  cost = 5,
   loc_vars = function(self, info_queue, card)
     local extra = card.ability.extra or {}
     return { vars = { extra.x_mult or 1, extra.x_mult_gain or 0.1, extra.sell_cost or 0 } }
