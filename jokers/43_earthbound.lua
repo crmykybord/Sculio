@@ -25,30 +25,25 @@ SMODS.Joker {
     return false
   end,
 
-  get_available_hands = function(self, cards)
-    local evaluated = evaluate_poker_hand(cards) or {}
-    local available = {}
-    for hand_name, hand_data in pairs(G.GAME.hands) do
-      if hand_data.visible ~= false
-          and evaluated[hand_name]
-          and next(evaluated[hand_name]) then
-        for _, hand_cards in ipairs(evaluated[hand_name]) do
-          if hand_cards and #hand_cards > 0 then
-            table.insert(available, {
-              name = hand_name,
-              level = hand_data.level,
-              order = hand_data.order or 999,
-              cards = hand_cards,
-            })
-          end
-        end
-      end
+  -- Ask the game itself which hand the current selection scores as, so the cards we
+  -- lock in are always exactly the cards that hand is scored with.
+  -- evaluate_poker_hand() must not be used for this: it files partial combos under
+  -- the wrong name (a five of a kind lands in 'Four of a Kind', which then forces
+  -- five cards for a hand that only uses four), a flush can span more than five
+  -- cards, and ranking by hand level can prefer a weak leveled-up hand over the
+  -- hand that actually scores.
+  get_best_hand = function(self, cards)
+    if not cards or #cards < 1 then return nil end
+    if not (G.FUNCS and G.FUNCS.get_poker_hand_info) then return nil end
+    local name, loc_name, _, scoring_hand = G.FUNCS.get_poker_hand_info(cards)
+    if not name or name == 'NULL' then return nil end
+    if type(scoring_hand) ~= 'table' or #scoring_hand < 1 then return nil end
+    -- At most five cards ever score, so never force more than that.
+    local forced = {}
+    for i = 1, math.min(#scoring_hand, 5) do
+      forced[i] = scoring_hand[i]
     end
-    table.sort(available, function(a, b)
-      if a.level ~= b.level then return a.level > b.level end
-      return a.order < b.order
-    end)
-    return available
+    return { name = name, loc_name = loc_name, cards = forced }
   end,
 
   select_and_force = function(self, card)
@@ -65,19 +60,24 @@ SMODS.Joker {
     G.hand:unhighlight_all()
     card.ability.selected_hand = nil
 
-    local best = self:get_available_hands(G.hand.cards)[1]
-    if best and best.cards then
-      card.ability.selected_hand = best.name
-      for _, c in ipairs(best.cards) do
-        c.ability.earthbound_forced = card.unique_val
-        c.ability.forced_selection = true
-        G.hand:add_to_highlighted(c)
-      end
+    -- High Card means nothing better is on the table, so leave the selection to the
+    -- player instead of locking them into a single card.
+    local best = self:get_best_hand(G.hand.cards)
+    if not best or best.name == 'High Card' then return end
+
+    card.ability.selected_hand = best.name
+    for _, c in ipairs(best.cards) do
+      c.ability.earthbound_forced = card.unique_val
+      c.ability.forced_selection = true
+      G.hand:add_to_highlighted(c)
+    end
+    local hand_data = G.GAME.hands[best.name]
+    if hand_data then
       update_hand_text({}, {
-        handname = localize(best.name, 'poker_hands'),
-        chips = G.GAME.hands[best.name].chips,
-        mult = G.GAME.hands[best.name].mult,
-        level = G.GAME.hands[best.name].level,
+        handname = best.loc_name or localize(best.name, 'poker_hands'),
+        chips = hand_data.chips,
+        mult = hand_data.mult,
+        level = hand_data.level,
       })
     end
   end,
