@@ -13,6 +13,7 @@ SMODS.Joker {
   pos = { x = 3, y = 8 },
   cost = 6,
   loc_vars = function(self, info_queue, card)
+    info_queue[#info_queue + 1] = G.P_CENTERS.m_mult
     return { vars = { card.ability.extra.x_mult } }
   end,
   calculate = function(self, card, context)
