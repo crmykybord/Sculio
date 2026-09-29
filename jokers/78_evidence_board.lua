@@ -22,6 +22,8 @@ SMODS.Joker {
   calculate = function(self, card, context)
     if context.setting_blind then
       G.GAME.Sculio_evidence_created = nil
+      local eval = function() return G.GAME.Sculio_evidence_created end
+      juice_card_until(card, eval, true)
     end
     -- First suited scoring card of each round determines the Inverted Tarot
     if context.individual and context.cardarea == G.play and context.other_card
@@ -39,6 +41,7 @@ SMODS.Joker {
           return {
             extra = { message = localize('k_Sculio_plus_inverted'), focus = eff_card },
             colour = G.C.SECONDARY_SET.Inverted,
+            no_juice = true,
             card = eff_card,
           }
         end
