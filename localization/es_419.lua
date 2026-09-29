@@ -832,7 +832,7 @@ return {
       },
       -- 80. Mugshot
       j_Sculio_mugshot = {
-        name = 'Mugshot',
+        name = 'Foto Policial',
         text = {
           'Las {C:attention}Cartas Errantes{} otorgan',
           '{C:money}$#1#{} al descartarse',

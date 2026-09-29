@@ -832,7 +832,7 @@ return {
       },
       -- 80. Mugshot
       j_Sculio_mugshot = {
-        name = 'Mugshot',
+        name = 'Foto Policial',
         text = {
           'Las {C:attention}Cartas Errantes{} otorgan',
           '{C:money}$#1#{} al descartarse',
@@ -1022,18 +1022,20 @@ return {
       m_Sculio_phalanx = {
         name = 'Carta Falange',
         text = {
-          '{X:mult,C:white}X#1#{} Multi al anotar',
-          'y aumenta {X:mult,C:white}X#2#{} por cada otra',
-          'carta falange anotada en la misma mano',
+          '{X:mult,C:white}X#1#{} Multi, aumenta',
+          'en {X:mult,C:white}X#2#{} por cada',
+          'carta falange anotada',
+          "{C:inactive,s:0.8}(Se reinicia al final de la mano){}"
         },
       },
       m_Sculio_phalanx_distorted_flow = {
         name = 'Carta Falange',
         text = {
           {
-            '{X:mult,C:white}X#1#{} Multi al anotar',
-            'y aumenta {X:mult,C:white}X#2#{} por cada otra',
-            'carta falange anotada en la misma mano',
+          '{X:mult,C:white}X#1#{} Multi, aumenta',
+          'en {X:mult,C:white}X#2#{} por cada',
+          'carta falange anotada',
+          "{C:inactive,s:0.8}(Se reinicia al final de la mano){}"
           },
           {
             "Se reactiva {C:attention}1 vez{}"
