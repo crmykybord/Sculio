@@ -3,19 +3,20 @@ local function wander_self_discard(card)
 
   card.ability.Sculio_wandering_self = true
   card:calculate_seal({ discard = true })
-  local discarded = { card }
-  for _, joker in ipairs(G.jokers.cards) do
-    local eval = joker:calculate_joker({ discard = true, other_card = card, full_hand = discarded })
-    if eval then
-      card_eval_status_text(joker, 'jokers', nil, 1, nil, eval)
-    end
-  end
+  local effects = {}
+  SMODS.calculate_context({
+    discard = true,
+    other_card = card,
+    full_hand = { card },
+    ignore_other_debuff = true,
+  }, effects)
+  SMODS.trigger_effects(effects)
   card.ability.Sculio_wandering_self = nil
 
   card.ability.discarded = true
   inc_career_stat('c_cards_discarded', 1)
   G.GAME.round_scores.cards_discarded.amt = G.GAME.round_scores.cards_discarded.amt + 1
-  check_for_unlock({ type = 'discard_custom', cards = discarded })
+  check_for_unlock({ type = 'discard_custom', cards = { card } })
   draw_card(G.hand, G.discard, 100, 'down', false, card)
 end
 
