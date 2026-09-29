@@ -14,6 +14,12 @@ local function pack_loc_vars(self, info_queue, card)
   return { vars = { choices, size }, key = self.key:gsub('_%d$', '') }
 end
 
+-- Inverted packs spawn 12% less often than the rest of the booster pool. Pool weights
+-- are normalised against the total weight, so scaling ours by 0.88 cuts the aggregate
+-- chance of any Inverted pack by exactly 12% without touching the relative odds
+-- between normal, jumbo and mega.
+local SPAWN_RATE_MULT = 0.88
+
 local function register(key, pos, size, weight, cost, order, config)
   SMODS.Booster {
     key = key,
@@ -22,7 +28,7 @@ local function register(key, pos, size, weight, cost, order, config)
     kind = 'Inverted',
     group_key = 'k_booster_group_sculio_inverted',
     draw_hand = true,
-    weight = weight,
+    weight = weight * SPAWN_RATE_MULT,
     cost = cost,
     order = order,
     config = config,
