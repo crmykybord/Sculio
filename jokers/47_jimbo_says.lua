@@ -39,7 +39,7 @@ SMODS.Joker {
       or localize(current_suit, 'suits_plural')
       or current_suit
     local colour = (G.C.SUITS and G.C.SUITS[current_suit]) or G.C.UI.TEXT_LIGHT
-    return { vars = { name }, colours = { colour } }
+    return { vars = { name, colours = { colour } } }
   end,
   add_to_deck = function(self, card, from_debuff)
     roll_suit(card)
