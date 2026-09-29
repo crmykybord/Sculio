@@ -16,6 +16,7 @@ SMODS.Joker {
     return Sculio.count_enhanced('m_steel') > 0
   end,
   loc_vars = function(self, info_queue, card)
+    info_queue[#info_queue + 1] = G.P_CENTERS.m_steel
     return { vars = { card.ability.extra.repetitions } }
   end,
   calculate = function(self, card, context)

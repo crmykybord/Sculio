@@ -813,7 +813,41 @@ return {
           'son {C:attention}reactivadas{} {C:attention}#1#{} veces',
         },
       },
-      -- 78. Cartomancer?
+      -- 78. Evidence Board
+      j_Sculio_evidence_board = {
+        name = 'Tablero de Evidencias',
+        text = {
+          'Crea el {C:inverted}Tarot Invertido{} del',
+          'primer {C:attention}palo anotado{} cada ronda',
+          '{C:inactive}(Debe haber espacio){}',
+        },
+      },
+      -- 79. Portcullis
+      j_Sculio_portcullis = {
+        name = 'Rastra',
+        text = {
+          'Las {C:attention}Cartas Falange{}',
+          'se {C:attention}reactivan{} al jugarse',
+        },
+      },
+      -- 80. Mugshot
+      j_Sculio_mugshot = {
+        name = 'Foto Policial',
+        text = {
+          'Las {C:attention}Cartas Errantes{} otorgan',
+          '{C:money}$#1#{} al descartarse',
+        },
+      },
+      -- 81. Nervous Joker
+      j_Sculio_nervous_joker = {
+        name = 'Comodín Nervioso',
+        text = {
+          '{X:mult,C:white}X#1#{} Multi, se reactiva',
+          '{C:attention}1 vez adicional{} por',
+          '{C:attention}Carta Multi{} anotada',
+        },
+      },
+      -- 82. Cartomancer?
       j_Sculio_cartomante = {
         name = '¿Cartomante?',
         text = {
@@ -946,7 +980,7 @@ return {
         name = 'Carta Errante',
         text = {
           "{C:mult}+#1# Multi{} al descartarse.",
-          "Se auto descarta al jugar una mano",
+          "Se {C:red}descarta{} si jugar una mano",
         },
       },
       m_Sculio_profane = {
@@ -988,8 +1022,24 @@ return {
       m_Sculio_phalanx = {
         name = 'Carta Falange',
         text = {
-          'Otorga {X:mult,C:white}X#1#{} Multi',
-          'acumulable al final de la mano',
+          '{X:mult,C:white}X#1#{} Multi, aumenta',
+          'en {X:mult,C:white}X#2#{} por cada',
+          'carta falange anotada',
+          "{C:inactive,s:0.8}(Se reinicia al final de la mano){}"
+        },
+      },
+      m_Sculio_phalanx_distorted_flow = {
+        name = 'Carta Falange',
+        text = {
+          {
+          '{X:mult,C:white}X#1#{} Multi, aumenta',
+          'en {X:mult,C:white}X#2#{} por cada',
+          'carta falange anotada',
+          "{C:inactive,s:0.8}(Se reinicia al final de la mano){}"
+          },
+          {
+            "Se reactiva {C:attention}1 vez{}"
+          }
         },
       },
       m_Sculio_trap = {

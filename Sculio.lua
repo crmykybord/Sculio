@@ -9,7 +9,7 @@ SMODS.ConsumableType { key = 'Inverted', primary_colour = HEX 'A84C45', secondar
 SMODS.UndiscoveredSprite { key = 'Inverted', atlas = 'Sculio_Consumables', pos = { x = 2, y = 2 } }
 
 SMODS.current_mod.optional_features = function()
-  return { post_trigger = true }
+  return { post_trigger = true, retrigger_joker = true }
 end
 
 assert(SMODS.load_file('libs/utils.lua'))()

@@ -437,7 +437,7 @@ function Sculio.morph_wheel_into_tarot(card, slot, only_set)
   card:flip()
   play_sound('card1')
   card:juice_up(0.3, 0.3)
-  G.E_MANAGER:add_event(Event({ trigger = 'after', delay = 0.3, func = function() return true end }))
+  G.E_MANAGER:add_event(Event({ trigger = 'after', delay = 0.45, func = function() return true end }))
   card:set_ability(center, false, true)
 
   -- The card now *is* the chosen Tarot: prepare targets before activating
@@ -455,7 +455,7 @@ function Sculio.morph_wheel_into_tarot(card, slot, only_set)
   -- Flip back to reveal the chosen Tarot, then fire its effect on this card
   local name = localize { type = 'name_text', key = center.key, set = center.set }
   local colour = G.C.SET[center.set] or G.C.SECONDARY_SET[center.set]
-  G.E_MANAGER:add_event(Event({ trigger = 'after', delay = 0.05, func = function()
+  G.E_MANAGER:add_event(Event({ trigger = 'after', delay = 0.35, func = function()
     card:flip()
     play_sound('tarot2')
     card:juice_up(0.3, 0.3)
