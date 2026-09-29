@@ -11,7 +11,7 @@ SMODS.Enhancement {
   calculate = function(self, card, context)
     local distorted = Sculio.distorted()
     local per = distorted and 0.4 or 0.05
-    if context.individual and context.cardarea == G.play and context.other_card == card then
+    if context.main_scoring and context.cardarea == G.play then
       -- Every scored Phalanx feeds one shared consecutive-streak multiplier
       if not G.GAME.Sculio_phalanx_scored then G.GAME.Sculio_phalanx_scored = {} end
       if not G.GAME.Sculio_phalanx_scored[card] then
@@ -19,7 +19,7 @@ SMODS.Enhancement {
         G.GAME.Sculio_phalanx_streak = (G.GAME.Sculio_phalanx_streak or 0) + 1
       end
       local x_mult = 1.05 + per * ((G.GAME.Sculio_phalanx_streak or 1) - 1)
-      return { x_mult = x_mult, message_card = card }
+      return { x_mult = x_mult }
     end
     -- Distorted Flow: scored Phalanx cards reactivate once
     if context.repetition and context.cardarea == G.play and distorted then
