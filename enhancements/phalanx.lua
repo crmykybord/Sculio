@@ -12,14 +12,12 @@ SMODS.Enhancement {
     local distorted = Sculio.distorted()
     local per = distorted and 0.4 or 0.05
     if context.main_scoring and context.cardarea == G.play then
-      -- Every scored Phalanx feeds one shared consecutive-streak multiplier
-      if not G.GAME.Sculio_phalanx_scored then G.GAME.Sculio_phalanx_scored = {} end
-      if not G.GAME.Sculio_phalanx_scored[card] then
-        G.GAME.Sculio_phalanx_scored[card] = true
-        G.GAME.Sculio_phalanx_streak = (G.GAME.Sculio_phalanx_streak or 0) + 1
-      end
-      local x_mult = 1.05 + per * ((G.GAME.Sculio_phalanx_streak or 1) - 1)
-      return { x_mult = x_mult }
+      -- Every scoring pass feeds the shared streak, retriggers included. SMODS runs
+      -- calculate once per repetition (card.repetition_trigger tells which pass this
+      -- is), so a card that scores again keeps climbing instead of sitting on the
+      -- multiplier it got the first time.
+      G.GAME.Sculio_phalanx_streak = (G.GAME.Sculio_phalanx_streak or 0) + 1
+      return { x_mult = 1.05 + per * (G.GAME.Sculio_phalanx_streak - 1) }
     end
     -- Distorted Flow: scored Phalanx cards reactivate once
     if context.repetition and context.cardarea == G.play and distorted then
@@ -27,7 +25,6 @@ SMODS.Enhancement {
     end
     if context.after then
       G.GAME.Sculio_phalanx_streak = nil
-      G.GAME.Sculio_phalanx_scored = nil
     end
   end,
 }

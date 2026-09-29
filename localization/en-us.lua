@@ -1021,18 +1021,20 @@ return {
       m_Sculio_phalanx = {
         name = 'Phalanx Card',
         text = {
-          'Grants {X:mult,C:white}X#1#{} Mult when scored,',
-          'plus {X:mult,C:white}X#2#{} for each other',
-          'Phalanx Card scored in the same hand',
+          '{X:mult,C:white}X#1#{} Mult, increases',
+          'by {X:mult,C:white}X#2#{} for each',
+          'Phalanx Card scored',
+          "{C:inactive,s:0.8}(Resets at the end of the hand){}",
         },
       },
       m_Sculio_phalanx_distorted_flow = {
         name = 'Phalanx Card',
         text = {
           {
-            'Grants {X:mult,C:white}X#1#{} Mult when scored,',
-            'plus {X:mult,C:white}X#2#{} for each other',
-            'Phalanx Card scored in the same hand',
+            '{X:mult,C:white}X#1#{} Mult, increases',
+            'by {X:mult,C:white}X#2#{} for each',
+            'Phalanx Card scored',
+            "{C:inactive,s:0.8}(Resets at the end of the hand){}",
           },
           {
             '{C:attention}Retriggers once{}',
