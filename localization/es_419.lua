@@ -1330,8 +1330,6 @@ return {
       k_Sculio_binary_scale_chips = '01000011',
       k_Sculio_binary_scale_mult = '01001101',
       k_Sculio_crime_scene = '¡+Multi!',
-      k_Sculio_crooked_stole = 'Robó $#1#',
-      k_Sculio_crooked_bailed = 'Robó $#1#, ¡huyó!',
       k_Sculio_mad_scientist_spawn = '¡Ciencia!',
       k_Sculio_beyond_reach_saved = '¡No estaba fuera de alcance!',
       k_Sculio_cloning_vat_active = '¡Clonado!',
@@ -1367,6 +1365,10 @@ return {
       Sculio_trap_spectral_draw = 'Crea una carta {C:spectral}Espectral{} al azar y saca {C:attention}2{} cartas',
       Sculio_trap_protect_xmult = 'Las cartas adyacentes no pueden debilitarse, y {X:mult,C:white}X1.75{} Multi',
       Sculio_trap_seal_buff = 'Aplica un Sello al azar y da {C:mult}+4 Multi{} a las demás cartas',
+    },
+    v_dictionary = {
+      k_Sculio_crooked_stole = 'Robó $#1#',
+      k_Sculio_crooked_bailed = 'Robó $#1#, ¡huyó!',
     },
     labels = {
       inverted = 'Tarot Invertido',

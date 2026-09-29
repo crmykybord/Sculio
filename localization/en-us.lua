@@ -1336,8 +1336,6 @@ return {
       k_Sculio_binary_scale_chips = '01000011',
       k_Sculio_binary_scale_mult = '01001101',
       k_Sculio_crime_scene = '+Mult!',
-      k_Sculio_crooked_stole = 'Stole $#1#',
-      k_Sculio_crooked_bailed = 'Stole $#1#, bailed!',
       k_Sculio_mad_scientist_spawn = 'Science!',
       k_Sculio_beyond_reach_saved = 'It was not beyond reach!',
       k_Sculio_cloning_vat_active = 'Cloned!',
@@ -1375,6 +1373,10 @@ return {
       Sculio_trap_spectral_draw = 'Creates a random {C:spectral}Spectral{} and draws {C:attention}2{} cards',
       Sculio_trap_protect_xmult = 'Adjacent cards cannot be debuffed, and {X:mult,C:white}X1.75{} Mult',
       Sculio_trap_seal_buff = 'Applies a random Seal and gives {C:mult}+4 Mult{} to other cards',
+    },
+    v_dictionary = {
+      k_Sculio_crooked_stole = 'Stole $#1#',
+      k_Sculio_crooked_bailed = 'Stole $#1#, bailed!',
     },
     labels = {
       inverted = 'Inverted Tarot',
