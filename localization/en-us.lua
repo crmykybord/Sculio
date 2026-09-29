@@ -811,7 +811,41 @@ return {
           '{C:attention}#1#{} additional times',
         },
       },
-      -- 78. Cartomancer?
+      -- 78. Evidence Board
+      j_Sculio_evidence_board = {
+        name = 'Evidence Board',
+        text = {
+          'Creates the {C:inverted}Inverted Tarot{} of',
+          'the first {C:attention}scored suit{} each round',
+          '{C:inactive}(Must have room){}',
+        },
+      },
+      -- 79. Portcullis
+      j_Sculio_portcullis = {
+        name = 'Portcullis',
+        text = {
+          'Scored {C:attention}Phalanx Cards{}',
+          'trigger {C:attention}an additional time{}',
+        },
+      },
+      -- 80. Mugshot
+      j_Sculio_mugshot = {
+        name = 'Mugshot',
+        text = {
+          '{C:attention}Wandering Cards{} give',
+          '{C:money}$#1#{} when discarded',
+        },
+      },
+      -- 81. Nervous Joker
+      j_Sculio_nervous_joker = {
+        name = 'Nervous Joker',
+        text = {
+          '{X:mult,C:white}X#1#{} Mult, triggers',
+          '{C:attention}once more{} for each',
+          'scored {C:attention}Mult Card{}',
+        },
+      },
+      -- 82. Cartomancer?
       j_Sculio_cartomante = {
         name = 'Cartomancer?',
         text = {
@@ -987,8 +1021,22 @@ return {
       m_Sculio_phalanx = {
         name = 'Phalanx Card',
         text = {
-          'Grants {X:mult,C:white}X#1#{} Mult',
-          'accumulating at the end of the hand',
+          'Grants {X:mult,C:white}X#1#{} Mult when scored,',
+          'plus {X:mult,C:white}X#2#{} for each other',
+          'Phalanx Card scored in the same hand',
+        },
+      },
+      m_Sculio_phalanx_distorted_flow = {
+        name = 'Phalanx Card',
+        text = {
+          {
+            'Grants {X:mult,C:white}X#1#{} Mult when scored,',
+            'plus {X:mult,C:white}X#2#{} for each other',
+            'Phalanx Card scored in the same hand',
+          },
+          {
+            '{C:attention}Retriggers once{}',
+          },
         },
       },
       m_Sculio_trap = {
