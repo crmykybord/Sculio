@@ -6,7 +6,7 @@ SMODS.Consumable {
   unlocked = true,
   discovered = false,
   cost = 3,
-  config = { max_highlighted = 2 },
+  config = { max_highlighted = 3 },
   loc_vars = function(self, info_queue, card)
     info_queue[#info_queue + 1] = G.P_CENTERS.m_Sculio_phalanx
     return { vars = { Sculio.max_highlighted(card) } }

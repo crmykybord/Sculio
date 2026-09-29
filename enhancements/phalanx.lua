@@ -5,31 +5,29 @@ SMODS.Enhancement {
 
   config = {},
   loc_vars = function(self, info_queue, card)
-    return { vars = { Sculio.distorted() and 0.4 or 0.2 } }
+    local per = Sculio.distorted() and 0.4 or 0.05
+    return { vars = { 1.05, per }, key = Sculio.distorted_key(self) }
   end,
   calculate = function(self, card, context)
-    local per = Sculio.distorted() and 0.4 or 0.2
-    -- Every scored Phalanx feeds one shared end-of-hand multiplier
-    if context.main_scoring and context.cardarea == G.play then
-      G.GAME.Sculio_phalanx_tally = (G.GAME.Sculio_phalanx_tally or 0) + per
-    end
-    if context.final_scoring_step and (G.GAME.Sculio_phalanx_tally or 0) > 0 then
-      local xmult = 1 + G.GAME.Sculio_phalanx_tally
-      G.GAME.Sculio_phalanx_tally = nil
-      local last_phalanx
-      for i = #(context.scoring_hand or {}), 1, -1 do
-        if SMODS.has_enhancement(context.scoring_hand[i], 'm_Sculio_phalanx') then
-          last_phalanx = context.scoring_hand[i]
-          break
-        end
+    local distorted = Sculio.distorted()
+    local per = distorted and 0.4 or 0.05
+    if context.individual and context.cardarea == G.play and context.other_card == card then
+      -- Every scored Phalanx feeds one shared consecutive-streak multiplier
+      if not G.GAME.Sculio_phalanx_scored then G.GAME.Sculio_phalanx_scored = {} end
+      if not G.GAME.Sculio_phalanx_scored[card] then
+        G.GAME.Sculio_phalanx_scored[card] = true
+        G.GAME.Sculio_phalanx_streak = (G.GAME.Sculio_phalanx_streak or 0) + 1
       end
-      if last_phalanx then
-        return { x_mult = xmult, message_card = last_phalanx }
-      end
-      return { x_mult = xmult }
+      local x_mult = 1.05 + per * ((G.GAME.Sculio_phalanx_streak or 1) - 1)
+      return { x_mult = x_mult, message_card = card }
     end
-    if context.initial_scoring_step then
-      G.GAME.Sculio_phalanx_tally = nil
+    -- Distorted Flow: scored Phalanx cards reactivate once
+    if context.repetition and context.cardarea == G.play and distorted then
+      return { repetitions = 1 }
+    end
+    if context.after then
+      G.GAME.Sculio_phalanx_streak = nil
+      G.GAME.Sculio_phalanx_scored = nil
     end
   end,
 }
