@@ -1,5 +1,5 @@
 SMODS.Joker {
-  key = 'nervous_joker',
+  key = 'nervous',
   attributes = { 'retrigger', 'mult', 'enhancements' },
   eternal_compat = true,
   blueprint_compat = true,

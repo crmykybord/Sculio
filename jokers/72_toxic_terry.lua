@@ -1,5 +1,5 @@
 SMODS.Joker {
-  key = 'hazmat',
+  key = 'toxic_terry',
   attributes = { 'economy', 'modify_card', 'enhancements' },
   eternal_compat = true,
   blueprint_compat = true,
