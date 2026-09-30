@@ -104,6 +104,8 @@ function Sculio:calculate(context)
 
   -- Smeared Cards: 2+ played together destroy each other as the hand starts.
   -- Must be queued at press_play so the dissolve happens before scoring.
+  -- One always survives (the leftmost): G.play.cards must never end up empty, or
+  -- evaluate_play gets text = 'NULL' and G.GAME.hands['NULL'] is nil -> crash.
   if context.press_play and G.hand and G.hand.highlighted then
     local played = G.hand.highlighted
     local smeared_cards = {}
@@ -114,8 +116,8 @@ function Sculio:calculate(context)
     end
     if #smeared_cards >= 2 then
       play_sound('tarot1')
-      for _, boom in ipairs(smeared_cards) do
-        SMODS.destroy_cards(boom)
+      for i = 2, #smeared_cards do
+        SMODS.destroy_cards(smeared_cards[i])
       end
     end
   end
