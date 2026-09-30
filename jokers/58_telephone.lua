@@ -1,14 +1,26 @@
+-- Face cards are excluded: the retrigger is meant to key off a number rank.
+-- Ace stays (is_face is ids 11/12/13 only).
+local FACE_RANKS = { Jack = true, Queen = true, King = true }
+
 local function roll_rank(card)
   local seen, valid_ranks = {}, {}
   for _, v in ipairs(G.playing_cards or {}) do
-    if v.base and v.base.value and not SMODS.has_no_rank(v) and not seen[v.base.value] then
-      seen[v.base.value] = true
-      valid_ranks[#valid_ranks + 1] = v.base.value
+    local value = v.base and v.base.value
+    if value and not FACE_RANKS[value] and not SMODS.has_no_rank(v) and not seen[value] then
+      seen[value] = true
+      valid_ranks[#valid_ranks + 1] = value
     end
   end
-  if valid_ranks[1] then
-    card.ability.extra.rank_value = pseudorandom_element(valid_ranks, pseudoseed('telephone'))
-  end
+  if not valid_ranks[1] then return end
+
+  -- Index the pool off pseudohash instead of pseudorandom_element: that helper
+  -- seeds math.randomseed with a float < 1, which truncates to a constant
+  -- integer and always picked valid_ranks[1] (always '2'). Salting per card and
+  -- per roll also stops two Telephones from sharing one seed stream.
+  local extra = card.ability.extra
+  extra.rolls = (extra.rolls or 0) + 1
+  local salt = 'telephone_' .. tostring(extra.rolls) .. '_' .. tostring(G.GAME.round or 0)
+  extra.rank_value = valid_ranks[math.floor(pseudohash(salt) * #valid_ranks) + 1]
 end
 
 SMODS.Joker {
@@ -18,7 +30,7 @@ SMODS.Joker {
   blueprint_compat = true,
   perishable_compat = true,
   rental_compat = true,
-  config = { extra = { rank_value = '2' } },
+  config = { extra = { rank_value = '2', rolls = 0 } },
   unlocked = true,
   discovered = false,
   rarity = 1, -- Common
