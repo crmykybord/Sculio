@@ -755,9 +755,9 @@ return {
           '{C:inactive}(Currently {C:chips}+#1#{}{C:inactive} Chips)',
         },
       },
-      -- 72. Hazmat
-      j_Sculio_hazmat = {
-        name = 'Hazmat Joker',
+      -- 72. Toxic Terry
+      j_Sculio_toxic_terry = {
+        name = 'Toxic Terry',
         text = {
           'Removes {C:attention}Enhancements{} from played',
           'cards and gives {C:money}$#1#{} per',
@@ -836,9 +836,9 @@ return {
           '{C:money}$#1#{} when discarded',
         },
       },
-      -- 81. Nervous Joker
-      j_Sculio_nervous_joker = {
-        name = 'Nervous Joker',
+      -- 81. Nervous Wreck
+      j_Sculio_nervous_wreck = {
+        name = 'Nervous Wreck',
         text = {
           '{X:mult,C:white}X#1#{} Mult, triggers',
           '{C:attention}once more{} for each',
