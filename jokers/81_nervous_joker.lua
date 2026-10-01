@@ -1,3 +1,5 @@
+local mult_cards_scored = {}
+
 SMODS.Joker {
   key = 'nervous_joker',
   attributes = { 'retrigger', 'mult', 'enhancements' },
@@ -17,13 +19,17 @@ SMODS.Joker {
     return { vars = { card.ability.extra.x_mult } }
   end,
   calculate = function(self, card, context)
-    -- Retrigger self once for each scored Mult Card
+    if context.before then mult_cards_scored = {} end
+    if context.individual and not context.repetition
+        and context.cardarea == G.play and context.other_card
+        and SMODS.has_enhancement(context.other_card, 'm_mult') then
+      local c = context.other_card
+      mult_cards_scored[c] = math.max(mult_cards_scored[c] or 0, (c.repetition_trigger or 0) + 1)
+    end
     if context.retrigger_joker_check and context.other_card == card
         and context.other_context and context.other_context.joker_main then
       local n = 0
-      for _, c in ipairs(context.other_context.scoring_hand or {}) do
-        if SMODS.has_enhancement(c, 'm_mult') then n = n + 1 end
-      end
+      for _, times in pairs(mult_cards_scored) do n = n + times end
       if n > 0 then return { repetitions = n } end
     end
     if context.joker_main then
