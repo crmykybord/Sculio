@@ -1,7 +1,7 @@
 local mult_cards_scored = {}
 
 SMODS.Joker {
-  key = 'nervous_joker',
+  key = 'nervous_wreck',
   attributes = { 'retrigger', 'mult', 'enhancements' },
   eternal_compat = true,
   blueprint_compat = true,
