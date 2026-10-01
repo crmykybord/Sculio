@@ -757,9 +757,9 @@ return {
           '{C:inactive}(Actualmente {C:chips}+#1#{}{C:inactive} Fichas)',
         },
       },
-      -- 72. Hazmat
-      j_Sculio_hazmat = {
-        name = 'Comodín Hazmat',
+      -- 72. Toxic Terry
+      j_Sculio_toxic_terry = {
+        name = 'Tomás Tóxico',
         text = {
           'Remueve las {C:attention}Mejoras{} de las',
           'cartas jugadas y otorga {C:money}$#1#{} por',
@@ -838,8 +838,8 @@ return {
           '{C:money}$#1#{} al descartarse',
         },
       },
-      -- 81. Nervous Joker
-      j_Sculio_nervous_joker = {
+      -- 81. Nervous Wreck
+      j_Sculio_nervous_wreck = {
         name = 'Comodín Nervioso',
         text = {
           '{X:mult,C:white}X#1#{} Multi, se reactiva',
