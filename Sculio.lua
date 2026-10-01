@@ -60,5 +60,7 @@ assert(SMODS.load_file('libs/shuffle.lua'))()
 -- Multiplayer compatibility
 if MP and MP.DECK and MP.DECK.ban_card then
 	sendDebugMessage("Sculio MP compatibility active", "MULTIPLAYER")
-	MP.DECK.ban_card("j_Sculio_reach")
+	for _, mp_banned in ipairs({ 'j_Sculio_reach', 'j_Sculio_getaway_card' }) do
+		MP.DECK.ban_card(mp_banned)
+	end
 end
