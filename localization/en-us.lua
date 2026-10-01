@@ -837,7 +837,7 @@ return {
         },
       },
       -- 81. Nervous Wreck
-      j_Sculio_nervous_wreck = {
+      j_Sculio_nervous = {
         name = 'Nervous Wreck',
         text = {
           '{X:mult,C:white}X#1#{} Mult, triggers',
