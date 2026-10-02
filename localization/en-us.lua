@@ -837,7 +837,7 @@ return {
         },
       },
       -- 81. Nervous Wreck
-      j_Sculio_nervous = {
+      j_Sculio_nervous_wreck = {
         name = 'Nervous Wreck',
         text = {
           '{X:mult,C:white}X#1#{} Mult, triggers',
@@ -845,7 +845,73 @@ return {
           'scored {C:attention}Mult Card{}',
         },
       },
-      -- 82. Cartomancer?
+      -- 82. Does Anything?
+      j_Sculio_dodecahedron = {
+        name = 'Dodecahedron',
+        text = {
+          '{C:inactive}Does something?',
+        },
+      },
+      -- 83. Fun Guy
+      j_Sculio_fun_guy = {
+        name = 'Fun Guy',
+        text = {
+          '{C:inactive}No effect{}',
+        },
+      },
+      -- 84. Scrawlings
+      j_Sculio_scrawlings = {
+        name = 'Scrawlings',
+        text = {
+          'Scored {C:attention}Experimental Cards{}',
+          'have a {C:green}#1# in #2#{} chance',
+          'to create a {C:attention}Double Tag{}',
+        },
+      },
+      -- 85. Hoarder
+      j_Sculio_hoarder = {
+        name = 'Hoarder',
+        text = {
+          'Creates {C:tarot}The Hermit{} if you',
+          'leave the shop without spending',
+          '{C:inactive}(Must have room){}',
+        },
+      },
+      -- 86. Welcome Mat
+      j_Sculio_welcome_mat = {
+        name = 'Welcome Mat',
+        text = {
+          'Scored cards give {X:mult,C:white}X#1#{} Mult',
+          'if the played hand contains a',
+          '{C:attention}Full House{}',
+        },
+      },
+      -- 87. Skipping Stones
+      j_Sculio_skipping_stones = {
+        name = 'Skipping Stones',
+        text = {
+          '{C:attention}-1 Ante{} every #2# {C:inactive}(#1#/#2#){}',
+          "skipped {C:attention}booster packs{},",
+        },
+      },
+      -- 88. Top 10 Joker!!!
+      j_Sculio_top_10_joker = {
+        name = 'Top 10 Joker!!!',
+        text = {
+          '{C:attention}Ranked in the top 10 jokers{}',
+          '{C:inactive}No effect{}',
+        },
+      },
+      -- 89. Mouse Art
+      j_Sculio_mouse_art = {
+        name = 'Mouse Art',
+        text = {
+          'First {C:red}discarded{} card',
+          'each round becomes a',
+          '{C:attention}Wild Card{}',
+        },
+      },
+      -- 90. Cartomancer?
       j_Sculio_cartomante = {
         name = 'Cartomancer?',
         text = {
@@ -1373,6 +1439,9 @@ return {
       Sculio_trap_spectral_draw = 'Creates a random {C:spectral}Spectral{} and draws {C:attention}2{} cards',
       Sculio_trap_protect_xmult = 'Adjacent cards cannot be debuffed, and {X:mult,C:white}X1.75{} Mult',
       Sculio_trap_seal_buff = 'Applies a random Seal and gives {C:mult}+4 Mult{} to other cards',
+      k_Sculio_plus_hermit = '+1 The Hermit',
+      k_Sculio_plus_wild = '+1 Wild Card',
+      k_Sculio_revert_blind = 'Back 1 Ante!',
     },
     v_dictionary = {
       k_Sculio_crooked_stole = 'Stole $#1#',
