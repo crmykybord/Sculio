@@ -852,7 +852,6 @@ return {
         name = '¿Hace algo?',
         text = {
           '{C:inactive}¿Hace algo?',
-          'Nadie sabe qué.',
         },
       },
       -- 83. Fun Guy
