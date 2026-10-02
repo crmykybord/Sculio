@@ -902,8 +902,10 @@ return {
       j_Sculio_top_10_joker = {
         name = 'Top 10 Joker!!!',
         text = {
-          '{C:inactive}Puesto en el top 10 de comodines.',
-          'Sigue sin hacer absolutamente nada.',
+          'Si tu {C:attention}primera mano jugada{} es un',
+          '{C:attention}#1#{} suelto, crea un',
+          '{C:attention}Comodín{} #2# {C:inactive}(#3#/#4#)',
+          '{C:inactive}(Debe haber espacio){}',
         },
       },
       -- 89. Mouse Art
@@ -1436,6 +1438,10 @@ return {
       Sculio_trap_seal_buff = 'Aplica un Sello al azar y da {C:mult}+4 Multi{} a las demás cartas',
       k_Sculio_plus_hermit = '+1 El Ermitaño',
       k_Sculio_skipped = '¡Omitido!',
+      k_Sculio_top_10_common = 'Común',
+      k_Sculio_top_10_uncommon = 'Inusual',
+      k_Sculio_top_10_rare = 'Raro',
+      k_Sculio_top_10_negative = 'Negativo',
     },
     v_dictionary = {
       k_Sculio_crooked_stole = 'Robó $#1#',

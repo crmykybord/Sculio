@@ -898,8 +898,10 @@ return {
       j_Sculio_top_10_joker = {
         name = 'Top 10 Joker!!!',
         text = {
-          '{C:attention}Ranked in the top 10 jokers{}',
-          '{C:inactive}No effect{}',
+          'If your {C:attention}first played hand{} is a',
+          'single {C:attention}#1#{}, create a random',
+          '{C:attention}#2# Joker{} {C:inactive}(#3#/#4#)',
+          '{C:inactive}(Must have room){}',
         },
       },
       -- 89. Mouse Art
@@ -1442,6 +1444,10 @@ return {
       Sculio_trap_seal_buff = 'Applies a random Seal and gives {C:mult}+4 Mult{} to other cards',
       k_Sculio_plus_hermit = '+1 The Hermit',
       k_Sculio_skipped = 'Skipped!',
+      k_Sculio_top_10_common = 'Common',
+      k_Sculio_top_10_uncommon = 'Uncommon',
+      k_Sculio_top_10_rare = 'Rare',
+      k_Sculio_top_10_negative = 'Negative',
     },
     v_dictionary = {
       k_Sculio_crooked_stole = 'Stole $#1#',
