@@ -11,7 +11,7 @@ SMODS.Joker {
   rarity = 3, -- Rare
   atlas = 'Sculio',
   pos = { x = 8, y = 7 },
-  cost = 10,
+  cost = 8,
   calculate = function(self, card, context)
     if context.selling_self and not context.blueprint then
       if G.STATE == G.STATES.SELECTING_HAND and G.GAME.blind and G.GAME.blind.chips then

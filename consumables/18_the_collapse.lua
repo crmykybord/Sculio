@@ -1,13 +1,3 @@
--- Only blank cards are worth an edition. Re-rolling one that already has an edition
--- wastes the effect while unenhanced cards are still sitting in hand.
-local function blank_targets()
-  local targets = {}
-  for _, c in ipairs(G.hand and G.hand.cards or {}) do
-    if not c.REMOVED and not c.edition then targets[#targets + 1] = c end
-  end
-  return targets
-end
-
 SMODS.Consumable {
   key = 'collapse',
   set = 'Inverted',
@@ -25,8 +15,10 @@ SMODS.Consumable {
     local step = Sculio.distorted() and 5 or 10
     if not (G.hand and #G.hand.cards > 0) then return false end
     if math.floor(Sculio.count_suit_deck('Diamonds') / step) < 1 then return false end
-    -- Nothing to do if every card in hand already carries an edition.
-    return #blank_targets() > 0
+    -- Distorted Flow doubles up: it still gives Editions away, and those same cards
+    -- get paid out when scored. Both halves need a legal target.
+    if Sculio.distorted() and #Sculio.edition_in_hand() < 1 then return false end
+    return #Sculio.blank_in_hand() > 0
   end,
 
   use = function(self, card, area, copier)
@@ -34,7 +26,7 @@ SMODS.Consumable {
     local step = Sculio.distorted() and 5 or 10
     local stacks = math.floor(Sculio.count_suit_deck('Diamonds') / step)
     -- Shallow copy: copy_table() deep-copies Cards and recurses forever on card.area cycles
-    local targets = blank_targets()
+    local targets = Sculio.blank_in_hand()
     pseudoshuffle(targets, pseudoseed('sculio_collapse'))
     for i = 1, math.min(stacks, #targets) do
       local target_card = targets[i]

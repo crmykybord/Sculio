@@ -672,6 +672,24 @@ function Sculio.distorted()
   return (G.GAME and G.GAME.used_vouchers and G.GAME.used_vouchers['v_Sculio_distorted_flow']) and true or false
 end
 
+-- Playing cards in hand that already carry an Edition
+function Sculio.edition_in_hand()
+  local targets = {}
+  for _, c in ipairs(G.hand and G.hand.cards or {}) do
+    if c.edition then targets[#targets + 1] = c end
+  end
+  return targets
+end
+
+-- Playing cards in hand that carry no Edition yet
+function Sculio.blank_in_hand()
+  local targets = {}
+  for _, c in ipairs(G.hand and G.hand.cards or {}) do
+    if not c.REMOVED and not c.edition then targets[#targets + 1] = c end
+  end
+  return targets
+end
+
 -- Droste Effect voucher's bonus on Inverted Arcana packs
 function Sculio.apply_droste_bonus()
   local wanted = (G.GAME and G.GAME.used_vouchers and G.GAME.used_vouchers['v_Sculio_droste_effect']) and 1 or 0

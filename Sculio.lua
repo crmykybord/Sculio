@@ -9,7 +9,7 @@ SMODS.ConsumableType { key = 'Inverted', primary_colour = HEX 'A84C45', secondar
 SMODS.UndiscoveredSprite { key = 'Inverted', atlas = 'Sculio_Consumables', pos = { x = 2, y = 2 } }
 
 SMODS.current_mod.optional_features = function()
-  return { post_trigger = true, retrigger_joker = true }
+  return { post_trigger = true, retrigger_joker = true, quantum_enhancements = true }
 end
 
 assert(SMODS.load_file('libs/utils.lua'))()
@@ -44,6 +44,7 @@ local skip_files = {
   ['16_the_archangel.lua'] = true,
   ['17_the_siege.lua'] = true,
   -- Disabled until they have an effect
+  ['83_fun_guy.lua'] = true,
 }
 
 load_dir('jokers', skip_files)
@@ -60,7 +61,7 @@ assert(SMODS.load_file('libs/shuffle.lua'))()
 -- Multiplayer compatibility
 if MP and MP.DECK and MP.DECK.ban_card then
 	sendDebugMessage("Sculio MP compatibility active", "MULTIPLAYER")
-	for _, mp_banned in ipairs({ 'j_Sculio_reach', 'j_Sculio_getaway_card' }) do
+	for _, mp_banned in ipairs({ 'j_Sculio_reach', 'j_Sculio_getaway_card', 'j_Sculio_skipping_stones' }) do
 		MP.DECK.ban_card(mp_banned)
 	end
 end

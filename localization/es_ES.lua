@@ -847,7 +847,78 @@ return {
           '{C:attention}Carta Multi{} anotada',
         },
       },
-      -- 82. Cartomancer?
+      -- 82. ¿Hace algo?
+      j_Sculio_dodecahedron = {
+        name = 'Dodecaedro',
+        text = {
+          '{C:inactive}¿Hace algo?{}',
+        },
+      },
+      -- 83. Fun Guy
+      j_Sculio_fun_guy = {
+        name = 'Fun Guy',
+        text = {
+          '{C:inactive}Sin efecto{}',
+        },
+      },
+      -- 84. Scrawlings
+      j_Sculio_scrawlings = {
+        name = 'Garabatos',
+        text = {
+          'Las {C:attention}Cartas Experimentales{}',
+          'anotadas tienen una prob. de',
+          '{C:green}#1# en #2#{} de crear una',
+          '{C:attention}etiqueta doble{}',
+        },
+      },
+      -- 85. Hoarder
+      j_Sculio_hoarder = {
+        name = 'Ahorrador',
+        text = {
+          'Crea {C:tarot}El Ermitaño{} si',
+          'dejas la tienda sin gastar',
+          '{C:inactive}(Debe haber espacio){}',
+        },
+      },
+      -- 86. Welcome Mat
+      j_Sculio_welcome_mat = {
+        name = 'Tapete de Bienvenida',
+        text = {
+          'Las {C:attention}cartas anotadas{} otorgan',
+          '{X:mult,C:white}X#1#{} Multi si la mano jugada',
+          'contiene un {C:attention}Full House{}',
+        },
+      },
+      -- 87. Skipping Stones
+      j_Sculio_skipping_stones = {
+        name = 'Rocas Saltarinas',
+        text = {
+          'Retrocedes {C:attention}1 Apuesta{}',
+          "por cada #2# {C:inactive}(#1#/#2#){} {C:attention}paquetes{}",
+          '{C:attention}potenciadores{} omitidos',
+        },
+      },
+      -- 88. Top 10 Joker!!!
+      j_Sculio_top_10_joker = {
+        name = 'top 10 joker!!!',
+        text = {
+          'Si tu {C:attention}primera mano{} jugada',
+          'es exactamente un {C:attention}#1#{}, crea un',
+          'Comodín {V:1}#2#{} {C:inactive}(#3#/#4#)',
+          '{C:inactive}(Debe haber espacio){}',
+        },
+      },
+      -- 89. Mouse Art
+      j_Sculio_mouse_art = {
+        name = 'Arte de Paint',
+        text = {
+          'Las Cartas {C:attention}Versatiles{}',
+          'tienen el efecto de otra',
+          '{C:attention}Mejora{} al azar',
+          '{C:inactive}(Copiando: #1#){}',
+        },
+      },
+      -- 90. Cartomancer?
       j_Sculio_cartomante = {
         name = '¿Cartomante?',
         text = {
@@ -980,7 +1051,7 @@ return {
         name = 'Carta Errante',
         text = {
           "{C:mult}+#1# Multi{} al descartarse.",
-          "Se {C:red}descarta{} si jugar una mano",
+          "Se {C:red}descarta{} al jugar una mano",
         },
       },
       m_Sculio_profane = {
@@ -1080,7 +1151,7 @@ return {
       c_Sculio_transfix = {
         name = 'Atravesar',
         text = {
-          'Mejora {C:attention}3{} cartas seleccionadas',
+          'Mejora #1# {C:attention}cartas al azar{}',
           'en {C:attention}Cartas Perforadas{}',
         },
       },
@@ -1365,6 +1436,12 @@ return {
       Sculio_trap_spectral_draw = 'Crea una carta {C:spectral}Espectral{} al azar y saca {C:attention}2{} cartas',
       Sculio_trap_protect_xmult = 'Las cartas adyacentes no pueden debilitarse, y {X:mult,C:white}X1.75{} Multi',
       Sculio_trap_seal_buff = 'Aplica un Sello al azar y da {C:mult}+4 Multi{} a las demás cartas',
+      k_Sculio_plus_hermit = '+1 El Ermitaño',
+      k_Sculio_skipped = '¡Omitido!',
+      k_Sculio_top_10_common = 'Común',
+      k_Sculio_top_10_uncommon = 'Inusual',
+      k_Sculio_top_10_rare = 'Raro',
+      k_Sculio_top_10_negative = 'Negativo',
     },
     v_dictionary = {
       k_Sculio_crooked_stole = 'Robó $#1#',
