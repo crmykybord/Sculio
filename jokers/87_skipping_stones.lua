@@ -24,7 +24,7 @@ SMODS.Joker {
         extra.current = 0
         ease_ante(extra.antes)
         G.GAME.round_resets.blind_ante = (G.GAME.round_resets.blind_ante or G.GAME.round_resets.ante) + extra.antes
-        return { message = localize('k_Sculio_revert_blind'), colour = G.C.RED, card = card }
+        return { message = localize('k_Sculio_skipped'), colour = G.C.GREEN, card = card }
       end
       return { message = extra.current .. '/' .. extra.max, colour = G.C.FILTER, card = card }
     end

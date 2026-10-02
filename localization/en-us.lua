@@ -1441,7 +1441,7 @@ return {
       Sculio_trap_protect_xmult = 'Adjacent cards cannot be debuffed, and {X:mult,C:white}X1.75{} Mult',
       Sculio_trap_seal_buff = 'Applies a random Seal and gives {C:mult}+4 Mult{} to other cards',
       k_Sculio_plus_hermit = '+1 The Hermit',
-      k_Sculio_revert_blind = 'Back 1 Ante!',
+      k_Sculio_skipped = 'Skipped!',
     },
     v_dictionary = {
       k_Sculio_crooked_stole = 'Stole $#1#',

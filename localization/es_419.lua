@@ -1435,7 +1435,7 @@ return {
       Sculio_trap_protect_xmult = 'Las cartas adyacentes no pueden debilitarse, y {X:mult,C:white}X1.75{} Multi',
       Sculio_trap_seal_buff = 'Aplica un Sello al azar y da {C:mult}+4 Multi{} a las demás cartas',
       k_Sculio_plus_hermit = '+1 El Ermitaño',
-      k_Sculio_revert_blind = '¡Apuesta anterior!',
+      k_Sculio_skipped = '¡Omitido!',
     },
     v_dictionary = {
       k_Sculio_crooked_stole = 'Robó $#1#',
