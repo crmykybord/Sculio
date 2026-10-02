@@ -864,7 +864,7 @@ return {
       },
       -- 84. Scrawlings
       j_Sculio_scrawlings = {
-        name = 'Boceto',
+        name = 'Garabatos',
         text = {
           'Las {C:attention}Cartas Experimentales{}',
           'anotadas tienen una prob. de',
@@ -904,18 +904,18 @@ return {
         text = {
           'Si tu {C:attention}primera mano jugada{} es un',
           '{C:attention}#1#{} suelto, crea un',
-          '{C:attention}Comodín{} #2# {C:inactive}(#3#/#4#)',
+          'Comodín {V:1}#2#{} {C:inactive}(#3#/#4#)',
           '{C:inactive}(Debe haber espacio){}',
         },
       },
       -- 89. Mouse Art
       j_Sculio_mouse_art = {
-        name = 'Arte de Paint',
+        name = 'Arte de Ratón',
         text = {
           'Cada {C:attention}Carta Versátil{} de tu Baraja',
           'recibe además el efecto de una',
           '{C:attention}Mejora aleatoria{}',
-          '{C:inactive}(#1# copiando: #2#){}',
+          '{C:inactive}(Copiando: #1#){}',
         },
       },
       -- 90. Cartomancer?

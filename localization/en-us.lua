@@ -900,7 +900,7 @@ return {
         text = {
           'If your {C:attention}first played hand{} is a',
           'single {C:attention}#1#{}, create a random',
-          '{C:attention}#2# Joker{} {C:inactive}(#3#/#4#)',
+          '{V:1}#2#{} Joker {C:inactive}(#3#/#4#)',
           '{C:inactive}(Must have room){}',
         },
       },
@@ -911,7 +911,7 @@ return {
           'Each {C:attention}Wild Card{} in your deck',
           'also gains the effect of a random',
           '{C:attention}Enhancement{}',
-          '{C:inactive}(#1# copying: #2#){}',
+          '{C:inactive}(Copying: #1#){}',
         },
       },
       -- 90. Cartomancer?

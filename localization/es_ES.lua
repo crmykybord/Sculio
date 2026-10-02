@@ -904,7 +904,7 @@ return {
         text = {
           'Si tu {C:attention}primera mano jugada{} es un',
           '{C:attention}#1#{} suelto, crea un',
-          '{C:attention}Comodín{} #2# {C:inactive}(#3#/#4#)',
+          'Comodín {V:1}#2#{} {C:inactive}(#3#/#4#)',
           '{C:inactive}(Debe haber espacio){}',
         },
       },
@@ -915,7 +915,7 @@ return {
           'Cada {C:attention}Carta Versátil{} de tu Baraja',
           'recibe además el efecto de una',
           '{C:attention}Mejora aleatoria{}',
-          '{C:inactive}(#1# copiando: #2#){}',
+          '{C:inactive}(Copiando: #1#){}',
         },
       },
       -- 90. Cartomancer?
