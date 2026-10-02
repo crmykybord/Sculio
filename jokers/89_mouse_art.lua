@@ -1,12 +1,9 @@
-local function wild_cards()
-  local wilds = {}
-  for _, c in ipairs(G.playing_cards or {}) do
-    if SMODS.has_enhancement(c, 'm_wild') then wilds[#wilds + 1] = c end
-  end
-  return wilds
-end
+local cached_pool, cached_pool_size
 
 local function enhancement_pool()
+  local n = 0
+  for _ in pairs(G.P_CENTERS) do n = n + 1 end
+  if cached_pool and cached_pool_size == n then return cached_pool end
   local options = {}
   for _, center in pairs(G.P_CENTERS) do
     if center.set == 'Enhanced' and not center.no_rank and center.key ~= 'm_wild'
@@ -14,7 +11,37 @@ local function enhancement_pool()
       options[#options + 1] = center.key
     end
   end
+  table.sort(options)
+  cached_pool, cached_pool_size = options, n
   return options
+end
+
+local function count_wilds()
+  local count = 0
+  for _, c in ipairs(G.playing_cards or {}) do
+    if c.config.center_key == 'm_wild' then count = count + 1 end
+  end
+  return count
+end
+
+-- One roll for the whole deck: every Wild Card copies the same Enhancement.
+-- Keyed off the joker's own ability, not the deck, so all copies stay in sync
+-- without any per-card state to rebuild.
+local function mimic_key(card)
+  local extra = card.ability.extra
+  if not extra.mimic then
+    local options = enhancement_pool()
+    if #options == 0 then return nil end
+    local salt = 'sculio_mouse_art_mimic_' .. tostring(G.GAME.round or 0)
+    extra.mimic = options[math.floor(pseudohash(salt) * #options) + 1]
+  end
+  return extra.mimic
+end
+
+local function mimic_name(card)
+  local key = card.ability.extra.mimic
+  if not key then return '?' end
+  return localize { type = 'name_text', key = key, set = 'Enhanced' }
 end
 
 SMODS.Joker {
@@ -33,37 +60,19 @@ SMODS.Joker {
   cost = 6,
   loc_vars = function(self, info_queue, card)
     info_queue[#info_queue + 1] = G.P_CENTERS.m_wild
-    return { vars = { Sculio.count_enhanced('m_wild') } }
+    return { vars = { count_wilds(), mimic_name(card) } }
   end,
   calculate = function(self, card, context)
     if context.blueprint then return end
-
     if context.setting_blind then
-      local wilds = wild_cards()
-      local options = enhancement_pool()
-      if #wilds == 0 or #options == 0 then return end
-
-      local salt = 'sculio_mouse_art_' .. tostring(G.GAME.round or 0)
-      local target = wilds[math.floor(pseudohash(salt .. '_pick') * #wilds) + 1]
-      local enh_key = SMODS.poll_enhancement({ key = salt .. '_enh', guaranteed = true, options = options })
-      if not target or not enh_key or not G.P_CENTERS[enh_key] then return end
-
-      target:set_ability(G.P_CENTERS[enh_key], false)
-      target:juice_up(0.3, 0.5)
-      play_sound('card1', 1, 0.6)
-      G.E_MANAGER:add_event(Event({
-        trigger = 'immediate',
-        func = function()
-          card_eval_status_text(card, 'extra', nil, nil, nil, {
-            message = localize { type = 'name_text', key = enh_key, set = 'Enhanced' },
-            colour = G.C.SECONDARY_SET.Enhanced,
-          })
-          return true
-        end
-      }))
+      card.ability.extra.mimic = nil
+    elseif context.check_enhancement and context.other_card
+        and context.other_card.config.center_key == 'm_wild' then
+      local mimic = mimic_key(card)
+      if mimic then return { [mimic] = true } end
     end
   end,
   in_pool = function(self)
-    return Sculio.count_enhanced('m_wild') > 0
+    return count_wilds() > 0
   end,
 }

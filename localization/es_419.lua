@@ -910,12 +910,12 @@ return {
       },
       -- 89. Mouse Art
       j_Sculio_mouse_art = {
-        name = 'Arte de Ratón',
+        name = 'Arte de Paint',
         text = {
-          'Cada ronda, una {C:attention}Carta Versátil{}',
-          'de tu Baraja se convierte en una',
+          'Cada {C:attention}Carta Versátil{} de tu Baraja',
+          'recibe además el efecto de una',
           '{C:attention}Mejora aleatoria{}',
-          '{C:inactive}(Actualmente #1# Versátiles){}',
+          '{C:inactive}(#1# copiando: #2#){}',
         },
       },
       -- 90. Cartomancer?

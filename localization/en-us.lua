@@ -908,10 +908,10 @@ return {
       j_Sculio_mouse_art = {
         name = 'Mouse Art',
         text = {
-          'Each round, one {C:attention}Wild Card{}',
-          'in your deck becomes a random',
+          'Each {C:attention}Wild Card{} in your deck',
+          'also gains the effect of a random',
           '{C:attention}Enhancement{}',
-          '{C:inactive}(Currently #1# Wild Cards){}',
+          '{C:inactive}(#1# copying: #2#){}',
         },
       },
       -- 90. Cartomancer?
