@@ -908,9 +908,9 @@ return {
       j_Sculio_mouse_art = {
         name = 'Mouse Art',
         text = {
-          'Each {C:attention}Wild Card{} in your deck',
-          'also gains the effect of a random',
-          '{C:attention}Enhancement{}',
+          '{C:attention}Wild{} Cards also have',
+          'the effect of a',
+          'random {C:attention}Enhancement{}',
           '{C:inactive}(Copying: #1#){}',
         },
       },
