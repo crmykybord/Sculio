@@ -50,6 +50,11 @@ SMODS.Joker {
   calculate = function(self, card, context)
     if context.blueprint then return end
 
+    if context.hand_drawn and context.first_hand_drawn then
+      local eval = function() return G.GAME.current_round.hands_played == 0 end
+      juice_card_until(card, eval, true)
+    end
+
     if not context.after or not context.full_hand or #context.full_hand ~= 1 then return end
     if not G.GAME.current_round or G.GAME.current_round.hands_played ~= 0 then return end
 
