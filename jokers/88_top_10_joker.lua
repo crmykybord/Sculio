@@ -1,12 +1,6 @@
--- The ladder walks the top ten poker ranks down: 10, 9, ... 2 and then Ace, because
--- poker has no 1. Every `extra.rarity_per_rank` rungs the created Joker up a rarity,
--- and the last rung (Ace) hands out a random Negative Joker instead of a rarity.
--- After that the ladder resets back to 10.
 local LADDER = { '10', '9', '8', '7', '6', '5', '4', '3', '2', 'Ace' }
 local RARITIES = { 'Common', 'Uncommon', 'Rare' }
 
--- Not vanilla's k_common / k_uncommon / k_rare: those agree with "carta" in es_419
--- ("Rara"), while here the word has to agree with "Joker" / "Comodín".
 local REWARD_KEYS = {
   Common = 'k_Sculio_top_10_common',
   Uncommon = 'k_Sculio_top_10_uncommon',
@@ -14,7 +8,6 @@ local REWARD_KEYS = {
 }
 local NEGATIVE_REWARD = 'k_Sculio_top_10_negative'
 
--- step (1..#LADDER), rank key, is_negative, rarity key, reward dictionary key
 local function rung(card)
   local extra = card.ability.extra
   local step = ((extra.step or 0) % #LADDER) + 1
@@ -50,19 +43,15 @@ SMODS.Joker {
   calculate = function(self, card, context)
     if context.blueprint then return end
 
-    -- Waits for `after` so the Joker is created (and its message drawn) once the hand has
-    -- finished scoring. `hands_played` is bumped later still, so it reads 0 here.
     if not context.after or not context.full_hand or #context.full_hand ~= 1 then return end
     if not G.GAME.current_round or G.GAME.current_round.hands_played ~= 0 then return end
 
     local extra = card.ability.extra
     local step, rank, negative, rarity = rung(card)
     local played = context.full_hand[1]
-    -- A rankless Wild/Stone still prints its real rank, so screen those out.
     if SMODS.has_no_rank(played) or played.base.value ~= rank then return end
     if not G.jokers or #G.jokers.cards >= G.jokers.config.card_limit then return end
 
-    -- Advance before queueing so the description never shows a rung that already paid out.
     extra.step = step
     G.E_MANAGER:add_event(Event({
       trigger = 'after',

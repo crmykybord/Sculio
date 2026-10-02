@@ -22,8 +22,6 @@ SMODS.Joker {
   atlas = 'Sculio',
   pos = { x = 4, y = 8 },
   cost = 7,
-  -- No loc_vars on purpose: the description must not reveal what it can roll.
-  -- The six values still live in config.extra so they stay patchable.
   calculate = function(self, card, context)
     if context.before and not context.blueprint then
       roll_effect(card)

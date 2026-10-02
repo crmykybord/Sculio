@@ -849,7 +849,7 @@ return {
       },
       -- 82. ¿Hace algo?
       j_Sculio_dodecahedron = {
-        name = '¿Hace algo?',
+        name = 'Dodecaedro',
         text = {
           '{C:inactive}¿Hace algo?',
         },
@@ -864,7 +864,7 @@ return {
       },
       -- 84. Scrawlings
       j_Sculio_scrawlings = {
-        name = 'Garabatos',
+        name = 'Boceto',
         text = {
           'Las {C:attention}Cartas Experimentales{}',
           'anotadas tienen una prob. de',

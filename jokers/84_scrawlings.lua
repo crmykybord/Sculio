@@ -2,7 +2,7 @@ SMODS.Joker {
   key = 'scrawlings',
   attributes = { 'chance', 'tag', 'enhancements' },
   eternal_compat = true,
-  blueprint_compat = false,
+  blueprint_compat = true,
   perishable_compat = false,
   rental_compat = true,
   config = { extra = { odds = 4 } },
@@ -17,14 +17,10 @@ SMODS.Joker {
     return { vars = { n, d } }
   end,
   calculate = function(self, card, context)
-    -- blueprint_compat is off: `individual` fires per joker, so a copied Scrawlings
-    -- would roll twice off one card.
     if context.individual and context.cardarea == G.play and context.other_card
         and not context.other_card.debuff
         and SMODS.has_enhancement(context.other_card, 'm_Sculio_experimental')
         and SMODS.pseudorandom_probability(card, 'scrawlings', 1, card.ability.extra.odds, 'scrawlings') then
-      -- `individual` is dispatched before SMODS.trigger_effects applies the card's
-      -- score, so the tag is queued to land once the card has actually scored.
       G.E_MANAGER:add_event(Event({
         trigger = 'after',
         func = function()

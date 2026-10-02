@@ -1,6 +1,3 @@
--- Every round one of your Wild Cards is turned into a random Enhancement, so the
--- joker burns through the Wild Cards in the deck. The (Currently X) counter in the
--- description is how many Wild Cards are left to feed it.
 local function wild_cards()
   local wilds = {}
   for _, c in ipairs(G.playing_cards or {}) do
@@ -9,8 +6,6 @@ local function wild_cards()
   return wilds
 end
 
--- Rankless enhancements (Stone, Siege) would be a downgrade for a Wild Card, and
--- re-rolling into another Wild Card would do nothing at all.
 local function enhancement_pool()
   local options = {}
   for _, center in pairs(G.P_CENTERS) do
@@ -68,7 +63,6 @@ SMODS.Joker {
       }))
     end
   end,
-  -- Dead weight without a Wild Card to feed it, so keep it out of the pool.
   in_pool = function(self)
     return Sculio.count_enhanced('m_wild') > 0
   end,

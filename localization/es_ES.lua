@@ -849,7 +849,7 @@ return {
       },
       -- 82. ¿Hace algo?
       j_Sculio_dodecahedron = {
-        name = '¿Hace algo?',
+        name = 'Dodecaedro',
         text = {
           '{C:inactive}¿Hace algo?',
         },
