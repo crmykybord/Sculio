@@ -1147,7 +1147,7 @@ return {
       c_Sculio_transfix = {
         name = 'Transfix',
         text = {
-          'Enhance {C:attention}3{} selected cards',
+          'Enhance {C:attention}#1#{} random cards',
           'into {C:attention}Punched Cards{}',
         },
       },

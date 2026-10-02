@@ -1149,7 +1149,7 @@ return {
       c_Sculio_transfix = {
         name = 'Atravesar',
         text = {
-          'Mejora {C:attention}3{} cartas seleccionadas',
+          'Mejora #1# {C:attention}cartas al azar{}',
           'en {C:attention}Cartas Perforadas{}',
         },
       },
