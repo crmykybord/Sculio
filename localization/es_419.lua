@@ -912,9 +912,10 @@ return {
       j_Sculio_mouse_art = {
         name = 'Arte de Ratón',
         text = {
-          'La primera {C:attention}carta descartada{}',
-          'de cada ronda se convierte en una',
-          '{C:attention}Carta Versátil{}',
+          'Cada ronda, una {C:attention}Carta Versátil{}',
+          'de tu Baraja se convierte en una',
+          '{C:attention}Mejora aleatoria{}',
+          '{C:inactive}(Actualmente #1# Versátiles){}',
         },
       },
       -- 90. Cartomancer?
@@ -1436,7 +1437,6 @@ return {
       Sculio_trap_protect_xmult = 'Las cartas adyacentes no pueden debilitarse, y {X:mult,C:white}X1.75{} Multi',
       Sculio_trap_seal_buff = 'Aplica un Sello al azar y da {C:mult}+4 Multi{} a las demás cartas',
       k_Sculio_plus_hermit = '+1 El Ermitaño',
-      k_Sculio_plus_wild = '+1 Carta Versátil',
       k_Sculio_revert_blind = '¡Apuesta anterior!',
     },
     v_dictionary = {

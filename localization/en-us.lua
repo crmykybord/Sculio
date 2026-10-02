@@ -906,9 +906,10 @@ return {
       j_Sculio_mouse_art = {
         name = 'Mouse Art',
         text = {
-          'First {C:red}discarded{} card',
-          'each round becomes a',
-          '{C:attention}Wild Card{}',
+          'Each round, one {C:attention}Wild Card{}',
+          'in your deck becomes a random',
+          '{C:attention}Enhancement{}',
+          '{C:inactive}(Currently #1# Wild Cards){}',
         },
       },
       -- 90. Cartomancer?
@@ -1440,7 +1441,6 @@ return {
       Sculio_trap_protect_xmult = 'Adjacent cards cannot be debuffed, and {X:mult,C:white}X1.75{} Mult',
       Sculio_trap_seal_buff = 'Applies a random Seal and gives {C:mult}+4 Mult{} to other cards',
       k_Sculio_plus_hermit = '+1 The Hermit',
-      k_Sculio_plus_wild = '+1 Wild Card',
       k_Sculio_revert_blind = 'Back 1 Ante!',
     },
     v_dictionary = {
