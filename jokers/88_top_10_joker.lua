@@ -11,10 +11,11 @@ local NEGATIVE_REWARD = 'k_Sculio_top_10_negative'
 local function rung(card)
   local extra = card.ability.extra
   local step = ((extra.step or 0) % #LADDER) + 1
-  local rarity = RARITIES[math.min(math.ceil(step / extra.rarity_per_rank), #RARITIES)]
+  local rarity_index = math.min(math.ceil(step / extra.rarity_per_rank), #RARITIES)
+  local rarity = RARITIES[rarity_index]
   local negative = step == #LADDER
   return step, LADDER[step], negative, rarity,
-    (negative and NEGATIVE_REWARD or REWARD_KEYS[rarity])
+    (negative and NEGATIVE_REWARD or REWARD_KEYS[rarity]), rarity_index
 end
 
 local function rank_name(rank)
@@ -37,8 +38,14 @@ SMODS.Joker {
   pos = { x = 0, y = 9 },
   cost = 7,
   loc_vars = function(self, info_queue, card)
-    local step, rank, _, _, reward_key = rung(card)
-    return { vars = { rank_name(rank), localize(reward_key), step, #LADDER } }
+    local step, rank, _, _, reward_key, rarity_index = rung(card)
+    return { vars = {
+      rank_name(rank),
+      localize(reward_key),
+      step,
+      #LADDER,
+      colours = { G.C.RARITY[rarity_index] },
+    } }
   end,
   calculate = function(self, card, context)
     if context.blueprint then return end

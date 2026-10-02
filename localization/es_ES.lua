@@ -851,15 +851,14 @@ return {
       j_Sculio_dodecahedron = {
         name = 'Dodecaedro',
         text = {
-          '{C:inactive}¿Hace algo?',
+          '{C:inactive}¿Hace algo?{}',
         },
       },
       -- 83. Fun Guy
       j_Sculio_fun_guy = {
         name = 'Fun Guy',
         text = {
-          '{C:inactive}No hace absolutamente nada.',
-          'Ni un poquito.',
+          '{C:inactive}Sin efecto{}',
         },
       },
       -- 84. Scrawlings
@@ -874,9 +873,9 @@ return {
       },
       -- 85. Hoarder
       j_Sculio_hoarder = {
-        name = 'Ahoardeador',
+        name = 'Ahorrador',
         text = {
-          'Crea a {C:tarot}El Ermitaño{} si',
+          'Crea {C:tarot}El Ermitaño{} si',
           'dejas la tienda sin gastar',
           '{C:inactive}(Debe haber espacio){}',
         },
@@ -894,27 +893,28 @@ return {
       j_Sculio_skipping_stones = {
         name = 'Rocas Saltarinas',
         text = {
-          '{C:attention}-1 Apuesta{} por cada #2# {C:inactive}(#1#/#2#){}',
-          '{C:attention}paquetes potenciadores omitidos{},',
+          'Retrocedes {C:attention}1 Apuesta{}',
+          "por cada #2# {C:inactive}(#1#/#2#){} {C:attention}paquetes{}",
+          '{C:attention}potenciadores{} omitidos',
         },
       },
       -- 88. Top 10 Joker!!!
       j_Sculio_top_10_joker = {
-        name = 'Top 10 Joker!!!',
+        name = 'top 10 joker!!!',
         text = {
-          'Si tu {C:attention}primera mano jugada{} es un',
-          '{C:attention}#1#{} suelto, crea un',
+          'Si tu {C:attention}primera mano{} jugada',
+          'es exactamente un {C:attention}#1#{}, crea un',
           'Comodín {V:1}#2#{} {C:inactive}(#3#/#4#)',
           '{C:inactive}(Debe haber espacio){}',
         },
       },
       -- 89. Mouse Art
       j_Sculio_mouse_art = {
-        name = 'Arte de Ratón',
+        name = 'Arte de Paint',
         text = {
-          'Cada {C:attention}Carta Versátil{} de tu Baraja',
-          'recibe además el efecto de una',
-          '{C:attention}Mejora aleatoria{}',
+          'Las Cartas {C:attention}Versatiles{}',
+          'tienen el efecto de otra',
+          '{C:attention}Mejora{} al azar',
           '{C:inactive}(Copiando: #1#){}',
         },
       },
@@ -1051,7 +1051,7 @@ return {
         name = 'Carta Errante',
         text = {
           "{C:mult}+#1# Multi{} al descartarse.",
-          "Se {C:red}descarta{} si jugar una mano",
+          "Se {C:red}descarta{} al jugar una mano",
         },
       },
       m_Sculio_profane = {
