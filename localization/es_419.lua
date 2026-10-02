@@ -895,9 +895,8 @@ return {
       j_Sculio_skipping_stones = {
         name = 'Rocas Saltarinas',
         text = {
-          'Por cada #2# {C:attention}paquetes potenciadores omitidos{},',
-          'retrocedes {C:attention}1 Apuesta{}',
-          '{C:inactive}(Actualmente #1#/#2#){}',
+          '{C:attention}-1 Apuesta{} por cada #2# {C:inactive}(#1#/#2#){}',
+          '{C:attention}paquetes potenciadores omitidos{},',
         },
       },
       -- 88. Top 10 Joker!!!
