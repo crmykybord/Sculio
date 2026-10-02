@@ -30,7 +30,9 @@ SMODS.Joker {
         and context.other_context and context.other_context.joker_main then
       local n = 0
       for _, times in pairs(mult_cards_scored) do n = n + times end
-      if n > 0 then return { repetitions = n } end
+      -- `remove_default_message` drops SMODS' built-in "Again" bubble. Every retrigger
+      -- used to spawn one, which both clutters the hand and stalls the scoring queue.
+      if n > 0 then return { repetitions = n, remove_default_message = true } end
     end
     if context.joker_main then
       return { x_mult = card.ability.extra.x_mult }
