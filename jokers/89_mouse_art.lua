@@ -39,7 +39,7 @@ local function mimic_key(card)
 end
 
 local function mimic_name(card)
-  local key = card.ability.extra.mimic
+  local key = mimic_key(card)
   if not key then return '?' end
   return localize { type = 'name_text', key = key, set = 'Enhanced' }
 end
@@ -66,6 +66,7 @@ SMODS.Joker {
     if context.blueprint then return end
     if context.setting_blind then
       card.ability.extra.mimic = nil
+      mimic_key(card)
     elseif context.check_enhancement and context.other_card
         and context.other_card.config.center_key == 'm_wild' then
       local mimic = mimic_key(card)
