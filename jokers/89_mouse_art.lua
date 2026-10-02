@@ -60,7 +60,7 @@ SMODS.Joker {
   cost = 6,
   loc_vars = function(self, info_queue, card)
     info_queue[#info_queue + 1] = G.P_CENTERS.m_wild
-    return { vars = { count_wilds(), mimic_name(card) } }
+    return { vars = { mimic_name(card) } }
   end,
   calculate = function(self, card, context)
     if context.blueprint then return end
