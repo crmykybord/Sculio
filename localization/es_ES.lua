@@ -1124,9 +1124,9 @@ return {
       m_Sculio_divine = {
         name = 'Carta Divina',
         text = {
-          'Mientras está en mano, las cartas que anotan',
-          'obtienen {C:chips}+7 Fichas{} o {C:mult}+3 Multi{}.',
-          'Alterna su modo entre manos',
+          'Al jugarse, da {C:money}$#1#{}',
+          'por cada {C:attention}palo único{}',
+          'de la mano jugada',
         },
       },
       m_Sculio_siege = {

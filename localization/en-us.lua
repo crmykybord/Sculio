@@ -1121,9 +1121,9 @@ return {
       m_Sculio_divine = {
         name = 'Divine Card',
         text = {
-          'While held in hand, scoring cards',
-          'get {C:chips}+7 Chips{} or {C:mult}+3 Mult{}.',
-          'Alternates its mode between hands',
+          'When played, gains {C:money}$#1#{}',
+          'for each {C:attention}unique suit{}',
+          'in the played hand',
         },
       },
       m_Sculio_siege = {
