@@ -18,7 +18,13 @@ SMODS.Enhancement {
       end
       local unique = 0
       for _ in pairs(suits) do unique = unique + 1 end
-      if unique > 0 then return { money = extra.money * unique } end
+      if unique > 0 then
+        -- 'money' is not a SMODS calculation key and the vanilla loop that read
+        -- effects[ii].dollars is gone (SMODS replaced it), so pay by hand.
+        local money = extra.money * unique
+        ease_dollars(money)
+        card_eval_status_text(card, 'dollars', money)
+      end
     end
   end,
 }
