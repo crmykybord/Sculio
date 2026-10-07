@@ -9,6 +9,9 @@ SMODS.Joker {
   pos = { x = 0, y = 3 },
   cost = 6,
   enhancement_gate = 'm_stone',
+  in_pool = function(self)
+    return Sculio.count_enhanced('m_stone') > 0
+  end,
   eternal_compat = true,
   blueprint_compat = true,
   perishable_compat = true,
@@ -32,11 +35,7 @@ SMODS.Joker {
       context.other_card.ability.perma_bonus = context.other_card.ability.perma_bonus or 0
       context.other_card.ability.perma_bonus = context.other_card.ability.perma_bonus + card.ability.extra.chip_perma_bonus
 
-      return {
-        extra = {message = localize('k_upgrade_ex'), colour = G.C.CHIPS},
-        colour = G.C.CHIPS,
-        card = card
-      }
+      return { extra = {message = localize('k_upgrade_ex'), colour = G.C.CHIPS}, colour = G.C.CHIPS, card = card }
     end
 
     if context.after then

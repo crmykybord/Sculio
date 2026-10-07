@@ -13,6 +13,9 @@ SMODS.Joker {
   rental_compat = true,
   enhancement_gate = 'm_stone',
   config = { extra = { money = 3 } },
+  in_pool = function(self)
+    return Sculio.count_enhanced('m_stone') > 0
+  end,
   loc_vars = function(self, info_queue, card)
     info_queue[#info_queue+1] = G.P_CENTERS.m_stone
   end,
