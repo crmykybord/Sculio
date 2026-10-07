@@ -13,14 +13,10 @@ local function roll_rank(card)
   end
   if not valid_ranks[1] then return end
 
-  -- Index the pool off pseudohash instead of pseudorandom_element: that helper
-  -- seeds math.randomseed with a float < 1, which truncates to a constant
-  -- integer and always picked valid_ranks[1] (always '2'). Salting per card and
-  -- per roll also stops two Telephones from sharing one seed stream.
   local extra = card.ability.extra
   extra.rolls = (extra.rolls or 0) + 1
   local salt = 'telephone_' .. tostring(extra.rolls) .. '_' .. tostring(G.GAME.round or 0)
-  extra.rank_value = valid_ranks[math.floor(pseudohash(salt) * #valid_ranks) + 1]
+  extra.rank_value = valid_ranks[math.floor(pseudoseed(salt) * #valid_ranks) + 1]
 end
 
 SMODS.Joker {
@@ -50,10 +46,7 @@ SMODS.Joker {
 
     if context.cardarea == G.play and context.repetition and not context.repetition_only then
       if context.other_card.base.value == card.ability.extra.rank_value then
-        return {
-          message = localize('k_again_ex'),
-          repetitions = 1
-        }
+        return { message = localize('k_again_ex'), repetitions = 1 }
       end
     end
   end
