@@ -130,7 +130,7 @@ return {
         name = 'Gold Ore',
         text = {
           'Scored {C:attention}Stone Cards{}',
-          'gain a {C:attention}Gold Seal{}'
+          'grant {C:money}$3{}'
         },
       },
       -- 7. Pop Star
@@ -476,9 +476,9 @@ return {
       j_Sculio_binary = {
         name = 'Binary Joker',
         text = {
-          'This Joker has a {C:green}#1# in #2#{} chance',
-          'of obtaining {C:chips}+#3#{} Chips or {C:mult}+#4#{} Mult',
-          'for each card held in hand at the end of round',
+          'Cards drawn at the start of the',
+          'round have a {C:green}#1# in #2#{} chance of',
+          'granting {C:chips}+#3#{} Chips or {C:mult}+#4#{} Mult',
           '{C:inactive}(Currently {C:chips}+#5#{}{C:inactive} Chips and {C:mult}+#6#{} Mult)'
         },
       }, 
@@ -898,8 +898,8 @@ return {
       j_Sculio_top_10_joker = {
         name = 'Top 10 Joker!!!',
         text = {
-          'If your {C:attention}first played hand{} is a',
-          'single {C:attention}#1#{}, create a random',
+          'If your {C:attention}first played hand{}',
+          'contains a {C:attention}#1#{}, create a random',
           '{V:1}#2#{} Joker {C:inactive}(#3#/#4#)',
           '{C:inactive}(Must have room){}',
         },

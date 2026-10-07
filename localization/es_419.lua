@@ -472,9 +472,9 @@ return {
       j_Sculio_binary = {
         name = 'Comodín Binario',
         text = {
-          'Tiene una prob. de {C:green}#1# en #2#{} de obtener',
-          '{C:chips}+#3#{} Fichas o {C:mult}+#4#{} Multi por cada',
-          'carta en mano al final de la ronda',
+          'Las cartas sacadas al inicio de cada ronda',
+          'tienen una prob. de {C:green}#1# en #2#{} de',
+          'obtener {C:chips}+#3#{} Fichas o {C:mult}+#4#{} Multi',
           '{C:inactive}(Actualmente {C:chips}+#5#{}{C:inactive} Fichas y {C:mult}+#6#{} {C:inactive}Multi)'
         },
       }, 
@@ -899,7 +899,7 @@ return {
         name = 'top 10 joker!!!',
         text = {
           'Si tu {C:attention}primera mano{} jugada',
-          'es exactamente un {C:attention}#1#{}, crea un',
+          'contiene un {C:attention}#1#{}, crea un',
           'Comodín {V:1}#2#{} {C:inactive}(#3#/#4#)',
           '{C:inactive}(Debe haber espacio){}',
         },
