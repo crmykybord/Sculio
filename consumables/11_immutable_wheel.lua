@@ -16,13 +16,11 @@ SMODS.Consumable {
     Sculio.track_inverted_use(card)
     Sculio.morph_wheel_into_tarot(card, 1, Sculio.distorted() and 'Tarot' or nil)
     if Sculio.distorted() then
-      -- Distorted Flow: the second (Inverted) Tarot appears only once the Wheel
-      -- has fully dissolved.
       G.E_MANAGER:add_event(Event({ trigger = 'condition', blocking = false, blockable = false,
         ref_table = card, ref_value = 'REMOVED', stop_val = true,
         func = function()
           if not card.REMOVED then return false end
-          Sculio.invoke_random_tarot(2, 'Inverted', 0)
+          Sculio.invoke_random_tarot(2, 'Inverted', G.CARD_W)
           return true
         end
       }))
