@@ -61,6 +61,17 @@ local function cv_apply_bonuses(card, guaranteed_type, enhancement_center)
   end
 end
 
+local function cv_apply_rankless_bonuses(card)
+  if not card.seal then
+    local seal = SMODS.poll_seal({mod = 1, guaranteed = true})
+    if seal then card:set_seal(seal, true, true) end
+  end
+  if not card.edition then
+    local edition = poll_edition('cv_rankless_edition', nil, true, true)
+    if edition then card:set_edition(edition, true, true) end
+  end
+end
+
 -- Internal analysis function - returns best_id, rankless_dominant, best_enh_key
 local function cv_analyze_deck_internal()
   local rank_count = {}
@@ -133,22 +144,24 @@ end
 local function cv_build_rankless_card()
   local _, _, best_enh = cv_get_analysis()
   local suit_prefix = cv_get_suit_prefix('2')
-  local front = G.P_CARDS[suit_prefix .. '2'] or G.P_CARDS['S_2']
+  local front = G.P_CARDS[suit_prefix .. '2'] and (suit_prefix .. '2') or 'S_2'
   local center = (best_enh and G.P_CENTERS[best_enh]) or G.P_CENTERS.m_stone
 
-  if not front then return nil end
+  if not G.P_CARDS[front] then return nil end
 
-  local card = Card(
-    G.shop_jokers.T.x + G.shop_jokers.T.w / 2,
-    G.shop_jokers.T.y,
-    G.CARD_W, G.CARD_H,
-    front, center,
-    {bypass_discovery_center = true, bypass_discovery_ui = true}
-  )
+  local card = SMODS.create_card({
+    set = 'Enhanced',
+    key = center.key,
+    area = G.shop_jokers,
+    front = front,
+    no_edition = true,
+    skip_materialize = true,
+    key_append = 'cv'
+  })
   card.Sculio_vat_card = true
 
-  -- For rankless: enhancement is already set via center; guarantee seal OR edition
-  cv_apply_bonuses(card, nil, nil)
+  -- Rankless cards always get both modifiers.
+  cv_apply_rankless_bonuses(card)
 
   create_shop_card_ui(card)
   card:start_materialize()
@@ -157,21 +170,14 @@ end
 
 -- Returns guaranteed_type, enhancement_center for ranked cards
 local function cv_pick_guaranteed_bonus()
-  local enhs = {}
-  for k, v in pairs(G.P_CENTERS) do
-    if v.set == 'Enhanced' and Sculio.in_pool(v) then enhs[#enhs + 1] = k end
-  end
-
-  if #enhs > 0 then
-    local pool = {'seal', 'edition', 'enhancement'}
-    local choice = pool[pseudorandom('cv_ensure', 1, #pool)]
-    if choice == 'enhancement' then
-      return 'edition', G.P_CENTERS[enhs[pseudorandom('cv_enh', 1, #enhs)]]
-    else
-      return choice, G.P_CENTERS.c_base
+  local choice = pseudorandom('cv_ensure', 1, 3)
+  if choice == 3 then
+    local enhancement = SMODS.poll_enhancement({key = 'cv_enh', guaranteed = true})
+    if enhancement and G.P_CENTERS[enhancement] then
+      return 'edition', G.P_CENTERS[enhancement]
     end
   end
-  return (pseudorandom('cv_ensure', 1, 2) == 1 and 'seal' or 'edition'), G.P_CENTERS.c_base
+  return (pseudorandom('cv_ensure_fallback', 1, 2) == 1 and 'seal' or 'edition'), G.P_CENTERS.c_base
 end
 
 local function cv_build_ranked_card()
@@ -181,18 +187,20 @@ local function cv_build_ranked_card()
   local rank_suffix = cv_get_ranks().suffix[best_id]
   if not rank_suffix then return nil end
   local suit_prefix = cv_get_suit_prefix(rank_suffix)
-  local front = G.P_CARDS[suit_prefix .. rank_suffix]
-  if not front then return nil end
+  local front = suit_prefix .. rank_suffix
+  if not G.P_CARDS[front] then return nil end
 
   local guaranteed_type, center = cv_pick_guaranteed_bonus()
 
-  local card = Card(
-    G.shop_jokers.T.x + G.shop_jokers.T.w / 2,
-    G.shop_jokers.T.y,
-    G.CARD_W, G.CARD_H,
-    front, center,
-    {bypass_discovery_center = true, bypass_discovery_ui = true}
-  )
+  local card = SMODS.create_card({
+    set = center == G.P_CENTERS.c_base and 'Base' or 'Enhanced',
+    key = center ~= G.P_CENTERS.c_base and center.key or nil,
+    area = G.shop_jokers,
+    front = front,
+    no_edition = true,
+    skip_materialize = true,
+    key_append = 'cv'
+  })
   card.Sculio_vat_card = true
 
   cv_apply_bonuses(card, guaranteed_type, nil)
@@ -259,7 +267,7 @@ local function cv_apply_to_booster_card(card)
   if rankless_dominant then
     local enh_center = (best_enh and G.P_CENTERS[best_enh]) or G.P_CENTERS.m_stone
     card:set_ability(enh_center)
-    cv_apply_bonuses(card, nil, nil)
+    cv_apply_rankless_bonuses(card)
   elseif best_id then
     local rank_suffix = cv_get_ranks().suffix[best_id]
     if not rank_suffix then return end
