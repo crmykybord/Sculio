@@ -16,7 +16,6 @@ SMODS.Joker {
     return { vars = { card.ability.extra.x_mult } }
   end,
   calculate = function(self, card, context)
-    -- Per scored card, so blueprint_compat is off: `individual` fires once per joker.
     if context.individual and context.cardarea == G.play and context.other_card then
       local hands = context.poker_hands or {}
       if next(hands['Full House'] or {}) or next(hands['Flush House'] or {}) then

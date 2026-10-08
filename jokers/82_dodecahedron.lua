@@ -23,20 +23,17 @@ SMODS.Joker {
   pos = { x = 4, y = 8 },
   cost = 7,
   calculate = function(self, card, context)
-    if context.before and not context.blueprint then
-      roll_effect(card)
+    if context.before then
       local extra = card.ability.extra
+      local hands_played = G.GAME.current_round.hands_played
+      if extra.last_hand ~= hands_played then
+        roll_effect(card)
+        extra.last_hand = hands_played
+      end
       local eff_card = context.blueprint_card or card
       if extra.effect == 'money' then
         ease_dollars(extra.money) -- already credits G.GAME.dollars
-        G.E_MANAGER:add_event(Event({
-          trigger = 'immediate',
-          func = function()
-            card_eval_status_text(eff_card, 'extra', nil, nil, nil,
-              { message = localize('$') .. extra.money, colour = G.C.MONEY })
-            return true
-          end
-        }))
+        card_eval_status_text(eff_card, 'dollars', extra.money)
       elseif extra.effect == 'level' and context.scoring_name and G.GAME.hands[context.scoring_name] then
         level_up_hand(eff_card, context.scoring_name, false, extra.levels)
       end
