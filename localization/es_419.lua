@@ -7,7 +7,8 @@ return {
           'Un Mod Vanilla que busca agregar',
           'contenido nuevo a Balatro que se sienta',
           'como el original',
-          '(90 Comodines, 18 Tarots Invertidos, 7 Mejoras)',
+          '90 Comodines, 18 Tarots Invertidos, 7 Mejoras,',
+          "1 sello y 4 Barajas",
           ' ',
           '{C:attention}Créditos:{}',
           '{C:money}crmykybord{}: Dibujo y Diseño',
@@ -843,7 +844,7 @@ return {
           '{C:attention}Carta Multi{} anotada',
         },
       },
-      -- 82. Dodecaedro
+      -- 82. Dodecahedron
       j_Sculio_dodecahedron = {
         name = 'Dodecaedro',
         text = {
@@ -1017,6 +1018,95 @@ return {
           'Comienzas con {T:v_Sculio_inverted_merchant,C:attention}Falsificador de Tarots{}',
         },
       },
+      b_Sculio_mint = {
+        name = 'Baraja de Menta',
+        text = {
+          'Al final de la ronda:',
+          "ganas {C:money}dinero{} igual al"
+          'valor de venta de tus {C:attention}Comodines{}',
+          'No ganas {C:attention}interés{}',
+        },
+      },
+      b_Sculio_lunar = {
+        name = 'Baraja Lunar',
+        text = {
+          "Al inicio de cada Apuesta:",
+          "La tienda tiene un"
+          '{C:planet}Mega Paquete Celestial{}',
+          "gratis"
+        },
+      },
+      b_Sculio_sculio = {
+        name = 'Baraja Sculio',
+        text = {
+          'Los {C:attention}Comodines de Sculio{}',
+          'son X#1# más comunes',
+        },
+      },
+    },
+    Sleeve = {
+      sleeve_Sculio_cetonic = {
+        name = 'Funda Ctónica',
+        text = {
+          'Los {C:tarot}Paquetes Arcanos{}',
+          'no aparecen en la Tienda',
+          'Comienzas con {T:v_Sculio_inverted_merchant,C:attention}Falsificador de Tarots{}',
+        },
+      },
+      sleeve_Sculio_cetonic_alt = {
+        name = 'Funda Ctónica',
+        text = {
+          'Comienzas con {T:v_Sculio_droste_effect,C:attention}Efecto Droste{}',
+        },
+      },
+      sleeve_Sculio_mint = {
+        name = 'Funda de Menta',
+        text = {
+          'Al final de la ronda:',
+          "ganas {C:money}dinero{} igual al"
+          'valor de venta de tus {C:attention}Comodines{}',
+          'No ganas {C:attention}interés{}',
+        },
+      },
+      sleeve_Sculio_mint_alt = {
+        name = 'Funda de Menta',
+        text = {
+          'Al derrotar una {C:attention}Ciega Jefe{}, un Comodín',
+          'al azar obtiene',
+          '{C:money}+$#1#{} de valor de venta',
+        },
+      },
+      sleeve_Sculio_lunar = {
+        name = 'Funda Lunar',
+        text = {
+          "Al inicio de cada Apuesta:",
+          "La tienda tiene un"
+          '{C:planet}Mega Paquete Celestial{}',
+          "gratis"
+        },
+      },
+      sleeve_Sculio_lunar_alt = {
+        name = 'Funda Lunar',
+        text = {
+          'Las manos jugadas tienen',
+          "una prob. de {C:green}#1# en #2#{} de subir",
+          'de {C:planet}nivel{}',
+        },
+      },
+      sleeve_Sculio_sculio = {
+        name = 'Funda Sculio',
+        text = {
+          'Los {C:attention}Comodines de Sculio{}',
+          'son X#1# más comunes',
+        },
+      },
+      sleeve_Sculio_sculio_alt = {
+        name = 'Funda Sculio',
+        text = {
+          'Comienzas con',
+          "{T:v_overstock_norm,C:attention}Excedente{} y {C:money}$#2#{}",
+        },
+      },
     },
     Enhanced = {
       m_Sculio_experimental = {
@@ -1188,7 +1278,7 @@ return {
       c_Sculio_secularist = {
         name = 'La Laica',
         text = {
-          'Sube de {C:planet}nivel entre {C:attention}#1#{} y',
+          'Sube de {C:planet}nivel{} entre {C:attention}#1#{} y',
           '{C:attention}#2#{} manos de póker al azar',
         },
       },
