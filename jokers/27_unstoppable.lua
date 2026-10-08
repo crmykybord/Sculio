@@ -27,10 +27,7 @@ SMODS.Joker {
     local x_mult = extra.x_mult or 1
 
     if context.joker_main and x_mult > 1 then
-      return {
-        xmult = x_mult,
-        message = localize { type = 'variable', key = 'a_xmult', vars = { x_mult } }
-      }
+      return { xmult = x_mult, }
     end
 
     if context.selling_self then
