@@ -17,19 +17,24 @@ SMODS.Joker {
   end,
   calculate = function(self, card, context)
     if context.individual and context.cardarea == G.play then
-      if Sculio.is_most_played(context.scoring_name) then
-        local most_played_count = (G.GAME.hands[context.scoring_name].played or 0)
+      -- Most played visible hand wins (ties lose): any other visible hand
+      -- with >= plays disqualifies us. Inlined from the old is_most_played.
+      local is_most_played = true
+      local most_played_count = (G.GAME.hands[context.scoring_name].played or 0)
+      for k, v in pairs(G.GAME.hands) do
+        if k ~= context.scoring_name and v.played >= most_played_count and v.visible then
+          is_most_played = false
+          break
+        end
+      end
+      if is_most_played then
         local perma_bonus_gain = most_played_count * card.ability.extra.hand_count_mult
 
         -- Based off of Hiker.
         context.other_card.ability.perma_bonus = context.other_card.ability.perma_bonus or 0
         context.other_card.ability.perma_bonus = context.other_card.ability.perma_bonus + perma_bonus_gain
 
-        return {
-          extra = {message = localize('k_upgrade_ex'), colour = G.C.CHIPS},
-          colour = G.C.CHIPS,
-          card = card
-        }
+        return { extra = {message = localize('k_upgrade_ex'), colour = G.C.CHIPS}, colour = G.C.CHIPS, card = card }
       end
     end
   end
