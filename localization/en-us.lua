@@ -1535,6 +1535,7 @@ return {
       k_Sculio_top_10_uncommon = 'Uncommon',
       k_Sculio_top_10_rare = 'Rare',
       k_Sculio_top_10_negative = 'Negative',
+      k_Sculio_plus_tag = '+1 Tag',
     },
     v_dictionary = {
       k_Sculio_crooked_stole = 'Stole $#1#',
