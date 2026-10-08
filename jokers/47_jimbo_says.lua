@@ -49,6 +49,11 @@ SMODS.Joker {
       roll_suit(card)
     end
 
+    if context.hand_drawn and context.first_hand_drawn and not context.blueprint then
+      local eval = function() return not card.ability.extra.triggered_this_round end
+      juice_card_until(card, eval, true)
+    end
+
     if context.before then
       if context.blueprint or not card.ability.extra.triggered_this_round then
         local current_suit = card.ability.extra.suit
@@ -78,14 +83,15 @@ SMODS.Joker {
           -- Create random tag
           G.E_MANAGER:add_event(Event({
             func = function()
-              local tag = Tag(get_next_tag_key())
-              add_tag(tag)
+              local key = get_next_tag_key()
+              local tag = G.P_TAGS[key] and Tag(key)
+              if tag then add_tag(tag) end
               play_sound('generic1', 0.9 + math.random()*0.1, 0.8)
               return true
             end
           }))
 
-          return { message = localize('k_plus_tag') }
+          return { message = localize('k_Sculio_plus_tag') }
         end
       end
     end
