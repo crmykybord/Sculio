@@ -1021,17 +1021,18 @@ return {
       b_Sculio_mint = {
         name = 'Baraja de Menta',
         text = {
-          'Al final de la ronda, ganas dinero',
-          'igual al valor de venta de tus {C:attention}Comodines{}',
+          'Al final de la ronda:',
+          'Ganas {C:money}dinero{} igual al valor',
+          'de venta de tus {C:attention}Comodines{}',
           'No ganas {C:attention}interés{}',
         },
       },
       b_Sculio_lunar = {
         name = 'Baraja Lunar',
         text = {
+          'Al inicio de cada Apuesta:',
           'Aparece gratis un',
           '{T:p_celestial_mega_1,C:planet}Mega Paquete Celestial{}',
-          'en la primera Tienda de cada Apuesta',
         },
       },
       b_Sculio_sculio = {
@@ -1060,8 +1061,9 @@ return {
       sleeve_Sculio_mint = {
         name = 'Funda de Menta',
         text = {
-          'Al final de la ronda, ganas dinero',
-          'igual al valor de venta de tus {C:attention}Comodines{}',
+          'Al final de la ronda:',
+          'Ganas {C:money}dinero{} igual al valor',
+          'de venta de tus {C:attention}Comodines{}',
           'No ganas {C:attention}interés{}',
         },
       },
@@ -1076,16 +1078,17 @@ return {
       sleeve_Sculio_lunar = {
         name = 'Funda Lunar',
         text = {
+          'Al inicio de cada Apuesta:',
           'Aparece gratis un',
           '{T:p_celestial_mega_1,C:planet}Mega Paquete Celestial{}',
-          'en la primera Tienda de cada Apuesta',
         },
       },
       sleeve_Sculio_lunar_alt = {
         name = 'Funda Lunar',
         text = {
-          'Las manos jugadas tienen una prob. de',
-          '{C:green}#1# en #2#{} de subir de nivel',
+          'Las manos jugadas tienen',
+          "una prob. de {C:green}#1# en #2#{} de subir",
+          'de {C:planet}nivel{}',
         },
       },
       sleeve_Sculio_sculio = {
@@ -1098,7 +1101,8 @@ return {
       sleeve_Sculio_sculio_alt = {
         name = 'Funda Sculio',
         text = {
-          'Comienzas con {T:v_overstock_norm,C:attention}Excedente{} y {C:money}$#2#{}',
+          'Comienzas con',
+          "{T:v_overstock_norm,C:attention}Excedente{} y {C:money}$#2#{}",
         },
       },
     },

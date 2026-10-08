@@ -1022,8 +1022,8 @@ return {
         name = 'Baraja de Menta',
         text = {
           'Al final de la ronda:',
-          'Ganas {C:money}dinero{} igual al',
-          'valor de venta de tus {C:attention}Comodines{}',
+          'Ganas {C:money}dinero{} igual al valor',
+          'de venta de tus {C:attention}Comodines{}',
           'No ganas {C:attention}interés{}',
         },
       },
@@ -1062,8 +1062,8 @@ return {
         name = 'Funda de Menta',
         text = {
           'Al final de la ronda:',
-          'Ganas {C:money}dinero{} igual al',
-          'valor de venta de tus {C:attention}Comodines{}',
+          'Ganas {C:money}dinero{} igual al valor',
+          'de venta de tus {C:attention}Comodines{}',
           'No ganas {C:attention}interés{}',
         },
       },
