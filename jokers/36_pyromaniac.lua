@@ -23,7 +23,15 @@ SMODS.Joker {
 
     if context.before then
       if G.GAME.current_round.hands_played == 0 then
-        if Sculio.is_most_played(context.scoring_name) then
+        local is_most_played = true
+        local most_played_count = (G.GAME.hands[context.scoring_name].played or 0)
+        for k, v in pairs(G.GAME.hands) do
+          if k ~= context.scoring_name and v.played >= most_played_count and v.visible then
+            is_most_played = false
+            break
+          end
+        end
+        if is_most_played then
           local text = context.scoring_name
 
           for i = 1, card.ability.extra.levels_to_increase, 1 do
