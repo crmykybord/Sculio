@@ -1032,8 +1032,8 @@ return {
         name = 'Lunar Deck',
         text = {
           'At the start of each Ante:',
-          "Theres is a free",
-          "{C:plnaet}Mega Celestial Pack{}",
+          'A free',
+          '{T:p_celestial_mega_1,C:planet}Mega Celestial Pack{}',
         },
       },
       b_Sculio_sculio = {
@@ -1080,8 +1080,8 @@ return {
         name = 'Lunar Sleeve',
         text = {
           'At the start of each Ante:',
-          "Theres is a free",
-          "{C:plnaet}Mega Celestial Pack{}",
+          'A free',
+          '{T:p_celestial_mega_1,C:planet}Mega Celestial Pack{}',
         },
       },
       sleeve_Sculio_lunar_alt = {

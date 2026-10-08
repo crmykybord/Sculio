@@ -1022,7 +1022,7 @@ return {
         name = 'Baraja de Menta',
         text = {
           'Al final de la ronda:',
-          "ganas {C:money}dinero{} igual al"
+          'Ganas {C:money}dinero{} igual al',
           'valor de venta de tus {C:attention}Comodines{}',
           'No ganas {C:attention}interés{}',
         },
@@ -1030,10 +1030,9 @@ return {
       b_Sculio_lunar = {
         name = 'Baraja Lunar',
         text = {
-          "Al inicio de cada Apuesta:",
-          "La tienda tiene un"
-          '{C:planet}Mega Paquete Celestial{}',
-          "gratis"
+          'Al inicio de cada Apuesta:',
+          'Aparece gratis un',
+          '{T:p_celestial_mega_1,C:planet}Mega Paquete Celestial{}',
         },
       },
       b_Sculio_sculio = {
@@ -1063,7 +1062,7 @@ return {
         name = 'Funda de Menta',
         text = {
           'Al final de la ronda:',
-          "ganas {C:money}dinero{} igual al"
+          'Ganas {C:money}dinero{} igual al',
           'valor de venta de tus {C:attention}Comodines{}',
           'No ganas {C:attention}interés{}',
         },
@@ -1079,10 +1078,9 @@ return {
       sleeve_Sculio_lunar = {
         name = 'Funda Lunar',
         text = {
-          "Al inicio de cada Apuesta:",
-          "La tienda tiene un"
-          '{C:planet}Mega Paquete Celestial{}',
-          "gratis"
+          'Al inicio de cada Apuesta:',
+          'Aparece gratis un',
+          '{T:p_celestial_mega_1,C:planet}Mega Paquete Celestial{}',
         },
       },
       sleeve_Sculio_lunar_alt = {

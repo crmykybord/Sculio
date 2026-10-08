@@ -1029,8 +1029,9 @@ return {
       b_Sculio_lunar = {
         name = 'Baraja Lunar',
         text = {
-          'Aparece un {C:attention}Mega Paquete Celestial{}',
-          'gratis en la primera Tienda de cada Apuesta',
+          'Aparece gratis un',
+          '{T:p_celestial_mega_1,C:planet}Mega Paquete Celestial{}',
+          'en la primera Tienda de cada Apuesta',
         },
       },
       b_Sculio_sculio = {
@@ -1075,8 +1076,9 @@ return {
       sleeve_Sculio_lunar = {
         name = 'Funda Lunar',
         text = {
-          'Aparece un {C:attention}Mega Paquete Celestial{}',
-          'gratis en la primera Tienda de cada Apuesta',
+          'Aparece gratis un',
+          '{T:p_celestial_mega_1,C:planet}Mega Paquete Celestial{}',
+          'en la primera Tienda de cada Apuesta',
         },
       },
       sleeve_Sculio_lunar_alt = {
