@@ -6,7 +6,8 @@ return {
         text = {
           'A vanilla-esque mod that aims to add',
           'new and faithful content to Balatro',
-          '(90 Jokers, 18 Inverted Tarots, 7 Enhancements)',
+          '90 Jokers, 18 Inverted Tarots, 7 Enhancements',
+          "1 Seal and 4 Decks",
           ' ',
           '{C:attention}Credits:{}',
           '{C:money}crmykybord{}: Sprite Artist',
@@ -845,7 +846,7 @@ return {
           'scored {C:attention}Mult Card{}',
         },
       },
-      -- 82. Does Anything?
+      -- 82. Dodecahedron
       j_Sculio_dodecahedron = {
         name = 'Dodecahedron',
         text = {
@@ -1016,6 +1017,92 @@ return {
           '{C:tarot}Arcana Packs{} no longer',
           'appear in the shop',
           'Start with {T:v_Sculio_inverted_merchant,C:attention}Tarot Forger{}',
+        },
+      },
+      b_Sculio_mint = {
+        name = 'Mint Deck',
+        text = {
+          'At end of round:',
+          "gain {C:money}money{} equal to the",
+          'total sell value of your {C:attention}Jokers{}',
+          'Earn no {C:attention}interest{}',
+        },
+      },
+      b_Sculio_lunar = {
+        name = 'Lunar Deck',
+        text = {
+          'At the start of each Ante:',
+          'A free',
+          '{T:p_celestial_mega_1,C:planet}Mega Celestial Pack{}',
+        },
+      },
+      b_Sculio_sculio = {
+        name = 'Sculio Deck',
+        text = {
+          '{C:attention}Sculio Jokers{}',
+          'are X#1# more common',
+        },
+      },
+    },
+    Sleeve = { -- Requires Cards Sleeves
+      sleeve_Sculio_cetonic = {
+        name = 'Cthonic Sleeve',
+        text = {
+          '{C:tarot}Arcana Packs{} no longer',
+          'appear in the shop',
+          'Start with {T:v_Sculio_inverted_merchant,C:attention}Tarot Forger{}',
+        },
+      },
+      sleeve_Sculio_cetonic_alt = {
+        name = 'Cthonic Sleeve',
+        text = {
+          'Start with {T:v_Sculio_droste_effect,C:attention}Droste Effect{}',
+        },
+      },
+      sleeve_Sculio_mint = {
+        name = 'Mint Sleeve',
+        text = {
+          'At end of round:',
+          "gain {C:money}money{} equal to the",
+          'total sell value of your {C:attention}Jokers{}',
+          'Earn no {C:attention}interest{}',
+        },
+      },
+      sleeve_Sculio_mint_alt = {
+        name = 'Mint Sleeve',
+        text = {
+          'A random Joker gains',
+          '{C:money}$#1#{} sell value after',
+          "defeating the {C:attention}Boss Blind{}",
+        },
+      },
+      sleeve_Sculio_lunar = {
+        name = 'Lunar Sleeve',
+        text = {
+          'At the start of each Ante:',
+          'A free',
+          '{T:p_celestial_mega_1,C:planet}Mega Celestial Pack{}',
+        },
+      },
+      sleeve_Sculio_lunar_alt = {
+        name = 'Lunar Sleeve',
+        text = {
+          'Played hands have a {C:green}#1# in #2#{}',
+          'chance to level up',
+        },
+      },
+      sleeve_Sculio_sculio = {
+        name = 'Sculio Sleeve',
+        text = {
+          '{C:attention}Sculio Jokers{}',
+          'are X#1# more common',
+        },
+      },
+      sleeve_Sculio_sculio_alt = {
+        name = 'Sculio Sleeve',
+        text = {
+          'Start with {T:v_overstock_norm,C:attention}Overstock{}',
+          "and {C:money}$#2#{}",
         },
       },
     },
@@ -1448,6 +1535,7 @@ return {
       k_Sculio_top_10_uncommon = 'Uncommon',
       k_Sculio_top_10_rare = 'Rare',
       k_Sculio_top_10_negative = 'Negative',
+      k_Sculio_plus_tag = '+1 Tag',
     },
     v_dictionary = {
       k_Sculio_crooked_stole = 'Stole $#1#',

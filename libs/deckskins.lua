@@ -20,6 +20,6 @@ for _, collab in ipairs(COLLABS) do
     key = collab.key,
     suit = collab.suit,
     loc_txt = collab.name,
-    palettes = { { key = 'lc', ranks = FACE_RANKS, display_ranks = DISPLAY_RANKS, atlas = lc.key, pos_style = RANK_POS }, { key = 'hc', ranks = FACE_RANKS, display_ranks = DISPLAY_RANKS, atlas = hc.key, pos_style = RANK_POS }, },
+    palettes = { { key = 'lc', ranks = FACE_RANKS, display_ranks = DISPLAY_RANKS, atlas = lc.key, pos_style = RANK_POS }, { key = 'hc', ranks = FACE_RANKS, display_ranks = DISPLAY_RANKS, atlas = hc.key, pos_style = RANK_POS, hc_default = true }, },
   }
 end

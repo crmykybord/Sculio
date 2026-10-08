@@ -5,11 +5,12 @@ SMODS.Atlas { key = 'Sculio_Consumables', path = 'Consumables.png', px = 71, py 
 SMODS.Atlas { key = 'Sculio_Enhancements', path = 'Enhancements.png', px = 71, py = 95 }
 SMODS.Atlas { key = 'Sculio_Booster', path = 'Booster Packs.png', px = 71, py = 95 }
 SMODS.Atlas { key = 'Sculio_Vouchers', path = 'Vouchers.png', px = 71, py = 95 }
+SMODS.Atlas { key = 'Sculio_Sleeves', path = 'sleeves.png', px = 73, py = 95 } -- Requires Cards Sleeves Mod
 SMODS.ConsumableType { key = 'Inverted', primary_colour = HEX 'A84C45', secondary_colour = HEX 'A84C45', collection_rows = { 6, 5 } }
 SMODS.UndiscoveredSprite { key = 'Inverted', atlas = 'Sculio_Consumables', pos = { x = 2, y = 2 } }
 
 SMODS.current_mod.optional_features = function()
-  return { post_trigger = true, retrigger_joker = true, quantum_enhancements = true }
+  return { post_trigger = true, retrigger_joker = true, quantum_enhancements = true, object_weights = true }
 end
 
 assert(SMODS.load_file('libs/utils.lua'))()
@@ -55,6 +56,10 @@ load_dir('tags', skip_files)
 load_dir('boosters', skip_files)
 load_dir('vouchers', skip_files)
 load_dir('decks', skip_files)
+-- Cross Mod stuff
+if CardSleeves then
+  load_dir('Crossmod/sleeves')
+end
 
 assert(SMODS.load_file('libs/shuffle.lua'))()
 
