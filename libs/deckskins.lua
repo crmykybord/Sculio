@@ -10,14 +10,8 @@ local COLLABS = {
 }
 
 local FACE_RANKS = { 'Jack', 'Queen', 'King' }
-
 local DISPLAY_RANKS = { 'King', 'Queen', 'Jack' } -- THAT WAS ALL XD
-
-local RANK_POS = {
-  Jack = { pos = { x = 0, y = 0 } },
-  Queen = { pos = { x = 1, y = 0 } },
-  King = { pos = { x = 2, y = 0 } },
-}
+local RANK_POS = { Jack = { pos = { x = 0, y = 0 } }, Queen = { pos = { x = 1, y = 0 } }, King = { pos = { x = 2, y = 0 } } }
 
 for _, collab in ipairs(COLLABS) do
   local lc = SMODS.Atlas { key = 'Sculio_ds_' .. collab.key .. '_lc', path = 'Deck Skins/Standard/' .. collab.key .. '_lc.png', px = 71, py = 95 }

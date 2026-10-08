@@ -130,7 +130,7 @@ return {
         name = 'Oro Bruto',
         text = {
           'Las {C:attention}Cartas de Piedra{}',
-          'anotadas ganan un {C:attention}Sello de oro{}'
+          'anotadas otorgan {C:money}$3{}'
         },
       },
       -- 7. Pop Star
@@ -157,7 +157,7 @@ return {
         name = 'Maquina de Chicle',
         text = {
           '{C:mult}+#2#{} Multi al abrir {C:attention}paquetes potenciadores{}',
-          '{C:mult}#3#{} Multi al saltar {C:attention}paquetes potenciadores{}',
+          '{C:mult}#3#{} Multi al omitir {C:attention}paquetes potenciadores{}',
           'Se destruye al llegar a {C:mult}+#4#{} Multi',
           '{C:inactive}(Actualmente {C:mult}+#1#{}{C:inactive} Multi)'
         },
@@ -168,7 +168,7 @@ return {
         text = {
           'Cada {C:attention}carta de número{} tiene',
           'una prob. {C:green}igual a su valor{}',
-          'de reactivarse'
+          'de reactivarse',
         }
       },  
       -- 11. Handheld
@@ -185,9 +185,9 @@ return {
         name = 'Escena del Crimen',
         text = {
           'Si la {C:attention}primera mano{} de la ronda',
-          'es {C:attention}1{} carta, el comodín gana',
-          'la {C:attention}mitad{} de las {C:attention}fichas base{}',
-          'de la carta notado como multi ',
+          'es {C:attention}1{} carta, obtiene la {C:attention}mitad{}',
+          'de las {C:blue}fichas base{} de la carta',
+          'jugada como {C:red}multi{}',
           '{C:inactive}(Actualmente {C:mult}+#1#{}{C:inactive} Multi)'
         },
       }, 
@@ -308,8 +308,8 @@ return {
       j_Sculio_effigy = {
         name = 'Efigie',
         text = {
-          'Copia la habilidad de un',
-          '{C:attention}Comodín{} al azar',
+          'Copia la habilidad de',
+          'un {C:attention}Comodín{} al azar',
         },
       }, 
       -- 25. Bad Trip
@@ -356,8 +356,8 @@ return {
         text = {
           'Las {C:attention}Cartas de Piedra{}',
           'anotadas ganan {C:chips}+#3#{} fichas',
-          'y tienen una prob. de {C:green}#1# en #2#{}',
-          'de {C:attention}destruirse{}',
+          'y tienen una prob.',
+          'de {C:green}#1# en #2#{} de {C:attention}destruirse{}',
         },
       }, 
       -- 30. Prescription
@@ -394,10 +394,8 @@ return {
         name = 'Tanque de Clonación',
         text = {
           'Tu {C:attention}Categoría más común{} aparece en',
-          'la tienda y {C:attention}Paquetes Estándar{}.',
-          'Si todas las categorías son igual de comunes,',
-          'se elige una al azar hasta comprar una carta.',
-          'Siempre tiene al menos una {C:attention}Mejora{},',
+          'la tienda y {C:attention}Paquetes Estándar{} y',
+          'siempre tiene al menos una {C:attention}Mejora{},',
           '{C:dark_edition}Edición{} o {C:attention}Sello{}',
         },
       },
@@ -458,7 +456,7 @@ return {
           'Después de {C:attention}#1#{} rondas, vende este',
           "comodín para otorgar edición",
           "{C:dark_edition}negativa{} a un {C:attention}comodín{} al azar",
-          "{C:inactive}(Actualmente {C:attention}#2#{C:inactive} / #1#)"
+          "{C:inactive}(Actualmente {C:attention}#2#{C:inactive}/#1#)"
         },
       }, 
       -- 40. Nametag
@@ -474,9 +472,9 @@ return {
       j_Sculio_binary = {
         name = 'Comodín Binario',
         text = {
-          'Tiene una prob. de {C:green}#1# en #2#{} de obtener',
-          '{C:chips}+#3#{} Fichas o {C:mult}+#4#{} Multi por cada',
-          'carta en mano al final de la ronda',
+          'Las cartas sacadas al inicio de cada ronda',
+          'tienen una prob. de {C:green}#1# en #2#{} de',
+          'obtener {C:chips}+#3#{} Fichas o {C:mult}+#4#{} Multi',
           '{C:inactive}(Actualmente {C:chips}+#5#{}{C:inactive} Fichas y {C:mult}+#6#{} {C:inactive}Multi)'
         },
       }, 
@@ -517,12 +515,12 @@ return {
           'sus {C:chips}fichas base{} como {C:mult}Multi{}',
         },
       },
-      -- 46. Pocket Money
+      -- 46. Spare Cash
       j_Sculio_cash = {
         name = 'Sencillo',
         text = {
-          'Recupera {C:money}$#1#{} en la',
-          'primera compra de cada ronda'
+          'Recupera {C:money}$#1#{} en la primera',
+          'compra de cada ronda'
         },
       },
       -- 47. Jimbo Says
@@ -540,10 +538,9 @@ return {
         name = 'Metro Comodín',
         text = {
           'Al derrotar una {C:attention}Ciega Jefe{},',
-          'otorga una {C:attention}Mejora{},',
-          '{C:attention}Sello{} o {C:attention}Edición{} al azar',
+          'otorga una {C:attention}Mejora{}, {C:attention}Sello{}',
+          'o {C:dark_edition}Edición{} al azar',
           'a {C:attention}#1#{} cartas de tu Baraja',
-          'que no tengan ninguna',
         },
       },
       -- 49. Gladiator Joker
@@ -589,8 +586,8 @@ return {
         name = 'El Líder',
         text = {
           'Al jugar {C:attention}Carta más Alta{},',
-          'añade {C:mult}+#1#{} Multi por cada',
-          'vez que se jugó anteriormente',
+          'añade {C:mult}+#1#{} Multi por cada vez',
+          'que se jugó anteriormente',
           '{C:inactive}(Actualmente {C:mult}+#2#{}{C:inactive} Multi)'
         },
       },
@@ -664,8 +661,8 @@ return {
         name = 'Llaves Perdidas',
         text = {
           'Tras derrotar cualquier {C:attention}ciega{},',
-          'la {C:money}Tienda{} tiene {C:attention}#1#{}',
-          '{C:attention}paquetes potenciadores{} gratis',
+          'la {C:money}Tienda{} tiene {C:attention}#1#{} {C:attention}paquetes{}',
+          '{C:attention}potenciadores{} gratis',
         },
       },
       -- 62. Gun Target
@@ -771,9 +768,8 @@ return {
         name = 'Estatua Inquietante',
         text = {
           'Al usar una carta de {C:tarot}Tarot{},',
-          'hay una prob. de {C:green}#1# en #2#{}',
-          'de obtener su contraparte',
-          '{C:inverted}invertida{}',
+          'hay una prob. de {C:green}#1# en #2#{} de',
+          'obtener su contraparte {C:inverted}invertida{}',
           '{C:inactive}(Debe haber espacio){}',
         },
       },
@@ -847,7 +843,7 @@ return {
           '{C:attention}Carta Multi{} anotada',
         },
       },
-      -- 82. ¿Hace algo?
+      -- 82. Dodecaedro
       j_Sculio_dodecahedron = {
         name = 'Dodecaedro',
         text = {
@@ -873,7 +869,7 @@ return {
       },
       -- 85. Hoarder
       j_Sculio_hoarder = {
-        name = 'Ahorrador',
+        name = 'Bóveda',
         text = {
           'Crea {C:tarot}El Ermitaño{} si',
           'dejas la tienda sin gastar',
@@ -903,7 +899,7 @@ return {
         name = 'top 10 joker!!!',
         text = {
           'Si tu {C:attention}primera mano{} jugada',
-          'es exactamente un {C:attention}#1#{}, crea un',
+          'contiene un {C:attention}#1#{}, crea un',
           'Comodín {V:1}#2#{} {C:inactive}(#3#/#4#)',
           '{C:inactive}(Debe haber espacio){}',
         },
@@ -922,8 +918,8 @@ return {
       j_Sculio_cartomante = {
         name = '¿Cartomante?',
         text = {
-          'Crea un {C:inverted}Tarot Invertido{}',
-          'al azar al seleccionar una ciega',
+          'Crea un {C:inverted}Tarot Invertido{} al',
+          'azar al seleccionar una ciega',
           '{C:inactive}(Debe haber espacio){}',
         },
       },
@@ -1124,9 +1120,9 @@ return {
       m_Sculio_divine = {
         name = 'Carta Divina',
         text = {
-          'Mientras está en mano, las cartas que anotan',
-          'obtienen {C:chips}+7 Fichas{} o {C:mult}+3 Multi{}.',
-          'Alterna su modo entre manos',
+          'Al jugarse, da {C:money}$#1#{}',
+          'por cada {C:attention}palo único{}',
+          'de la mano jugada',
         },
       },
       m_Sculio_siege = {
@@ -1192,7 +1188,7 @@ return {
       c_Sculio_secularist = {
         name = 'La Laica',
         text = {
-          'Sube de nivel entre {C:attention}#1#{} y',
+          'Sube de {C:planet}nivel entre {C:attention}#1#{} y',
           '{C:attention}#2#{} manos de póker al azar',
         },
       },
@@ -1228,7 +1224,7 @@ return {
       c_Sculio_adversaries = {
         name = 'Los Adversarios',
         text = {
-          'Mejora {C:attention}#1#{} cartas',
+          'Mejora {C:attention}#1#{} cartas seleccionadas',
           'en {C:attention}Cartas Difuminadas{}',
         },
       },
@@ -1250,7 +1246,7 @@ return {
         name = 'El Mundano',
         text = {
           'Recupera el {C:money}#1#%{} del dinero gastado',
-          'en el Ante actual, hasta {C:money}$#2#{}',
+          'en la apuesta actual, hasta {C:money}$#2#{}',
           '{C:inactive}(Actualmente: $#3#){}',
         },
       },

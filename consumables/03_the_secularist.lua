@@ -20,13 +20,13 @@ SMODS.Consumable {
     for k, v in pairs(G.GAME.hands) do
       if v.visible then visible_hands[#visible_hands + 1] = k end
     end
-    -- Not affected by odds: uniform pick, one level each
     local num_hands = lo + math.floor(pseudorandom('sculio_secularist_n') * (hi - lo + 1))
     num_hands = math.min(num_hands, #visible_hands)
+    local picked = {}
     for i = 1, num_hands do
       local idx = math.floor(pseudorandom('sculio_secularist_h' .. tostring(i)) * #visible_hands) + 1
-      local hand_name = table.remove(visible_hands, idx)
-      SMODS.smart_level_up_hand(card, hand_name, false, 1)
+      picked[#picked + 1] = table.remove(visible_hands, idx)
     end
+    SMODS.upgrade_poker_hands({ hands = picked, from = card, level_up = 1, instant = false })
   end,
 }

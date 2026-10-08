@@ -1,5 +1,7 @@
 Sculio = Sculio or {}
+
 -- Destroy a joker card with standard animation and sound (based off Ice Cream)
+-- used by 2_impossible_stairs, 9_gumball and 15_crooked
 function Sculio.destroy_joker(card)
   G.E_MANAGER:add_event(Event({
     func = function()
@@ -53,19 +55,6 @@ function Sculio.absorb_edition(target_card, sold_card, bonus_mult)
   return nil
 end
 
--- Check if the given scoring_name is the most played visible hand
-function Sculio.is_most_played(scoring_name)
-  local most_played = true
-  local most_played_count = (G.GAME.hands[scoring_name].played or 0)
-  for k, v in pairs(G.GAME.hands) do
-    if k ~= scoring_name and v.played >= most_played_count and v.visible then
-      most_played = false
-      break
-    end
-  end
-  return most_played
-end
-
 -- Count cards in the deck with the given enhancement key
 function Sculio.count_enhanced(enh_key)
   local count = 0
@@ -102,10 +91,6 @@ function Sculio:calculate(context)
     if sendDebugMessage then sendDebugMessage('Sculio: recorded last inverted = ' .. tostring(context.consumeable.config.center_key), 'SCULIO') end
   end
 
-  -- Smeared Cards: 2+ played together destroy each other as the hand starts.
-  -- Must be queued at press_play so the dissolve happens before scoring.
-  -- One always survives (the leftmost): G.play.cards must never end up empty, or
-  -- evaluate_play gets text = 'NULL' and G.GAME.hands['NULL'] is nil -> crash.
   if context.press_play and G.hand and G.hand.highlighted then
     local played = G.hand.highlighted
     local smeared_cards = {}
@@ -340,10 +325,10 @@ end
 function Sculio.invoke_random_tarot(slot, only_set, x_off, on_done)
   local pool = Sculio.wheel_candidates(only_set)
   if #pool == 0 then return nil end
-  -- Start from a clean selection so leftover highlights don't break the target count
   if G.hand then G.hand:unhighlight_all() end
   for i = 1, 15 do
-    local key = pseudorandom_element(pool, pseudoseed('sculio_immutable' .. tostring(slot or '') .. i))
+    local salt = 'sculio_immutable' .. tostring(slot or '') .. i .. tostring(G.GAME.round or 0)
+    local key = pool[math.floor(pseudohash(salt) * #pool) + 1]
     local center = key and G.P_CENTERS[key]
     if center then
       local new_card = Card(
@@ -400,7 +385,8 @@ function Sculio.pick_wheel_tarot(slot, only_set)
   if #pool == 0 then return nil end
   if G.hand then G.hand:unhighlight_all() end
   for i = 1, 15 do
-    local key = pseudorandom_element(pool, pseudoseed('sculio_immutable' .. tostring(slot or '') .. i))
+    local salt = 'sculio_immutable' .. tostring(slot or '') .. i .. tostring(G.GAME.round or 0)
+    local key = pool[math.floor(pseudohash(salt) * #pool) + 1]
     local center = key and G.P_CENTERS[key]
     if center then
       -- Probe card only to validate that the Tarot can actually activate here
@@ -429,35 +415,26 @@ function Sculio.pick_wheel_tarot(slot, only_set)
   return nil
 end
 
--- The Immutable Wheel flips and *becomes* the chosen Tarot, then activates it
--- on the same card (no extra floating copies overlapping the dissolve)
 function Sculio.morph_wheel_into_tarot(card, slot, only_set)
   local center = Sculio.pick_wheel_tarot(slot, only_set)
   if not center then return nil end
 
-  -- Flip to the back; the face swaps while it is hidden
   card:flip()
   play_sound('card1')
   card:juice_up(0.3, 0.3)
-  G.E_MANAGER:add_event(Event({ trigger = 'after', delay = 0.45, func = function() return true end }))
-  card:set_ability(center, false, true)
 
-  -- The card now *is* the chosen Tarot: prepare targets before activating
-  if G.hand then
-    G.hand:unhighlight_all()
+  G.E_MANAGER:add_event(Event({ trigger = 'after', delay = 0.3, func = function()
+    if card.REMOVED then return true end
+    card:set_ability(center, false)
     local cfg = card.ability.consumeable or {}
-    if cfg.max_highlighted then
-      local available = #G.hand.cards
-      if available >= (cfg.min_highlighted or 1) then
-        highlight_random_hand(math.min(Sculio.max_highlighted(card), available), 'sculio_wheel_hl' .. tostring(slot or ''))
-      end
-    end
-  end
+    if cfg.max_highlighted then cfg.mod_num = math.min(5, cfg.max_highlighted) end
+    return true
+  end }))
 
-  -- Flip back to reveal the chosen Tarot, then fire its effect on this card
   local name = localize { type = 'name_text', key = center.key, set = center.set }
   local colour = G.C.SET[center.set] or G.C.SECONDARY_SET[center.set]
   G.E_MANAGER:add_event(Event({ trigger = 'after', delay = 0.35, func = function()
+    if card.REMOVED then return true end
     card:flip()
     play_sound('tarot2')
     card:juice_up(0.3, 0.3)
@@ -465,17 +442,47 @@ function Sculio.morph_wheel_into_tarot(card, slot, only_set)
     return true
   end }))
 
-  local ok, err = pcall(function() card:use_consumeable(G.consumeables) end)
-  if not ok and sendDebugMessage then sendDebugMessage('Sculio wheel: ' .. tostring(err), 'SCULIO') end
+  G.E_MANAGER:add_event(Event({ trigger = 'after', delay = 0.35, func = function()
+    if card.REMOVED then return true end
+    if G.hand then
+      G.hand:unhighlight_all()
+      local cfg = card.ability.consumeable or {}
+      if cfg.max_highlighted and #G.hand.cards >= (cfg.min_highlighted or 1) then
+        highlight_random_hand(math.min(Sculio.max_highlighted(card), #G.hand.cards), 'sculio_wheel_hl' .. tostring(slot or ''))
+      end
+    end
+    return true
+  end }))
+
+  local use_event = Event({ trigger = 'after', delay = 0.3, func = function()
+    if card.REMOVED then return true end
+    local queue = G.E_MANAGER.queues.base
+    local queued_before = #queue
+    local ok, err = pcall(function() card:use_consumeable(G.consumeables) end)
+    if not ok and sendDebugMessage then sendDebugMessage('Sculio wheel: ' .. tostring(err), 'SCULIO') end
+
+    if #queue > queued_before then
+      local here
+      for i = 1, #queue do
+        if queue[i] == use_event then here = i break end
+      end
+      if here then
+        local fresh = {}
+        for i = #queue, queued_before + 1, -1 do fresh[#fresh + 1] = queue[i]; queue[i] = nil end
+        for i = #fresh, 1, -1 do table.insert(queue, here, fresh[i]) end
+      end
+    end
+    return true
+  end })
+  G.E_MANAGER:add_event(use_event)
+
   return center
 end
 
--- Create up to n copies of a center inside an area
 function Sculio.create_center_card(center_key, area, n, seed, no_delay)
   n = n or 1
   seed = seed or 'sculio_create'
   local center = G.P_CENTERS[center_key]
-  -- Guard: a disabled/not-yet-loaded center would crash create_card (nil center)
   if not center then return end
   local set = center.set or 'Tarot'
   for i = 1, n do
@@ -494,7 +501,6 @@ function Sculio.create_center_card(center_key, area, n, seed, no_delay)
   if not no_delay then delay(0.45 * n) end
 end
 
--- True in states where selecting hand cards is allowed (vanilla consumable states)
 function Sculio.hand_selection_state()
   return G.STATE == G.STATES.SELECTING_HAND
     or G.STATE == G.STATES.TAROT_PACK
@@ -503,7 +509,6 @@ function Sculio.hand_selection_state()
     or G.STATE == G.STATES.SMODS_BOOSTER_OPENED
 end
 
--- Flip animation for consumable targets
 function Sculio.flip_highlighted(card, cards, apply_fn)
   if card then
     G.E_MANAGER:add_event(Event({ trigger = 'after', delay = 0.4, func = function()
@@ -555,10 +560,8 @@ function Sculio.can_select(card)
     and #G.hand.highlighted <= (Sculio.max_highlighted(card) or 5)
 end
 
--- Distorted Flow target caps per Inverted Tarot (keys not listed keep their base cap)
 Sculio.distorted_max = { c_Sculio_scholar = 3, c_Sculio_exiled = 3, c_Sculio_apostate = 3, c_Sculio_pikeman = 3, c_Sculio_weakness = 5, c_Sculio_atoned = 5, }
 
--- Effective max highlighted cards: Distorted Flow overrides targeting Inverted Tarots
 function Sculio.max_highlighted(card)
   local base = card.ability.consumeable.max_highlighted or 0
   local override = Sculio.distorted() and Sculio.distorted_max[card.config.center_key]
@@ -566,54 +569,38 @@ function Sculio.max_highlighted(card)
   return base
 end
 
--- Vanilla Tarot each Inverted Tarot mirrors
 Sculio.inverted_counterparts = {
-  c_Sculio_sane = 'c_fool',
-  c_Sculio_scholar = 'c_magician',
-  c_Sculio_secularist = 'c_high_priestess',
-  c_Sculio_exiled = 'c_empress',
-  c_Sculio_regicide = 'c_emperor',
-  c_Sculio_apostate = 'c_hierophant',
-  c_Sculio_adversaries = 'c_lovers',
-  c_Sculio_pikeman = 'c_chariot',
-  c_Sculio_arbitrariness = 'c_justice',
-  c_Sculio_mundane = 'c_hermit',
-  c_Sculio_immutable_wheel = 'c_wheel_of_fortune',
-  c_Sculio_weakness = 'c_strength',
-  c_Sculio_atoned = 'c_hanged_man',
-  c_Sculio_rebirth = 'c_death',
-  c_Sculio_impatient = 'c_temperance',
-  c_Sculio_archangel = 'c_devil',
-  c_Sculio_siege = 'c_tower',
-  c_Sculio_collapse = 'c_star',
-  c_Sculio_eclipse = 'c_moon',
-  c_Sculio_twilight = 'c_sun',
-  c_Sculio_mercy = 'c_judgement',
-  c_Sculio_cave = 'c_world',
+  c_Sculio_sane = 'c_fool', c_Sculio_scholar = 'c_magician',
+  c_Sculio_secularist = 'c_high_priestess', c_Sculio_exiled = 'c_empress',
+  c_Sculio_regicide = 'c_emperor',  c_Sculio_apostate = 'c_hierophant',
+  c_Sculio_adversaries = 'c_lovers',  c_Sculio_pikeman = 'c_chariot',
+  c_Sculio_arbitrariness = 'c_justice', c_Sculio_mundane = 'c_hermit',
+  c_Sculio_immutable_wheel = 'c_wheel_of_fortune',  c_Sculio_weakness = 'c_strength',
+  c_Sculio_atoned = 'c_hanged_man', c_Sculio_rebirth = 'c_death',
+  c_Sculio_impatient = 'c_temperance',  c_Sculio_archangel = 'c_devil',
+  c_Sculio_siege = 'c_tower', c_Sculio_collapse = 'c_star',
+  c_Sculio_eclipse = 'c_moon',  c_Sculio_twilight = 'c_sun',
+  c_Sculio_mercy = 'c_judgement', c_Sculio_cave = 'c_world',
 }
 
 function Sculio.counterpart(center_key)
   return Sculio.inverted_counterparts[center_key]
 end
 
--- Vanilla Tarot -> the Inverted Tarot that mirrors it
 function Sculio.inverted_counterpart(vanilla_key)
   for inverted, vanilla in pairs(Sculio.inverted_counterparts) do
     if vanilla == vanilla_key then return inverted end
   end
 end
 
--- Alternate description key while Distorted Flow is redeemed
 function Sculio.distorted_key(self)
   return Sculio.distorted() and (self.key .. '_distorted_flow') or self.key
 end
 
--- Record the last Inverted Tarot used
 function Sculio.track_inverted_use(card)
   G.GAME.Sculio_last_inverted = card.config.center_key
 end
 
--- Apply a function to up to n highlighted cards with the flip animation
 function Sculio.apply_highlighted(apply_fn, n, card)
   local cards = {}
   for i = 1, math.min(#G.hand.highlighted, n or #G.hand.highlighted) do
@@ -633,7 +620,6 @@ function Sculio.enhance_highlighted(enh_key, n, card)
   end, n, card)
 end
 
--- Weighted pick of one modifier kind available on a destroyed card
 function Sculio.pick_modifier(mods, seed, enh_weight)
   local pool = {}
   local function add(kind, value, weight) pool[#pool + 1] = { kind = kind, value = value, weight = weight } end
@@ -651,7 +637,6 @@ function Sculio.pick_modifier(mods, seed, enh_weight)
   return pool[#pool]
 end
 
--- Apply a modifier picked by pick_modifier onto a card
 function Sculio.apply_modifier(target, picked)
   if not picked then return false end
   if picked.kind == 'enhancement' and G.P_CENTERS[picked.value] then
@@ -667,48 +652,6 @@ function Sculio.apply_modifier(target, picked)
   return true
 end
 
--- Distorted Flow voucher has been redeemed
-function Sculio.distorted()
-  return (G.GAME and G.GAME.used_vouchers and G.GAME.used_vouchers['v_Sculio_distorted_flow']) and true or false
-end
-
--- Playing cards in hand that already carry an Edition
-function Sculio.edition_in_hand()
-  local targets = {}
-  for _, c in ipairs(G.hand and G.hand.cards or {}) do
-    if c.edition then targets[#targets + 1] = c end
-  end
-  return targets
-end
-
--- Playing cards in hand that carry no Edition yet
-function Sculio.blank_in_hand()
-  local targets = {}
-  for _, c in ipairs(G.hand and G.hand.cards or {}) do
-    if not c.REMOVED and not c.edition then targets[#targets + 1] = c end
-  end
-  return targets
-end
-
--- Droste Effect voucher's bonus on Inverted Arcana packs
-function Sculio.apply_droste_bonus()
-  local wanted = (G.GAME and G.GAME.used_vouchers and G.GAME.used_vouchers['v_Sculio_droste_effect']) and 1 or 0
-  for _, center in pairs(G.P_CENTERS or {}) do
-    if center.Sculio_base_extra then
-      center.config.extra = center.Sculio_base_extra + wanted
-      center.config.choose = center.Sculio_base_choose + wanted
-    end
-  end
-  -- Shop boosters created before the voucher keep their own copy of the config
-  for _, card in ipairs((G.shop_booster and G.shop_booster.cards) or {}) do
-    local center = card.config and card.config.center
-    if center and center.Sculio_base_extra and card.ability then
-      card.ability.extra = center.Sculio_base_extra + wanted
-      card.ability.choose = center.Sculio_base_choose + wanted
-    end
-  end
-end
-
 local function edition_center_key(edition)
   if type(edition) ~= 'table' then return edition end
   local key = edition.type or edition.key
@@ -718,7 +661,6 @@ local function edition_center_key(edition)
   end
 end
 
--- Localized display name of one modifier stored on a destroyed card
 function Sculio.modifier_label(mods, kind)
   if not mods then return nil end
   if kind == 'enhancement' and mods.enhancement then
@@ -734,7 +676,6 @@ function Sculio.modifier_label(mods, kind)
   end
 end
 
--- List of the specific modifiers available on a destroyed card
 function Sculio.describe_modifiers(mods)
   local parts = {}
   for _, kind in ipairs({ 'enhancement', 'seal', 'edition' }) do
@@ -745,7 +686,43 @@ function Sculio.describe_modifiers(mods)
   return table.concat(parts, ', ')
 end
 
--- Count the cards in the full deck that match a suit
+function Sculio.distorted()
+  return (G.GAME and G.GAME.used_vouchers and G.GAME.used_vouchers['v_Sculio_distorted_flow']) and true or false
+end
+
+function Sculio.apply_droste_bonus()
+  local wanted = (G.GAME and G.GAME.used_vouchers and G.GAME.used_vouchers['v_Sculio_droste_effect']) and 1 or 0
+  for _, center in pairs(G.P_CENTERS or {}) do
+    if center.Sculio_base_extra then
+      center.config.extra = center.Sculio_base_extra + wanted
+      center.config.choose = center.Sculio_base_choose + wanted
+    end
+  end
+  for _, card in ipairs((G.shop_booster and G.shop_booster.cards) or {}) do
+    local center = card.config and card.config.center
+    if center and center.Sculio_base_extra and card.ability then
+      card.ability.extra = center.Sculio_base_extra + wanted
+      card.ability.choose = center.Sculio_base_choose + wanted
+    end
+  end
+end
+
+function Sculio.edition_in_hand()
+  local targets = {}
+  for _, c in ipairs(G.hand and G.hand.cards or {}) do
+    if c.edition then targets[#targets + 1] = c end
+  end
+  return targets
+end
+
+function Sculio.blank_in_hand()
+  local targets = {}
+  for _, c in ipairs(G.hand and G.hand.cards or {}) do
+    if not c.REMOVED and not c.edition then targets[#targets + 1] = c end
+  end
+  return targets
+end
+
 function Sculio.count_suit_deck(suit)
   local count = 0
   for _, c in ipairs(G.playing_cards or {}) do

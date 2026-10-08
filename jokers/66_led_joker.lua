@@ -2,7 +2,7 @@ SMODS.Joker {
   key = 'led',
   attributes = { 'mult', 'shop', 'scaling' },
   eternal_compat = true,
-  blueprint_compat = false,
+  blueprint_compat = true,
   perishable_compat = false,
   rental_compat = true,
   config = { extra = { mult = 0, gain = 1 } },
@@ -11,7 +11,7 @@ SMODS.Joker {
   rarity = 1, -- Common
   atlas = 'Sculio',
   pos = { x = 7, y = 6 },
-  cost = 4,
+  cost = 3,
   loc_vars = function(self, info_queue, card)
     return { vars = { card.ability.extra.mult, card.ability.extra.gain } }
   end,

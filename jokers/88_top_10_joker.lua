@@ -55,13 +55,19 @@ SMODS.Joker {
       juice_card_until(card, eval, true)
     end
 
-    if not context.after or not context.full_hand or #context.full_hand ~= 1 then return end
+    if not context.after or not context.full_hand then return end
     if not G.GAME.current_round or G.GAME.current_round.hands_played ~= 0 then return end
 
     local extra = card.ability.extra
     local step, rank, negative, rarity = rung(card)
-    local played = context.full_hand[1]
-    if SMODS.has_no_rank(played) or played.base.value ~= rank then return end
+    local found = false
+    for _, played in ipairs(context.full_hand) do
+      if not SMODS.has_no_rank(played) and played.base.value == rank then
+        found = true
+        break
+      end
+    end
+    if not found then return end
     if not G.jokers or #G.jokers.cards >= G.jokers.config.card_limit then return end
 
     extra.step = step

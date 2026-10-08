@@ -3,24 +3,25 @@ SMODS.Enhancement {
   atlas = 'centers',
   pos = { x = 6, y = 0 },
   prefix_config = { atlas = false },
-
-  config = {},
+  config = { extra = { money = 1 } },
   loc_vars = function(self, info_queue, card)
-    return { vars = { 7, 3 } }
+    return { vars = { card.ability.extra.money } }
   end,
   calculate = function(self, card, context)
-    if context.before and context.cardarea == G.hand and not context.blueprint then
-      local hand_id = tostring(G.GAME.round_resets.ante) .. ':' .. (G.GAME.current_round.hands_left or 0)
-      if G.GAME.Sculio_divine_hand_id ~= hand_id then
-        G.GAME.Sculio_divine_hand_id = hand_id
-        G.GAME.Sculio_divine_mode = (G.GAME.Sculio_divine_mode == 'chips') and 'mult' or 'chips'
+    if context.main_scoring and context.cardarea == G.play and not card.debuff
+        and not card.repetition_trigger then
+      local extra = card.ability.extra
+      local suits = {}
+      for _, c in ipairs(context.full_hand or context.scoring_hand or {}) do
+        local suit = c.base and c.base.suit
+        if suit then suits[suit] = true end
       end
-    end
-    if context.main_scoring and context.cardarea == G.hand and not card.debuff then
-      if G.GAME.Sculio_divine_mode == 'mult' then
-        return { mult = 3 }
-      else
-        return { chips = 7 }
+      local unique = 0
+      for _ in pairs(suits) do unique = unique + 1 end
+      if unique > 0 then
+        local money = extra.money * unique
+        ease_dollars(money)
+        card_eval_status_text(card, 'dollars', money)
       end
     end
   end,
