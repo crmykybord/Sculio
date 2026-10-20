@@ -28,8 +28,8 @@ end
 
 SMODS.Tag {
   key = 'unstoppable_gold',
-  atlas = 'Sculio_Tags',
-  pos = { x = 2, y = 0 },
+  atlas = 'Sculio_Tags_Golden',
+  pos = { x = 0, y = 0 },
   config = { aij = { upgrade = 'Sculio_unstoppable' } },
   attributes = { 'joker', 'xmult' },
   min_ante = 1,

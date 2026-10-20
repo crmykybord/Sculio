@@ -40,8 +40,8 @@ end
 
 SMODS.Tag {
   key = 'visionary_gold',
-  atlas = 'Sculio_Tags',
-  pos = { x = 3, y = 0 },
+  atlas = 'Sculio_Tags_Golden',
+  pos = { x = 1, y = 0 },
   config = { aij = { upgrade = 'Sculio_visionary' } },
   attributes = { 'tarot', 'editions' },
   min_ante = 1,

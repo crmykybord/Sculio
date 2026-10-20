@@ -1,6 +1,7 @@
 Sculio = SMODS.current_mod
 SMODS.Atlas { key = 'Sculio', path = 'Sculio.png', px = 71, py = 95 }
 SMODS.Atlas { key = 'Sculio_Tags', path = 'Tags.png', px = 34, py = 34 }
+SMODS.Atlas { key = 'Sculio_Tags_Golden', path = 'Golden Tags.png', px = 34, py = 34 }
 SMODS.Atlas { key = 'Sculio_Consumables', path = 'Consumables.png', px = 71, py = 95 }
 SMODS.Atlas { key = 'Sculio_Enhancements', path = 'Enhancements.png', px = 71, py = 95 }
 SMODS.Atlas { key = 'Sculio_Booster', path = 'Booster Packs.png', px = 71, py = 95 }
@@ -42,7 +43,9 @@ local skip_files = {
   ['09_arbitrariness.lua'] = true,
   ['17_the_siege.lua'] = true,
   -- Disabled until they have an effect
-  ['83_fun_guy.lua'] = true,
+  ['92_jar_of_dill.lua'] = true,
+  ['96_crossroads.lua'] = true,
+  ['97_pinball_machine.lua'] = true,
 }
 
 load_dir('jokers', skip_files)
