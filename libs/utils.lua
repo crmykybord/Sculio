@@ -80,8 +80,10 @@ end
 
 function Sculio:calculate(context)
   -- Droste Effect: keep Inverted Arcana pack size/choices in sync (survives reloads)
+  -- Orange Seal: one free reroll per seal in the deck, topped up when the shop opens
   if context.starting_shop then
     Sculio.apply_droste_bonus()
+    Sculio.grant_orange_rerolls()
   end
 
   -- The Sane: remember the last Inverted Tarot used
@@ -234,6 +236,9 @@ function Sculio.reset_game_globals(run_start)
     G.GAME.Sculio_last_inverted = 'c_Sculio_sane'
     G.GAME.Sculio_last_joker_sold = 'j_joker'
     G.GAME.Sculio_bosses_beaten = 0
+    -- Antumbra's gate starts at level 1; Orange Seal's reroll ledger at 0
+    G.GAME.Sculio_antumbra_uses = 0
+    G.GAME.Sculio_orange_granted = 0
   end
   Sculio.apply_droste_bonus()
 end
@@ -735,4 +740,151 @@ function Sculio.count_suit_deck(suit)
     if c.base.suit == suit or SMODS.has_any_suit(c) then count = count + 1 end
   end
   return count
+end
+
+-- Count cards in the deck carrying the given seal key (the value stored in
+-- card.seal, e.g. 'Sculio_orange'). Skips removed cards.
+function Sculio.count_seal(seal_key)
+  local count = 0
+  for _, c in ipairs(G.playing_cards or {}) do
+    if c.seal == seal_key and not c.REMOVED then count = count + 1 end
+  end
+  return count
+end
+
+-- Jokers that card effects may destroy: real Jokers, not Eternal ones
+-- (vanilla Hex skips Eternals when slicing).
+function Sculio.destroyable_jokers()
+  local pool = {}
+  if G.jokers then
+    for _, c in ipairs(G.jokers.cards) do
+      if c.ability and c.ability.set == 'Joker' and not c.REMOVED
+          and not SMODS.is_eternal(c) then pool[#pool + 1] = c end
+    end
+  end
+  return pool
+end
+
+-- Orange Seal: every seal in the deck is worth one free shop reroll. The grant
+-- pays a delta over what was already given this run (G.GAME.Sculio_orange_granted),
+-- so other mods' SMODS.change_free_rerolls grants survive and a shop that
+-- reopens never double-pays. SMODS.change_free_rerolls moves both pools:
+-- round_resets (the per-ante budget vanilla copies into current_round at round
+-- start) and the current round on the spot.
+function Sculio.grant_orange_rerolls()
+  local count = Sculio.count_seal('Sculio_orange')
+  local granted = G.GAME.Sculio_orange_granted or 0
+  if count ~= granted then
+    SMODS.change_free_rerolls(count - granted)
+    G.GAME.Sculio_orange_granted = count
+  end
+end
+
+-- Deck picker: pause + overlay showing the REAL cards of G.deck. Previews are
+-- copy_card copies; the deck itself is untouched until a pick lands, and the
+-- pick draws that exact card (draw_card with an explicit card skips the draw
+-- order). Pattern ported from SMODS.card_collection_UIBox + All in Jest's
+-- jest_create_select_card_ui, kept standalone on purpose: seals work without AIJ.
+function Sculio.open_deck_picker()
+  if not (G.deck and G.hand and #G.deck.cards > 0) then return end
+  local pool = {}
+  for _, c in ipairs(G.deck.cards) do pool[#pool + 1] = c end
+  table.sort(pool, function(a, b) return a:get_nominal('suit') > b:get_nominal('suit') end)
+  G.SETTINGS.paused = true
+  G.FUNCS.overlay_menu {
+    definition = Sculio.deck_picker_UIBox(pool),
+  }
+end
+
+function Sculio.deck_picker_UIBox(pool)
+  G.your_collection = {}
+  local rows = { 5, 5, 5 }
+  local deck_tables = {}
+  local cards_per_page = 0
+  local row_totals = {}
+  for j = 1, #rows do
+    row_totals[j] = cards_per_page
+    cards_per_page = cards_per_page + rows[j]
+    G.your_collection[j] = CardArea(
+      G.ROOM.T.x + 0.2*G.ROOM.T.w/2, G.ROOM.T.h,
+      (rows[j] + 0.25)*G.CARD_W, 1.05*G.CARD_H,
+      {card_limit = rows[j], type = 'title', highlight_limit = 0, collection = true}
+    )
+    table.insert(deck_tables,
+      {n = G.UIT.R, config = {align = 'cm', padding = 0.07, no_fill = true}, nodes = {
+        {n = G.UIT.O, config = {object = G.your_collection[j]}}
+      }})
+  end
+
+  local options = {}
+  for i = 1, math.ceil(#pool/cards_per_page) do
+    table.insert(options, localize('k_page')..' '..tostring(i)..'/'..tostring(math.ceil(#pool/cards_per_page)))
+  end
+
+  G.FUNCS.Sculio_deck_picker_page = function(e)
+    if not e or not e.cycle_config then return end
+    for j = 1, #G.your_collection do
+      for i = #G.your_collection[j].cards, 1, -1 do
+        local c = G.your_collection[j]:remove_card(G.your_collection[j].cards[i])
+        c:remove()
+        c = nil
+      end
+    end
+    for j = 1, #rows do
+      for i = 1, rows[j] do
+        local real = pool[i + row_totals[j] + (cards_per_page*(e.cycle_config.current_option - 1))]
+        if not real then break end
+        local preview = copy_card(real)
+        preview.children.Sculio_select = UIBox{
+          definition = {
+            n = G.UIT.ROOT,
+            config = {
+              ref_table = preview, minw = 0.6, maxw = 1, padding = 0.1, align = 'bm',
+              colour = G.C.GREEN, shadow = true, r = 0.08, minh = 0.3, one_press = true,
+              button = 'Sculio_deck_pick', data = { real }, hover = true,
+            },
+            nodes = {
+              {n = G.UIT.T, config = { text = localize('k_Sculio_select'), colour = G.C.WHITE, scale = 0.45 }},
+            },
+          },
+          config = { align = 'bm', offset = { x = 0, y = -0.15 }, major = preview, bond = 'Weak', parent = preview },
+        }
+        G.your_collection[j]:emplace(preview)
+      end
+    end
+    INIT_COLLECTION_CARD_ALERTS()
+  end
+
+  G.FUNCS.Sculio_deck_picker_page{ cycle_config = { current_option = 1 } }
+
+  return create_UIBox_generic_options({
+    back_func = 'Sculio_deck_picker_back',
+    contents = {
+      {n = G.UIT.R, config = {align = 'cm', r = 0.1, colour = G.C.BLACK, emboss = 0.05}, nodes = deck_tables},
+      (#pool > cards_per_page) and {n = G.UIT.R, config = {align = 'cm'}, nodes = {
+        create_option_cycle({
+          options = options, w = 4.5, cycle_shoulders = true,
+          opt_callback = 'Sculio_deck_picker_page', current_option = 1,
+          colour = G.C.RED, no_pips = true, focus_args = {snap_to = true, nav = 'wide'},
+        })
+      }} or nil,
+    }
+  })
+end
+
+-- Click on a preview's Select button: draw the REAL card it was copied from,
+-- if it's still in the deck. The game is paused while the overlay is open, so
+-- the discard moves are still queued; drawing here and unpausing lets them run
+-- first and the emplace honors the hand limit.
+G.FUNCS.Sculio_deck_pick = function(e)
+  local real = e.config.data[1]
+  if real and not real.REMOVED and real.area == G.deck then
+    draw_card(G.deck, G.hand, nil, 'up', true, real, 0)
+  end
+  G.FUNCS.exit_overlay_menu()
+end
+
+-- Cancel the Seeking pick: the sealed card was still discarded, nothing drawn.
+G.FUNCS.Sculio_deck_picker_back = function()
+  G.FUNCS.exit_overlay_menu()
 end
