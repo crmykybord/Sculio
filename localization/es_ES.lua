@@ -855,7 +855,10 @@ return {
       j_Sculio_fun_guy = {
         name = 'Fun Guy',
         text = {
-          '{C:inactive}Sin efecto{}',
+          '{C:attention}Al destruir{} una carta,',
+          '{C:attention}#1#{} cartas al azar de tu mano',
+          'obtienen la {C:attention}categoría{} de',
+          'la carta destruida',
         },
       },
       -- 84. Scrawlings
@@ -924,6 +927,75 @@ return {
           '{C:inactive}(Debe haber espacio){}',
         },
       },
+      -- 91. Anonymity
+      j_Sculio_anonymity = {
+        name = 'Anonimato',
+        text = {
+          'Las cartas tienen una prob. de',
+          '{C:green}1 en #1#{} de salir boca abajo',
+          'y obtiene {C:mult}+#2#{} Multi por cada',
+          'carta boca abajo jugada',
+          '{C:inactive}(Actualmente {C:mult}+#3#{C:inactive} Multi){}',
+        },
+      },
+      -- 92. Jar of Dill
+      j_Sculio_jar_of_dill = {
+        name = 'Frasco de Eneldo',
+        text = {
+          '{C:inactive}Sin efecto{}',
+        },
+      },
+      -- 93. Red Dacca
+      j_Sculio_red_dacca = {
+        name = 'Red Dacca',
+        text = {
+          '{C:mult}+#1#{} Multi',
+          'Prob. de {C:green}#2# en #3#{} de',
+          'consumirse al final de la ronda',
+        },
+      },
+      -- 94. Joker Hazard
+      j_Sculio_joker_hazard = {
+        name = 'Comodín Peligroso',
+        text = {
+          'Prob. de {C:green}#1# en #2#{} de destruir',
+          'el {C:attention}Comodín{} de la izquierda y',
+          'otorgar {C:blue}+#3#{} al tamaño de mano',
+          '{C:inactive}(Máx. {C:blue}#5#{C:inactive}; ahora {C:blue}+#4#{C:inactive}){}',
+        },
+      },
+      -- 95. Walk of Fame
+      j_Sculio_walk_of_fame = {
+        name = 'Paseo de la Fama',
+        text = {
+          'Al derrotar una {C:attention}Ciega Jefe{}, otorga',
+          'una {C:dark_edition}Edición{} al azar a un',
+          '{C:attention}Comodín{} al azar',
+        },
+      },
+      -- 96. Crossroads
+      j_Sculio_crossroads = {
+        name = 'Encrucijada',
+        text = {
+          '{C:inactive}Sin efecto{}',
+        },
+      },
+      -- 97. Pinball Machine
+      j_Sculio_pinball_machine = {
+        name = 'Máquina de Pinball',
+        text = {
+          '{C:inactive}Sin efecto{}',
+        },
+      },
+      -- 98. Rubberhose Joker
+      j_Sculio_rubberhose_joker = {
+        name = 'Rubberhose Joker',
+        text = {
+          'Obtiene {C:mult}+#1#{} Multi por cada carta',
+          'de {C:spades}Espadas{} o {C:clubs}Tréboles{} en tu Baraja',
+          '{C:inactive}(Actualmente {C:mult}+#2#{C:inactive} Multi){}',
+        },
+      },
       -- 100. Puck
       j_Sculio_puck = {
         name = 'Puck',
@@ -957,6 +1029,13 @@ return {
         text = {
           'Otorga un {C:inverted}¿Mega{}',
           '{C:inverted}Paquete Arcano?{} gratis',
+        },
+      },
+      tag_Sculio_cloning = {
+        name = 'Etiqueta Clonadora',
+        text = {
+          'La tienda tiene una copia {C:money}gratis{}',
+          'de uno de tus {C:attention}Comodines{}',
         },
       },
       -- All in Jest gold tag (Cross mod stuff)
