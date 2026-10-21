@@ -36,7 +36,6 @@ The mod requires the most recent version of [Steammodded](https://github.com/Ste
 
  - 99+ Jokers
  - 4 Decks
- - 4 Deck Sleeves
  - 4 Vouchers
  - 8 Spectral Cards
  - 18 (Inverted) Tarot Cards
@@ -45,6 +44,8 @@ The mod requires the most recent version of [Steammodded](https://github.com/Ste
  - Reverse Tarot Booster Packs
  - 3 Tags
  - 8 Deck Skins
+ - Deck Sleeve Compatibility
+ - All in Jest Compatibility
 
 **Sculio** is being actively developed, meaning there will be more content introduced in the foreseeable future. How exciting!
 <br>
