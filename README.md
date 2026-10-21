@@ -34,15 +34,16 @@ The mod requires the most recent version of [Steammodded](https://github.com/Ste
 <img width="400" height="51" alt="Vanilla@1x-1 0s-610px-81px-moshed-09-18-22-10-49-612" src="https://github.com/user-attachments/assets/bffe60ea-684d-4198-b4f2-7e6bcf1093a9" />
 </p>
 
- - 79 Jokers
- - 1 Deck
+ - 99+ Jokers
+ - 4 Decks
+ - 4 Deck Sleeves
  - 4 Vouchers
- - 2 Spectral Cards
+ - 8 Spectral Cards
  - 18 (Inverted) Tarot Cards
- - 7 Enhancements
- - 1 Seal
+ - 8 Enhancements
+ - 3 Seals
  - Reverse Tarot Booster Packs
- - 2 Tags
+ - 3 Tags
  - 8 Deck Skins
 
 **Sculio** is being actively developed, meaning there will be more content introduced in the foreseeable future. How exciting!
