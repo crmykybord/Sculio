@@ -79,6 +79,8 @@ function Sculio.undebuff_list(list)
 end
 
 function Sculio:calculate(context)
+  Sculio.maybe_apply_xchips_texts()
+
   -- Droste Effect: keep Inverted Arcana pack size/choices in sync (survives reloads)
   -- Orange Seal: one free reroll per seal in the deck, topped up when the shop opens
   if context.starting_shop then
@@ -190,6 +192,8 @@ function Sculio.is_debuff_immune(target)
   return false
 end
 
+-- Check whether any registered Edition grants XChips before swapping the
+-- Figurine and Puck descriptions on the first calculation after loading.
 Sculio._xchips_edition_cache = nil
 function Sculio.xchips_editions_exist()
   local n = 0
@@ -214,24 +218,28 @@ end
 Sculio._stat_text_init_done = Sculio._stat_text_init_done or {}
 function Sculio.maybe_apply_xchips_texts()
   local lang = (G.SETTINGS and G.SETTINGS.language) or 'en-us'
-  if Sculio._stat_text_init_done[lang] then return end
-  Sculio._stat_text_init_done[lang] = true
-  if not Sculio.xchips_editions_exist() then return end
+  if Sculio._stat_text_init_done[lang] or not Sculio.xchips_editions_exist() then return end
   local desc = G.localization and G.localization.descriptions and G.localization.descriptions.Joker
   if not desc then return end
   local alts = {
     j_Sculio_figurine = 'j_Sculio_figurine_xchips',
     j_Sculio_puck = 'j_Sculio_puck_xchips',
   }
+  local all_applied = true
   for key, alt_key in pairs(alts) do
     local alt = desc[alt_key]
-    if desc[key] and alt and alt.text then desc[key].text = alt.text end
+    if desc[key] and alt and alt.text and alt.text_parsed then
+      desc[key].text = copy_table(alt.text)
+      desc[key].text_parsed = copy_table(alt.text_parsed)
+    else
+      all_applied = false
+    end
   end
+  if all_applied then Sculio._stat_text_init_done[lang] = true end
 end
 
 function Sculio.reset_game_globals(run_start)
   if run_start then
-    Sculio.maybe_apply_xchips_texts()
     -- The Sane starts with itself in its own pool, so the first copy works
     G.GAME.Sculio_last_inverted = 'c_Sculio_sane'
     G.GAME.Sculio_last_joker_sold = 'j_joker'
