@@ -91,7 +91,7 @@ return {
         name = 'Sello Naranja',
         text = {
           '{C:attention}+1{} {C:green}renovación{}',
-          'adicional en la tienda",
+          "adicional en la tienda",
         },
       },
     },
