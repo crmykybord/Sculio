@@ -79,6 +79,23 @@ return {
           'to use immediately',
         },
       },
+      sculio_seeking_seal = {
+        name = 'Seeking Seal',
+        text = {
+          'When {C:attention}discarded{},',
+          'choose {C:attention}1{} card from your',
+          '{C:attention}Deck{} to draw to your hand',
+          '{C:inactive}(Must Have Room)',
+        },
+      },
+      sculio_orange_seal = {
+        name = 'Orange Seal',
+        text = {
+          'Gain a free {C:attention}reroll{}',
+          'for each {C:attention}Orange Seal{}',
+          'you own',
+        },
+      },
     },
     Joker = {
       -- 1. Schrödinger's Joker
@@ -931,9 +948,9 @@ return {
       j_Sculio_anonymity = {
         name = 'Anonymity',
         text = {
-          'Playing cards have a 1 in #1#',
-          'chance to be dealt face down and',
-          'gains {C:mult}+#2#{} Mult per face',
+          'During blinds, playing cards have a',
+          '1 in #1# chance to be dealt face down',
+          'and gains {C:mult}+#2#{} Mult per face',
           'down card played',
           '{C:inactive}(Currently {C:mult}+#3#{C:inactive} Mult){}',
         },
@@ -991,9 +1008,9 @@ return {
       j_Sculio_rubberhose_joker = {
         name = 'Rubberhose Joker',
         text = {
-          'Gains {C:mult}+#1#{} Mult per {C:spades}Spades{}',
+          'Gains {X:mult,C:white}X#1#{} Mult per {C:spades}Spades{}',
           'or {C:clubs}Clubs{} card in your deck',
-          '{C:inactive}(Currently {C:mult}+#2#{C:inactive} Mult){}',
+          '{C:inactive}(Currently {X:mult,C:white}X#2#{}{C:inactive} Mult){}',
         },
       },
       -- 100. Puck
@@ -1319,6 +1336,57 @@ return {
           'into {C:attention}Punched Cards{}',
         },
       },
+      c_Sculio_quincunx = {
+        name = 'Quincunx',
+        text = {
+          'Add a random {C:attention}Seal{} and',
+          '{C:dark_edition}Edition{} to {C:attention}#1#{} random',
+          'cards in your hand, then destroy',
+          'a random {C:attention}Joker{}',
+        },
+      },
+      c_Sculio_antumbra = {
+        name = 'Antumbra',
+        text = {
+          'A random {C:attention}Joker{} gains',
+          '{C:dark_edition}Negative{} and all',
+          '{C:attention}hand levels{} are removed',
+          '{C:inactive}(Requires all hands at',
+          '{C:attention}Level #1#{C:inactive} or higher){}',
+        },
+      },
+      c_Sculio_revelatio = {
+        name = 'Revelatio',
+        text = {
+          'Add a {C:attention}Seeking Seal{}',
+          'to {C:attention}1{} selected',
+          'card in your hand',
+        },
+      },
+      c_Sculio_eidolon = {
+        name = 'Eidolon',
+        text = {
+          '{C:green}#1# in #2#{} chance to',
+          'create a {C:attention}Cloning Tag{}',
+        },
+      },
+      c_Sculio_conctiunctio = {
+        name = 'Conctiunctio',
+        text = {
+          'Every card in your hand gains',
+          'the same random',
+          '{C:attention}Enhancement{}',
+          '{C:red}-#1# Discard{}',
+        },
+      },
+      c_Sculio_iterum = {
+        name = 'Iterum',
+        text = {
+          'Add an {C:attention}Orange Seal{}',
+          'to {C:attention}1{} selected',
+          'card in your hand',
+        },
+      },
     },
     Inverted = {
       c_Sculio_sane = {
@@ -1615,6 +1683,7 @@ return {
       k_Sculio_top_10_rare = 'Rare',
       k_Sculio_top_10_negative = 'Negative',
       k_Sculio_plus_tag = '+1 Tag',
+      k_Sculio_select = 'Select',
     },
     v_dictionary = {
       k_Sculio_crooked_stole = 'Stole $#1#',
@@ -1624,6 +1693,8 @@ return {
     labels = {
       inverted = 'Inverted Tarot',
       sculio_inverted_seal = 'Inverted Seal',
+      sculio_seeking_seal = 'Seeking Seal',
+      sculio_orange_seal = 'Orange Seal',
     },
   },
 }

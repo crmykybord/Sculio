@@ -79,6 +79,21 @@ return {
           'para usar de inmediato',
         },
       },
+      sculio_seeking_seal = {
+        name = 'Sello Buscador',
+        text = {
+          'Al {C:attention}descartarse{}, elige',
+          '{C:attention}1{} carta de tu {C:attention}Baraja{}',
+          'y sácala a la mano',
+        },
+      },
+      sculio_orange_seal = {
+        name = 'Sello Naranja',
+        text = {
+          '{C:attention}+1{} {C:green}renovación{}',
+          'adicional en la tienda",
+        },
+      },
     },
     Joker = {
       -- 1. Schrödinger's Joker
@@ -991,9 +1006,9 @@ return {
       j_Sculio_rubberhose_joker = {
         name = 'Rubberhose Joker',
         text = {
-          'Obtiene {C:mult}+#1#{} Multi por cada carta',
+          'Obtiene {X:mult,C:white}X#1#{} Multi por cada carta',
           'de {C:spades}Espadas{} o {C:clubs}Tréboles{} en tu Baraja',
-          '{C:inactive}(Actualmente {C:mult}+#2#{C:inactive} Multi){}',
+          '{C:inactive}(Actualmente {X:mult,C:white}X#2#{}{C:inactive} Multi){}',
         },
       },
       -- 100. Puck
@@ -1318,6 +1333,55 @@ return {
           'en {C:attention}Cartas Perforadas{}',
         },
       },
+      c_Sculio_quincunx = {
+        name = 'Quincunce',
+        text = {
+          'Agrega un {C:attention}Sello{} y una',
+          '{C:dark_edition}Edición{} al azar a',
+          '{C:attention}#1#{} cartas al azar de tu mano;',
+          'destruye un {C:attention}Comodín{} al azar',
+        },
+      },
+      c_Sculio_antumbra = {
+        name = 'Antumbra',
+        text = {
+          'Un {C:attention}Comodín{} al azar obtiene',
+          'edición {C:dark_edition}Negativa{} y se',
+          'remueven todos los {C:planet}niveles{} de mano',
+          '{C:inactive}(Requiere todas las manos en',
+          '{C:attention}Nivel #1#{C:inactive} o más){}',
+        },
+      },
+      c_Sculio_revelatio = {
+        name = 'Revelación',
+        text = {
+          'Agrega un {C:attention}Sello Buscador{}',
+          'a {C:attention}1{} carta seleccionada',
+        },
+      },
+      c_Sculio_eidolon = {
+        name = 'Eidolon',
+        text = {
+          'Prob. de {C:green}#1# en #2#{} de crear',
+          'una {C:attention}Etiqueta Clonadora{}',
+        },
+      },
+      c_Sculio_conctiunctio = {
+        name = 'Conctiunctio',
+        text = {
+          'Todas las cartas de tu mano',
+          'ganan la misma {C:attention}Mejora{}',
+          'al azar',
+          '{C:red}-#1# Descarte{}',
+        },
+      },
+      c_Sculio_iterum = {
+        name = 'Iterum',
+        text = {
+          'Agrega un {C:attention}Sello Naranja{}',
+          'a {C:attention}1{} carta seleccionada',
+        },
+      },
     },
     Inverted = {
       c_Sculio_sane = {
@@ -1605,6 +1669,7 @@ return {
       k_Sculio_top_10_rare = 'Raro',
       k_Sculio_top_10_negative = 'Negativo',
       k_Sculio_plus_tag = '+1 Etiqueta',
+      k_Sculio_select = 'Elegir',
     },
     v_dictionary = {
       k_Sculio_crooked_stole = 'Robó $#1#',
@@ -1614,6 +1679,8 @@ return {
     labels = {
       inverted = 'Tarot Invertido',
       sculio_inverted_seal = 'Sello Invertido',
+      sculio_seeking_seal = 'Sello Buscador',
+      sculio_orange_seal = 'Sello Naranja',
     },
   },
 }
