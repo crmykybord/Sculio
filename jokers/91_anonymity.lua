@@ -1,14 +1,9 @@
--- Anonymity: playing cards have a 1 in 3 chance to be dealt face down, and the
--- joker gains +1 Mult for each face-down card played.
--- The face-down roll is the dormant vanilla mechanic G.GAME.modifiers.flipped_cards
--- (draw_card / draw_card_from already roll pseudoseed('flipped_card') against it;
--- no blind in this version sets it). We own the flag: set on add_to_deck, cleared
--- on remove_from_deck when no other copy remains.
--- A flipped card reaching G.play would normally flip face-up on the move, so the
--- SMODS stay_flipped hook keeps face-down played cards face-down; that also lets
--- `before` see them (facing == 'back') to charge the gain. can_calculate only
--- checks debuff/sliced, so face-down cards still score normally.
--- blueprint_compat = false: the gain mutates its own counter per dispatch.
+local FACE_DOWN = 'Sculio_anonymity_face_down'
+
+local function anonymity_dealing_hand()
+  return G.STATE == G.STATES.SELECTING_HAND or G.STATE == G.STATES.DRAW_TO_HAND
+end
+
 SMODS.Joker {
   key = 'anonymity',
   attributes = { 'mult', 'scaling', 'chance' },
@@ -26,26 +21,23 @@ SMODS.Joker {
   loc_vars = function(self, info_queue, card)
     return { vars = { card.ability.extra.odds, card.ability.extra.gain, card.ability.extra.mult } }
   end,
-  add_to_deck = function(self, card, from_debuff)
-    G.GAME.modifiers.flipped_cards = card.ability.extra.odds
-  end,
-  remove_from_deck = function(self, card, from_debuff)
-    for _, joker in ipairs(G.jokers.cards) do
-      if joker ~= card and joker.config.center.key == 'j_Sculio_anonymity' then return end
-    end
-    G.GAME.modifiers.flipped_cards = nil
-  end,
   calculate = function(self, card, context)
-    -- played cards keep the back they were dealt with
-    if context.stay_flipped and context.to_area == G.play
-        and context.other_card and context.other_card.facing == 'back' then
-      return { stay_flipped = true }
+    if context.stay_flipped and context.other_card and context.other_card.ability then
+      if context.to_area == G.hand then
+        local flipped = anonymity_dealing_hand()
+          and pseudoseed('Sculio_anonymity_flip') < 1 / card.ability.extra.odds
+        context.other_card.ability[FACE_DOWN] = flipped or nil
+        if flipped then return { stay_flipped = true } end
+      end
+      if context.to_area == G.play and context.other_card.facing == 'back' then
+        context.other_card.ability[FACE_DOWN] = true
+      end
     end
 
     if context.before and context.full_hand then
       local hidden = 0
       for _, played in ipairs(context.full_hand) do
-        if played.facing == 'back' then hidden = hidden + 1 end
+        if played.ability and played.ability[FACE_DOWN] then hidden = hidden + 1 end
       end
       if hidden > 0 then
         card.ability.extra.mult = card.ability.extra.mult + card.ability.extra.gain * hidden
