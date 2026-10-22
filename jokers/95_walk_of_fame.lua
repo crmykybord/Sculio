@@ -1,8 +1,4 @@
--- Walk of Fame: when a Boss Blind is defeated, a random Joker (one that does
--- not have an edition yet) gets a random edition: Laminada, Holografica or
--- Polychrome (vanilla's three "cosmetic" editions, no Negative per design).
--- blueprint_compat = false: it mutates other cards (same rule as Fun Guy).
-local EDITIONS = { 'foil', 'holographic', 'polychrome' }
+local EDITIONS = { 'foil', 'holo', 'polychrome' }
 
 SMODS.Joker {
   key = 'walk_of_fame',
@@ -17,6 +13,7 @@ SMODS.Joker {
   rarity = 2, -- Uncommon
   atlas = 'Sculio',
   pos = { x = 6, y = 9 },
+  pixel_size = { w = 69, h = 70 },
   cost = 6,
   calculate = function(self, card, context)
     if context.end_of_round and context.main_eval and context.beat_boss and not context.game_over then
@@ -24,7 +21,7 @@ SMODS.Joker {
       for _, joker in ipairs(G.jokers.cards) do
         if not joker.edition or not next(joker.edition) then pool[#pool + 1] = joker end
       end
-      -- everybody is already dressed up: nothing to hand out
+      -- All Jokers have edition
       if #pool == 0 then return end
       local target = pool[math.floor(pseudoseed('Sculio_walk_of_fame') * #pool) + 1]
       local edition = EDITIONS[math.floor(pseudoseed('Sculio_walk_of_fame_edition') * #EDITIONS) + 1]
