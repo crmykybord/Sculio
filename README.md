@@ -44,7 +44,7 @@ The mod requires the most recent version of [Steammodded](https://github.com/Ste
  - Reverse Tarot Booster Packs
  - 3 Tags
  - 8 Deck Skins
- - Deck Sleeve Compatibility
+ - CardSleeves Compatibility
  - All in Jest Compatibility
 
 **Sculio** is being actively developed, meaning there will be more content introduced in the foreseeable future. How exciting!
