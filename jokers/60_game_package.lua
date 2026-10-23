@@ -11,6 +11,7 @@ SMODS.Joker {
   rarity = 3,
   atlas = 'Sculio',
   pos = { x = 2, y = 6 },
+  pixel_size = { w = 57, h = 92 },
   cost = 7,
   loc_vars = function(self, info_queue, card)
     return { vars = { card.ability.x_mult } }

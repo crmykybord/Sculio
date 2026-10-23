@@ -10,6 +10,7 @@ SMODS.Joker {
   rarity = 1, -- Common
   atlas = 'Sculio',
   pos = { x = 7, y = 2 },
+  pixel_size = { w = 53, h = 87 },
   cost = 6,
   calculate = function(self, card, context)
     if context.selling_self and not context.blueprint then

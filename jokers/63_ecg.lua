@@ -11,6 +11,7 @@ SMODS.Joker {
   rarity = 2, -- Uncommon
   atlas = 'Sculio',
   pos = { x = 8, y = 4 },
+  pixel_size = { w = 69, h = 92 },
   cost = 5,
   calculate = function(self, card, context)
     if context.setting_blind and not context.blueprint then

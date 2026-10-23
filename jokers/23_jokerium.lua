@@ -7,6 +7,7 @@ SMODS.Joker {
   rarity = 3, -- Rare
   atlas = 'Sculio',
   pos = { x = 4, y = 2 },
+  pixel_size = { w = 69, h = 72 },
   cost = 7,
   eternal_compat = true,
   blueprint_compat = true,
