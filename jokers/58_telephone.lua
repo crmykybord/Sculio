@@ -1,32 +1,47 @@
+local function roll_rank(card)
+  local seen, ranks = {}, {}
+  for _, v in ipairs(G.playing_cards or {}) do
+    if not v:is_face() and not SMODS.has_no_rank(v) then
+      local value = v.base and v.base.value
+      if value and not seen[value] then
+        seen[value] = true
+        ranks[#ranks + 1] = value
+      end
+    end
+  end
+  if #ranks > 0 then
+    card.ability.extra.rolls = (card.ability.extra.rolls or 0) + 1
+    card.ability.extra.rank_value = pseudorandom_element(ranks, 'telephone_' .. card.ability.extra.rolls)
+  end
+end
+
 SMODS.Joker {
   key = 'telephone',
-  attributes = { 'mult', 'rank' },
+  attributes = { 'retrigger', 'rank' },
   eternal_compat = true,
   blueprint_compat = true,
   perishable_compat = true,
   rental_compat = true,
-  config = { extra = { mult = 0, mult_gain = 3 } },
+  config = { extra = { rank_value = '2', rolls = 0 } },
   unlocked = true,
   discovered = false,
-  rarity = 3, -- Rare
+  rarity = 1,
   atlas = 'Sculio',
   pos = { x = 0, y = 6 },
-  cost = 8,
+  cost = 5,
   loc_vars = function(self, info_queue, card)
-    return { vars = { card.ability.extra.mult_gain, card.ability.extra.mult } }
+    return { vars = { localize(card.ability.extra.rank_value, 'ranks') } }
+  end,
+  add_to_deck = function(self, card, from_debuff)
+    roll_rank(card)
   end,
   calculate = function(self, card, context)
-    if context.individual and context.cardarea == G.play and context.other_card then
-      if context.other_card.base and context.other_card.base.value == '2' then
-        card.ability.extra.mult = card.ability.extra.mult + card.ability.extra.mult_gain
-        return { message = localize { type = 'variable', key = 'a_mult', vars = { card.ability.extra.mult_gain } }, colour = G.C.RED }
-      elseif context.other_card.base and context.other_card.base.value == '3' then
-        card.ability.extra.mult = card.ability.extra.mult + card.ability.extra.mult_gain * 2
-        return { message = localize { type = 'variable', key = 'a_mult', vars = { card.ability.extra.mult_gain * 2 } }, colour = G.C.RED }
-      end
+    if context.setting_blind and not context.blueprint then
+      roll_rank(card)
     end
-    if context.joker_main then
-      return { mult = card.ability.extra.mult }
+    if context.repetition and context.cardarea == G.play and context.other_card
+        and context.other_card.base and context.other_card.base.value == card.ability.extra.rank_value then
+      return { message = localize('k_again_ex') }
     end
   end
 }
