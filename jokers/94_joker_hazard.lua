@@ -1,11 +1,3 @@
--- Joker Hazard: at the end of each round, a 1 in 3 chance to destroy the Joker
--- to its left and gain +1 hand size, up to +4 total (the roll still spends when
--- the cap is reached: left jokers keep being hazardous). Eternal neighbours
--- resist (SMODS.is_eternal, the vanilla Madness check), and no-ops if there is
--- no joker to the left.
--- The hand-size bonus lives in config.extra.hand_size_bonus and the add/remove
--- pair re-applies it after reloads — same pattern as 15_crooked.
--- blueprint_compat = false: it destroys cards, a copy would reroll.
 SMODS.Joker {
   key = 'joker_hazard',
   attributes = { 'chance', 'destroy_card', 'hand_size' },
@@ -38,8 +30,10 @@ SMODS.Joker {
     if context.end_of_round and context.main_eval and not context.game_over then
       if SMODS.pseudorandom_probability(card, 'joker_hazard', 1, card.ability.extra.odds, 'joker_hazard') then
         local idx
+        if G.jokers and G.jokers.cards then
         for i, joker in ipairs(G.jokers.cards) do
           if joker == card then idx = i break end
+        end
         end
         local left = idx and G.jokers.cards[idx - 1]
         if left and not left.getting_sliced and not SMODS.is_eternal(left, card) then
