@@ -16,7 +16,7 @@ SMODS.Seal {
           delay = 0.0,
           func = (function()
             for i = 1, copies do
-              local new_card = create_card('Inverted', G.consumeables, nil, nil, nil, nil, nil, 'sculio_inv_seal' .. i)
+              local new_card = SMODS.create_card({ set = 'Inverted', area = G.consumeables, key_append = 'sculio_inv_seal' .. i })
               new_card:add_to_deck()
               G.consumeables:emplace(new_card)
             end
