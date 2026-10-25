@@ -16,14 +16,14 @@ SMODS.Joker {
     return { vars = { card.ability.extra.x_mult_bonus } }
   end,
   add_to_deck = function(self, card, from_debuff)
-    if G.hand then
+    if G.hand and G.hand.cards then
       for _, v in ipairs(G.hand.cards) do
         SMODS.recalc_debuff(v)
       end
     end
   end,
   remove_from_deck = function(self, card, from_debuff)
-    if G.hand then
+    if G.hand and G.hand.cards then
       for _, v in ipairs(G.hand.cards) do
         SMODS.recalc_debuff(v)
       end
@@ -38,7 +38,7 @@ SMODS.Joker {
       return { debuff = true }
     end
 
-    if context.individual and context.cardarea == G.play then
+    if context.individual and context.cardarea == G.play and context.other_card then
       if not context.other_card.debuff and context.other_card:is_face() then
         return {
           xmult = card.ability.extra.x_mult_bonus,

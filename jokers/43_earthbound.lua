@@ -5,7 +5,7 @@ SMODS.Joker {
   blueprint_compat = true,
   perishable_compat = true,
   rental_compat = true,
-  config = { extra = { x_mult = 3 } },
+  config = { extra = { x_mult = 3, selected_hand = nil } },
   unlocked = true,
   discovered = false,
   rarity = 2,
@@ -25,10 +25,6 @@ SMODS.Joker {
     return false
   end,
 
-  -- Cheap, side effect free estimate of what a card adds to a hand.
-  -- get_chip_bonus/get_edition are safe to call, but the get_chip_*_mult helpers are
-  -- not: Lucky Card draws from the RNG there, which would both shift the sequence
-  -- and light up cards that never scored. So read the ability fields directly.
   card_value = function(self, card)
     if card.debuff then return 0, 0, 1 end
     local chips = card:get_chip_bonus()
@@ -43,10 +39,6 @@ SMODS.Joker {
     return chips, mult, x_mult
   end,
 
-  -- What a hand is actually worth, mirroring the accumulation in vanilla's
-  -- evaluate_play: every scoring card's chips add to the hand's chips, and every
-  -- scoring card's mult/x_mult applies on top of the hand's mult. Enhancements,
-  -- editions and permanent bonuses therefore all count.
   hand_score = function(self, hand_name, cards)
     local hand_data = G.GAME.hands[hand_name]
     if not hand_data then return 0 end
@@ -60,14 +52,6 @@ SMODS.Joker {
     return chips * mult * x_mult
   end,
 
-  -- Try every legal selection and keep whichever scores highest.
-  -- evaluate_poker_hand() cannot be trusted to pick it: it files partial combos
-  -- under the wrong name (a five of a kind lands in 'Four of a Kind', which then
-  -- forces five cards for a hand that only uses four), a flush can span more than
-  -- five cards, and get_straight returns the first (lowest) straight it walks into,
-  -- so it picks a low straight over a far better one. Ranking by hand level instead
-  -- ignores both the strength of the cards and any chips/mult they carry, so an
-  -- enhanced card could be dropped in favour of a blank one.
   get_best_hand = function(self, cards)
     if not cards or #cards < 1 then return nil end
     if not (G.FUNCS and G.FUNCS.get_poker_hand_info) then return nil end
@@ -84,8 +68,6 @@ SMODS.Joker {
       if not hand_data then return end
 
       if #scoring_hand > 5 then
-        -- A flush can span more than five cards. Only five are ever played, so keep
-        -- the five worth the most rather than whatever order they came in.
         local ranked = {}
         for i = 1, #scoring_hand do ranked[i] = scoring_hand[i] end
         table.sort(ranked, function(a, b)
@@ -101,7 +83,6 @@ SMODS.Joker {
       local order = hand_data.order or 999
       local score = self:hand_score(name, scoring_hand)
 
-      -- Ties go to the stronger hand, then to the one wasting fewer cards.
       local better
       if not best then
         better = true
@@ -119,8 +100,6 @@ SMODS.Joker {
       end
     end
 
-    -- Combinations of 1..5 cards, so plain pairs, three of a kind and the like are
-    -- all considered alongside the five card hands.
     local function walk(size, at)
       if #indices == size then
         local selection = {}
@@ -154,14 +133,12 @@ SMODS.Joker {
       end
     end
     G.hand:unhighlight_all()
-    card.ability.selected_hand = nil
+    card.ability.extra.selected_hand = nil
 
-    -- High Card means nothing better is on the table, so leave the selection to the
-    -- player instead of locking them into a single card.
     local best = self:get_best_hand(G.hand.cards)
     if not best or best.name == 'High Card' then return end
 
-    card.ability.selected_hand = best.name
+    card.ability.extra.selected_hand = best.name
     for _, c in ipairs(best.cards) do
       c.ability.earthbound_forced = card.unique_val
       c.ability.forced_selection = true
@@ -178,7 +155,6 @@ SMODS.Joker {
     end
   end,
 
-  -- Re-apply force picks after vanilla would have cleared them.
   reapply_force = function(self, card)
     if not self:is_active_owner(card) then return end
     if G.playing_cards then
