@@ -24,10 +24,12 @@ SMODS.Joker {
         if dead.playing_card and not SMODS.has_no_rank(dead) then
           local rank = dead.base.value
           local pool = {}
-          for _, target in ipairs(G.hand.cards) do
-            if target.playing_card and not SMODS.has_no_rank(target)
-                and target.base.value ~= rank then
-              pool[#pool + 1] = target
+          if G.hand and G.hand.cards then
+            for _, target in ipairs(G.hand.cards) do
+              if target.playing_card and not SMODS.has_no_rank(target)
+                  and target.base.value ~= rank then
+                pool[#pool + 1] = target
+              end
             end
           end
           for _ = 1, card.ability.extra.cards do
