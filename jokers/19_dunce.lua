@@ -18,17 +18,31 @@ SMODS.Joker {
     if last_joker and last_joker ~= card and last_joker.config.center.blueprint_compat then
       status = 'compatible'
     end
+    if card and card.ability then
+      card.ability.blueprint_compat = status
+      card.ability.blueprint_compat_check = nil
+    end
     return {
       main_end = (card.area and card.area == G.jokers) and {
         {n=G.UIT.C, config={align = "bm", minh = 0.4}, nodes={
           {n=G.UIT.C, config={ref_table = card, align = "m", colour = G.C.JOKER_GREY, r = 0.05, padding = 0.06, func = 'blueprint_compat'}, nodes={
-            {n=G.UIT.T, config={text = status, colour = G.C.UI.TEXT_LIGHT, scale = 0.32*0.8}},
+            {n=G.UIT.T, config={ref_table = card.ability, ref_value = 'blueprint_compat_ui', colour = G.C.UI.TEXT_LIGHT, scale = 0.32*0.8}},
           }}
         }}
       } or nil,
     }
   end,
   calculate = function(self, card, context)
+    if not context.blueprint and G.jokers and G.jokers.cards then
+      local last_joker = G.jokers.cards[#G.jokers.cards]
+      local status = 'incompatible'
+      if last_joker and last_joker ~= card and last_joker.config.center.blueprint_compat then
+        status = 'compatible'
+      end
+      card.ability.blueprint_compat = status
+      card.ability.blueprint_compat_check = nil
+    end
+
     if context.before and not context.blueprint and G.jokers and G.jokers.cards then
       for i = 1, #G.jokers.cards do
         if G.jokers.cards[i] == card then
