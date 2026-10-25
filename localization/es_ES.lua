@@ -487,9 +487,9 @@ return {
       j_Sculio_binary = {
         name = 'Comodín Binario',
         text = {
-          'Las cartas sacadas al inicio de cada ronda',
+          'Las cartas sacadas al inicio de la ronda',
           'tienen una prob. de {C:green}#1# en #2#{} de',
-          'obtener {C:chips}+#3#{} Fichas o {C:mult}+#4#{} Multi',
+          'otorgar {C:chips}+#3#{} Fichas o {C:mult}+#4#{} Multi',
           '{C:inactive}(Actualmente {C:chips}+#5#{}{C:inactive} Fichas y {C:mult}+#6#{} {C:inactive}Multi)'
         },
       }, 
