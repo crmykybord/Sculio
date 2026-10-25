@@ -27,29 +27,30 @@ end
 
 -- Absorb edition bonuses from a sold joker or scored card (used by Figurine and Puck)
 function Sculio.absorb_edition(target_card, sold_card, bonus_mult)
-  local ed = sold_card.edition
+  local ed = sold_card and sold_card.edition
   if not ed then return nil end
   local ed_key = ed.type or ed.key
   local ed_center = G.P_CENTERS[ed_key] or G.P_CENTERS['e_' .. ed_key]
   if not ed_center then return nil end
-  local cfg = ed_center.config
+  local cfg = ed_center.config or {}
   local bonus = bonus_mult or 1
+  target_card.ability.extra = target_card.ability.extra or {}
   if cfg.chips and cfg.chips > 0 then
     local gain = cfg.chips * bonus
-    target_card.ability.extra.chips = target_card.ability.extra.chips + gain
+    target_card.ability.extra.chips = (target_card.ability.extra.chips or 0) + gain
     return localize({ type = 'variable', key = 'a_chips', vars = { gain } })
   elseif cfg.mult and cfg.mult > 0 then
     local gain = cfg.mult * bonus
-    target_card.ability.extra.mult = target_card.ability.extra.mult + gain
+    target_card.ability.extra.mult = (target_card.ability.extra.mult or 0) + gain
     return localize({ type = 'variable', key = 'a_mult', vars = { gain } })
   elseif cfg.x_mult and cfg.x_mult > 1 then
     local gain = (cfg.x_mult - 1) * bonus
-    target_card.ability.extra.x_mult = target_card.ability.extra.x_mult + gain
+    target_card.ability.extra.x_mult = (target_card.ability.extra.x_mult or 1) + gain
     return '+ ' .. localize({ type = 'variable', key = 'a_xmult', vars = { gain } })
   elseif (cfg.x_chips and cfg.x_chips > 1) or (cfg.Xchips and cfg.Xchips > 1) then
     local xchips_val = cfg.x_chips or cfg.Xchips
     local gain = (xchips_val - 1) * bonus
-    target_card.ability.extra.x_chips = target_card.ability.extra.x_chips + gain
+    target_card.ability.extra.x_chips = (target_card.ability.extra.x_chips or 1) + gain
     return '+ ' .. localize({ type = 'variable', key = 'a_xchips', vars = { gain } })
   end
   return nil
@@ -162,16 +163,6 @@ function Sculio:calculate(context)
     G.GAME.Sculio_ante_spend = (G.GAME.Sculio_ante_spend or 0) - context.amount
   end
 
-  -- Trap Cards can protect adjacent cards from debuffs
-  if context.debuff_card and context.other_card and context.other_card.ability
-      and context.other_card.ability.Sculio_debuff_immune then
-    return { prevent_debuff = true }
-  end
-  if context.end_of_round and context.main_eval and G.playing_cards then
-    for _, c in ipairs(G.playing_cards) do
-      c.ability.Sculio_debuff_immune = nil
-    end
-  end
 end
 
 function Sculio.is_debuff_immune(target)
@@ -508,7 +499,7 @@ function Sculio.create_center_card(center_key, area, n, seed, no_delay)
     G.E_MANAGER:add_event(Event({ trigger = 'after', delay = 0.4, func = function()
       if area.config.card_limit > #area.cards then
         play_sound('timpani')
-        local new_card = create_card(set, area, nil, nil, nil, nil, center_key, seed .. i)
+        local new_card = SMODS.create_card({ set = set, area = area, key = center_key, key_append = seed .. i })
         new_card:add_to_deck()
         area:emplace(new_card)
       else
@@ -593,7 +584,7 @@ Sculio.inverted_counterparts = {
   c_Sculio_secularist = 'c_high_priestess', c_Sculio_exiled = 'c_empress',
   c_Sculio_regicide = 'c_emperor',  c_Sculio_apostate = 'c_hierophant',
   c_Sculio_adversaries = 'c_lovers',  c_Sculio_pikeman = 'c_chariot',
-  c_Sculio_arbitrariness = 'c_justice', c_Sculio_mundane = 'c_hermit',
+  c_Sculio_mundane = 'c_hermit',
   c_Sculio_immutable_wheel = 'c_wheel_of_fortune',  c_Sculio_weakness = 'c_strength',
   c_Sculio_atoned = 'c_hanged_man', c_Sculio_rebirth = 'c_death',
   c_Sculio_impatient = 'c_temperance',  c_Sculio_archangel = 'c_devil',
@@ -842,7 +833,7 @@ function Sculio.deck_picker_UIBox(pool)
       for i = 1, rows[j] do
         local real = pool[i + row_totals[j] + (cards_per_page*(e.cycle_config.current_option - 1))]
         if not real then break end
-        local preview = copy_card(real)
+        local preview = SMODS.copy_card(real)
         preview.children.Sculio_select = UIBox{
           definition = {
             n = G.UIT.ROOT,
