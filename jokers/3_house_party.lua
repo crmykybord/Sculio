@@ -19,6 +19,7 @@ SMODS.Joker {
     if context.before and not context.blueprint then
       if (next(context.poker_hands['Full House']) or next(context.poker_hands['Flush House'])) then
         card.ability.extra.x_mult = card.ability.extra.x_mult + card.ability.extra.x_mult_gain
+        return { message = localize('k_upgrade_ex'), colour = G.C.MULT }
       elseif card.ability.extra.x_mult > 1 then
         card.ability.extra.x_mult = 1
         return { message = localize('k_reset') }
