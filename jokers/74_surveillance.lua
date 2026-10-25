@@ -18,8 +18,10 @@ SMODS.Joker {
   calculate = function(self, card, context)
     if context.hand_drawn and context.first_hand_drawn and not context.blueprint then
       local gained = 0
-      for _, c in ipairs(G.hand.cards) do
-        if c:is_face() then gained = gained + 1 end
+      if G.hand and G.hand.cards then
+        for _, c in ipairs(G.hand.cards) do
+          if c:is_face() then gained = gained + 1 end
+        end
       end
       if gained > 0 then
         local gain = gained * card.ability.extra.mult_gain
