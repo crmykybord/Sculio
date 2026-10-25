@@ -867,7 +867,7 @@ return {
       },
       -- 83. Fun Guy
       j_Sculio_fun_guy = {
-        name = 'Fun Guy',
+        name = 'Hongo parasitario',
         text = {
           '{C:attention}Al destruir{} una carta,',
           '{C:attention}#1#{} cartas al azar de tu mano',
