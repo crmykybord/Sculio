@@ -1,6 +1,7 @@
 SMODS.Joker {
   key = 'dunce',
   attributes = { 'copying' },
+  config = { extra = { debuffed_card = nil } },
   unlocked = true,
   discovered = false,
   rarity = 3, -- Rare
@@ -13,18 +14,15 @@ SMODS.Joker {
   rental_compat = true,
   loc_vars = function(self, info_queue, card)
     local last_joker = G.jokers and G.jokers.cards and G.jokers.cards[#G.jokers.cards]
+    local status = 'incompatible'
     if last_joker and last_joker ~= card and last_joker.config.center.blueprint_compat then
-      card.ability.blueprint_compat = 'compatible'
-    else
-      card.ability.blueprint_compat = 'incompatible'
+      status = 'compatible'
     end
-    card.ability.blueprint_compat_ui = card.ability.blueprint_compat_ui or ''
-    card.ability.blueprint_compat_check = nil
     return {
       main_end = (card.area and card.area == G.jokers) and {
         {n=G.UIT.C, config={align = "bm", minh = 0.4}, nodes={
           {n=G.UIT.C, config={ref_table = card, align = "m", colour = G.C.JOKER_GREY, r = 0.05, padding = 0.06, func = 'blueprint_compat'}, nodes={
-            {n=G.UIT.T, config={ref_table = card.ability, ref_value = 'blueprint_compat_ui', colour = G.C.UI.TEXT_LIGHT, scale = 0.32*0.8}},
+            {n=G.UIT.T, config={text = status, colour = G.C.UI.TEXT_LIGHT, scale = 0.32*0.8}},
           }}
         }}
       } or nil,
@@ -40,7 +38,7 @@ SMODS.Joker {
           if next_joker then
             next_joker:set_debuff(true)
           end
-          card.ability.debuffed_card = next_joker
+          card.ability.extra.debuffed_card = next_joker
         end
       end
     end
@@ -48,8 +46,8 @@ SMODS.Joker {
     if context.final_scoring_step then
       G.E_MANAGER:add_event(Event({
         func = function()
-          if card.ability.debuffed_card then
-            card.ability.debuffed_card:set_debuff(false)
+          if card.ability.extra.debuffed_card then
+            card.ability.extra.debuffed_card:set_debuff(false)
           end
 
           return true
@@ -61,9 +59,9 @@ SMODS.Joker {
     if context.after then
       G.E_MANAGER:add_event(Event({
         func = function()
-          if card.ability.debuffed_card then
-            card.ability.debuffed_card:set_debuff(false)
-            card.ability.debuffed_card = nil
+          if card.ability.extra.debuffed_card then
+            card.ability.extra.debuffed_card:set_debuff(false)
+            card.ability.extra.debuffed_card = nil
           end
 
           return true
