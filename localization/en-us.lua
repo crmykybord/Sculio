@@ -1293,14 +1293,6 @@ return {
           },
         },
       },
-      m_Sculio_trap = {
-        name = 'Trap Card',
-        text = {
-          'When this card is {C:attention}#1#{},',
-          'it triggers:',
-          '#2#',
-        },
-      },
       m_Sculio_divine = {
         name = 'Divine Card',
         text = {
@@ -1471,14 +1463,6 @@ return {
         text = {
           'Enhances {C:attention}#1#{} selected cards',
           'into {C:attention}Phalanx Cards{}',
-        },
-      },
-      c_Sculio_arbitrariness = {
-        name = 'Arbitrariness',
-        text = {
-          'Enhances {C:attention}1{} selected card',
-          'into an {C:attention}Trap Card{} with a',
-          'random trigger and random effect',
         },
       },
       c_Sculio_mundane = {
@@ -1654,28 +1638,6 @@ return {
       Sculio_perishable_suffix = ', Perishable',
       b_inverted_cards = 'Inverted Tarots',
       k_booster_group_sculio_inverted = 'Inverted Arcana Pack',
-      Sculio_trap_unknown_trigger = 'rolled',
-      Sculio_trap_unknown_effect = 'A random effect from weighted rarity pools',
-      Sculio_trap_played = 'played',
-      Sculio_trap_scored = 'scored',
-      Sculio_trap_discarded = 'discarded',
-      Sculio_trap_held = 'held in hand',
-      Sculio_trap_destroyed = 'destroyed',
-      Sculio_trap_chips75 = '{C:chips}+75 Chips{}',
-      Sculio_trap_mult20 = '{C:mult}+20 Mult{}',
-      Sculio_trap_dollars5 = '{C:money}$5{}',
-      Sculio_trap_draw2 = 'Draws {C:attention}2{} cards',
-      Sculio_trap_xmult175 = '{X:mult,C:white}X1.75{} Mult',
-      Sculio_trap_xchips15 = '{X:chips,C:white}X1.5{} Chips',
-      Sculio_trap_create_tarot = 'Creates a random {C:tarot}Tarot{}',
-      Sculio_trap_create_planet = 'Creates a random {C:planet}Planet{}',
-      Sculio_trap_enhance = 'Applies a random Enhancement to a random card',
-      Sculio_trap_seal = 'Applies a random Seal to a random card',
-      Sculio_trap_buff_others = 'Gives {C:mult}+4 Mult{} to up to 2 other cards in hand',
-      Sculio_trap_reduce_blind = 'Reduces the Blind by {C:attention}5%{}',
-      Sculio_trap_spectral_draw = 'Creates a random {C:spectral}Spectral{} and draws {C:attention}2{} cards',
-      Sculio_trap_protect_xmult = 'Adjacent cards cannot be debuffed, and {X:mult,C:white}X1.75{} Mult',
-      Sculio_trap_seal_buff = 'Applies a random Seal and gives {C:mult}+4 Mult{} to other cards',
       k_Sculio_plus_hermit = '+1 The Hermit',
       k_Sculio_skipped = 'Skipped!',
       k_Sculio_top_10_common = 'Common',

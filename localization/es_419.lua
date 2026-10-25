@@ -1291,14 +1291,6 @@ return {
           }
         },
       },
-      m_Sculio_trap = {
-        name = 'Carta Trampa',
-        text = {
-          'Cuando esta carta se {C:attention}#1#{},',
-          'activa:',
-          '#2#',
-        },
-      },
       m_Sculio_divine = {
         name = 'Carta Divina',
         text = {
@@ -1467,13 +1459,6 @@ return {
           'en {C:attention}Cartas Falange{}',
         },
       },
-      c_Sculio_arbitrariness = {
-        name = 'La Arbitrariedad',
-        text = {
-          'Mejora {C:attention}1{} carta seleccionada en una',
-          '{C:attention}Carta Trampa{} con activador y efecto aleatorios',
-        },
-      },
       c_Sculio_mundane = {
         name = 'El Mundano',
         text = {
@@ -1640,28 +1625,6 @@ return {
       Sculio_perishable_suffix = ' y Perecedera',
       b_inverted_cards = 'Tarots Invertidos',
       k_booster_group_sculio_inverted = 'Paquete arcano Invertido',
-      Sculio_trap_unknown_trigger = 'al azar',
-      Sculio_trap_unknown_effect = 'Un efecto aleatorio de pools de rareza ponderados',
-      Sculio_trap_played = 'juega',
-      Sculio_trap_scored = 'anota',
-      Sculio_trap_discarded = 'descarta',
-      Sculio_trap_held = 'mantiene en mano',
-      Sculio_trap_destroyed = 'destruye',
-      Sculio_trap_chips75 = '{C:chips}+75 Fichas{}',
-      Sculio_trap_mult20 = '{C:mult}+20 Multi{}',
-      Sculio_trap_dollars5 = '{C:money}$5{}',
-      Sculio_trap_draw2 = 'Saca {C:attention}2{} cartas',
-      Sculio_trap_xmult175 = '{X:mult,C:white}X1.75{} Multi',
-      Sculio_trap_xchips15 = '{X:chips,C:white}X1.5{} Fichas',
-      Sculio_trap_create_tarot = 'Crea un {C:tarot}Tarot{} al azar',
-      Sculio_trap_create_planet = 'Crea un {C:planet}Planeta{} al azar',
-      Sculio_trap_enhance = 'Aplica una Mejora al azar a una carta al azar',
-      Sculio_trap_seal = 'Aplica un Sello al azar a una carta al azar',
-      Sculio_trap_buff_others = 'Da {C:mult}+4 Multi{} a hasta 2 otras cartas en mano',
-      Sculio_trap_reduce_blind = 'Reduce la Ciega un {C:attention}5%{}',
-      Sculio_trap_spectral_draw = 'Crea una carta {C:spectral}Espectral{} al azar y saca {C:attention}2{} cartas',
-      Sculio_trap_protect_xmult = 'Las cartas adyacentes no pueden debilitarse, y {X:mult,C:white}X1.75{} Multi',
-      Sculio_trap_seal_buff = 'Aplica un Sello al azar y da {C:mult}+4 Multi{} a las demás cartas',
       k_Sculio_plus_hermit = '+1 El Ermitaño',
       k_Sculio_skipped = '¡Omitido!',
       k_Sculio_top_10_common = 'Común',
