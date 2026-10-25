@@ -42,10 +42,7 @@ SMODS.Joker {
         card.ability.extra.last_missing = missing
       elseif missing > card.ability.extra.last_missing then
         card.ability.extra.last_missing = missing
-        return {
-          message = localize('k_upgrade_ex'),
-          message_card = card,
-        }
+        return { message = localize('k_upgrade_ex') }
       end
     end
   end
