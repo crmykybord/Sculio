@@ -936,11 +936,10 @@ return {
       j_Sculio_anonymity = {
         name = 'Anonimato',
         text = {
-          'Las cartas tienen una prob. de',
-          '{C:green}1 en #1#{} de salir boca abajo',
-          'y obtiene {C:mult}+#2#{} Multi por cada',
-          'carta boca abajo jugada',
-          '{C:inactive}(Actualmente {C:mult}+#3#{C:inactive} Multi){}',
+          'Las cartas de figura siempre salen',
+          'boca abajo y este comodín obtiene',
+          '{C:mult}+#1#{} Multi por carta de figura anotada',
+          '{C:inactive}(Actualmente {C:mult}+#2#{C:inactive} Multi){}',
         },
       },
       -- 91. Jar of Dill
@@ -989,7 +988,9 @@ return {
       j_Sculio_pinball_machine = {
         name = 'Máquina de Pinball',
         text = {
-          '{C:inactive}Sin efecto{}',
+          'Si tu mano jugada contiene un {C:attention}Color{},',
+          'las cartas anotadas otorgan {C:chips}+#1#{} Fichas,',
+          '{C:mult}+#2#{} Multi o {C:money}$#3#{}',
         },
       },
       -- 97. Rubberhose Joker

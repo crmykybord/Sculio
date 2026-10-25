@@ -243,7 +243,7 @@ return {
         text = {
           '{C:attention}+#1#{} hand size,',
           'steals {C:money}$#2#{} every round.',
-          'Destroyed if money reaches {C:money}$#3#{}',
+          'Leaves if you have no {C:money}money{}',
         },
       }, 
       -- 16. Reach
@@ -934,34 +934,24 @@ return {
           '{C:inactive}(Copying: #1#){}',
         },
       },
-      -- 90. Cartomancer?
-      j_Sculio_cartomante = {
-        name = 'Cartomancer?',
-        text = {
-          'Creates a random {C:inverted}Inverted Tarot{}',
-          'when selecting a Blind',
-          '{C:inactive}(Must have room){}',
-        },
-      },
-      -- 91. Anonymity
+      -- 90. Anonymity
       j_Sculio_anonymity = {
         name = 'Anonymity',
         text = {
-          'During blinds, playing cards have a',
-          '1 in #1# chance to be dealt face down',
-          'and gains {C:mult}+#2#{} Mult per face',
-          'down card played',
-          '{C:inactive}(Currently {C:mult}+#3#{C:inactive} Mult){}',
+          'Face cards are always dealt face down',
+          'this Joker gains {C:mult}+#1#{} Mult',
+          'per scored face card',
+          '{C:inactive}(Currently {C:mult}+#2#{C:inactive} Mult){}',
         },
       },
-      -- 92. Jar of Dill
+      -- 91. Jar of Dill
       j_Sculio_jar_of_dill = {
         name = 'Jar of Dill',
         text = {
           '{C:inactive}No effect{}',
         },
       },
-      -- 93. Red Dacca
+      -- 92. Red Dacca
       j_Sculio_red_dacca = {
         name = 'Red Dacca',
         text = {
@@ -970,17 +960,17 @@ return {
           'is consumed at end of round',
         },
       },
-      -- 94. Joker Hazard
+      -- 93. Joker Hazard
       j_Sculio_joker_hazard = {
-        name = 'Joker Hazard',
+        name = 'Cynical Comic',
         text = {
-          '{C:green}#1# in #2#{} chance to destroy',
+          '{C:green}#1# in #2#{} chance to {C:red}destroy{}',
           'the {C:attention}Joker{} to the left and',
-          'gain {C:blue}+#3#{} hand size',
-          '{C:inactive}(Currently {C:blue}+#4#/{C:attention}#5#{C:inactive}){}',
+          'grant {C:attention}+#3#{} hand size {C:inactive}(Max. {C:attention}#5#{C:inactive})',
+          '{C:inactive}(Currently {C:attention}+#4#{C:inactive}){}',
         },
       },
-      -- 95. Walk of Fame
+      -- 94. Walk of Fame
       j_Sculio_walk_of_fame = {
         name = 'Walk of Fame',
         text = {
@@ -989,27 +979,38 @@ return {
           'a random {C:attention}Joker{}',
         },
       },
-      -- 96. Crossroads
+      -- 95. Crossroads
       j_Sculio_crossroads = {
         name = 'Crossroads',
         text = {
           '{C:inactive}No effect{}',
         },
       },
-      -- 97. Pinball Machine
+      -- 96. Pinball Machine
       j_Sculio_pinball_machine = {
         name = 'Pinball Machine',
         text = {
-          '{C:inactive}No effect{}',
+          'If played hand contains a {C:attention}Flush{},',
+          'scored cards grant {C:chips}+#1#{} Chips,',
+          '{C:mult}+#2#{} Mult, or {C:money}$#3#{}',
         },
       },
-      -- 98. Rubberhose Joker
+      -- 97. Rubberhose Joker
       j_Sculio_rubberhose_joker = {
         name = 'Rubberhose Joker',
         text = {
           'Gains {X:mult,C:white}X#1#{} Mult per {C:spades}Spades{}',
           'or {C:clubs}Clubs{} card in your deck',
           '{C:inactive}(Currently {X:mult,C:white}X#2#{}{C:inactive} Mult){}',
+        },
+      },
+      -- 98. Cartomancer?
+      j_Sculio_cartomante = {
+        name = 'Cartomancer?',
+        text = {
+          'Creates a random {C:inverted}Inverted Tarot{}',
+          'when selecting a Blind',
+          '{C:inactive}(Must have room){}',
         },
       },
       -- 100. Puck
