@@ -17,9 +17,10 @@ SMODS.Joker {
     return { vars = { card.ability.extra.chips, card.ability.extra.mult, card.ability.extra.x_mult, card.ability.extra.x_chips } }
   end,
   calculate = function(self, card, context)
-    if context.individual and context.cardarea == G.play and not context.blueprint then
+    if context.individual and context.cardarea == G.play and context.other_card and not context.blueprint then
+      if context.other_card.debuff then return end
       local ed = context.other_card.edition
-      if not ed or context.other_card.debuff then return end
+      if not ed then return end
       local message = Sculio.absorb_edition(card, context.other_card, card.ability.extra.bonus_mult)
       if message then
         return { extra = { message = message, focus = card }, card = card }
