@@ -296,9 +296,9 @@ return {
       j_Sculio_sticky_keys = {
         name = 'Tecla Atascada',
         text = {
-          'Otorga {C:mult}Multi{} igual a {attention}X2{}',
-          'veces las {C:attention}fichas base{} de la',
-          '{C:attention}primera carta jugada{} al inicio de cada Apuesta',
+          'Otorga {C:mult}Multi{} igual a {attention}X2{} veces',
+          'las {C:chips}fichas base{} de la {C:attention}primera{}',
+          '{C:attention}carta jugada{} al inicio de cada Apuesta',
           '{C:inactive}(Actualmente {C:mult}+#1#{}{C:inactive} Multi)',
         }
       }, 
@@ -694,7 +694,7 @@ return {
         text = {
           'Si te quedas sin manos, otorga',
           '{C:blue}+1{} mano y {C:red}+1{} descarte',
-          '{C:inactive}(Solo 1 vez por ronda){}',
+          '{C:inactive,s:0.8}(1 vez por ronda){}',
         },
       },
       -- 64. Test Dummy
@@ -845,8 +845,8 @@ return {
       j_Sculio_mugshot = {
         name = 'Foto Policial',
         text = {
-          'Las {C:attention}Cartas Errantes{} otorgan',
-          '{C:money}$#1#{} al descartarse',
+          'Las {C:attention}Cartas Errantes{}',
+          'otorgan {C:money}$#1#{} al descartarse',
         },
       },
       -- 81. Nervous Wreck
@@ -965,8 +965,8 @@ return {
         text = {
           'Prob. de {C:green}#1# en #2#{} de {C:red}destruir{}',
           'el {C:attention}Comodín{} de la izquierda y',
-          'otorgar {C:attention}+#3#{} al tamaño de mano',
-          '{C:inactive}(Máx. {C:attention}#5#{C:inactive}; ahora {C:attention}+#4#{C:inactive}){}',
+          'otorgar {C:attention}+#3#{} al tamaño de mano {C:inactive}(Máx. {C:attention}#5#{}{C:inactive})',
+          '{C:inactive}(Actualmente {C:attention}+#4#{C:inactive}){}',
         },
       },
       -- 94. Walk of Fame
