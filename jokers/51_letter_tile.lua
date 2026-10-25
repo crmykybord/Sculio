@@ -17,7 +17,7 @@ SMODS.Joker {
     return { vars = { card.ability.extra.mult } }
   end,
   calculate = function(self, card, context)
-    if context.individual and context.cardarea == G.play then
+    if context.individual and context.cardarea == G.play and context.other_card then
       if context.other_card:get_id() == 11 then
         return { mult = card.ability.extra.mult }
       end
