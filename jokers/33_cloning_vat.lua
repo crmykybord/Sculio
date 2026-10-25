@@ -292,7 +292,8 @@ SMODS.Joker {
   rarity = 3, -- Rare
   atlas = 'Sculio',
   pos = { x = 4, y = 3 },
-  cost = 10,
+  cost = 8,
+  config = { extra = { Sculio_vat_slot_added = nil } },
   eternal_compat = true,
   perishable_compat = true,
   rental_compat = true,
@@ -311,8 +312,8 @@ SMODS.Joker {
     end
 
     if context.starting_shop and G.GAME.shop
-      and not (card.ability and card.ability.Sculio_vat_slot_added) then
-      card.ability.Sculio_vat_slot_added = true
+      and not (card.ability and card.ability.extra.Sculio_vat_slot_added) then
+      card.ability.extra.Sculio_vat_slot_added = true
       change_shop_size(1)
     end
 
@@ -326,15 +327,15 @@ SMODS.Joker {
 
   add_to_deck = function(self, card, from_debuff)
     cv_install_shim()
-    if card.ability and card.ability.Sculio_vat_slot_added then return end
+    if card.ability and card.ability.extra.Sculio_vat_slot_added then return end
     if not G.GAME.shop then return end
-    card.ability.Sculio_vat_slot_added = true
+    card.ability.extra.Sculio_vat_slot_added = true
     change_shop_size(1)
   end,
 
   remove_from_deck = function(self, card, from_debuff)
-    if not (card.ability and card.ability.Sculio_vat_slot_added) then return end
-    card.ability.Sculio_vat_slot_added = nil
+    if not (card.ability and card.ability.extra.Sculio_vat_slot_added) then return end
+    card.ability.extra.Sculio_vat_slot_added = nil
     if not G.GAME.shop then return end
     if G.shop_jokers and G.shop_jokers.cards then
       for i = #G.shop_jokers.cards, 1, -1 do
