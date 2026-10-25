@@ -45,7 +45,6 @@ local skip_files = {
   -- Disabled until they have an effect
   ['92_jar_of_dill.lua'] = true,
   ['96_crossroads.lua'] = true,
-  ['97_pinball_machine.lua'] = true,
 }
 
 load_dir('jokers', skip_files)
