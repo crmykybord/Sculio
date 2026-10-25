@@ -7,7 +7,7 @@ SMODS.Spectral {
   config = { extra = { cards = 3 } },
   loc_vars = function(self, info_queue, card)
     info_queue[#info_queue + 1] = G.P_CENTERS.m_Sculio_punched
-    return { vars = { card.ability.consumeable.extra.cards } }
+    return { vars = { card.ability.extra.cards } }
   end,
   can_use = function(self, card)
     return Sculio.hand_selection_state() and G.hand and #G.hand.cards > 0
@@ -18,7 +18,7 @@ SMODS.Spectral {
     for _, c in ipairs(G.hand.cards) do targets[#targets + 1] = c end
     pseudoshuffle(targets, pseudoseed('sculio_transfix'))
     local picked = {}
-    for i = 1, math.min(card.ability.consumeable.extra.cards, #targets) do
+    for i = 1, math.min(card.ability.extra.cards, #targets) do
       picked[i] = targets[i]
     end
     Sculio.flip_highlighted(card, picked, function()
