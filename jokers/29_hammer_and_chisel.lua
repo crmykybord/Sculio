@@ -1,7 +1,7 @@
 SMODS.Joker {
   key = 'hammer_and_chisel',
   attributes = { 'destroy_card', 'perma_bonus', 'enhancements', 'chance' },
-  config = { extra = { chip_perma_bonus = 15, shatter_odds = 10 } },
+  config = { extra = { chip_perma_bonus = 15, shatter_odds = 10, cards_to_shatter = {} } },
   unlocked = true,
   discovered = false,
   rarity = 1, -- Common
@@ -23,12 +23,12 @@ SMODS.Joker {
   end,
   calculate = function(self, card, context)
     if context.before then
-      card.ability.cards_to_shatter = {}
+      card.ability.extra.cards_to_shatter = {}
     end
 
-    if context.individual and context.cardarea == G.play and not context.other_card.debuff and SMODS.has_enhancement(context.other_card, 'm_stone') then
+    if context.individual and context.cardarea == G.play and context.other_card and not context.other_card.debuff and SMODS.has_enhancement(context.other_card, 'm_stone') then
       if SMODS.pseudorandom_probability(card, 'hammer_and_chisel', 1, card.ability.extra.shatter_odds) then
-        table.insert(card.ability.cards_to_shatter, context.other_card)
+        table.insert(card.ability.extra.cards_to_shatter, context.other_card)
       end
 
       -- Based off of Hiker.
@@ -38,10 +38,10 @@ SMODS.Joker {
       return { extra = {message = localize('k_upgrade_ex'), colour = G.C.CHIPS}, colour = G.C.CHIPS, card = card }
     end
 
-    if context.after then
+    if context.after and not context.blueprint then
       G.E_MANAGER:add_event(Event({
         func = function()
-          for _, card_to_shatter in pairs(card.ability.cards_to_shatter) do
+          for _, card_to_shatter in pairs(card.ability.extra.cards_to_shatter) do
             card_to_shatter:shatter()
           end
 
