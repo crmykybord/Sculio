@@ -22,11 +22,11 @@ SMODS.Joker {
   calculate = function(self, card, context)
     if context.individual and context.cardarea == G.play and not context.repetition
         and context.other_card and not context.other_card.repetition_trigger
+        and context.scoring_hand and SMODS.in_scoring(context.other_card, context.scoring_hand)
         and SMODS.has_enhancement(context.other_card, 'm_stone') then
       local money = card.ability.extra.money
-      ease_dollars(money)
       context.other_card:juice_up(0.3, 0.5)
-      card_eval_status_text(context.other_card, 'dollars', money)
+      return { dollars = money }
     end
   end
 }
