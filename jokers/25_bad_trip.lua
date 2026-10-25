@@ -30,14 +30,18 @@ SMODS.Joker {
 
     if context.selling_self and card.ability.extra.rounds_elapsed >= card.ability.extra.rounds_until_active and not context.blueprint then
       local card_code
-      for k, v in ipairs(G.deck.cards) do
-        card_code, _ = pseudorandom_element(G.P_CARDS, pseudoseed('bad_trip'))
-        v:set_base(card_code)
+      if G.deck and G.deck.cards then
+        for k, v in ipairs(G.deck.cards) do
+          card_code, _ = pseudorandom_element(G.P_CARDS, pseudoseed('bad_trip'))
+          v:set_base(card_code)
+        end
       end
 
-      for k, v in ipairs(G.hand.cards) do
-        card_code, _ = pseudorandom_element(G.P_CARDS, pseudoseed('bad_trip'))
-        v:set_base(card_code)
+      if G.hand and G.hand.cards then
+        for k, v in ipairs(G.hand.cards) do
+          card_code, _ = pseudorandom_element(G.P_CARDS, pseudoseed('bad_trip'))
+          v:set_base(card_code)
+        end
       end
 
       return { message = localize('k_Sculio_bad_trip_randomized') }
