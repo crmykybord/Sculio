@@ -296,10 +296,9 @@ return {
       j_Sculio_sticky_keys = {
         name = 'Tecla Atascada',
         text = {
-          'Gana {C:mult}Multi{} igual a las fichas base',
-          'de la priemra carta {C:attention}anotada{},',
-          'cambia cada {C:attention}#2#{} manos jugadas',
-          '{C:inactive}#3# para el siguiente cambio{}',
+          'Otorga {C:mult}Multi{} igual a {attention}X2{}',
+          'veces las {C:attention}fichas base{} de la',
+          '{C:attention}primera carta jugada{} al inicio de cada Apuesta',
           '{C:inactive}(Actualmente {C:mult}+#1#{}{C:inactive} Multi)',
         }
       }, 
@@ -1619,6 +1618,7 @@ return {
       k_Sculio_bad_trip_randomized = '¡Baraja cambiada!',
       k_Sculio_getaway_win = '¡Fuga!',
       k_Sculio_ecg_discard = '+1 Descarte',
+      k_Sculio_kfc_stole = 'Robó $#1#',
       k_Sculio_none = 'Nada',
       k_Sculio_plus_inverted = '+1 Tarot Invertido',
       k_inverted = 'Tarot Invertido',

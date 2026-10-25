@@ -299,10 +299,9 @@ return {
       j_Sculio_sticky_keys = {
         name = 'Sticky Keys',
         text = {
-          'Changes {C:mult}Mult{} to {C:attention}base chips{}',
-          'of {C:attention}first scoring card{}',
-          'every {C:attention}#2#{} hands played',
-          '{C:inactive}#3# remaining{}',
+          'Sets {C:mult}Mult{} to {C:attention}X2{} times',
+          'the {C:attention}base chips{} of the',
+          '{C:attention}first played card{} at the start of each Ante',
           '{C:inactive}(Currently {C:mult}+#1#{}{C:inactive} Mult)',
         }
       }, 
@@ -1630,6 +1629,7 @@ return {
       k_Sculio_bad_trip_randomized = 'Deck randomized!',
       k_Sculio_getaway_win = 'Getaway!',
       k_Sculio_ecg_discard = '+1 Discard',
+      k_Sculio_kfc_stole = 'Stole $#1#',
       k_Sculio_compatible = 'Compatible',
       k_Sculio_incompatible = 'Incompatible',
       k_Sculio_none = 'None',
