@@ -91,7 +91,7 @@ return {
       sculio_orange_seal = {
         name = 'Orange Seal',
         text = {
-          'Gain a free {C:attention}reroll{}',
+          'Gain a free {C:green}reroll{}',
           'for each {C:attention}Orange Seal{}',
           'you own',
         },
@@ -962,7 +962,7 @@ return {
       },
       -- 93. Joker Hazard
       j_Sculio_joker_hazard = {
-        name = 'Cynical Comic',
+        name = 'Joker Hazard',
         text = {
           '{C:green}#1# in #2#{} chance to {C:red}destroy{}',
           'the {C:attention}Joker{} to the left and',
