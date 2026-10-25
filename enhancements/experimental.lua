@@ -39,7 +39,7 @@ SMODS.Enhancement {
     return { vars = vars, key = key }
   end,
   calculate = function(self, card, context)
-    if context.main_scoring and context.cardarea == G.play and not context.retrigger_joker then
+    if context.main_scoring and context.cardarea == G.play and not context.retrigger_joker and not (card and card.repetition_trigger) then
       if card.ability.extra.done then return end
       card.ability.extra.count = card.ability.extra.count + 1
       if card.ability.extra.count >= card.ability.extra.max then
@@ -60,8 +60,8 @@ SMODS.Enhancement {
           end
           local tag = Tag(selected_tag, false, 'Small')
           add_tag(tag)
-          play_sound('generic1', 0.9 + math.random() * 0.1, 0.8)
-          play_sound('holo1', 1.2 + math.random() * 0.1, 0.4)
+          play_sound('generic1', 0.9 + pseudorandom('sculio_experimental_sound1') * 0.1, 0.8)
+          play_sound('holo1', 1.2 + pseudorandom('sculio_experimental_sound2') * 0.1, 0.4)
           if card.ability.extra.reward then
             ease_dollars(card.ability.extra.reward)
             card_eval_status_text(card, 'extra', nil, nil, nil,
