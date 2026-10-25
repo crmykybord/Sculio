@@ -933,16 +933,7 @@ return {
           '{C:inactive}(Copiando: #1#){}',
         },
       },
-      -- 90. Cartomancer?
-      j_Sculio_cartomante = {
-        name = '¿Cartomante?',
-        text = {
-          'Crea un {C:inverted}Tarot Invertido{} al',
-          'azar al seleccionar una ciega',
-          '{C:inactive}(Debe haber espacio){}',
-        },
-      },
-      -- 91. Anonymity
+      -- 90. Anonymity
       j_Sculio_anonymity = {
         name = 'Anonimato',
         text = {
@@ -953,15 +944,15 @@ return {
           '{C:inactive}(Actualmente {C:mult}+#3#{C:inactive} Multi){}',
         },
       },
-      -- 92. Jar of Dill
+      -- 91. Jar of Dill
       j_Sculio_jar_of_dill = {
         name = 'Frasco de Eneldo',
         text = {
           '{C:inactive}Sin efecto{}',
         },
       },
-      -- 93. Red Dacca
-      j_Sculio_red_dacca = {
+      -- 92. Red Dacca
+      j_Sculio_red_dacca = { -- This type of banana is so sweet, sometimes I cant handle it
         name = 'Red Dacca',
         text = {
           '{C:mult}+#1#{} Multi',
@@ -969,46 +960,55 @@ return {
           'consumirse al final de la ronda',
         },
       },
-      -- 94. Joker Hazard
+      -- 93. Joker Hazard
       j_Sculio_joker_hazard = {
-        name = 'Comodín Peligroso',
+        name = 'Comic Cínico',
         text = {
-          'Prob. de {C:green}#1# en #2#{} de destruir',
+          'Prob. de {C:green}#1# en #2#{} de {C:red}destruir{}',
           'el {C:attention}Comodín{} de la izquierda y',
-          'otorgar {C:blue}+#3#{} al tamaño de mano',
-          '{C:inactive}(Máx. {C:blue}#5#{C:inactive}; ahora {C:blue}+#4#{C:inactive}){}',
+          'otorgar {C:attention}+#3#{} al tamaño de mano',
+          '{C:inactive}(Máx. {C:attention}#5#{C:inactive}; ahora {C:attention}+#4#{C:inactive}){}',
         },
       },
-      -- 95. Walk of Fame
+      -- 94. Walk of Fame
       j_Sculio_walk_of_fame = {
         name = 'Paseo de la Fama',
         text = {
-          'Al derrotar una {C:attention}Ciega Jefe{}, otorga',
-          'una {C:dark_edition}Edición{} al azar a un',
+          'Al derrotar una {C:attention}Ciega Jefe{},',
+          'otorga una {C:dark_edition}Edición{} a un',
           '{C:attention}Comodín{} al azar',
         },
       },
-      -- 96. Crossroads
+      -- 95. Crossroads
       j_Sculio_crossroads = {
         name = 'Encrucijada',
         text = {
           '{C:inactive}Sin efecto{}',
         },
       },
-      -- 97. Pinball Machine
+      -- 96. Pinball Machine
       j_Sculio_pinball_machine = {
         name = 'Máquina de Pinball',
         text = {
           '{C:inactive}Sin efecto{}',
         },
       },
-      -- 98. Rubberhose Joker
+      -- 97. Rubberhose Joker
       j_Sculio_rubberhose_joker = {
         name = 'Rubberhose Joker',
         text = {
           'Obtiene {X:mult,C:white}X#1#{} Multi por cada carta',
           'de {C:spades}Espadas{} o {C:clubs}Tréboles{} en tu Baraja',
           '{C:inactive}(Actualmente {X:mult,C:white}X#2#{}{C:inactive} Multi){}',
+        },
+      },
+      -- 98. Cartomancer?
+      j_Sculio_cartomante = {
+        name = '¿Cartomante?',
+        text = {
+          'Crea un {C:inverted}Tarot Invertido{} al',
+          'azar al seleccionar una ciega',
+          '{C:inactive}(Debe haber espacio){}',
         },
       },
       -- 100. Puck
