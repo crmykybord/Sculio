@@ -938,9 +938,9 @@ return {
       j_Sculio_anonymity = {
         name = 'Anonymity',
         text = {
-          'Face cards are always dealt face down',
-          'this Joker gains {C:mult}+#1#{} Mult',
-          'per scored face card',
+          'Face cards are always draw',
+          '{C:attention}face down{} this Joker gains {C:mult}+#1#{} Mult',
+          'when a face card is scored',
           '{C:inactive}(Currently {C:mult}+#2#{C:inactive} Mult){}',
         },
       },
@@ -1523,10 +1523,10 @@ return {
       c_Sculio_impatient = {
         name = 'The Impatient',
         text = {
-          'Gives {C:money}$#1#{} in total',
-          '{C:inactive}(Up to {C:money}$#2#{C:inactive}){}.',
-          'Then every Joker loses',
-          '{C:money}$#3#{} sell value',
+          'Gives the {C:money}sell value{} of your',
+          '{C:attention}Jokers{} ({C:money}$#1#{}) + {C:money}$#2#{}',
+          'Jokers lose {C:money}$#3#{} {C:money}sell value{}',
+          '{C:inactive}(Will give: {C:money}$#4#{C:inactive}){}',
         },
       },
       c_Sculio_archangel = {

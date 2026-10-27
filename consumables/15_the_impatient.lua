@@ -1,5 +1,5 @@
-local function payout_now(extra)
-  return math.min(extra.payout + Sculio.total_joker_sell_value(), extra.cap)
+local function payout_now(extra, joker_sell_value)
+  return extra.payout + (joker_sell_value or Sculio.total_joker_sell_value())
 end
 
 SMODS.Consumable {
@@ -10,10 +10,11 @@ SMODS.Consumable {
   unlocked = true,
   discovered = false,
   cost = 3,
-  config = { extra = { payout = 5, cap = 75, penalty = 1 } },
+  config = { extra = { payout = 5, penalty = 1 } },
   loc_vars = function(self, info_queue, card)
     local extra = self.config.extra
-    return { vars = { payout_now(extra), extra.cap, extra.penalty } }
+    local joker_sell_value = Sculio.total_joker_sell_value()
+    return { vars = { joker_sell_value, extra.payout, extra.penalty, payout_now(extra, joker_sell_value) } }
   end,
   can_use = function(self, card)
     return #G.jokers.cards > 0
@@ -26,7 +27,7 @@ SMODS.Consumable {
       card:juice_up(0.3, 0.5)
       for _, j in ipairs(G.jokers.cards) do
         if not j.gone then
-          j.sell_cost = j.sell_cost - extra.penalty
+          j.sell_cost = math.max(0, j.sell_cost - extra.penalty)
           j:juice_up(0.3, 0.5)
         end
       end
