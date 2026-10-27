@@ -1518,9 +1518,9 @@ return {
         name = 'El Impaciente',
         text = {
           'Otorga el {C:money}valor de venta{} de tus',
-          '{C:attention}Comodines{} ({C:money}$#1#{}) + {C:money}$#2#{}',
+          '{C:attention}Comodines{} + {C:money}$#2#{}',
           'Los Comodines pierden {C:money}$#3#{}',
-          'de {C:money}valor de venta{} {C:inactive}(Otorgará: {C:money}$#4#{C:inactive}){}',
+          'de {C:money}valor de venta{} {C:inactive}(Otorgará: {C:money}$#1#{C:inactive}){}',
         },
       },
       c_Sculio_archangel = {

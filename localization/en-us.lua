@@ -1524,9 +1524,9 @@ return {
         name = 'The Impatient',
         text = {
           'Gives the {C:money}sell value{} of your',
-          '{C:attention}Jokers{} ({C:money}$#1#{}) + {C:money}$#2#{}',
+          '{C:attention}Jokers{} + {C:money}$#2#{}',
           'Jokers lose {C:money}$#3#{} {C:money}sell value{}',
-          '{C:inactive}(Will give: {C:money}$#4#{C:inactive}){}',
+          '{C:inactive}(Will give: {C:money}$#1#{C:inactive}){}',
         },
       },
       c_Sculio_archangel = {
