@@ -170,7 +170,7 @@ return {
       },      
       -- 9. Gumball Machine
       j_Sculio_gumball = {
-        name = 'Maquina de Chicle',
+        name = 'Máquina de Chicle',
         text = {
           '{C:mult}+#2#{} Multi al abrir {C:attention}paquetes potenciadores{}',
           '{C:mult}#3#{} Multi al omitir {C:attention}paquetes potenciadores{}',
@@ -963,8 +963,8 @@ return {
         name = 'Comic Cínico',
         text = {
           'Prob. de {C:green}#1# en #2#{} de {C:red}destruir{}',
-          'el {C:attention}Comodín{} de la izquierda y',
-          'otorgar {C:attention}+#3#{} al tamaño de mano {C:inactive}(Máx. {C:attention}#5#{}{C:inactive})',
+          'el {C:attention}Comodín{} de la izquierda y otorgar',
+          '{C:attention}+#3#{} al tamaño de mano {C:inactive}(Máx. {C:attention}#5#{}{C:inactive})',
           '{C:inactive}(Actualmente {C:attention}+#4#{C:inactive}){}',
         },
       },
@@ -988,9 +988,9 @@ return {
       j_Sculio_pinball_machine = {
         name = 'Máquina de Pinball',
         text = {
-          'Si tu mano jugada contiene un {C:attention}Color{},',
-          'las cartas anotadas otorgan {C:chips}+#1#{} Fichas,',
-          '{C:mult}+#2#{} Multi o {C:money}$#3#{}',
+          'Si tu mano jugada contiene un',
+          '{C:attention}Color{}, las cartas anotadas',
+          'otorgan {C:chips}+#1#{} Fichas, {C:mult}+#2#{} Multi o {C:money}$#3#{}',
         },
       },
       -- 97. Rubberhose Joker

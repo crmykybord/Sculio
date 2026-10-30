@@ -963,8 +963,8 @@ return {
         name = 'Comic Cínico',
         text = {
           'Prob. de {C:green}#1# en #2#{} de {C:red}destruir{}',
-          'el {C:attention}Comodín{} de la izquierda y',
-          'otorgar {C:attention}+#3#{} al tamaño de mano {C:inactive}(Máx. {C:attention}#5#{}{C:inactive})',
+          'el {C:attention}Comodín{} de la izquierda y otorgar',
+          '{C:attention}+#3#{} al tamaño de mano {C:inactive}(Máx. {C:attention}#5#{}{C:inactive})',
           '{C:inactive}(Actualmente {C:attention}+#4#{C:inactive}){}',
         },
       },
