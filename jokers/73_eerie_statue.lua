@@ -13,12 +13,13 @@ SMODS.Joker {
   pos = { x = 5, y = 7 },
   cost = 5,
   loc_vars = function(self, info_queue, card)
-    return { vars = { 1, card.ability.extra.odds } }
+    local n, d = SMODS.get_probability_vars(card, 1, card.ability.extra.odds, 'sculio_eerie_statue')
+    return { vars = { n, d } }
   end,
   calculate = function(self, card, context)
     if context.using_consumeable and context.consumeable
         and context.consumeable.ability.set == 'Tarot'
-        and pseudorandom('sculio_eerie_statue') < 1 / card.ability.extra.odds then
+        and SMODS.pseudorandom_probability(card, 'sculio_eerie_statue', 1, card.ability.extra.odds) then
       local counterpart = Sculio.inverted_counterpart(context.consumeable.config.center_key)
       -- Guard: never copy an Inverted Tarot whose file is not loaded (disabled in Sculio.lua)
       if counterpart and G.P_CENTERS[counterpart] and G.consumeables.config.card_limit > #G.consumeables.cards then
