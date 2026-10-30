@@ -186,9 +186,9 @@ SMODS.Joker {
   end,
 
   calculate = function(self, card, context)
-    if context.hand_drawn then
+    if context.hand_drawn and not context.blueprint then
       self:select_and_force(card)
-    elseif context.press_play or context.pre_discard then
+    elseif (context.press_play or context.pre_discard) and not context.blueprint then
       self:reapply_force(card)
     elseif context.joker_main then
       return { xmult = card.ability.extra.x_mult }

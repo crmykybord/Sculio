@@ -16,7 +16,7 @@ SMODS.Joker {
     return { vars = { card.ability.extra.required_chip_percentage * 100 } }
   end,
   calculate = function(self, card, context)
-    if context.final_scoring_step then
+    if context.final_scoring_step and not context.blueprint then
       G.E_MANAGER:add_event(Event({
         func = function()
           card.ability.extra.current_hand_chips = G.GAME.current_round.current_hand.chips

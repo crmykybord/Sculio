@@ -94,9 +94,13 @@ SMODS.Joker {
     return { vars = { n, d } }
   end,
   calculate = function(self, card, context)
-    if context.before then
+    if context.before and not context.blueprint then
       if card.ability.extra then card.ability.extra.intuition_templates = nil end
       G.GAME.Sculio_intuition_phalanx = nil
+      held_templates(card)
+      return nil
+    end
+    if context.before then
       held_templates(card)
       return nil
     end
@@ -140,7 +144,7 @@ SMODS.Joker {
         elseif t.ceramic_low then
           effect.dollars = (effect.dollars or 0) + pseudorandom('sculio_intuition_ceramic', t.ceramic_low, math.max(t.ceramic_low, t.ceramic_high))
         elseif t.phalanx then
-          G.GAME.Sculio_intuition_phalanx = (G.GAME.Sculio_intuition_phalanx or 0) + t.phalanx
+          if not context.blueprint then G.GAME.Sculio_intuition_phalanx = (G.GAME.Sculio_intuition_phalanx or 0) + t.phalanx end
         elseif t.repetitions then
           -- handled in the repetition context
         else
