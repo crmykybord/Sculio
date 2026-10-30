@@ -6,7 +6,7 @@ local function roll_effect(card)
   local extra = card.ability.extra
   extra.rolls = (extra.rolls or 0) + 1
   local salt = 'dodecahedron_' .. tostring(extra.rolls) .. '_' .. tostring(G.GAME.round or 0)
-  extra.effect = EFFECTS[math.floor(pseudohash(salt) * #EFFECTS) + 1]
+  extra.effect = EFFECTS[math.floor(pseudoseed(salt) * #EFFECTS) + 1]
 end
 
 local function roll_copied_effect(card, copier, extra, hands_played)
@@ -59,7 +59,7 @@ SMODS.Joker {
         effect = roll_copied_effect(card, copier, extra, hands_played)
       end
       if effect == 'money' then
-        ease_dollars(extra.money) -- already credits G.GAME.dollars
+        ease_dollars(extra.money)
         card_eval_status_text(eff_card, 'dollars', extra.money)
       elseif effect == 'level' and context.scoring_name and G.GAME.hands[context.scoring_name] then
         level_up_hand(eff_card, context.scoring_name, false, extra.levels)
