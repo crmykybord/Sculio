@@ -1,4 +1,6 @@
 Sculio = Sculio or {}
+Sculio.seeking_gen = Sculio.seeking_gen or 0
+Sculio.seeking_remaining = Sculio.seeking_remaining or 0
 
 -- Destroy a joker card with standard animation and sound (based off Ice Cream)
 -- used by 2_impossible_stairs, 9_gumball and 15_crooked
@@ -230,6 +232,8 @@ function Sculio.maybe_apply_xchips_texts()
 end
 
 function Sculio.reset_game_globals(run_start)
+  Sculio.seeking_gen = 0
+  Sculio.seeking_remaining = 0
   if run_start then
     -- The Sane starts with itself in its own pool, so the first copy works
     G.GAME.Sculio_last_inverted = 'c_Sculio_sane'
@@ -782,10 +786,15 @@ end
 -- Deck picker: pause + overlay showing the REAL cards of G.deck. Previews are
 -- copy_card copies; the deck itself is untouched until a pick lands, and the
 -- pick draws that exact card (draw_card with an explicit card skips the draw
--- order). Pattern ported from SMODS.card_collection_UIBox + All in Jest's
+-- order). `count` = how many cards the user must pick before the overlay closes
+-- (Seeking Seal can trigger several picks in one discard).
+-- Pattern ported from SMODS.card_collection_UIBox + All in Jest's
 -- jest_create_select_card_ui, kept standalone on purpose: seals work without AIJ.
-function Sculio.open_deck_picker()
+function Sculio.open_deck_picker(count)
   if not (G.deck and G.hand and #G.deck.cards > 0) then return end
+  count = math.max(1, count or 1)
+  Sculio.seeking_remaining = count
+  Sculio.seeking_gen = 0
   local pool = {}
   for _, c in ipairs(G.deck.cards) do pool[#pool + 1] = c end
   table.sort(pool, function(a, b) return a:get_nominal('suit') > b:get_nominal('suit') end)
@@ -797,77 +806,122 @@ end
 
 function Sculio.deck_picker_UIBox(pool)
   G.your_collection = {}
-  local rows = { 5, 5, 5 }
+
+  -- Group the deck cards by suit, like the vanilla view_deck screen, so the
+  -- whole deck is visible at once instead of being paged.
+  local suits_order = { 'Spades', 'Hearts', 'Clubs', 'Diamonds' }
+  local groups = {}
+  for _, s in ipairs(suits_order) do groups[s] = {} end
+  local other = {}
+  for _, c in ipairs(pool) do
+    local suit = c.base and c.base.suit
+    if groups[suit] then
+      groups[suit][#groups[suit] + 1] = c
+    else
+      other[#other + 1] = c
+    end
+  end
+
+  local suit_list = {}
+  for _, s in ipairs(suits_order) do
+    if #groups[s] > 0 then
+      table.sort(groups[s], function(a, b) return (a:get_nominal() or 0) > (b:get_nominal() or 0) end)
+      suit_list[#suit_list + 1] = { name = s, cards = groups[s] }
+    end
+  end
+  if #other > 0 then
+    table.sort(other, function(a, b) return (a:get_nominal() or 0) > (b:get_nominal() or 0) end)
+    suit_list[#suit_list + 1] = { name = 'Other', cards = other }
+  end
+
   local deck_tables = {}
-  local cards_per_page = 0
-  local row_totals = {}
-  for j = 1, #rows do
-    row_totals[j] = cards_per_page
-    cards_per_page = cards_per_page + rows[j]
-    G.your_collection[j] = CardArea(
-      G.ROOM.T.x + 0.2*G.ROOM.T.w/2, G.ROOM.T.h,
-      (rows[j] + 0.25)*G.CARD_W, 1.05*G.CARD_H,
-      {card_limit = rows[j], type = 'title', highlight_limit = 0, collection = true}
+  for idx, g in ipairs(suit_list) do
+    local n = #g.cards
+    local view_deck = CardArea(
+      G.ROOM.T.x + 0.2 * G.ROOM.T.w / 2, G.ROOM.T.h,
+      6.5 * G.CARD_W,
+      0.6 * G.CARD_H,
+      { card_limit = n, type = 'title', view_deck = true, highlight_limit = 0, card_w = G.CARD_W * 0.7, draw_layers = { 'card' } }
     )
-    table.insert(deck_tables,
-      {n = G.UIT.R, config = {align = 'cm', padding = 0.07, no_fill = true}, nodes = {
-        {n = G.UIT.O, config = {object = G.your_collection[j]}}
-      }})
-  end
+    G.your_collection[idx] = view_deck
+    table.insert(deck_tables, { n = G.UIT.R, config = { align = 'cm', padding = 0, no_fill = true }, nodes = {
+      { n = G.UIT.O, config = { object = view_deck } }
+    } })
 
-  local options = {}
-  for i = 1, math.ceil(#pool/cards_per_page) do
-    table.insert(options, localize('k_page')..' '..tostring(i)..'/'..tostring(math.ceil(#pool/cards_per_page)))
-  end
+    for i = 1, n do
+      local real = g.cards[i]
+      -- no_add: keep the copy purely visual, do not pollute G.deck/G.playing_cards
+      local preview = SMODS.copy_card(real, { no_add = true, card_scale = 0.7, playing_card = false })
+      preview.Sculio_real = real
+      preview.no_ui = true
+      preview.T.x = view_deck.T.x + view_deck.T.w / 2
+      preview.T.y = view_deck.T.y
+      preview:hard_set_T()
 
-  G.FUNCS.Sculio_deck_picker_page = function(e)
-    if not e or not e.cycle_config then return end
-    for j = 1, #G.your_collection do
-      for i = #G.your_collection[j].cards, 1, -1 do
-        local c = G.your_collection[j]:remove_card(G.your_collection[j].cards[i])
-        c:remove()
-        c = nil
-      end
-    end
-    for j = 1, #rows do
-      for i = 1, rows[j] do
-        local real = pool[i + row_totals[j] + (cards_per_page*(e.cycle_config.current_option - 1))]
-        if not real then break end
-        local preview = SMODS.copy_card(real)
-        preview.children.Sculio_select = UIBox{
-          definition = {
-            n = G.UIT.ROOT,
-            config = {
-              ref_table = preview, minw = 0.6, maxw = 1, padding = 0.1, align = 'bm',
-              colour = G.C.GREEN, shadow = true, r = 0.08, minh = 0.3, one_press = true,
-              button = 'Sculio_deck_pick', data = { real }, hover = true,
-            },
-            nodes = {
-              {n = G.UIT.T, config = { text = localize('k_Sculio_select'), colour = G.C.WHITE, scale = 0.45 }},
-            },
+      -- Per-card confirm button, hidden until this card is selected.
+      preview.children.Sculio_select = UIBox {
+        definition = {
+          n = G.UIT.ROOT,
+          config = {
+            ref_table = preview, minw = 0.45, maxw = 0.8, padding = 0.06, align = 'bm',
+            colour = G.C.GREEN, shadow = true, r = 0.08, minh = 0.22, one_press = true,
+            button = 'Sculio_deck_pick', data = { real }, hover = true,
           },
-          config = { align = 'bm', offset = { x = 0, y = -0.15 }, major = preview, bond = 'Weak', parent = preview },
-        }
-        G.your_collection[j]:emplace(preview)
+          nodes = {
+            { n = G.UIT.T, config = { text = localize('k_Sculio_select'), colour = G.C.WHITE, scale = 0.38, shadow = true } },
+          },
+        },
+        config = { align = 'bm', offset = { x = 0, y = -0.08 }, major = preview, bond = 'Weak', parent = preview },
+      }
+      preview.children.Sculio_select.states.visible = false
+
+      preview.states.click.can = true
+      preview.states.hover.can = true
+      preview.states.collide.can = true
+      preview.no_ui = true
+      preview.click = function(self)
+        -- Unselect all previews first (hide their buttons).
+        if G.your_collection then
+          for j = 1, #G.your_collection do
+            local area = G.your_collection[j]
+            if area and area.cards then
+              for _, c in ipairs(area.cards) do
+                c.highlighted = false
+                if c.children and c.children.Sculio_select then
+                  c.children.Sculio_select.states.visible = false
+                end
+              end
+            end
+          end
+        end
+        self.highlighted = true
+        self:juice_up(0.12, 0.06)
+        play_sound('cardSlide1')
+        if self.children and self.children.Sculio_select then
+          self.children.Sculio_select.states.visible = true
+        end
       end
+
+      view_deck:emplace(preview)
     end
-    INIT_COLLECTION_CARD_ALERTS()
   end
 
-  G.FUNCS.Sculio_deck_picker_page{ cycle_config = { current_option = 1 } }
+  INIT_COLLECTION_CARD_ALERTS()
+
+  -- Counter that auto-updates as picks are made.
+  local counter = DynaText({
+    string = { { prefix = 'Elige ', ref_table = Sculio, ref_value = 'seeking_remaining', suffix = ' carta(s)' } },
+    colours = { G.C.WHITE }, scale = 0.45, shadow = true,
+  })
 
   return create_UIBox_generic_options({
     back_func = 'Sculio_deck_picker_back',
     contents = {
-      {n = G.UIT.R, config = {align = 'cm', r = 0.1, colour = G.C.BLACK, emboss = 0.05}, nodes = deck_tables},
-      (#pool > cards_per_page) and {n = G.UIT.R, config = {align = 'cm'}, nodes = {
-        create_option_cycle({
-          options = options, w = 4.5, cycle_shoulders = true,
-          opt_callback = 'Sculio_deck_picker_page', current_option = 1,
-          colour = G.C.RED, no_pips = true, focus_args = {snap_to = true, nav = 'wide'},
-        })
-      }} or nil,
-    }
+      { n = G.UIT.R, config = { align = 'cm', padding = 0.05 }, nodes = {
+        { n = G.UIT.O, config = { object = counter } },
+      } },
+      { n = G.UIT.R, config = { align = 'cm', r = 0.1, colour = G.C.BLACK, emboss = 0.05, padding = 0.05 }, nodes = deck_tables },
+    },
   })
 end
 
@@ -875,15 +929,41 @@ end
 -- if it's still in the deck. The game is paused while the overlay is open, so
 -- the discard moves are still queued; drawing here and unpausing lets them run
 -- first and the emplace honors the hand limit.
-G.FUNCS.Sculio_deck_pick = function(e)
-  local real = e.config.data[1]
+function Sculio.deck_pick_card(real)
   if real and not real.REMOVED and real.area == G.deck then
     draw_card(G.deck, G.hand, nil, 'up', true, real, 0)
   end
-  G.FUNCS.exit_overlay_menu()
+  -- Drop the chosen card's preview from every suit row.
+  if G.your_collection then
+    for j = 1, #G.your_collection do
+      local area = G.your_collection[j]
+      if area and area.cards then
+        for i = #area.cards, 1, -1 do
+          local c = area.cards[i]
+          if c.Sculio_real == real then
+            area:remove_card(c)
+            c:remove()
+          end
+        end
+      end
+    end
+  end
+  -- Close only after all requested picks are done.
+  Sculio.seeking_remaining = (Sculio.seeking_remaining or 1) - 1
+  if (Sculio.seeking_remaining or 0) <= 0 then
+    Sculio.seeking_remaining = 0
+    Sculio.seeking_gen = 0
+    G.FUNCS.exit_overlay_menu()
+  end
+end
+
+G.FUNCS.Sculio_deck_pick = function(e)
+  Sculio.deck_pick_card(e.config.data[1])
 end
 
 -- Cancel the Seeking pick: the sealed card was still discarded, nothing drawn.
 G.FUNCS.Sculio_deck_picker_back = function()
+  Sculio.seeking_remaining = 0
+  Sculio.seeking_gen = 0
   G.FUNCS.exit_overlay_menu()
 end

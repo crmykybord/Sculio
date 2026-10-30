@@ -5,17 +5,24 @@ SMODS.Seal {
   badge_colour = HEX '78E1AA',
   config = {},
   calculate = function(self, card, context)
-    if context.discard and context.other_card == card then
-      if G.deck and #G.deck.cards > 0 and G.hand then
-        G.E_MANAGER:add_event(Event({ trigger = 'after', delay = 0.3, func = function()
-          if G.OVERLAY_MENU or card.REMOVED then return true end
-          local room = G.hand.config.card_limit - #G.hand.cards + (card.area == G.hand and 1 or 0)
-          if room >= 1 and #G.deck.cards > 0 then
-            Sculio.open_deck_picker()
-          end
-          return true
-        end }))
+    if context.discard then
+      local count = 0
+      if G.hand and G.hand.highlighted then
+        for _, c in ipairs(G.hand.highlighted) do
+          if c.seal == 'Sculio_seeking' then count = count + 1 end
+        end
       end
+      if count < 1 then return end
+
+      Sculio.seeking_gen = (Sculio.seeking_gen or 0) + 1
+      local my_gen = Sculio.seeking_gen
+      G.E_MANAGER:add_event(Event({ trigger = 'after', delay = 0.0, func = function()
+        if Sculio.seeking_gen ~= my_gen then return true end
+        if G.OVERLAY_MENU then return true end
+        if not G.hand or not G.deck or #G.deck.cards <= 0 then return true end
+        Sculio.open_deck_picker(math.min(count, #G.deck.cards))
+        return true
+      end }))
     end
   end,
 }
