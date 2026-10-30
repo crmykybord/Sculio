@@ -16,7 +16,7 @@ SMODS.Joker {
     local rubberhose_tally = 0
     for _, playing_card in pairs(G.playing_cards or {}) do
       if SMODS.has_any_suit(playing_card)
-          or playing_card.base.suit == 'Spades' or playing_card.base.suit == 'Clubs' then
+          or (playing_card.base and (playing_card.base.suit == 'Spades' or playing_card.base.suit == 'Clubs')) then
         rubberhose_tally = rubberhose_tally + 1
       end
     end
@@ -28,7 +28,7 @@ SMODS.Joker {
       local rubberhose_tally = 0
       for _, playing_card in pairs(G.playing_cards or {}) do
         if SMODS.has_any_suit(playing_card)
-            or playing_card.base.suit == 'Spades' or playing_card.base.suit == 'Clubs' then
+            or (playing_card.base and (playing_card.base.suit == 'Spades' or playing_card.base.suit == 'Clubs')) then
           rubberhose_tally = rubberhose_tally + 1
         end
       end
