@@ -954,6 +954,7 @@ function Sculio.deck_pick_card(real)
     Sculio.seeking_remaining = 0
     Sculio.seeking_gen = 0
     G.FUNCS.exit_overlay_menu()
+    G.your_collection = {}
   end
 end
 
@@ -966,4 +967,5 @@ G.FUNCS.Sculio_deck_picker_back = function()
   Sculio.seeking_remaining = 0
   Sculio.seeking_gen = 0
   G.FUNCS.exit_overlay_menu()
+  G.your_collection = {}
 end
