@@ -21,7 +21,8 @@ SMODS.Joker {
       if card.ability.extra.last_ante ~= current_ante then
         card.ability.extra.last_ante = current_ante
 
-        local base_chips = context.full_hand[1].base.id
+        local base_chips = context.full_hand[1].base and context.full_hand[1].base.id
+        if not base_chips or base_chips < 2 then base_chips = 10 end
 
         if base_chips > 10 then
           if base_chips == 14 then
