@@ -7,7 +7,10 @@ SMODS.Seal {
   calculate = function(self, card, context)
     -- Mirror of the vanilla Purple Seal, but for Inverted Tarots (a single one)
     if context.discard then
-      local room = G.consumeables.config.card_limit - (#G.consumeables.cards + G.GAME.consumeable_buffer)
+      local room = 0
+      if G.consumeables and G.consumeables.config then
+        room = G.consumeables.config.card_limit - (#G.consumeables.cards + (G.GAME.consumeable_buffer or 0))
+      end
       local copies = math.min(1, room)
       if copies > 0 then
         G.GAME.consumeable_buffer = G.GAME.consumeable_buffer + copies
