@@ -54,6 +54,12 @@ SMODS.Joker {
 
   get_best_hand = function(self, cards)
     if not cards or #cards < 1 then return nil end
+    -- Cap the search space so the subset enumeration stays bounded over time.
+    if #cards > 8 then
+      local trimmed = {}
+      for i = 1, 8 do trimmed[i] = cards[i] end
+      cards = trimmed
+    end
     if not (G.FUNCS and G.FUNCS.get_poker_hand_info) then return nil end
     if not (G.GAME and G.GAME.hands) then return nil end
 
