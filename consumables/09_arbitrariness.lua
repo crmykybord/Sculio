@@ -12,7 +12,7 @@ SMODS.Consumable {
     return { vars = {} }
   end,
   can_use = function(self, card)
-    return Sculio.hand_selection_state() and #G.hand.highlighted >= 1
+    return Sculio.can_select(card)
   end,
   use = function(self, card, area, copier)
     Sculio.track_inverted_use(card)

@@ -13,7 +13,7 @@ SMODS.Consumable {
   can_use = function(self, card)
     local mods = G.GAME.Sculio_last_destroyed
     if not (mods and mods.enhancement) then return false end
-    return Sculio.hand_selection_state() and #G.hand.highlighted >= card.ability.consumeable.min_highlighted
+    return Sculio.can_select(card)
   end,
   use = function(self, card, area, copier)
     Sculio.track_inverted_use(card)
