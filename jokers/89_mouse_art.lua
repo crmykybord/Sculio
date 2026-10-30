@@ -1,9 +1,10 @@
-local cached_pool, cached_pool_size
+local cached_pool, cached_pool_key
 
 local function enhancement_pool()
   local n = 0
   for _ in pairs(G.P_CENTERS) do n = n + 1 end
-  if cached_pool and cached_pool_size == n then return cached_pool end
+  local key = n .. ':' .. #(G.playing_cards or {})
+  if cached_pool and cached_pool_key == key then return cached_pool end
   local options = {}
   for _, center in pairs(G.P_CENTERS) do
     if center.set == 'Enhanced' and not center.no_rank and center.key ~= 'm_wild'
@@ -12,7 +13,7 @@ local function enhancement_pool()
     end
   end
   table.sort(options)
-  cached_pool, cached_pool_size = options, n
+  cached_pool, cached_pool_key = options, key
   return options
 end
 
