@@ -1380,7 +1380,7 @@ return {
         },
       },
     },
-    Inverted = {
+    inverted_tarot_sculio = {
       c_Sculio_sane = {
         name = 'The Sane',
         text = {
@@ -1635,9 +1635,9 @@ return {
       k_Sculio_incompatible = 'Incompatible',
       k_Sculio_none = 'None',
       k_Sculio_plus_inverted = '+1 Inverted Tarot',
-      k_inverted = 'Inverted Tarot',
+      k_inverted_tarot_sculio = 'Inverted Tarot',
       Sculio_perishable_suffix = ', Perishable',
-      b_inverted_cards = 'Inverted Tarots',
+      b_inverted_tarot_sculio_cards = 'Inverted Tarots',
       k_booster_group_sculio_inverted = 'Inverted Arcana Pack',
       k_Sculio_plus_hermit = '+1 The Hermit',
       k_Sculio_skipped = 'Skipped!',
@@ -1654,7 +1654,7 @@ return {
       k_Sculio_plus_sell = '+#1# sell value',
     },
     labels = {
-      inverted = 'Inverted Tarot',
+      inverted_tarot_sculio = 'Inverted Tarot',
       sculio_inverted_seal = 'Inverted Seal',
       sculio_seeking_seal = 'Seeking Seal',
       sculio_orange_seal = 'Orange Seal',

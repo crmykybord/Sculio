@@ -25,7 +25,7 @@ SMODS.Joker {
       if counterpart and G.P_CENTERS[counterpart] and G.consumeables.config.card_limit > #G.consumeables.cards then
         local eff_card = context.blueprint_card or card
         Sculio.create_center_card(counterpart, G.consumeables, 1, 'sculio_eerie_statue')
-        return { extra = { message = localize('k_Sculio_plus_inverted'), focus = eff_card }, colour = G.C.SECONDARY_SET.Inverted, card = eff_card }
+        return { extra = { message = localize('k_Sculio_plus_inverted'), focus = eff_card }, colour = G.C.SECONDARY_SET.inverted_tarot_sculio, card = eff_card }
       end
     end
   end,

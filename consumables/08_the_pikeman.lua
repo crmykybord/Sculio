@@ -1,6 +1,6 @@
 SMODS.Consumable {
   key = 'pikeman',
-  set = 'Inverted',
+  set = 'inverted_tarot_sculio',
   atlas = 'Sculio_Consumables',
   pos = { x = 7, y = 0 },
   unlocked = true,

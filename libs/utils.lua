@@ -93,7 +93,7 @@ function Sculio:calculate(context)
 
   -- The Sane: remember the last Inverted Tarot used
   if context.using_consumeable and context.consumeable and context.consumeable.ability
-      and context.consumeable.ability.set == 'Inverted' then
+      and context.consumeable.ability.set == 'inverted_tarot_sculio' then
     G.GAME.Sculio_last_inverted = context.consumeable.config.center_key
     if sendDebugMessage then sendDebugMessage('Sculio: recorded last inverted = ' .. tostring(context.consumeable.config.center_key), 'SCULIO') end
   end
@@ -257,7 +257,7 @@ end
 function Sculio.inverted_pool()
   local pool = {}
   for key, center in pairs(G.P_CENTERS) do
-    if center.set == 'Inverted' then
+    if center.set == 'inverted_tarot_sculio' then
       pool[#pool + 1] = key
     end
   end
@@ -290,7 +290,7 @@ end
 function Sculio.wheel_candidates(only_set)
   local base = {}
   for key, center in pairs(G.P_CENTERS) do
-    if (center.set == 'Tarot' or center.set == 'Inverted')
+    if (center.set == 'Tarot' or center.set == 'inverted_tarot_sculio')
         and (not only_set or center.set == only_set)
         and not center.hidden
         and Sculio.wheel_overrides[key] ~= false then

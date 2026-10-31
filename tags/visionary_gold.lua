@@ -57,14 +57,14 @@ SMODS.Tag {
     -- Depends on All in Jest's card-choice collection UI.
     if not (SMODS.jest_no_back_card_collection_UIBox and jest_create_select_card_ui) then return end
 
-    tag:yep('+', G.C.SECONDARY_SET.Inverted, function()
+    tag:yep('+', G.C.SECONDARY_SET.inverted_tarot_sculio, function()
       G.E_MANAGER:add_event(Event({
         func = function()
           G.SETTINGS.paused = true
           G.FUNCS.overlay_menu {
             config = { no_esc = true },
             definition = SMODS.jest_no_back_card_collection_UIBox(
-              G.P_CENTER_POOLS.Inverted,
+              G.P_CENTER_POOLS.inverted_tarot_sculio,
               { 5, 6 },
               {
                 no_materialize = true,

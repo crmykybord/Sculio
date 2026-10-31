@@ -1,6 +1,6 @@
 SMODS.Consumable {
   key = 'immutable_wheel',
-  set = 'Inverted',
+  set = 'inverted_tarot_sculio',
   atlas = 'Sculio_Consumables',
   pos = { x = 0, y = 1 },
   unlocked = true,
@@ -20,7 +20,7 @@ SMODS.Consumable {
         ref_table = card, ref_value = 'REMOVED', stop_val = true,
         func = function()
           if not card.REMOVED then return false end
-          Sculio.invoke_random_tarot(2, 'Inverted', G.CARD_W)
+          Sculio.invoke_random_tarot(2, 'inverted_tarot_sculio', G.CARD_W)
           return true
         end
       }))

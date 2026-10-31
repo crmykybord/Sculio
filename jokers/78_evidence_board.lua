@@ -40,7 +40,7 @@ SMODS.Joker {
           Sculio.create_center_card(inverted, G.consumeables, 1, 'sculio_evidence_board')
           return {
             extra = { message = localize('k_Sculio_plus_inverted'), focus = eff_card },
-            colour = G.C.SECONDARY_SET.Inverted,
+            colour = G.C.SECONDARY_SET.inverted_tarot_sculio,
             no_juice = true,
             card = eff_card,
           }

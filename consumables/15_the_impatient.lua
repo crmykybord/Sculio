@@ -4,7 +4,7 @@ end
 
 SMODS.Consumable {
   key = 'impatient',
-  set = 'Inverted',
+  set = 'inverted_tarot_sculio',
   atlas = 'Sculio_Consumables',
   pos = { x = 4, y = 1 },
   unlocked = true,

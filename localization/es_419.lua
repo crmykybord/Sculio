@@ -1375,7 +1375,7 @@ return {
         },
       },
     },
-    Inverted = {
+    inverted_tarot_sculio = {
       c_Sculio_sane = {
         name = 'El Sensato',
         text = {
@@ -1623,9 +1623,9 @@ return {
       k_Sculio_kfc_stole = 'Robó $#1#',
       k_Sculio_none = 'Nada',
       k_Sculio_plus_inverted = '+1 Tarot Invertido',
-      k_inverted = 'Tarot Invertido',
+      k_inverted_tarot_sculio = 'Tarot Invertido',
       Sculio_perishable_suffix = ' y Perecedera',
-      b_inverted_cards = 'Tarots Invertidos',
+      b_inverted_tarot_sculio_cards = 'Tarots Invertidos',
       k_booster_group_sculio_inverted = 'Paquete arcano Invertido',
       k_Sculio_plus_hermit = '+1 El Ermitaño',
       k_Sculio_skipped = '¡Omitido!',
@@ -1642,7 +1642,7 @@ return {
       k_Sculio_plus_sell = '+#1# valor de venta',
     },
     labels = {
-      inverted = 'Tarot Invertido',
+      inverted_tarot_sculio = 'Tarot Invertido',
       sculio_inverted_seal = 'Sello Invertido',
       sculio_seeking_seal = 'Sello Buscador',
       sculio_orange_seal = 'Sello Naranja',

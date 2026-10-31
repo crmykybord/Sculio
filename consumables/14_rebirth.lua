@@ -1,6 +1,6 @@
 SMODS.Consumable {
   key = 'rebirth',
-  set = 'Inverted',
+  set = 'inverted_tarot_sculio',
   atlas = 'Sculio_Consumables',
   pos = { x = 3, y = 1 },
   unlocked = true,

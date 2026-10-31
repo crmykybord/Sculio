@@ -6,7 +6,7 @@ SMODS.Tag {
     if context.type ~= 'new_blind_choice' then return end
     local lock = tag.ID
     G.CONTROLLER.locks[lock] = true
-    tag:yep('+', G.C.SECONDARY_SET.Inverted, function()
+    tag:yep('+', G.C.SECONDARY_SET.inverted_tarot_sculio, function()
       local key = 'p_Sculio_inverted_mega_' .. math.floor(pseudorandom('sculio_visionary_pack', 1, 2))
       local card = Card(G.play.T.x + G.play.T.w/2 - G.CARD_W*1.27/2,
         G.play.T.y + G.play.T.h/2 - G.CARD_H*1.27/2, G.CARD_W*1.27, G.CARD_H*1.27,
