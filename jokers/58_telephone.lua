@@ -1,22 +1,18 @@
--- Face cards are excluded: the retrigger is meant to key off a number rank.
--- Ace stays (is_face is ids 11/12/13 only).
-local FACE_RANKS = { Jack = true, Queen = true, King = true }
-
 local function roll_rank(card)
-  local seen, valid_ranks = {}, {}
+  local seen, ranks = {}, {}
   for _, v in ipairs(G.playing_cards or {}) do
-    local value = v.base and v.base.value
-    if value and not FACE_RANKS[value] and not SMODS.has_no_rank(v) and not seen[value] then
-      seen[value] = true
-      valid_ranks[#valid_ranks + 1] = value
+    if not v:is_face() and not SMODS.has_no_rank(v) then
+      local value = v.base and v.base.value
+      if value and not seen[value] then
+        seen[value] = true
+        ranks[#ranks + 1] = value
+      end
     end
   end
-  if not valid_ranks[1] then return end
-
-  local extra = card.ability.extra
-  extra.rolls = (extra.rolls or 0) + 1
-  local salt = 'telephone_' .. tostring(extra.rolls) .. '_' .. tostring(G.GAME.round or 0)
-  extra.rank_value = valid_ranks[math.floor(pseudoseed(salt) * #valid_ranks) + 1]
+  if #ranks > 0 then
+    card.ability.extra.rolls = (card.ability.extra.rolls or 0) + 1
+    card.ability.extra.rank_value = pseudorandom_element(ranks, 'telephone_' .. card.ability.extra.rolls)
+  end
 end
 
 SMODS.Joker {
@@ -29,7 +25,7 @@ SMODS.Joker {
   config = { extra = { rank_value = '2', rolls = 0 } },
   unlocked = true,
   discovered = false,
-  rarity = 1, -- Common
+  rarity = 1,
   atlas = 'Sculio',
   pos = { x = 0, y = 6 },
   cost = 5,
@@ -43,11 +39,9 @@ SMODS.Joker {
     if context.setting_blind and not context.blueprint then
       roll_rank(card)
     end
-
-    if context.cardarea == G.play and context.repetition and not context.repetition_only then
-      if context.other_card.base.value == card.ability.extra.rank_value then
-        return { message = localize('k_again_ex'), repetitions = 1 }
-      end
+    if context.repetition and context.cardarea == G.play and context.other_card
+        and context.other_card.base and context.other_card.base.value == card.ability.extra.rank_value then
+      return { message = localize('k_again_ex') }
     end
   end
 }

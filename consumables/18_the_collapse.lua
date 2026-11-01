@@ -1,6 +1,6 @@
 SMODS.Consumable {
   key = 'collapse',
-  set = 'Inverted',
+  set = 'inverted_tarot_sculio',
   atlas = 'Sculio_Consumables',
   pos = { x = 7, y = 1 },
   unlocked = true,

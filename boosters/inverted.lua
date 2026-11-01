@@ -2,53 +2,62 @@ local function inverted_card(self, card, i)
   if not G.GAME.banned_keys['c_soul']
       and not (G.GAME.used_jokers['c_soul'] and not next(find_joker('Showman')))
       and pseudorandom('soul_Inverted' .. G.GAME.round_resets.ante .. (i or '')) > 0.997 then
-    return { set = 'Spectral', key = 'c_soul', area = G.pack_cards, skip_materialize = true, key_append = 'inv_soul' }
+    return { set = 'Spectral', key = 'c_soul', area = G.pack_cards, skip_materialize = true, key_append = 'inv_soul', soulable = true }
   end
-  return { set = 'Inverted', area = G.pack_cards, skip_materialize = true, key_append = 'inv' }
+  return { set = 'inverted_tarot_sculio', area = G.pack_cards, skip_materialize = true, key_append = 'inv', soulable = true }
 end
 
 local function pack_loc_vars(self, info_queue, card)
-  local cfg = self.config
+  local cfg = (card and card.ability) or self.config
   local size = math.max(1, (cfg.extra or 0) + ((G.GAME and G.GAME.modifiers and G.GAME.modifiers.booster_size_mod) or 0))
   local choices = math.min((cfg.choose or 1) + ((G.GAME and G.GAME.modifiers and G.GAME.modifiers.booster_choice_mod) or 0), size)
   return { vars = { choices, size }, key = self.key:gsub('_%d$', '') }
 end
-
--- Inverted packs spawn 12% less often than the rest of the booster pool. Pool weights
--- are normalised against the total weight, so scaling ours by 0.88 cuts the aggregate
--- chance of any Inverted pack by exactly 12% without touching the relative odds
--- between normal, jumbo and mega.
-local SPAWN_RATE_MULT = 0.88
 
 local function register(key, pos, size, weight, cost, order, config)
   SMODS.Booster {
     key = key,
     atlas = 'Sculio_Booster',
     pos = pos,
-    kind = 'Inverted',
+    kind = 'inverted_booster_pack_sculio',
     group_key = 'k_booster_group_sculio_inverted',
     draw_hand = true,
-    weight = weight * SPAWN_RATE_MULT,
+    weight = weight,
     cost = cost,
     order = order,
     config = config,
     Sculio_base_extra = config.extra,
     Sculio_base_choose = config.choose,
-    attributes = { size },
+    attributes = { size, 'consumable' },
     loc_vars = pack_loc_vars,
     create_card = inverted_card,
+    particles = function(self)
+      G.booster_pack_sparkles = Particles(1, 1, 0, 0, {
+        timer = 0.015,
+        scale = 0.2,
+        initialize = true,
+        lifespan = 1,
+        speed = 1.1,
+        padding = -1,
+        attach = G.ROOM_ATTACH,
+        colours = { G.C.WHITE, lighten(G.C.GOLD, 0.4), lighten(G.C.GOLD, 0.2), G.C.GOLD },
+        fill = true
+      })
+      G.booster_pack_sparkles.fade_alpha = 1
+      G.booster_pack_sparkles:fade(1, 0)
+    end,
     ease_background_colour = function(self)
-      ease_colour(G.C.DYN_UI.MAIN, mix_colours(G.C.SECONDARY_SET.Inverted, G.C.BLACK, 0.9))
-      ease_background_colour{new_colour = G.C.SECONDARY_SET.Inverted, special_colour = darken(G.C.BLACK, 0.2), contrast = 2}
+      ease_colour(G.C.DYN_UI.MAIN, mix_colours(G.C.SECONDARY_SET.inverted_tarot_sculio, G.C.BLACK, 0.9))
+      ease_background_colour{new_colour = G.C.SECONDARY_SET.inverted_tarot_sculio, special_colour = darken(G.C.BLACK, 0.2), contrast = 2}
     end,
   }
 end
 
-register('inverted_normal_1', { x = 0, y = 0 }, 'normal', 1, 4, 41, { extra = 3, choose = 1 })
-register('inverted_normal_2', { x = 1, y = 0 }, 'normal', 1, 4, 42, { extra = 3, choose = 1 })
-register('inverted_normal_3', { x = 2, y = 0 }, 'normal', 1, 4, 43, { extra = 3, choose = 1 })
-register('inverted_normal_4', { x = 3, y = 0 }, 'normal', 1, 4, 44, { extra = 3, choose = 1 })
-register('inverted_jumbo_1', { x = 0, y = 1 }, 'jumbo', 1, 6, 45, { extra = 5, choose = 1 })
-register('inverted_jumbo_2', { x = 1, y = 1 }, 'jumbo', 1, 6, 46, { extra = 5, choose = 1 })
-register('inverted_mega_1', { x = 2, y = 1 }, 'mega', 0.25, 8, 47, { extra = 5, choose = 2 })
-register('inverted_mega_2', { x = 3, y = 1 }, 'mega', 0.25, 8, 48, { extra = 5, choose = 2 })
+register('inverted_normal_1', { x = 0, y = 0 }, 'normal', 0.3, 4, 41, { extra = 3, choose = 1 })
+register('inverted_normal_2', { x = 1, y = 0 }, 'normal', 0.3, 4, 42, { extra = 3, choose = 1 })
+register('inverted_normal_3', { x = 2, y = 0 }, 'normal', 0.3, 4, 43, { extra = 3, choose = 1 })
+register('inverted_normal_4', { x = 3, y = 0 }, 'normal', 0.3, 4, 44, { extra = 3, choose = 1 })
+register('inverted_jumbo_1', { x = 0, y = 1 }, 'jumbo', 0.3, 6, 45, { extra = 5, choose = 1 })
+register('inverted_jumbo_2', { x = 1, y = 1 }, 'jumbo', 0.3, 6, 46, { extra = 5, choose = 1 })
+register('inverted_mega_1', { x = 2, y = 1 }, 'mega', 0.07, 8, 47, { extra = 5, choose = 2 })
+register('inverted_mega_2', { x = 3, y = 1 }, 'mega', 0.07, 8, 48, { extra = 5, choose = 2 })

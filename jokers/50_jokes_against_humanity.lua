@@ -33,7 +33,7 @@ SMODS.Joker {
     card.ability.extra.picked_b = nil
   end,
   calculate = function(self, card, context)
-    if context.before then
+    if context.before and not context.blueprint then
       Sculio.undebuff_list(card.ability.extra.debuffed_jokers)
       card.ability.extra.debuffed_jokers = {}
 
@@ -76,7 +76,7 @@ SMODS.Joker {
       end
     end
 
-    if context.final_scoring_step then
+    if context.final_scoring_step and not context.blueprint then
       card.ability.extra.picked_a = nil
       card.ability.extra.picked_b = nil
       G.E_MANAGER:add_event(Event({

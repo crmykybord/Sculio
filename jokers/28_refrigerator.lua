@@ -296,6 +296,7 @@ SMODS.Joker {
   rarity = 1, -- Common
   atlas = 'Sculio',
   pos = { x = 9, y = 2 },
+  pixel_size = { w = 66, h = 91 },
   cost = 6,
   loc_vars = function(self, info_queue, card)
     info_queue[#info_queue+1] = { key = 'Sculio_refrigerable_jokers', set = 'Other' }

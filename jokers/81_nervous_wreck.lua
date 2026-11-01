@@ -1,4 +1,4 @@
-local mult_cards_scored = {}
+local mult_cards_scored = setmetatable({}, { __mode = 'k' })
 
 SMODS.Joker {
   key = 'nervous_wreck',

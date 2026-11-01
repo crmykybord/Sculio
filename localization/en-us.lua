@@ -79,6 +79,23 @@ return {
           'to use immediately',
         },
       },
+      sculio_seeking_seal = {
+        name = 'Seeking Seal',
+        text = {
+          'When {C:attention}discarded{},',
+          'choose {C:attention}1{} card from your',
+          '{C:attention}Deck{} to draw to your hand',
+          '{C:inactive}(Must Have Room)',
+        },
+      },
+      sculio_orange_seal = {
+        name = 'Orange Seal',
+        text = {
+          'Gain a free {C:green}reroll{}',
+          'for each {C:attention}Orange Seal{}',
+          'you own',
+        },
+      },
     },
     Joker = {
       -- 1. Schrödinger's Joker
@@ -226,7 +243,7 @@ return {
         text = {
           '{C:attention}+#1#{} hand size,',
           'steals {C:money}$#2#{} every round.',
-          'Destroyed if money reaches {C:money}$#3#{}',
+          'Leaves if you have no {C:money}money{}',
         },
       }, 
       -- 16. Reach
@@ -282,10 +299,9 @@ return {
       j_Sculio_sticky_keys = {
         name = 'Sticky Keys',
         text = {
-          'Changes {C:mult}Mult{} to {C:attention}base chips{}',
-          'of {C:attention}first scoring card{}',
-          'every {C:attention}#2#{} hands played',
-          '{C:inactive}#3# remaining{}',
+          'Sets {C:mult}Mult{} to {C:attention}X2{} times',
+          'the {C:attention}base chips{} of the',
+          '{C:attention}first played card{} at the start of each Ante',
           '{C:inactive}(Currently {C:mult}+#1#{}{C:inactive} Mult)',
         }
       }, 
@@ -857,7 +873,10 @@ return {
       j_Sculio_fun_guy = {
         name = 'Fun Guy',
         text = {
-          '{C:inactive}No effect{}',
+          'When a card is {C:attention}destroyed{},',
+          '{C:attention}#1#{} random cards in your hand',
+          'become the {C:attention}rank{} of the',
+          'destroyed card',
         },
       },
       -- 84. Scrawlings
@@ -915,7 +934,77 @@ return {
           '{C:inactive}(Copying: #1#){}',
         },
       },
-      -- 90. Cartomancer?
+      -- 90. Anonymity
+      j_Sculio_anonymity = {
+        name = 'Anonymity',
+        text = {
+          'Face cards are always draw',
+          '{C:attention}face down{} this Joker gains {C:mult}+#1#{} Mult',
+          'when a face card is scored',
+          '{C:inactive}(Currently {C:mult}+#2#{C:inactive} Mult){}',
+        },
+      },
+      -- 91. Jar of Dill
+      j_Sculio_jar_of_dill = {
+        name = 'Jar of Dill',
+        text = {
+          '{C:inactive}No effect{}',
+        },
+      },
+      -- 92. Red Dacca
+      j_Sculio_red_dacca = {
+        name = 'Red Dacca',
+        text = {
+          '{C:mult}+#1#{} Mult',
+          '{C:green}#2# in #3#{} chance this card',
+          'is consumed at end of round',
+        },
+      },
+      -- 93. Joker Hazard
+      j_Sculio_joker_hazard = {
+        name = 'Joker Hazard',
+        text = {
+          '{C:green}#1# in #2#{} chance to {C:red}destroy{}',
+          'the {C:attention}Joker{} to the left and',
+          'grant {C:attention}+#3#{} hand size {C:inactive}(Max. {C:attention}#5#{C:inactive})',
+          '{C:inactive}(Currently {C:attention}+#4#{C:inactive}){}',
+        },
+      },
+      -- 94. Walk of Fame
+      j_Sculio_walk_of_fame = {
+        name = 'Walk of Fame',
+        text = {
+          'When a {C:attention}Boss Blind{} is defeated,',
+          'grants a random {C:dark_edition}Edition{} to',
+          'a random {C:attention}Joker{}',
+        },
+      },
+      -- 95. Crossroads
+      j_Sculio_crossroads = {
+        name = 'Crossroads',
+        text = {
+          '{C:inactive}No effect{}',
+        },
+      },
+      -- 96. Pinball Machine
+      j_Sculio_pinball_machine = {
+        name = 'Pinball Machine',
+        text = {
+          'If played hand contains a {C:attention}Flush{},',
+          'scored cards grant {C:chips}+#1#{} Chips,',
+          '{C:mult}+#2#{} Mult, or {C:money}$#3#{}',
+        },
+      },
+      -- 97. Rubberhose Joker
+      j_Sculio_rubberhose_joker = {
+        name = 'Rubberhose Joker',
+        text = {
+          'Gains {X:mult,C:white}X#1#{} Mult per {C:spades}Spades{}',
+          'or {C:clubs}Clubs{} card in your deck',
+          '{C:inactive}(Currently {X:mult,C:white}X#2#{}{C:inactive} Mult){}',
+        },
+      },
+      -- 98. Cartomancer?
       j_Sculio_cartomante = {
         name = 'Cartomancer?',
         text = {
@@ -957,6 +1046,13 @@ return {
         text = {
           'Gives a free',
           '{C:inverted}Mega Arcana Pack?{}',
+        },
+      },
+      tag_Sculio_cloning = {
+        name = 'Cloning Tag',
+        text = {
+          'Shop has a {C:money}free{} copy of',
+          'one of your {C:attention}Jokers{}',
         },
       },
       -- All in Jest gold tag (Cross mod stuff)
@@ -1197,20 +1293,12 @@ return {
           },
         },
       },
-      m_Sculio_trap = {
-        name = 'Trap Card',
-        text = {
-          'When this card is {C:attention}#1#{},',
-          'it triggers:',
-          '#2#',
-        },
-      },
       m_Sculio_divine = {
         name = 'Divine Card',
         text = {
-          'When played, gains {C:money}$#1#{}',
-          'for each {C:attention}unique suit{}',
-          'in the played hand',
+          'When scored, grants a',
+          'random {C:attention}Joker{}',
+          '{C:money}$#1# or $#2#{} sell value',
         },
       },
       m_Sculio_siege = {
@@ -1240,8 +1328,59 @@ return {
           'into {C:attention}Punched Cards{}',
         },
       },
+      c_Sculio_quincunx = {
+        name = 'Quincunx',
+        text = {
+          'Add a random {C:attention}Seal{} and',
+          '{C:dark_edition}Edition{} to {C:attention}#1#{} random',
+          'cards in your hand, then destroy',
+          'a random {C:attention}Joker{}',
+        },
+      },
+      c_Sculio_antumbra = {
+        name = 'Antumbra',
+        text = {
+          'A random {C:attention}Joker{} gains',
+          '{C:dark_edition}Negative{} and all',
+          '{C:attention}hand levels{} are removed',
+          '{C:inactive}(Requires all hands at',
+          '{C:attention}Level #1#{C:inactive} or higher){}',
+        },
+      },
+      c_Sculio_revelatio = {
+        name = 'Revelatio',
+        text = {
+          'Add a {C:attention}Seeking Seal{}',
+          'to {C:attention}1{} selected',
+          'card in your hand',
+        },
+      },
+      c_Sculio_eidolon = {
+        name = 'Eidolon',
+        text = {
+          '{C:green}#1# in #2#{} chance to',
+          'create a {C:attention}Cloning Tag{}',
+        },
+      },
+      c_Sculio_conctiunctio = {
+        name = 'Conctiunctio',
+        text = {
+          'Every card in your hand gains',
+          'the same random',
+          '{C:attention}Enhancement{}',
+          '{C:red}-#1# Discard{}',
+        },
+      },
+      c_Sculio_iterum = {
+        name = 'Iterum',
+        text = {
+          'Add an {C:attention}Orange Seal{}',
+          'to {C:attention}1{} selected',
+          'card in your hand',
+        },
+      },
     },
-    Inverted = {
+    inverted_tarot_sculio = {
       c_Sculio_sane = {
         name = 'The Sane',
         text = {
@@ -1316,6 +1455,7 @@ return {
         text = {
           'Enhances {C:attention}#1#{} cards',
           'into {C:attention}Smeared Cards{}',
+          '{C:inactive,s:0.8}(You must always select 3 cards){}',
         },
       },
       c_Sculio_pikeman = {
@@ -1323,14 +1463,6 @@ return {
         text = {
           'Enhances {C:attention}#1#{} selected cards',
           'into {C:attention}Phalanx Cards{}',
-        },
-      },
-      c_Sculio_arbitrariness = {
-        name = 'Arbitrariness',
-        text = {
-          'Enhances {C:attention}1{} selected card',
-          'into an {C:attention}Trap Card{} with a',
-          'random trigger and random effect',
         },
       },
       c_Sculio_mundane = {
@@ -1391,10 +1523,10 @@ return {
       c_Sculio_impatient = {
         name = 'The Impatient',
         text = {
-          'Gives money based on the sell value',
-          'of all Jokers and Consumables',
-          'Maximum payout of {C:money}$#1#{}. Then reduces the',
-          'sell value of a random Joker by {C:money}$1{}',
+          'Gives the {C:money}sell value{} of your',
+          '{C:attention}Jokers{} + {C:money}$#2#{}',
+          'Jokers lose {C:money}$#3#{} {C:money}sell value{}',
+          '{C:inactive}(Will give: {C:money}$#1#{C:inactive}){}',
         },
       },
       c_Sculio_archangel = {
@@ -1472,17 +1604,16 @@ return {
           'Creates a {C:dark_edition}Negative{}#2# copy',
           'of the last Joker sold',
           '{C:inactive}(Currently: #1#){}',
-          'The copy has {C:money}$0{} sell value',
+          '{C:inactive,s:0.7}(Has #3# sell value){}',
         },
       },
       c_Sculio_mercy_distorted_flow = {
         name = 'Mercy',
         text = {
-          'Creates a {C:dark_edition}Negative{} copy of the last',
-          'Joker sold, and also a random {C:dark_edition}Negative{}',
-          '{C:attention}Perishable{} Joker',
+          'Creates a {C:dark_edition}Negative{} copy',
+          'of the last Joker sold',
           '{C:inactive}(Currently: #1#){}',
-          '{C:inactive,s:0.8}(Copies have no sell value){}',
+          '{C:inactive,s:0.7}(No sell value){}',
         },
       },
     },
@@ -1499,36 +1630,15 @@ return {
       k_Sculio_bad_trip_randomized = 'Deck randomized!',
       k_Sculio_getaway_win = 'Getaway!',
       k_Sculio_ecg_discard = '+1 Discard',
+      k_Sculio_kfc_stole = 'Stole $#1#',
       k_Sculio_compatible = 'Compatible',
       k_Sculio_incompatible = 'Incompatible',
       k_Sculio_none = 'None',
       k_Sculio_plus_inverted = '+1 Inverted Tarot',
-      k_inverted = 'Inverted Tarot',
+      k_inverted_tarot_sculio = 'Inverted Tarot',
       Sculio_perishable_suffix = ', Perishable',
-      b_inverted_cards = 'Inverted Tarots',
+      b_inverted_tarot_sculio_cards = 'Inverted Tarots',
       k_booster_group_sculio_inverted = 'Inverted Arcana Pack',
-      Sculio_trap_unknown_trigger = 'rolled',
-      Sculio_trap_unknown_effect = 'A random effect from weighted rarity pools',
-      Sculio_trap_played = 'played',
-      Sculio_trap_scored = 'scored',
-      Sculio_trap_discarded = 'discarded',
-      Sculio_trap_held = 'held in hand',
-      Sculio_trap_destroyed = 'destroyed',
-      Sculio_trap_chips75 = '{C:chips}+75 Chips{}',
-      Sculio_trap_mult20 = '{C:mult}+20 Mult{}',
-      Sculio_trap_dollars5 = '{C:money}$5{}',
-      Sculio_trap_draw2 = 'Draws {C:attention}2{} cards',
-      Sculio_trap_xmult175 = '{X:mult,C:white}X1.75{} Mult',
-      Sculio_trap_xchips15 = '{X:chips,C:white}X1.5{} Chips',
-      Sculio_trap_create_tarot = 'Creates a random {C:tarot}Tarot{}',
-      Sculio_trap_create_planet = 'Creates a random {C:planet}Planet{}',
-      Sculio_trap_enhance = 'Applies a random Enhancement to a random card',
-      Sculio_trap_seal = 'Applies a random Seal to a random card',
-      Sculio_trap_buff_others = 'Gives {C:mult}+4 Mult{} to up to 2 other cards in hand',
-      Sculio_trap_reduce_blind = 'Reduces the Blind by {C:attention}5%{}',
-      Sculio_trap_spectral_draw = 'Creates a random {C:spectral}Spectral{} and draws {C:attention}2{} cards',
-      Sculio_trap_protect_xmult = 'Adjacent cards cannot be debuffed, and {X:mult,C:white}X1.75{} Mult',
-      Sculio_trap_seal_buff = 'Applies a random Seal and gives {C:mult}+4 Mult{} to other cards',
       k_Sculio_plus_hermit = '+1 The Hermit',
       k_Sculio_skipped = 'Skipped!',
       k_Sculio_top_10_common = 'Common',
@@ -1536,14 +1646,18 @@ return {
       k_Sculio_top_10_rare = 'Rare',
       k_Sculio_top_10_negative = 'Negative',
       k_Sculio_plus_tag = '+1 Tag',
+      k_Sculio_select = 'Select',
     },
     v_dictionary = {
       k_Sculio_crooked_stole = 'Stole $#1#',
       k_Sculio_crooked_bailed = 'Stole $#1#, bailed!',
+      k_Sculio_plus_sell = '+#1# sell value',
     },
     labels = {
-      inverted = 'Inverted Tarot',
+      inverted_tarot_sculio = 'Inverted Tarot',
       sculio_inverted_seal = 'Inverted Seal',
+      sculio_seeking_seal = 'Seeking Seal',
+      sculio_orange_seal = 'Orange Seal',
     },
   },
 }

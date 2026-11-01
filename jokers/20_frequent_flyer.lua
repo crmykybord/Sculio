@@ -7,6 +7,13 @@ SMODS.Joker {
   rarity = 1, -- Common
   atlas = 'Sculio',
   pos = { x = 1, y = 2 },
+  pixel_size = { w = 48, h = 90 },
+  set_sprites = function(self, card)
+    local sprite = card.children and card.children.center
+    if not sprite or not sprite.sprite_pos then return end
+    if sprite.sprite_pos.x ~= self.pos.x or sprite.sprite_pos.y ~= self.pos.y then return end
+    sprite:set_sprite_pos({ x = self.pos.x + 12 / 71, y = self.pos.y + 1 / 95 })
+  end,
   cost = 4,
   eternal_compat = true,
   blueprint_compat = true,

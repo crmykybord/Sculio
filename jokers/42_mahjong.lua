@@ -16,7 +16,7 @@ SMODS.Joker {
     return { vars = { card.ability.extra.chips, card.ability.extra.chips_gain } }
   end,
   calculate = function(self, card, context)
-    if context.before then
+    if context.before and not context.blueprint then
       local rank_counts = {}
       local has_pair_above_7 = false
       local has_pair_below_7 = false

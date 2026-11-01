@@ -16,13 +16,11 @@ SMODS.Joker {
     return { vars = { card.ability.extra.hand_count_mult * 100 } }
   end,
   calculate = function(self, card, context)
-    if context.individual and context.cardarea == G.play then
-      -- Most played visible hand wins (ties lose): any other visible hand
-      -- with >= plays disqualifies us. Inlined from the old is_most_played.
+    if context.individual and context.cardarea == G.play and context.other_card then
       local is_most_played = true
       local most_played_count = (G.GAME.hands[context.scoring_name].played or 0)
       for k, v in pairs(G.GAME.hands) do
-        if k ~= context.scoring_name and v.played >= most_played_count and v.visible then
+        if k ~= context.scoring_name and v.played > most_played_count and v.visible then
           is_most_played = false
           break
         end

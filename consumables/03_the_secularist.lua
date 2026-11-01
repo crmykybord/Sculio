@@ -1,6 +1,6 @@
 SMODS.Consumable {
   key = 'secularist',
-  set = 'Inverted',
+  set = 'inverted_tarot_sculio',
   atlas = 'Sculio_Consumables',
   pos = { x = 2, y = 0 },
   unlocked = true,

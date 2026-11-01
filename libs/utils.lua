@@ -1,4 +1,6 @@
 Sculio = Sculio or {}
+Sculio.seeking_gen = Sculio.seeking_gen or 0
+Sculio.seeking_remaining = Sculio.seeking_remaining or 0
 
 -- Destroy a joker card with standard animation and sound (based off Ice Cream)
 -- used by 2_impossible_stairs, 9_gumball and 15_crooked
@@ -27,29 +29,30 @@ end
 
 -- Absorb edition bonuses from a sold joker or scored card (used by Figurine and Puck)
 function Sculio.absorb_edition(target_card, sold_card, bonus_mult)
-  local ed = sold_card.edition
+  local ed = sold_card and sold_card.edition
   if not ed then return nil end
   local ed_key = ed.type or ed.key
   local ed_center = G.P_CENTERS[ed_key] or G.P_CENTERS['e_' .. ed_key]
   if not ed_center then return nil end
-  local cfg = ed_center.config
+  local cfg = ed_center.config or {}
   local bonus = bonus_mult or 1
+  target_card.ability.extra = target_card.ability.extra or {}
   if cfg.chips and cfg.chips > 0 then
     local gain = cfg.chips * bonus
-    target_card.ability.extra.chips = target_card.ability.extra.chips + gain
+    target_card.ability.extra.chips = (target_card.ability.extra.chips or 0) + gain
     return localize({ type = 'variable', key = 'a_chips', vars = { gain } })
   elseif cfg.mult and cfg.mult > 0 then
     local gain = cfg.mult * bonus
-    target_card.ability.extra.mult = target_card.ability.extra.mult + gain
+    target_card.ability.extra.mult = (target_card.ability.extra.mult or 0) + gain
     return localize({ type = 'variable', key = 'a_mult', vars = { gain } })
   elseif cfg.x_mult and cfg.x_mult > 1 then
     local gain = (cfg.x_mult - 1) * bonus
-    target_card.ability.extra.x_mult = target_card.ability.extra.x_mult + gain
+    target_card.ability.extra.x_mult = (target_card.ability.extra.x_mult or 1) + gain
     return '+ ' .. localize({ type = 'variable', key = 'a_xmult', vars = { gain } })
   elseif (cfg.x_chips and cfg.x_chips > 1) or (cfg.Xchips and cfg.Xchips > 1) then
     local xchips_val = cfg.x_chips or cfg.Xchips
     local gain = (xchips_val - 1) * bonus
-    target_card.ability.extra.x_chips = target_card.ability.extra.x_chips + gain
+    target_card.ability.extra.x_chips = (target_card.ability.extra.x_chips or 1) + gain
     return '+ ' .. localize({ type = 'variable', key = 'a_xchips', vars = { gain } })
   end
   return nil
@@ -79,32 +82,42 @@ function Sculio.undebuff_list(list)
 end
 
 function Sculio:calculate(context)
+  Sculio.maybe_apply_xchips_texts()
+
   -- Droste Effect: keep Inverted Arcana pack size/choices in sync (survives reloads)
+  -- Orange Seal: one free reroll per seal in the deck, topped up when the shop opens
   if context.starting_shop then
     Sculio.apply_droste_bonus()
+    Sculio.grant_orange_rerolls()
   end
 
   -- The Sane: remember the last Inverted Tarot used
   if context.using_consumeable and context.consumeable and context.consumeable.ability
-      and context.consumeable.ability.set == 'Inverted' then
+      and context.consumeable.ability.set == 'inverted_tarot_sculio' then
     G.GAME.Sculio_last_inverted = context.consumeable.config.center_key
     if sendDebugMessage then sendDebugMessage('Sculio: recorded last inverted = ' .. tostring(context.consumeable.config.center_key), 'SCULIO') end
   end
 
-  if context.press_play and G.hand and G.hand.highlighted then
-    local played = G.hand.highlighted
-    local smeared_cards = {}
-    for _, c in ipairs(played) do
-      if SMODS.has_enhancement(c, 'm_Sculio_smeared') then
-        smeared_cards[#smeared_cards + 1] = c
-      end
+  if context.press_play and G.play and G.play.cards then
+    local smeared = 0
+    for _, c in ipairs(G.play.cards) do
+      if SMODS.has_enhancement(c, 'm_Sculio_smeared') then smeared = smeared + 1 end
     end
-    if #smeared_cards >= 2 then
+    if smeared >= 2 then
       play_sound('tarot1')
-      for i = 2, #smeared_cards do
-        SMODS.destroy_cards(smeared_cards[i])
+      for _, c in ipairs(G.play.cards) do
+        if SMODS.has_enhancement(c, 'm_Sculio_smeared') then
+          c:set_debuff(true)
+          if c.debuff then c.ability.Sculio_smeared_doom = true end
+        end
       end
     end
+  end
+
+  if context.destroy_card and context.destroy_card.ability
+      and context.destroy_card.ability.Sculio_smeared_doom then
+    context.destroy_card.ability.Sculio_smeared_doom = nil
+    return { remove = true }
   end
 
   -- The Atoned / Reborn: remember modifiers of the last destroyed card
@@ -152,16 +165,6 @@ function Sculio:calculate(context)
     G.GAME.Sculio_ante_spend = (G.GAME.Sculio_ante_spend or 0) - context.amount
   end
 
-  -- Trap Cards can protect adjacent cards from debuffs
-  if context.debuff_card and context.other_card and context.other_card.ability
-      and context.other_card.ability.Sculio_debuff_immune then
-    return { prevent_debuff = true }
-  end
-  if context.end_of_round and context.main_eval and G.playing_cards then
-    for _, c in ipairs(G.playing_cards) do
-      c.ability.Sculio_debuff_immune = nil
-    end
-  end
 end
 
 function Sculio.is_debuff_immune(target)
@@ -182,6 +185,8 @@ function Sculio.is_debuff_immune(target)
   return false
 end
 
+-- Check whether any registered Edition grants XChips before swapping the
+-- Figurine and Puck descriptions on the first calculation after loading.
 Sculio._xchips_edition_cache = nil
 function Sculio.xchips_editions_exist()
   local n = 0
@@ -206,28 +211,37 @@ end
 Sculio._stat_text_init_done = Sculio._stat_text_init_done or {}
 function Sculio.maybe_apply_xchips_texts()
   local lang = (G.SETTINGS and G.SETTINGS.language) or 'en-us'
-  if Sculio._stat_text_init_done[lang] then return end
-  Sculio._stat_text_init_done[lang] = true
-  if not Sculio.xchips_editions_exist() then return end
+  if Sculio._stat_text_init_done[lang] or not Sculio.xchips_editions_exist() then return end
   local desc = G.localization and G.localization.descriptions and G.localization.descriptions.Joker
   if not desc then return end
   local alts = {
     j_Sculio_figurine = 'j_Sculio_figurine_xchips',
     j_Sculio_puck = 'j_Sculio_puck_xchips',
   }
+  local all_applied = true
   for key, alt_key in pairs(alts) do
     local alt = desc[alt_key]
-    if desc[key] and alt and alt.text then desc[key].text = alt.text end
+    if desc[key] and alt and alt.text and alt.text_parsed then
+      desc[key].text = copy_table(alt.text)
+      desc[key].text_parsed = copy_table(alt.text_parsed)
+    else
+      all_applied = false
+    end
   end
+  if all_applied then Sculio._stat_text_init_done[lang] = true end
 end
 
 function Sculio.reset_game_globals(run_start)
+  Sculio.seeking_gen = 0
+  Sculio.seeking_remaining = 0
   if run_start then
-    Sculio.maybe_apply_xchips_texts()
     -- The Sane starts with itself in its own pool, so the first copy works
     G.GAME.Sculio_last_inverted = 'c_Sculio_sane'
     G.GAME.Sculio_last_joker_sold = 'j_joker'
     G.GAME.Sculio_bosses_beaten = 0
+    -- Antumbra's gate starts at level 1; Orange Seal's reroll ledger at 0
+    G.GAME.Sculio_antumbra_uses = 0
+    G.GAME.Sculio_orange_granted = 0
   end
   Sculio.apply_droste_bonus()
 end
@@ -243,7 +257,7 @@ end
 function Sculio.inverted_pool()
   local pool = {}
   for key, center in pairs(G.P_CENTERS) do
-    if center.set == 'Inverted' then
+    if center.set == 'inverted_tarot_sculio' then
       pool[#pool + 1] = key
     end
   end
@@ -276,7 +290,7 @@ end
 function Sculio.wheel_candidates(only_set)
   local base = {}
   for key, center in pairs(G.P_CENTERS) do
-    if (center.set == 'Tarot' or center.set == 'Inverted')
+    if (center.set == 'Tarot' or center.set == 'inverted_tarot_sculio')
         and (not only_set or center.set == only_set)
         and not center.hidden
         and Sculio.wheel_overrides[key] ~= false then
@@ -489,7 +503,7 @@ function Sculio.create_center_card(center_key, area, n, seed, no_delay)
     G.E_MANAGER:add_event(Event({ trigger = 'after', delay = 0.4, func = function()
       if area.config.card_limit > #area.cards then
         play_sound('timpani')
-        local new_card = create_card(set, area, nil, nil, nil, nil, center_key, seed .. i)
+        local new_card = SMODS.create_card({ set = set, area = area, key = center_key, key_append = seed .. i })
         new_card:add_to_deck()
         area:emplace(new_card)
       else
@@ -574,7 +588,7 @@ Sculio.inverted_counterparts = {
   c_Sculio_secularist = 'c_high_priestess', c_Sculio_exiled = 'c_empress',
   c_Sculio_regicide = 'c_emperor',  c_Sculio_apostate = 'c_hierophant',
   c_Sculio_adversaries = 'c_lovers',  c_Sculio_pikeman = 'c_chariot',
-  c_Sculio_arbitrariness = 'c_justice', c_Sculio_mundane = 'c_hermit',
+  c_Sculio_mundane = 'c_hermit',
   c_Sculio_immutable_wheel = 'c_wheel_of_fortune',  c_Sculio_weakness = 'c_strength',
   c_Sculio_atoned = 'c_hanged_man', c_Sculio_rebirth = 'c_death',
   c_Sculio_impatient = 'c_temperance',  c_Sculio_archangel = 'c_devil',
@@ -729,4 +743,229 @@ function Sculio.count_suit_deck(suit)
     if c.base.suit == suit or SMODS.has_any_suit(c) then count = count + 1 end
   end
   return count
+end
+
+-- Count cards in the deck carrying the given seal key (the value stored in
+-- card.seal, e.g. 'Sculio_orange'). Skips removed cards.
+function Sculio.count_seal(seal_key)
+  local count = 0
+  for _, c in ipairs(G.playing_cards or {}) do
+    if c.seal == seal_key and not c.REMOVED then count = count + 1 end
+  end
+  return count
+end
+
+-- Jokers that card effects may destroy: real Jokers, not Eternal ones
+-- (vanilla Hex skips Eternals when slicing).
+function Sculio.destroyable_jokers()
+  local pool = {}
+  if G.jokers then
+    for _, c in ipairs(G.jokers.cards) do
+      if c.ability and c.ability.set == 'Joker' and not c.REMOVED
+          and not SMODS.is_eternal(c) then pool[#pool + 1] = c end
+    end
+  end
+  return pool
+end
+
+-- Orange Seal: every seal in the deck is worth one free shop reroll. The grant
+-- pays a delta over what was already given this run (G.GAME.Sculio_orange_granted),
+-- so other mods' SMODS.change_free_rerolls grants survive and a shop that
+-- reopens never double-pays. SMODS.change_free_rerolls moves both pools:
+-- round_resets (the per-ante budget vanilla copies into current_round at round
+-- start) and the current round on the spot.
+function Sculio.grant_orange_rerolls()
+  local count = Sculio.count_seal('Sculio_orange')
+  local granted = G.GAME.Sculio_orange_granted or 0
+  if count ~= granted then
+    SMODS.change_free_rerolls(count - granted)
+    G.GAME.Sculio_orange_granted = count
+  end
+end
+
+-- Deck picker: pause + overlay showing the REAL cards of G.deck. Previews are
+-- copy_card copies; the deck itself is untouched until a pick lands, and the
+-- pick draws that exact card (draw_card with an explicit card skips the draw
+-- order). `count` = how many cards the user must pick before the overlay closes
+-- (Seeking Seal can trigger several picks in one discard).
+-- Pattern ported from SMODS.card_collection_UIBox + All in Jest's
+-- jest_create_select_card_ui, kept standalone on purpose: seals work without AIJ.
+function Sculio.open_deck_picker(count)
+  if not (G.deck and G.hand and #G.deck.cards > 0) then return end
+  count = math.max(1, count or 1)
+  Sculio.seeking_remaining = count
+  Sculio.seeking_gen = 0
+  local pool = {}
+  for _, c in ipairs(G.deck.cards) do pool[#pool + 1] = c end
+  table.sort(pool, function(a, b) return a:get_nominal('suit') > b:get_nominal('suit') end)
+  G.SETTINGS.paused = true
+  G.FUNCS.overlay_menu {
+    definition = Sculio.deck_picker_UIBox(pool),
+  }
+end
+
+function Sculio.deck_picker_UIBox(pool)
+  G.your_collection = {}
+
+  -- Group the deck cards by suit, like the vanilla view_deck screen, so the
+  -- whole deck is visible at once instead of being paged.
+  local suits_order = { 'Spades', 'Hearts', 'Clubs', 'Diamonds' }
+  local groups = {}
+  for _, s in ipairs(suits_order) do groups[s] = {} end
+  local other = {}
+  for _, c in ipairs(pool) do
+    local suit = c.base and c.base.suit
+    if groups[suit] then
+      groups[suit][#groups[suit] + 1] = c
+    else
+      other[#other + 1] = c
+    end
+  end
+
+  local suit_list = {}
+  for _, s in ipairs(suits_order) do
+    if #groups[s] > 0 then
+      table.sort(groups[s], function(a, b) return (a:get_nominal() or 0) > (b:get_nominal() or 0) end)
+      suit_list[#suit_list + 1] = { name = s, cards = groups[s] }
+    end
+  end
+  if #other > 0 then
+    table.sort(other, function(a, b) return (a:get_nominal() or 0) > (b:get_nominal() or 0) end)
+    suit_list[#suit_list + 1] = { name = 'Other', cards = other }
+  end
+
+  local deck_tables = {}
+  for idx, g in ipairs(suit_list) do
+    local n = #g.cards
+    local view_deck = CardArea(
+      G.ROOM.T.x + 0.2 * G.ROOM.T.w / 2, G.ROOM.T.h,
+      6.5 * G.CARD_W,
+      0.6 * G.CARD_H,
+      { card_limit = n, type = 'title', view_deck = true, highlight_limit = 0, card_w = G.CARD_W * 0.7, draw_layers = { 'card' } }
+    )
+    G.your_collection[idx] = view_deck
+    table.insert(deck_tables, { n = G.UIT.R, config = { align = 'cm', padding = 0, no_fill = true }, nodes = {
+      { n = G.UIT.O, config = { object = view_deck } }
+    } })
+
+    for i = 1, n do
+      local real = g.cards[i]
+      -- no_add: keep the copy purely visual, do not pollute G.deck/G.playing_cards
+      local preview = SMODS.copy_card(real, { no_add = true, card_scale = 0.7, playing_card = false })
+      preview.Sculio_real = real
+      preview.no_ui = true
+      preview.T.x = view_deck.T.x + view_deck.T.w / 2
+      preview.T.y = view_deck.T.y
+      preview:hard_set_T()
+
+      -- Per-card confirm button, hidden until this card is selected.
+      preview.children.Sculio_select = UIBox {
+        definition = {
+          n = G.UIT.ROOT,
+          config = {
+            ref_table = preview, minw = 0.45, maxw = 0.8, padding = 0.06, align = 'bm',
+            colour = G.C.GREEN, shadow = true, r = 0.08, minh = 0.22, one_press = true,
+            button = 'Sculio_deck_pick', data = { real }, hover = true,
+          },
+          nodes = {
+            { n = G.UIT.T, config = { text = localize('k_Sculio_select'), colour = G.C.WHITE, scale = 0.38, shadow = true } },
+          },
+        },
+        config = { align = 'bm', offset = { x = 0, y = -0.08 }, major = preview, bond = 'Weak', parent = preview },
+      }
+      preview.children.Sculio_select.states.visible = false
+
+      preview.states.click.can = true
+      preview.states.hover.can = true
+      preview.states.collide.can = true
+      preview.no_ui = true
+      preview.click = function(self)
+        -- Unselect all previews first (hide their buttons).
+        if G.your_collection then
+          for j = 1, #G.your_collection do
+            local area = G.your_collection[j]
+            if area and area.cards then
+              for _, c in ipairs(area.cards) do
+                c.highlighted = false
+                if c.children and c.children.Sculio_select then
+                  c.children.Sculio_select.states.visible = false
+                end
+              end
+            end
+          end
+        end
+        self.highlighted = true
+        self:juice_up(0.12, 0.06)
+        play_sound('cardSlide1')
+        if self.children and self.children.Sculio_select then
+          self.children.Sculio_select.states.visible = true
+        end
+      end
+
+      view_deck:emplace(preview)
+    end
+  end
+
+  INIT_COLLECTION_CARD_ALERTS()
+
+  -- Counter that auto-updates as picks are made.
+  local counter = DynaText({
+    string = { { prefix = 'Elige ', ref_table = Sculio, ref_value = 'seeking_remaining', suffix = ' carta(s)' } },
+    colours = { G.C.WHITE }, scale = 0.45, shadow = true,
+  })
+
+  return create_UIBox_generic_options({
+    back_func = 'Sculio_deck_picker_back',
+    contents = {
+      { n = G.UIT.R, config = { align = 'cm', padding = 0.05 }, nodes = {
+        { n = G.UIT.O, config = { object = counter } },
+      } },
+      { n = G.UIT.R, config = { align = 'cm', r = 0.1, colour = G.C.BLACK, emboss = 0.05, padding = 0.05 }, nodes = deck_tables },
+    },
+  })
+end
+
+-- Click on a preview's Select button: draw the REAL card it was copied from,
+-- if it's still in the deck. The game is paused while the overlay is open, so
+-- the discard moves are still queued; drawing here and unpausing lets them run
+-- first and the emplace honors the hand limit.
+function Sculio.deck_pick_card(real)
+  if real and not real.REMOVED and real.area == G.deck then
+    draw_card(G.deck, G.hand, nil, 'up', true, real, 0)
+  end
+  -- Drop the chosen card's preview from every suit row.
+  if G.your_collection then
+    for j = 1, #G.your_collection do
+      local area = G.your_collection[j]
+      if area and area.cards then
+        for i = #area.cards, 1, -1 do
+          local c = area.cards[i]
+          if c.Sculio_real == real then
+            area:remove_card(c)
+            c:remove()
+          end
+        end
+      end
+    end
+  end
+  -- Close only after all requested picks are done.
+  Sculio.seeking_remaining = (Sculio.seeking_remaining or 1) - 1
+  if (Sculio.seeking_remaining or 0) <= 0 then
+    Sculio.seeking_remaining = 0
+    Sculio.seeking_gen = 0
+    G.FUNCS.exit_overlay_menu()
+    G.your_collection = {}
+  end
+end
+
+G.FUNCS.Sculio_deck_pick = function(e)
+  Sculio.deck_pick_card(e.config.data[1])
+end
+
+-- Cancel the Seeking pick: the sealed card was still discarded, nothing drawn.
+G.FUNCS.Sculio_deck_picker_back = function()
+  Sculio.seeking_remaining = 0
+  Sculio.seeking_gen = 0
+  G.FUNCS.exit_overlay_menu()
+  G.your_collection = {}
 end

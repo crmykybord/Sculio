@@ -1,6 +1,6 @@
 SMODS.Consumable {
   key = 'scholar',
-  set = 'Inverted',
+  set = 'inverted_tarot_sculio',
   atlas = 'Sculio_Consumables',
   pos = { x = 1, y = 0 },
   unlocked = true,

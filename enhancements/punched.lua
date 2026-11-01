@@ -5,7 +5,8 @@ SMODS.Enhancement {
 
   config = { extra = { x_mult = 1.5 } },
   loc_vars = function(self, info_queue, card)
-    return { vars = { card.ability.extra.x_mult } }
+    local extra = card and card.ability and card.ability.extra or {}
+    return { vars = { extra.x_mult or 1.5 } }
   end,
   calculate = function(self, card, context)
     if context.discard and context.other_card == card then

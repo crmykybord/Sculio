@@ -5,15 +5,16 @@ SMODS.Joker {
   blueprint_compat = true,
   perishable_compat = true,
   rental_compat = true,
-  config = { x_mult = 0.5, extra = { x_mult = 0 } },
+  config = { extra = { x_mult_mod = 0.5, x_mult = 0 } },
   unlocked = true,
   discovered = false,
   rarity = 3,
   atlas = 'Sculio',
   pos = { x = 2, y = 6 },
+  pixel_size = { w = 57, h = 92 },
   cost = 7,
   loc_vars = function(self, info_queue, card)
-    return { vars = { card.ability.x_mult } }
+    return { vars = { card.ability.extra.x_mult_mod } }
   end,
   calculate = function(self, card, context)
     if context.before then
@@ -21,9 +22,9 @@ SMODS.Joker {
       card.ability.extra.x_mult = 1 + #(context.full_hand or {})
     end
     if context.end_of_round then return nil end
-    if context.individual and context.cardarea == G.hand then
-      if context.other_card.base.id == 2 or context.other_card.base.id == 4 then
-        return { xmult = card.ability.x_mult * card.ability.extra.x_mult, card = context.other_card, }
+    if context.individual and context.cardarea == G.hand and context.other_card then
+      if context.other_card.base and (context.other_card.base.id == 2 or context.other_card.base.id == 4) then
+        return { xmult = card.ability.extra.x_mult_mod * card.ability.extra.x_mult, card = context.other_card, }
       end
     end
   end

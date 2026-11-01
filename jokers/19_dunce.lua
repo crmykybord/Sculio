@@ -1,6 +1,7 @@
 SMODS.Joker {
   key = 'dunce',
   attributes = { 'copying' },
+  config = { extra = { debuffed_card = nil } },
   unlocked = true,
   discovered = false,
   rarity = 3, -- Rare
@@ -13,13 +14,14 @@ SMODS.Joker {
   rental_compat = true,
   loc_vars = function(self, info_queue, card)
     local last_joker = G.jokers and G.jokers.cards and G.jokers.cards[#G.jokers.cards]
+    local status = 'incompatible'
     if last_joker and last_joker ~= card and last_joker.config.center.blueprint_compat then
-      card.ability.blueprint_compat = 'compatible'
-    else
-      card.ability.blueprint_compat = 'incompatible'
+      status = 'compatible'
     end
-    card.ability.blueprint_compat_ui = card.ability.blueprint_compat_ui or ''
-    card.ability.blueprint_compat_check = nil
+    if card and card.ability then
+      card.ability.blueprint_compat = status
+      card.ability.blueprint_compat_check = nil
+    end
     return {
       main_end = (card.area and card.area == G.jokers) and {
         {n=G.UIT.C, config={align = "bm", minh = 0.4}, nodes={
@@ -31,6 +33,16 @@ SMODS.Joker {
     }
   end,
   calculate = function(self, card, context)
+    if not context.blueprint and G.jokers and G.jokers.cards then
+      local last_joker = G.jokers.cards[#G.jokers.cards]
+      local status = 'incompatible'
+      if last_joker and last_joker ~= card and last_joker.config.center.blueprint_compat then
+        status = 'compatible'
+      end
+      card.ability.blueprint_compat = status
+      card.ability.blueprint_compat_check = nil
+    end
+
     if context.before and not context.blueprint and G.jokers and G.jokers.cards then
       for i = 1, #G.jokers.cards do
         if G.jokers.cards[i] == card then
@@ -40,7 +52,7 @@ SMODS.Joker {
           if next_joker then
             next_joker:set_debuff(true)
           end
-          card.ability.debuffed_card = next_joker
+          card.ability.extra.debuffed_card = next_joker
         end
       end
     end
@@ -48,8 +60,8 @@ SMODS.Joker {
     if context.final_scoring_step then
       G.E_MANAGER:add_event(Event({
         func = function()
-          if card.ability.debuffed_card then
-            card.ability.debuffed_card:set_debuff(false)
+          if card.ability.extra.debuffed_card then
+            card.ability.extra.debuffed_card:set_debuff(false)
           end
 
           return true
@@ -61,9 +73,9 @@ SMODS.Joker {
     if context.after then
       G.E_MANAGER:add_event(Event({
         func = function()
-          if card.ability.debuffed_card then
-            card.ability.debuffed_card:set_debuff(false)
-            card.ability.debuffed_card = nil
+          if card.ability.extra.debuffed_card then
+            card.ability.extra.debuffed_card:set_debuff(false)
+            card.ability.extra.debuffed_card = nil
           end
 
           return true

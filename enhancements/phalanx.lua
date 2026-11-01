@@ -3,23 +3,19 @@ SMODS.Enhancement {
   atlas = 'Sculio_Enhancements',
   pos = { x = 3, y = 0 },
 
-  config = {},
+  config = { extra = { base = 1.05, per_card = 0.05 } },
   loc_vars = function(self, info_queue, card)
-    local per = Sculio.distorted() and 0.4 or 0.05
-    return { vars = { 1.05, per }, key = Sculio.distorted_key(self) }
+    local extra = self.config.extra
+    return { vars = { extra.base, extra.per_card }, key = Sculio.distorted_key(self) }
   end,
   calculate = function(self, card, context)
+    local extra = self.config.extra
     local distorted = Sculio.distorted()
-    local per = distorted and 0.4 or 0.05
     if context.main_scoring and context.cardarea == G.play then
-      -- Every scoring pass feeds the shared streak, retriggers included. SMODS runs
-      -- calculate once per repetition (card.repetition_trigger tells which pass this
-      -- is), so a card that scores again keeps climbing instead of sitting on the
-      -- multiplier it got the first time.
       G.GAME.Sculio_phalanx_streak = (G.GAME.Sculio_phalanx_streak or 0) + 1
-      return { x_mult = 1.05 + per * (G.GAME.Sculio_phalanx_streak - 1) }
+      return { x_mult = extra.base + extra.per_card * (G.GAME.Sculio_phalanx_streak - 1) }
     end
-    -- Distorted Flow: scored Phalanx cards reactivate once
+    -- Distorted Flow effect
     if context.repetition and context.cardarea == G.play and distorted then
       return { repetitions = 1 }
     end

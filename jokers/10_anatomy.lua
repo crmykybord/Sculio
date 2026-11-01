@@ -17,7 +17,7 @@ SMODS.Joker {
     return { vars = { numerator * 100, denominator } }
   end,
   calculate = function(self, card, context)
-    if context.cardarea == G.play and context.repetition and not context.repetition_only then
+    if context.cardarea == G.play and context.repetition and not context.repetition_only and context.other_card then
       local card_id = context.other_card:get_id()
 
       if card_id < 11 then

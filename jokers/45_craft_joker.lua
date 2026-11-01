@@ -13,7 +13,7 @@ SMODS.Joker {
   pos = { x = 6, y = 4 },
   cost = 4,
   calculate = function(self, card, context)
-    if context.individual and context.cardarea == G.play then
+    if context.individual and context.cardarea == G.play and context.other_card then
       local is_first = true
       for i = 1, #context.scoring_hand do
         if context.scoring_hand[i] == context.other_card then

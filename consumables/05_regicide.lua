@@ -1,6 +1,6 @@
 SMODS.Consumable {
   key = 'regicide',
-  set = 'Inverted',
+  set = 'inverted_tarot_sculio',
   atlas = 'Sculio_Consumables',
   pos = { x = 4, y = 0 },
   unlocked = true,
@@ -33,7 +33,7 @@ SMODS.Consumable {
       G.E_MANAGER:add_event(Event({ trigger = 'after', delay = 0.4, func = function()
         if no_room or G.consumeables.config.card_limit > #G.consumeables.cards then
           play_sound('timpani')
-          local new_card = create_card('Inverted', G.consumeables, nil, nil, nil, nil, key, 'sculio_regicide' .. i)
+          local new_card = SMODS.create_card({ set = 'inverted_tarot_sculio', area = G.consumeables, key = key, key_append = 'sculio_regicide' .. i })
           new_card:add_to_deck()
           G.consumeables:emplace(new_card)
           card:juice_up(0.3, 0.5)

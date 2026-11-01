@@ -5,7 +5,7 @@ SMODS.Joker {
   blueprint_compat = true,
   perishable_compat = true,
   rental_compat = true,
-  config = { extra = { required_chip_percentage = 1.5 } },
+  config = { extra = { required_chip_percentage = 1.5, current_hand_chips = nil, current_hand_mult = nil } },
   unlocked = true,
   discovered = false,
   rarity = 2, -- Uncommon
@@ -16,19 +16,19 @@ SMODS.Joker {
     return { vars = { card.ability.extra.required_chip_percentage * 100 } }
   end,
   calculate = function(self, card, context)
-    if context.final_scoring_step then
+    if context.final_scoring_step and not context.blueprint then
       G.E_MANAGER:add_event(Event({
         func = function()
-          card.ability.current_hand_chips = G.GAME.current_round.current_hand.chips
-          card.ability.current_hand_mult = G.GAME.current_round.current_hand.mult
+          card.ability.extra.current_hand_chips = G.GAME.current_round.current_hand.chips
+          card.ability.extra.current_hand_mult = G.GAME.current_round.current_hand.mult
           return true
         end
       }))
     end
 
-    if context.end_of_round and context.main_eval and not context.game_over and card.ability.current_hand_chips and card.ability.current_hand_mult then
-      local chips = card.ability.current_hand_chips
-      local mult = card.ability.current_hand_mult
+    if context.end_of_round and context.main_eval and not context.game_over and card.ability.extra.current_hand_chips and card.ability.extra.current_hand_mult then
+      local chips = card.ability.extra.current_hand_chips
+      local mult = card.ability.extra.current_hand_mult
       local required_score = G.ARGS.score_intensity.required_score
 
       if G.GAME.selected_back:get_name() == "Plasma Deck" then
@@ -59,9 +59,9 @@ SMODS.Joker {
               }))
             end
           },
-          colour = G.C.SECONDARY_SET.Tarot,
-          card = card
-        }
+colour = G.C.SECONDARY_SET.Tarot,
+card = card
+}
       end
     end
   end

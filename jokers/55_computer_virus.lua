@@ -15,7 +15,7 @@ SMODS.Joker {
   key = 'computer_virus',
   attributes = { 'boss_blind', 'destruction' },
   eternal_compat = false,
-  blueprint_compat = true,
+  blueprint_compat = false,
   perishable_compat = true,
   rental_compat = true,
   config = { extra = {} },
@@ -29,7 +29,7 @@ SMODS.Joker {
     return { vars = {} }
   end,
   calculate = function(self, card, context)
-    if context.end_of_round and context.main_eval and context.beat_boss and not context.game_over and not context.blueprint and not card.ability.eternal and #G.jokers.cards > 1 then
+    if context.end_of_round and context.main_eval and context.beat_boss and not context.game_over and not context.blueprint and not card.ability.eternal and G.jokers and G.jokers.cards and #G.jokers.cards > 1 then
       local first_copy = true
       for i = 1, #G.jokers.cards do
         if G.jokers.cards[i].config.center.key == 'j_Sculio_computer_virus' then

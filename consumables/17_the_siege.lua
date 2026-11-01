@@ -1,6 +1,6 @@
 SMODS.Consumable {
   key = 'siege',
-  set = 'Inverted',
+  set = 'inverted_tarot_sculio',
   atlas = 'Sculio_Consumables',
   pos = { x = 6, y = 1 },
   unlocked = true,
@@ -16,6 +16,6 @@ SMODS.Consumable {
   end,
   use = function(self, card, area, copier)
     Sculio.track_inverted_use(card)
-    Sculio.enhance_highlighted('m_Sculio_siege', card.ability.consumeable.max_highlighted, card)
+    Sculio.enhance_highlighted('m_Sculio_siege', Sculio.max_highlighted(card), card)
   end,
 }

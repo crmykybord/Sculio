@@ -42,12 +42,12 @@ SMODS.Joker {
         local x_mult_gain = card.ability.extra.x_mult_scale * (stolen / card.ability.extra.dollar_scale)
         card.ability.extra.x_mult = card.ability.extra.x_mult + x_mult_gain
 
-        return { message = 'Stole $' .. stolen, colour = G.C.MONEY }
+        return { message = localize { type = 'variable', key = 'k_Sculio_kfc_stole', vars = { stolen } }, colour = G.C.MONEY }
       end
     end
 
     if context.joker_main and card.ability.extra.x_mult > 1 then
-      return { xmult = card.ability.extra.x_mult, message = localize { type = 'variable', key = 'a_xmult', vars = { card.ability.extra.x_mult } } }
+      return { xmult = card.ability.extra.x_mult }
     end
   end
 }
