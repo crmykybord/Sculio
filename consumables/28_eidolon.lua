@@ -10,6 +10,9 @@ SMODS.Spectral {
     info_queue[#info_queue + 1] = G.P_TAGS['tag_Sculio_cloning']
     return { vars = { 1, card.ability.extra.odds } }
   end,
+  can_use = function(self, card)
+    return true
+  end,
   use = function(self, card, area, copier)
     if SMODS.pseudorandom_probability(card, 'eidolon', 1, card.ability.extra.odds) then
       G.E_MANAGER:add_event(Event({ func = function()

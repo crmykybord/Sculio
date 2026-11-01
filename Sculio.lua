@@ -10,6 +10,16 @@ SMODS.Atlas { key = 'Sculio_Sleeves', path = 'sleeves.png', px = 73, py = 95 } -
 SMODS.ConsumableType { key = 'inverted_tarot_sculio', primary_colour = HEX 'A84C45', secondary_colour = HEX 'A84C45', collection_rows = { 6, 5 } }
 SMODS.UndiscoveredSprite { key = 'inverted_tarot_sculio', atlas = 'Sculio_Consumables', pos = { x = 2, y = 2 } }
 
+-- Restore the short colour key {C:inverted} used throughout the localization.
+-- SMODS only registers a colour key for the full ConsumableType key, so alias it.
+local _sculio_init_localization = init_localization
+init_localization = function()
+  _sculio_init_localization()
+  if G and G.ARGS and G.ARGS.LOC_COLOURS and G.C and G.C.SECONDARY_SET then
+    G.ARGS.LOC_COLOURS.inverted = G.C.SECONDARY_SET.inverted_tarot_sculio
+  end
+end
+
 SMODS.current_mod.optional_features = function()
   return { post_trigger = true, retrigger_joker = true, quantum_enhancements = true, object_weights = true }
 end

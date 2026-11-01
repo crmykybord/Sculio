@@ -35,7 +35,7 @@ SMODS.Spectral {
     end)
 
     local jokers = Sculio.destroyable_jokers()
-    local victim = jokers[math.floor(pseudoseed('sculio_quincunx_joker') * #jokers) + 1]
+    local victim = pseudorandom_element(jokers, 'sculio_quincunx_joker')
     if victim then
       G.E_MANAGER:add_event(Event({ trigger = 'after', delay = 0.5, func = function()
         if not victim.REMOVED then Sculio.destroy_joker(victim) end
