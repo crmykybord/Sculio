@@ -170,7 +170,7 @@ return {
       },      
       -- 9. Gumball Machine
       j_Sculio_gumball = {
-        name = 'Máquina de Chicle',
+        name = 'Maquina de Chicle',
         text = {
           '{C:mult}+#2#{} Multi al abrir {C:attention}paquetes potenciadores{}',
           '{C:mult}#3#{} Multi al omitir {C:attention}paquetes potenciadores{}',
@@ -988,9 +988,9 @@ return {
       j_Sculio_pinball_machine = {
         name = 'Máquina de Pinball',
         text = {
-          'Si tu mano jugada contiene un',
-          '{C:attention}Color{}, las cartas anotadas',
-          'otorgan {C:chips}+#1#{} Fichas, {C:mult}+#2#{} Multi o {C:money}$#3#{}',
+          'Si tu mano jugada contiene un {C:attention}Color{},',
+          'las cartas anotadas otorgan {C:chips}+#1#{} Fichas,',
+          '{C:mult}+#2#{} Multi o {C:money}$#3#{}',
         },
       },
       -- 97. Rubberhose Joker
@@ -1626,7 +1626,7 @@ return {
       k_inverted_tarot_sculio = 'Tarot Invertido',
       Sculio_perishable_suffix = ' y Perecedera',
       b_inverted_tarot_sculio_cards = 'Tarots Invertidos',
-      k_booster_group_sculio_inverted = 'Paquete arcano Invertido',
+      k_booster_group_sculio_inverted = '¿Paquete arcano?',
       k_Sculio_plus_hermit = '+1 El Ermitaño',
       k_Sculio_skipped = '¡Omitido!',
       k_Sculio_top_10_common = 'Común',

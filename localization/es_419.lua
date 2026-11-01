@@ -1626,7 +1626,7 @@ return {
       k_inverted_tarot_sculio = 'Tarot Invertido',
       Sculio_perishable_suffix = ' y Perecedera',
       b_inverted_tarot_sculio_cards = 'Tarots Invertidos',
-      k_booster_group_sculio_inverted = 'Paquete arcano Invertido',
+      k_booster_group_sculio_inverted = '¿Paquete arcano?',
       k_Sculio_plus_hermit = '+1 El Ermitaño',
       k_Sculio_skipped = '¡Omitido!',
       k_Sculio_top_10_common = 'Común',
