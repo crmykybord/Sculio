@@ -24,10 +24,15 @@ SMODS.Consumable {
     G.E_MANAGER:add_event(Event({ trigger = 'after', delay = 0.4, func = function()
       ease_dollars(payout)
       card:juice_up(0.3, 0.5)
+      play_sound('coin2', 0.9, 0.6)
       for _, j in ipairs(G.jokers.cards) do
         if not j.gone then
           j.sell_cost = math.max(0, j.sell_cost - extra.penalty)
           j:juice_up(0.3, 0.5)
+          card_eval_status_text(j, 'extra', nil, nil, nil, {
+            message = localize { type = 'variable', key = 'k_Sculio_minus_sell', vars = { extra.penalty } },
+            colour = G.C.MONEY,
+          })
         end
       end
       return true
