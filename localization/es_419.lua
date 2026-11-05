@@ -1640,6 +1640,7 @@ return {
       k_Sculio_crooked_stole = 'Robó $#1#',
       k_Sculio_crooked_bailed = 'Robó $#1#, ¡huyó!',
       k_Sculio_plus_sell = '+#1# valor de venta',
+      k_Sculio_minus_sell = '-#1# valor de venta',
     },
     labels = {
       inverted_tarot_sculio = 'Tarot Invertido',
