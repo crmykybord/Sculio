@@ -14,6 +14,9 @@ if CardSleeves then
     end,
     apply = function(self)
       CardSleeves.Sleeve.apply(self)
+      G.GAME.banned_keys = G.GAME.banned_keys or {}
+      G.GAME.banned_keys['v_seed_money'] = true
+      G.GAME.banned_keys['v_money_tree'] = true
     end,
     calculate = function(self, sleeve, context)
       if context.end_of_round and context.main_eval and context.beat_boss
