@@ -13,6 +13,11 @@ SMODS.Back {
   atlas = 'Sculio_Enhancements',
   pos = { x = 5, y = 4 },
   config = { no_interest = true },
+  apply = function(self, back)
+    G.GAME.banned_keys = G.GAME.banned_keys or {}
+    G.GAME.banned_keys['v_seed_money'] = true
+    G.GAME.banned_keys['v_money_tree'] = true
+  end,
   calc_dollar_bonus = function(self, back)
     return total_joker_sell_value()
   end,

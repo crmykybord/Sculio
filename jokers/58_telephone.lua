@@ -41,7 +41,7 @@ SMODS.Joker {
     end
     if context.repetition and context.cardarea == G.play and context.other_card
         and context.other_card.base and context.other_card.base.value == card.ability.extra.rank_value then
-      return { message = localize('k_again_ex') }
+      return { message = localize('k_again_ex'), repetitions = 1 }
     end
   end
 }

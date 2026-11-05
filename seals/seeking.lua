@@ -5,7 +5,7 @@ SMODS.Seal {
   badge_colour = HEX '78E1AA',
   config = {},
   calculate = function(self, card, context)
-    if context.discard then
+    if context.discard and context.other_card == card then
       local count = 0
       if G.hand and G.hand.highlighted then
         for _, c in ipairs(G.hand.highlighted) do
