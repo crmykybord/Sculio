@@ -1,7 +1,7 @@
 SMODS.Joker {
   key = 'sticky_keys',
   attributes = { 'mult', 'rank' },
-  config = { extra = { mult = 0, last_ante = nil } },
+  config = { extra = { mult = 0, last_ante = nil, last_shake_ante = nil } },
   unlocked = true,
   discovered = false,
   rarity = 1, -- Common
@@ -16,6 +16,19 @@ SMODS.Joker {
     return { vars = { card.ability.extra.mult } }
   end,
   calculate = function(self, card, context)
+    if context.setting_blind and not context.blueprint and G.GAME then
+      local current_ante = (G.GAME.round_resets and G.GAME.round_resets.ante) or 0
+      if card.ability.extra.last_shake_ante ~= current_ante then
+        card.ability.extra.last_shake_ante = current_ante
+        card:juice_up(0.3, 0.3)
+      end
+    end
+
+    if context.blind_defeated and not context.blueprint and G.GAME and G.GAME.blind and G.GAME.blind.boss then
+      card.ability.extra.mult = 0
+      return { message = localize('k_reset'), colour = G.C.MULT }
+    end
+
     if context.before and not context.blueprint and context.full_hand and #context.full_hand > 0 and G.GAME then
       local current_ante = (G.GAME.round_resets and G.GAME.round_resets.ante) or 0
       if card.ability.extra.last_ante ~= current_ante then
