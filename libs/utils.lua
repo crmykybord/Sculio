@@ -98,14 +98,14 @@ function Sculio:calculate(context)
     if sendDebugMessage then sendDebugMessage('Sculio: recorded last inverted = ' .. tostring(context.consumeable.config.center_key), 'SCULIO') end
   end
 
-  if context.press_play and G.play and G.play.cards then
+  if context.press_play and G.hand and G.hand.highlighted then
     local smeared = 0
-    for _, c in ipairs(G.play.cards) do
+    for _, c in ipairs(G.hand.highlighted) do
       if SMODS.has_enhancement(c, 'm_Sculio_smeared') then smeared = smeared + 1 end
     end
     if smeared >= 2 then
       play_sound('tarot1')
-      for _, c in ipairs(G.play.cards) do
+      for _, c in ipairs(G.hand.highlighted) do
         if SMODS.has_enhancement(c, 'm_Sculio_smeared') then
           c:set_debuff(true)
           if c.debuff then c.ability.Sculio_smeared_doom = true end
