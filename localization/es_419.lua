@@ -988,14 +988,14 @@ return {
       j_Sculio_pinball_machine = {
         name = 'Máquina de Pinball',
         text = {
-          'Si tu mano jugada contiene un {C:attention}Color{},',
-          'las cartas anotadas otorgan {C:chips}+#1#{} Fichas,',
-          '{C:mult}+#2#{} Multi o {C:money}$#3#{}',
+          'Si tu mano jugada contiene un',
+          '{C:attention}Color{}, las cartas anotadas otorgan',
+          '{C:chips}+#1#{} Fichas, {C:mult}+#2#{} Multi o {C:money}$#3#{}',
         },
       },
       -- 97. Rubberhose Joker
       j_Sculio_rubberhose_joker = {
-        name = 'Rubberhose Joker',
+        name = 'Comodín Rubberhose',
         text = {
           'Obtiene {X:mult,C:white}X#1#{} Multi por cada carta',
           'de {C:spades}Espadas{} o {C:clubs}Tréboles{} en tu Baraja',
